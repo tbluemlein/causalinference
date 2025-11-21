@@ -1,11 +1,11 @@
 # Table of Contents for Jupyter Book
 format: jb-book
-root: causalinference/README.md
+root: README.md
 chapters:
-  - file: causalinference/motivation
-  - file: causalinference/confounding
-  - file: causalinference/case_study
-  - file: causalinference/observational_data
-  - file: causalinference/causal_inference
+  - file: tutorial/motivation
+  - file: tutorial/confounding
+  - file: tutorial/case_study
+  - file: tutorial/observational_data
+  - file: tutorial/causal_inference
 
   
