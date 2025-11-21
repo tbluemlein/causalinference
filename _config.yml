@@ -1,0 +1,20 @@
+# Jupyter Book configuration file
+# This enables live code execution using Sphinx-Thebe extension
+
+title: Causal Inference Tutorial
+
+# Fix for Jupyter Book compatibility issue
+use_multitoc_numbering: false
+
+# Launch buttons configuration
+launch_buttons:
+  thebe: false
+
+# Sphinx configuration
+sphinx:
+  config:
+    # HTML theme options
+    html_theme_options:
+      launch_buttons:
+        thebe: false
+
