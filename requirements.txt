@@ -10,9 +10,9 @@ causalml
 ipython
 ipykernel
 ipywidgets
+networkx
+scipy
+sympy
 teachbooks == 0.2.2
 sphinx-inline-tabs
-# Temporarily commented out to fix build issue with sphinx-multitoc-numbering
-# git+https://github.com/TeachBooks/TeachBooks-Favourites
 teachbooks-sphinx-grasple
-sympy

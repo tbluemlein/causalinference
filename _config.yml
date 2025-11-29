@@ -10,6 +10,14 @@ repository:
 # Fix for Jupyter Book compatibility issue
 use_multitoc_numbering: false
 
+# Notebook execution configuration
+execute:
+  execute_notebooks: auto  # Options: 'auto', 'force', 'cache', 'off'
+  timeout: 60  # Timeout in seconds for each cell execution
+  allow_errors: false  # Set to true to allow errors without stopping build
+  raise_on_error: false  # Set to true to stop build on errors
+  cache: "_build/.jupyter_cache"  # Cache directory for executed notebooks
+
 # Launch buttons configuration
 launch_buttons:
   thebe: true
