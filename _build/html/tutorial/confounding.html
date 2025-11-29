@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Causal Inference &#8212; Causal Inference Tutorial</title>
+    <title>Confounding and DAGs &#8212; Causal Inference Tutorial</title>
   
   
   
@@ -57,12 +57,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'causalinference/README';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/confounding';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Motivation and Use Cases" href="motivation.html" />
+    <link rel="next" title="Case Study: Simpson’s Paradoxon" href="case_study.html" />
+    <link rel="prev" title="Motivation and Use Cases" href="motivation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -125,8 +124,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -145,7 +142,7 @@
     
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="../README.html">
   
   
   
@@ -168,9 +165,9 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="motivation.html">Motivation and Use Cases</a></li>
-<li class="toctree-l1"><a class="reference internal" href="confounding.html">Confounding and DAGs</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Confounding and DAGs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="case_study.html">Case Study: Simpson’s Paradoxon</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="observational_data.html">Observational Data</a></li>
@@ -229,7 +226,7 @@
       
       
       
-      <li><a href="../_sources/causalinference/README.md" target="_blank"
+      <li><a href="../_sources/tutorial/confounding.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -239,7 +236,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -313,7 +310,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Causal Inference</h1>
+    <h1>Confounding and DAGs</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -323,9 +320,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-causal-inference-and-why-is-it-important">What is Causal Inference and Why is it Important?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-concepts">Theoretical Concepts</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-case-health-care">Use Case: Health Care</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpson-s-paradoxon">Simpson’s Paradoxon</a></li>
 </ul>
             </nav>
         </div>
@@ -337,19 +332,34 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="causal-inference">
-<h1>Causal Inference<a class="headerlink" href="#causal-inference" title="Link to this heading">#</a></h1>
-<section id="what-is-causal-inference-and-why-is-it-important">
-<h2>What is Causal Inference and Why is it Important?<a class="headerlink" href="#what-is-causal-inference-and-why-is-it-important" title="Link to this heading">#</a></h2>
-</section>
-<section id="theoretical-concepts">
-<h2>Theoretical Concepts<a class="headerlink" href="#theoretical-concepts" title="Link to this heading">#</a></h2>
-</section>
-<section id="use-case-health-care">
-<h2>Use Case: Health Care<a class="headerlink" href="#use-case-health-care" title="Link to this heading">#</a></h2>
-</section>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="confounding-and-dags">
+<h1>Confounding and DAGs<a class="headerlink" href="#confounding-and-dags" title="Link to this heading">#</a></h1>
+<section id="simpson-s-paradoxon">
+<h2>Simpson’s Paradoxon<a class="headerlink" href="#simpson-s-paradoxon" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p>Correlation is not causation</p>
+</div></blockquote>
+<p>Simpson’s Paradox is one of the most striking examples of why causality matters and why simple statistical associations can be misleading.</p>
+<p>Statistical associations in raw data can be misleading if important confounding variables are ignored. Understanding Simpson’s Paradox is critical in causal inference because:</p>
+<p>It highlights the danger of naive data analysis – Just looking at overall trends can lead to incorrect conclusions.
+It emphasizes the importance of confounding variables – We must control for relevant factors before making causal claims.
+It demonstrates why causal reasoning is necessary – Simply relying on statistical associations (
+P
+(
+Y
+|
+X
+)
+) without considering structural relationships can lead to paradoxical results. A trend observed in an overall population reverses when the population is divided into subgroups (conditioning on confounders).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</pre></div>
 </div>
+</div>
+</div>
+<p><a class="reference external" href="https://www.biostatistics.ca/when-data-lies-simpsons-paradox-a-step-by-step-simulation-code-notebook/">https://www.biostatistics.ca/when-data-lies-simpsons-paradox-a-step-by-step-simulation-code-notebook/</a></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -365,7 +375,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./causalinference"
+            path: "./tutorial"
         },
         predefinedOutput: true
     }
@@ -382,12 +392,21 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="right-next"
+    <a class="left-prev"
        href="motivation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Motivation and Use Cases</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="case_study.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Motivation and Use Cases</p>
+        <p class="prev-next-title">Case Study: Simpson’s Paradoxon</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -407,9 +426,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-causal-inference-and-why-is-it-important">What is Causal Inference and Why is it Important?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-concepts">Theoretical Concepts</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-case-health-care">Use Case: Health Care</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpson-s-paradoxon">Simpson’s Paradoxon</a></li>
 </ul>
   </nav></div>
 

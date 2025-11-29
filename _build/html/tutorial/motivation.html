@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Confounding and DAGs &#8212; Causal Inference Tutorial</title>
+    <title>Motivation and Use Cases &#8212; Causal Inference Tutorial</title>
   
   
   
@@ -57,11 +57,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'causalinference/confounding';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/motivation';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Case Study: Simpson’s Paradoxon" href="case_study.html" />
-    <link rel="prev" title="Motivation and Use Cases" href="motivation.html" />
+    <link rel="next" title="Confounding and DAGs" href="confounding.html" />
+    <link rel="prev" title="Causal Inference Tutorial: Brainstorming" href="../README.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -142,7 +142,7 @@
     
   
 
-<a class="navbar-brand logo" href="README.html">
+<a class="navbar-brand logo" href="../README.html">
   
   
   
@@ -166,8 +166,8 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="motivation.html">Motivation and Use Cases</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Confounding and DAGs</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Motivation and Use Cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="confounding.html">Confounding and DAGs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="case_study.html">Case Study: Simpson’s Paradoxon</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="observational_data.html">Observational Data</a></li>
@@ -226,7 +226,7 @@
       
       
       
-      <li><a href="../_sources/causalinference/confounding.ipynb" target="_blank"
+      <li><a href="../_sources/tutorial/motivation.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -297,9 +297,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -310,19 +308,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Confounding and DAGs</h1>
+    <h1>Motivation and Use Cases</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpson-s-paradoxon">Simpson’s Paradoxon</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -332,34 +322,95 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="confounding-and-dags">
-<h1>Confounding and DAGs<a class="headerlink" href="#confounding-and-dags" title="Link to this heading">#</a></h1>
-<section id="simpson-s-paradoxon">
-<h2>Simpson’s Paradoxon<a class="headerlink" href="#simpson-s-paradoxon" title="Link to this heading">#</a></h2>
-<blockquote>
-<div><p>Correlation is not causation</p>
-</div></blockquote>
-<p>Simpson’s Paradox is one of the most striking examples of why causality matters and why simple statistical associations can be misleading.</p>
-<p>Statistical associations in raw data can be misleading if important confounding variables are ignored. Understanding Simpson’s Paradox is critical in causal inference because:</p>
-<p>It highlights the danger of naive data analysis – Just looking at overall trends can lead to incorrect conclusions.
-It emphasizes the importance of confounding variables – We must control for relevant factors before making causal claims.
-It demonstrates why causal reasoning is necessary – Simply relying on statistical associations (
-P
-(
-Y
-|
-X
-)
-) without considering structural relationships can lead to paradoxical results. A trend observed in an overall population reverses when the population is divided into subgroups (conditioning on confounders).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-</pre></div>
+  <section class="tex2jax_ignore mathjax_ignore" id="motivation-and-use-cases">
+<h1>Motivation and Use Cases<a class="headerlink" href="#motivation-and-use-cases" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://www.stats.ox.ac.uk/~evans/APTS/causassmp.html">https://www.stats.ox.ac.uk/~evans/APTS/causassmp.html</a>
+<a class="reference external" href="https://bookdown.org/mike/data_analysis/sec-causal-inference.html">https://bookdown.org/mike/data_analysis/sec-causal-inference.html</a></p>
+<ul class="simple">
+<li><p>from description to prediction to prescription</p></li>
+<li><p>information doesn’t hurt: discrimination measures</p></li>
+<li><p>Simpson’s paradoxon</p></li>
+<li><p>Use cases:</p>
+<ul>
+<li><p>Pricing: Estimate how product features (e.g., deductibles, limits, telematics devices) cause changes in claim cost or behavior; introduce discrimination measures to tackle fairness (in insurance pricing)</p></li>
+<li><p>Underwriting: Identify which risk factors drive losses, not just correlate</p></li>
+<li><p>Claims management: Quantify impact of interventions (e.g., early triage, litigation management, driver training) using causal forests for HTE estimation</p></li>
+<li><p>Reserving: Assess causal drivers of development patterns (e.g., policy changes, inflation)</p></li>
+<li><p>Customer Management: Predict lapse probability: Test whether retention campaigns cause persistency improvements</p></li>
+</ul>
+</li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Approach</strong></p></th>
+<th class="head"><p><strong>What It Does</strong></p></th>
+<th class="head"><p><strong>When to Use It</strong></p></th>
+<th class="head"><p><strong>Libraries / Tools</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Propensity Score Matching (PSM)</strong></p></td>
+<td><p>Match policyholders with similar risk profiles, differing only in deductible presence</p></td>
+<td><p>Non-random assignment of deductibles</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">causalml</span></code>, <code class="docutils literal notranslate"><span class="pre">DoWhy</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Difference-in-Differences (DiD)</strong></p></td>
+<td><p>Compare before/after introduction of deductibles between affected and unaffected groups</p></td>
+<td><p>Deductibles introduced at a specific time</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>, <code class="docutils literal notranslate"><span class="pre">EconML</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Instrumental Variables (IV)</strong></p></td>
+<td><p>Use an external “instrument” (e.g., regional rule, agent behavior) that influences deductibles but not claim outcomes directly</p></td>
+<td><p>When unobserved confounders exist</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">linearmodels</span></code>, <code class="docutils literal notranslate"><span class="pre">econml.iv</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Causal Forests / Uplift Modeling</strong></p></td>
+<td><p>Estimate heterogeneous treatment effects — how different segments respond to deductible introduction</p></td>
+<td><p>You want to know <em>for whom</em> deductibles work best</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">EconML</span></code>, <code class="docutils literal notranslate"><span class="pre">grf</span></code>, <code class="docutils literal notranslate"><span class="pre">causalml</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Regression Discontinuity (RD)</strong></p></td>
+<td><p>Exploit a deductible rule threshold (e.g., cutoff by vehicle value)</p></td>
+<td><p>Deductible changes apply near a boundary</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">rdd</span></code>, <code class="docutils literal notranslate"><span class="pre">DoWhy</span></code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Objective</strong></p></th>
+<th class="head"><p><strong>Causal Question</strong></p></th>
+<th class="head"><p><strong>Outcome</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Loss ratio optimization</p></td>
+<td><p>“Does a $500 deductible reduce expected loss costs?”</p></td>
+<td><p>Quantified causal reduction (%)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Behavioral response</p></td>
+<td><p>“Do customers churn more when deductible increases?”</p></td>
+<td><p>Estimate causal churn elasticity</p></td>
+</tr>
+<tr class="row-even"><td><p>Segmentation</p></td>
+<td><p>“Which customers tolerate higher deductibles?”</p></td>
+<td><p>Personalized pricing &amp; product design</p></td>
+</tr>
+<tr class="row-odd"><td><p>Policy simulation</p></td>
+<td><p>“What if all customers had $250 more deductible?”</p></td>
+<td><p>Counterfactual simulation for pricing strategy</p></td>
+</tr>
+</tbody>
+</table>
 </div>
-</div>
-<p><a class="reference external" href="https://www.biostatistics.ca/when-data-lies-simpsons-paradox-a-step-by-step-simulation-code-notebook/">https://www.biostatistics.ca/when-data-lies-simpsons-paradox-a-step-by-step-simulation-code-notebook/</a></p>
-</section>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.kaggle.com/datasets/karansarpal/fremtpl2-french-motor-tpl-insurance-claims/data">https://www.kaggle.com/datasets/karansarpal/fremtpl2-french-motor-tpl-insurance-claims/data</a></p></li>
+<li><p><a class="reference external" href="https://www.kaggle.com/datasets/mirichoi0218/insurance">https://www.kaggle.com/datasets/mirichoi0218/insurance</a></p></li>
+<li><p><a class="reference external" href="https://causalml.readthedocs.io/en/stable/examples/causal_trees_interpretation.html">https://causalml.readthedocs.io/en/stable/examples/causal_trees_interpretation.html</a></p></li>
+<li><p><a class="reference external" href="https://lorentzen.ch/index.php/2024/09/02/explaining-a-causal-forest/">https://lorentzen.ch/index.php/2024/09/02/explaining-a-causal-forest/</a> (Waterfall Plot, SHAP Values)</p></li>
+<li><p><a class="reference external" href="https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/4954928053318020/1058911316420443/167703932442645/latest.html">https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/4954928053318020/1058911316420443/167703932442645/latest.html</a> Fraud</p></li>
+</ul>
 </section>
 
     <script type="text/x-thebe-config">
@@ -375,7 +426,7 @@ X
         },
         kernelOptions: {
             name: "python3",
-            path: "./causalinference"
+            path: "./tutorial"
         },
         predefinedOutput: true
     }
@@ -393,20 +444,20 @@ X
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="motivation.html"
+       href="../README.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Motivation and Use Cases</p>
+        <p class="prev-next-title">Causal Inference Tutorial: Brainstorming</p>
       </div>
     </a>
     <a class="right-next"
-       href="case_study.html"
+       href="confounding.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Case Study: Simpson’s Paradoxon</p>
+        <p class="prev-next-title">Confounding and DAGs</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -416,21 +467,6 @@ X
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpson-s-paradoxon">Simpson’s Paradoxon</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>

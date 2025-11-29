@@ -39,7 +39,4 @@
 | **Causal Forests / Uplift Modeling** | Estimate heterogeneous treatment effects — how different segments respond to deductible introduction                           | You want to know *for whom* deductibles work best | `EconML`, `grf`, `causalml` |
 | **Regression Discontinuity (RD)**    | Exploit a deductible rule threshold (e.g., cutoff by vehicle value)                                                            | Deductible changes apply near a boundary          | `rdd`, `DoWhy`              |
 
-## References
-https://matheusfacure.github.io/python-causality-handbook/02-Randomised-Experiments.html
-
 

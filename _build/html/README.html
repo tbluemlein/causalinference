@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Motivation and Use Cases &#8212; Causal Inference Tutorial</title>
+    <title>Causal Inference Tutorial: Brainstorming &#8212; Causal Inference Tutorial</title>
   
   
   
@@ -18,50 +18,51 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'causalinference/motivation';</script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Confounding and DAGs" href="confounding.html" />
-    <link rel="prev" title="Causal Inference" href="README.html" />
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'README';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Motivation and Use Cases" href="tutorial/motivation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -93,7 +94,7 @@
     <div class="search-button__overlay"></div>
     <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
-      action="../search.html"
+      action="search.html"
       method="get">
   <i class="fa-solid fa-magnifying-glass"></i>
   <input type="search"
@@ -124,6 +125,8 @@
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -142,7 +145,7 @@
     
   
 
-<a class="navbar-brand logo" href="README.html">
+<a class="navbar-brand logo" href="#">
   
   
   
@@ -165,13 +168,13 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Motivation and Use Cases</a></li>
-<li class="toctree-l1"><a class="reference internal" href="confounding.html">Confounding and DAGs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="case_study.html">Case Study: Simpson’s Paradoxon</a></li>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tutorial/motivation.html">Motivation and Use Cases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/confounding.html">Confounding and DAGs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/case_study.html">Case Study: Simpson’s Paradoxon</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="observational_data.html">Observational Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="causal_inference.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/observational_data.html">Observational Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/causal_inference.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
 </ul>
 
     </div>
@@ -226,7 +229,7 @@
       
       
       
-      <li><a href="../_sources/causalinference/motivation.ipynb" target="_blank"
+      <li><a href="_sources/README.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -236,7 +239,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="btn__text-container">.md</span>
 </a>
 </li>
       
@@ -297,7 +300,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -308,11 +313,28 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Motivation and Use Cases</h1>
+    <h1>Causal Inference Tutorial: Brainstorming</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-links">Useful Links</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theory">Theory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-sets-and-potential-use-cases">Data Sets and Potential Use Cases</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#actuarial-use-cases">Actuarial Use Cases</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methodology-and-practical-applicability">Methodology and Practical Applicability</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches">Approaches</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -322,24 +344,72 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="motivation-and-use-cases">
-<h1>Motivation and Use Cases<a class="headerlink" href="#motivation-and-use-cases" title="Link to this heading">#</a></h1>
-<p><a class="reference external" href="https://www.stats.ox.ac.uk/~evans/APTS/causassmp.html">https://www.stats.ox.ac.uk/~evans/APTS/causassmp.html</a>
-<a class="reference external" href="https://bookdown.org/mike/data_analysis/sec-causal-inference.html">https://bookdown.org/mike/data_analysis/sec-causal-inference.html</a></p>
+  <section class="tex2jax_ignore mathjax_ignore" id="causal-inference-tutorial-brainstorming">
+<h1>Causal Inference Tutorial: Brainstorming<a class="headerlink" href="#causal-inference-tutorial-brainstorming" title="Link to this heading">#</a></h1>
+<section id="useful-links">
+<h2>Useful Links<a class="headerlink" href="#useful-links" title="Link to this heading">#</a></h2>
+<section id="theory">
+<h3>Theory<a class="headerlink" href="#theory" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>from description to prediction to prescription</p></li>
-<li><p>information doesn’t hurt: discrimination measures</p></li>
-<li><p>Simpson’s paradoxon</p></li>
-<li><p>Use cases:</p>
-<ul>
+<li><p><a class="reference external" href="https://www.stats.ox.ac.uk/~evans/APTS/causassmp.html">Oxford: Causal Assumptions</a></p></li>
+<li><p><a class="reference external" href="https://bookdown.org/mike/data_analysis/sec-causal-inference.html">Tutorial on Causal Inference</a></p></li>
+<li><p><a class="reference external" href="https://www.uniqcret.com/post/causal-inference-assumptions-guide">Causal Assumptions</a></p></li>
+<li><p><a class="reference external" href="https://tech.quantco.com/blog/metalearners">QuantCo Blog Article: MetaLearners for CATE Estimation</a></p></li>
+<li><p><a class="reference external" href="https://www.biostatistics.ca/when-data-lies-simpsons-paradox-a-step-by-step-simulation-code-notebook/">Confounding Tutorial: Simpson’s Paradoxon</a></p></li>
+</ul>
+</section>
+<section id="data-sets-and-potential-use-cases">
+<h3>Data Sets and Potential Use Cases<a class="headerlink" href="#data-sets-and-potential-use-cases" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.kaggle.com/datasets/karansarpal/fremtpl2-french-motor-tpl-insurance-claims/data">French Motor TPL Claims Data Set</a></p></li>
+<li><p><a class="reference external" href="https://www.kaggle.com/datasets/mirichoi0218/insurance">Medical Cost Data Set</a></p></li>
+<li><p><a class="reference external" href="https://causalml.readthedocs.io/en/stable/examples/causal_trees_interpretation.html">CausalML: Interpretation of causal trees</a></p></li>
+<li><p><a class="reference external" href="https://lorentzen.ch/index.php/2024/09/02/explaining-a-causal-forest/">Interpretation of causal forests</a> (Waterfall Plot, SHAP Values)</p></li>
+<li><p><a class="reference external" href="https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/4954928053318020/1058911316420443/167703932442645/latest.html">Insurance Fraud Data Set</a> Fraud</p></li>
+</ul>
+</section>
+</section>
+<section id="actuarial-use-cases">
+<h2>Actuarial Use Cases<a class="headerlink" href="#actuarial-use-cases" title="Link to this heading">#</a></h2>
+<ul class="simple">
 <li><p>Pricing: Estimate how product features (e.g., deductibles, limits, telematics devices) cause changes in claim cost or behavior; introduce discrimination measures to tackle fairness (in insurance pricing)</p></li>
 <li><p>Underwriting: Identify which risk factors drive losses, not just correlate</p></li>
 <li><p>Claims management: Quantify impact of interventions (e.g., early triage, litigation management, driver training) using causal forests for HTE estimation</p></li>
 <li><p>Reserving: Assess causal drivers of development patterns (e.g., policy changes, inflation)</p></li>
 <li><p>Customer Management: Predict lapse probability: Test whether retention campaigns cause persistency improvements</p></li>
 </ul>
-</li>
-</ul>
+<section id="methodology-and-practical-applicability">
+<h3>Methodology and Practical Applicability<a class="headerlink" href="#methodology-and-practical-applicability" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Objective</strong></p></th>
+<th class="head"><p><strong>Causal Question</strong></p></th>
+<th class="head"><p><strong>Outcome</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Loss ratio optimization</p></td>
+<td><p>“Does a $500 deductible reduce expected loss costs?”</p></td>
+<td><p>Quantified causal reduction (%)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Behavioral response</p></td>
+<td><p>“Do customers churn more when deductible increases?”</p></td>
+<td><p>Estimate causal churn elasticity</p></td>
+</tr>
+<tr class="row-even"><td><p>Segmentation</p></td>
+<td><p>“Which customers tolerate higher deductibles?”</p></td>
+<td><p>Personalized pricing &amp; product design</p></td>
+</tr>
+<tr class="row-odd"><td><p>Policy simulation</p></td>
+<td><p>“What if all customers had $250 more deductible?”</p></td>
+<td><p>Counterfactual simulation for pricing strategy</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="approaches">
+<h3>Approaches<a class="headerlink" href="#approaches" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Approach</strong></p></th>
@@ -377,40 +447,10 @@ document.write(`
 </tbody>
 </table>
 </div>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p><strong>Objective</strong></p></th>
-<th class="head"><p><strong>Causal Question</strong></p></th>
-<th class="head"><p><strong>Outcome</strong></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Loss ratio optimization</p></td>
-<td><p>“Does a $500 deductible reduce expected loss costs?”</p></td>
-<td><p>Quantified causal reduction (%)</p></td>
-</tr>
-<tr class="row-odd"><td><p>Behavioral response</p></td>
-<td><p>“Do customers churn more when deductible increases?”</p></td>
-<td><p>Estimate causal churn elasticity</p></td>
-</tr>
-<tr class="row-even"><td><p>Segmentation</p></td>
-<td><p>“Which customers tolerate higher deductibles?”</p></td>
-<td><p>Personalized pricing &amp; product design</p></td>
-</tr>
-<tr class="row-odd"><td><p>Policy simulation</p></td>
-<td><p>“What if all customers had $250 more deductible?”</p></td>
-<td><p>Counterfactual simulation for pricing strategy</p></td>
-</tr>
-</tbody>
-</table>
+</section>
+</section>
+<div class="toctree-wrapper compound">
 </div>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.kaggle.com/datasets/karansarpal/fremtpl2-french-motor-tpl-insurance-claims/data">https://www.kaggle.com/datasets/karansarpal/fremtpl2-french-motor-tpl-insurance-claims/data</a></p></li>
-<li><p><a class="reference external" href="https://www.kaggle.com/datasets/mirichoi0218/insurance">https://www.kaggle.com/datasets/mirichoi0218/insurance</a></p></li>
-<li><p><a class="reference external" href="https://causalml.readthedocs.io/en/stable/examples/causal_trees_interpretation.html">https://causalml.readthedocs.io/en/stable/examples/causal_trees_interpretation.html</a></p></li>
-<li><p><a class="reference external" href="https://lorentzen.ch/index.php/2024/09/02/explaining-a-causal-forest/">https://lorentzen.ch/index.php/2024/09/02/explaining-a-causal-forest/</a> (Waterfall Plot, SHAP Values)</p></li>
-<li><p><a class="reference external" href="https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/4954928053318020/1058911316420443/167703932442645/latest.html">https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/4954928053318020/1058911316420443/167703932442645/latest.html</a> Fraud</p></li>
-</ul>
 </section>
 
     <script type="text/x-thebe-config">
@@ -426,7 +466,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./causalinference"
+            path: "./."
         },
         predefinedOutput: true
     }
@@ -443,21 +483,12 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="README.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Causal Inference</p>
-      </div>
-    </a>
     <a class="right-next"
-       href="confounding.html"
+       href="tutorial/motivation.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Confounding and DAGs</p>
+        <p class="prev-next-title">Motivation and Use Cases</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -467,6 +498,30 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-links">Useful Links</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theory">Theory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-sets-and-potential-use-cases">Data Sets and Potential Use Cases</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#actuarial-use-cases">Actuarial Use Cases</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methodology-and-practical-applicability">Methodology and Practical Applicability</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches">Approaches</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
@@ -511,8 +566,8 @@ By The Jupyter Book community
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

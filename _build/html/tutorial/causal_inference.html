@@ -57,7 +57,7 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'causalinference/causal_inference';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/causal_inference';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Observational Data" href="observational_data.html" />
@@ -141,7 +141,7 @@
     
   
 
-<a class="navbar-brand logo" href="README.html">
+<a class="navbar-brand logo" href="../README.html">
   
   
   
@@ -225,7 +225,7 @@
       
       
       
-      <li><a href="../_sources/causalinference/causal_inference.ipynb" target="_blank"
+      <li><a href="../_sources/tutorial/causal_inference.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -945,9 +945,7 @@ trigs: mean=157.55, std=40.41, n=15,832
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== SYNTHETIC DATASET SUMMARY ===
 Dataset shape: (200000, 8)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No missing values: 0 missing entries
+No missing values: 0 missing entries
 
 === COMPARISON: Real vs Synthetic Data Statistics ===
 Variable | Real Data (available) | Synthetic Data
@@ -959,7 +957,9 @@ smoker   |   0.18±0.38      |   0.16±0.37
 hba1c    |   5.16±0.82      |   5.21±0.77
 sbp      | 121.98±16.90      | 121.08±15.54
 tcl_hdl  |   3.54±0.54      |   3.68±0.48
-trigs    | 157.55±40.41      | 156.41±38.27
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>trigs    | 157.55±40.41      | 156.41±38.27
 
 === SAMPLE OF SYNTHETIC DATASET ===
          age  sex        bmi  smoker     hba1c         sbp   tcl_hdl  \
@@ -987,9 +987,7 @@ trigs    | 157.55±40.41      | 156.41±38.27
 9  156.875518  
 
 === DESCRIPTIVE STATISTICS ===
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>             age       sex        bmi     smoker      hba1c        sbp  \
+             age       sex        bmi     smoker      hba1c        sbp  \
 count  200000.00  200000.0  200000.00  200000.00  200000.00  200000.00   
 mean       45.37       0.5      25.77       0.16       5.21     121.08   
 std        13.85       0.5       3.90       0.37       0.77      15.54   
@@ -1367,14 +1365,15 @@ Top 5 most important features for mortality prediction:
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mortality (q) in synthetic data:
-  Overall mortality: 4,878 deaths (2.4%)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Overall mortality: 4,878 deaths (2.4%)
   itt=0 group: 1,080 / 39,954 = 2.7%
   itt=1 group: 3,798 / 160,046 = 2.4%
   w=0 group: 4,201 / 170,838 = 2.5%
   w=1 group: 677 / 29,162 = 2.3%
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Treatment effects in synthetic data:
+
+Treatment effects in synthetic data:
   RCT effect (itt): 12.2% mortality reduction
   Treatment effect (w): 5.6% mortality reduction
 
@@ -1528,8 +1527,8 @@ DML removes confounding bias using ML models for both treatment and outcome
 Training DML model...
 </pre></div>
 </div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">             </span>Traceback (most recent call last)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="n">line</span> <span class="mi">16</span>
 <span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="c1"># Fit the DML model</span>
 <span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training DML model...&quot;</span><span class="p">)</span>
@@ -2162,7 +2161,7 @@ IV-LATE         -0.0052    21.2                 ✅ Unbiased (compliers only)
         },
         kernelOptions: {
             name: "python3",
-            path: "./causalinference"
+            path: "./tutorial"
         },
         predefinedOutput: true
     }
