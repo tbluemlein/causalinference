@@ -58,6 +58,7 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/causal_inference';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Observational Data" href="observational_data.html" />
@@ -99,8 +100,8 @@
          class="form-control"
          name="q"
          id="search-input"
-         placeholder="Search..."
-         aria-label="Search..."
+         placeholder="Search this book..."
+         aria-label="Search this book..."
          autocomplete="off"
          autocorrect="off"
          autocapitalize="off"
@@ -164,6 +165,14 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    Causal Inference Tutorial: Brainstorming
+                </a>
+            </li>
+        </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="motivation.html">Motivation and Use Cases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="confounding.html">Confounding and DAGs</a></li>
@@ -212,6 +221,73 @@
         <div class="header-article-item">
 
 <div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/tbluemlein/causalinference/gh-pages?urlpath=tree/tutorial/causal_inference.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/tbluemlein/causalinference/blob/gh-pages/tutorial/causal_inference.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
 
 
 
@@ -957,9 +1033,7 @@ smoker   |   0.18±0.38      |   0.16±0.37
 hba1c    |   5.16±0.82      |   5.21±0.77
 sbp      | 121.98±16.90      | 121.08±15.54
 tcl_hdl  |   3.54±0.54      |   3.68±0.48
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>trigs    | 157.55±40.41      | 156.41±38.27
+trigs    | 157.55±40.41      | 156.41±38.27
 
 === SAMPLE OF SYNTHETIC DATASET ===
          age  sex        bmi  smoker     hba1c         sbp   tcl_hdl  \
@@ -987,7 +1061,9 @@ tcl_hdl  |   3.54±0.54      |   3.68±0.48
 9  156.875518  
 
 === DESCRIPTIVE STATISTICS ===
-             age       sex        bmi     smoker      hba1c        sbp  \
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>             age       sex        bmi     smoker      hba1c        sbp  \
 count  200000.00  200000.0  200000.00  200000.00  200000.00  200000.00   
 mean       45.37       0.5      25.77       0.16       5.21     121.08   
 std        13.85       0.5       3.90       0.37       0.77      15.54   
@@ -1365,9 +1441,7 @@ Top 5 most important features for mortality prediction:
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mortality (q) in synthetic data:
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Overall mortality: 4,878 deaths (2.4%)
+  Overall mortality: 4,878 deaths (2.4%)
   itt=0 group: 1,080 / 39,954 = 2.7%
   itt=1 group: 3,798 / 160,046 = 2.4%
   w=0 group: 4,201 / 170,838 = 2.5%
@@ -1525,215 +1599,6 @@ Ready for causal analysis with 200,000 observations!
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== METHOD 1: DOUBLE MACHINE LEARNING (DML) ===
 DML removes confounding bias using ML models for both treatment and outcome
 Training DML model...
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="n">line</span> <span class="mi">16</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="c1"># Fit the DML model</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training DML model...&quot;</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">16</span> <span class="n">dml</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="c1"># Get treatment effects</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="n">dml_ate</span> <span class="o">=</span> <span class="n">dml</span><span class="o">.</span><span class="n">ate</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># Average Treatment Effect</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\econml\dml\dml.py:616,</span> in <span class="ni">DML.fit</span><span class="nt">(self, Y, T, X, W, sample_weight, freq_weight, sample_var, groups, cache_values, inference)</span>
-<span class="g g-Whitespace">    </span><span class="mi">577</span> <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">W</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">freq_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_var</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">578</span>         <span class="n">cache_values</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inference</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">579</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">580</span><span class="sd">     Estimate the counterfactual model from data, i.e. estimates functions τ(·,·,·), ∂τ(·,·).</span>
-<span class="g g-Whitespace">    </span><span class="mi">581</span><span class="sd"> </span>
-<span class="sd">   (...)    614     self</span>
-<span class="g g-Whitespace">    </span><span class="mi">615</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">616</span>     <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">,</span> <span class="n">freq_weight</span><span class="o">=</span><span class="n">freq_weight</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">617</span>                        <span class="n">sample_var</span><span class="o">=</span><span class="n">sample_var</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">618</span>                        <span class="n">cache_values</span><span class="o">=</span><span class="n">cache_values</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">619</span>                        <span class="n">inference</span><span class="o">=</span><span class="n">inference</span><span class="p">)</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\econml\dml\_rlearner.py:501,</span> in <span class="ni">_RLearner.fit</span><span class="nt">(self, Y, T, X, W, sample_weight, freq_weight, sample_var, groups, cache_values, inference)</span>
-<span class="g g-Whitespace">    </span><span class="mi">464</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">465</span><span class="sd"> Estimate the counterfactual model from data, i.e. estimates function :math:`\\theta(\\cdot)`.</span>
-<span class="g g-Whitespace">    </span><span class="mi">466</span><span class="sd"> </span>
-<span class="sd">   (...)    498 self: _RLearner instance</span>
-<span class="g g-Whitespace">    </span><span class="mi">499</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">500</span> <span class="c1"># Replacing fit from _OrthoLearner, to enforce Z=None and improve the docstring</span>
-<span class="ne">--&gt; </span><span class="mi">501</span> <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="o">=</span><span class="n">W</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">502</span>                    <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">,</span> <span class="n">freq_weight</span><span class="o">=</span><span class="n">freq_weight</span><span class="p">,</span> <span class="n">sample_var</span><span class="o">=</span><span class="n">sample_var</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">503</span>                    <span class="n">cache_values</span><span class="o">=</span><span class="n">cache_values</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">504</span>                    <span class="n">inference</span><span class="o">=</span><span class="n">inference</span><span class="p">)</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\econml\_cate_estimator.py:134,</span> in <span class="ni">BaseCateEstimator._wrap_fit.&lt;locals&gt;.call</span><span class="nt">(self, Y, T, inference, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">132</span>     <span class="n">inference</span><span class="o">.</span><span class="n">prefit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">133</span> <span class="c1"># call the wrapped fit method</span>
-<span class="ne">--&gt; </span><span class="mi">134</span> <span class="n">m</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">135</span> <span class="bp">self</span><span class="o">.</span><span class="n">_postfit</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">136</span> <span class="k">if</span> <span class="n">inference</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">137</span>     <span class="c1"># NOTE: we call inference fit *after* calling the main fit method</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\econml\_ortho_learner.py:821,</span> in <span class="ni">_OrthoLearner.fit</span><span class="nt">(self, Y, T, X, W, Z, sample_weight, freq_weight, sample_var, groups, cache_values, inference, only_final, check_input)</span>
-<span class="g g-Whitespace">    </span><span class="mi">819</span>     <span class="n">nuisances</span><span class="p">,</span> <span class="n">fitted_models</span><span class="p">,</span> <span class="n">new_inds</span><span class="p">,</span> <span class="n">scores</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nuisances_ref</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
-<span class="g g-Whitespace">    </span><span class="mi">820</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">821</span>     <span class="n">nuisances</span><span class="p">,</span> <span class="n">fitted_models</span><span class="p">,</span> <span class="n">new_inds</span><span class="p">,</span> <span class="n">scores</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fit_nuisances</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">822</span>         <span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight_nuisances</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">823</span> <span class="n">all_nuisances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nuisances</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">824</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models_nuisance</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fitted_models</span><span class="p">)</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\econml\_ortho_learner.py:971,</span> in <span class="ni">_OrthoLearner._fit_nuisances</span><span class="nt">(self, Y, T, X, W, Z, sample_weight, groups)</span>
-<span class="g g-Whitespace">    </span><span class="mi">968</span>     <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">969</span>         <span class="n">folds</span> <span class="o">=</span> <span class="n">splitter</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">to_split</span><span class="p">,</span> <span class="n">strata</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">971</span> <span class="n">nuisances</span><span class="p">,</span> <span class="n">fitted_models</span><span class="p">,</span> <span class="n">fitted_inds</span><span class="p">,</span> <span class="n">scores</span> <span class="o">=</span> <span class="n">_crossfit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ortho_learner_model_nuisance</span><span class="p">,</span> <span class="n">folds</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">972</span>                                                           <span class="bp">self</span><span class="o">.</span><span class="n">use_ray</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ray_remote_func_options</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">973</span>                                                           <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">Z</span><span class="o">=</span><span class="n">Z</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">974</span>                                                           <span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">975</span> <span class="k">return</span> <span class="n">nuisances</span><span class="p">,</span> <span class="n">fitted_models</span><span class="p">,</span> <span class="n">fitted_inds</span><span class="p">,</span> <span class="n">scores</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\econml\_ortho_learner.py:278,</span> in <span class="ni">_crossfit</span><span class="nt">(models, folds, use_ray, ray_remote_fun_option, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">276</span>     <span class="n">nuisance_temp</span><span class="p">,</span> <span class="n">model_out</span><span class="p">,</span> <span class="n">score_temp</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">fold_refs</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
-<span class="g g-Whitespace">    </span><span class="mi">277</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">278</span>     <span class="n">nuisance_temp</span><span class="p">,</span> <span class="n">model_out</span><span class="p">,</span> <span class="n">score_temp</span> <span class="o">=</span> <span class="n">_fit_fold</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_idxs</span><span class="p">,</span> <span class="n">test_idxs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">279</span>                                                      <span class="n">calculate_scores</span><span class="p">,</span> <span class="n">accumulated_args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">281</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">282</span>     <span class="n">nuisances</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">n</span><span class="p">,)</span> <span class="o">+</span> <span class="n">nuis</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">283</span>                       <span class="k">for</span> <span class="n">nuis</span> <span class="ow">in</span> <span class="n">nuisance_temp</span><span class="p">])</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\econml\_ortho_learner.py:97,</span> in <span class="ni">_fit_fold</span><span class="nt">(model, train_idxs, test_idxs, calculate_scores, args, kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">94</span> <span class="n">kwargs_train</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">var</span><span class="p">[</span><span class="n">train_idxs</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
-<span class="g g-Whitespace">     </span><span class="mi">95</span> <span class="n">kwargs_test</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">var</span><span class="p">[</span><span class="n">test_idxs</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
-<span class="ne">---&gt; </span><span class="mi">97</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args_train</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs_train</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">98</span> <span class="n">nuisance_temp</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="o">*</span><span class="n">args_test</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs_test</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">100</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nuisance_temp</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\econml\dml\_rlearner.py:55,</span> in <span class="ni">_ModelNuisance.train</span><span class="nt">(self, is_selecting, folds, Y, T, X, W, Z, sample_weight, groups)</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span> <span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_selecting</span><span class="p">,</span> <span class="n">folds</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">W</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">54</span>     <span class="k">assert</span> <span class="n">Z</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Cannot accept instrument!&quot;</span>
-<span class="ne">---&gt; </span><span class="mi">55</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_model_t</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">is_selecting</span><span class="p">,</span> <span class="n">folds</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="o">**</span>
-<span class="g g-Whitespace">     </span><span class="mi">56</span>                         <span class="n">filter_none_kwargs</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">))</span>
-<span class="g g-Whitespace">     </span><span class="mi">57</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_model_y</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">is_selecting</span><span class="p">,</span> <span class="n">folds</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="o">**</span>
-<span class="g g-Whitespace">     </span><span class="mi">58</span>                         <span class="n">filter_none_kwargs</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">))</span>
-<span class="g g-Whitespace">     </span><span class="mi">59</span>     <span class="k">return</span> <span class="bp">self</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\econml\dml\dml.py:110,</span> in <span class="ni">_FirstStageSelector.train</span><span class="nt">(self, is_selecting, folds, X, W, Target, sample_weight, groups)</span>
-<span class="g g-Whitespace">    </span><span class="mi">106</span>         <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;Provided crossfit folds contain training splits that &quot;</span> <span class="o">+</span>
-<span class="g g-Whitespace">    </span><span class="mi">107</span>                              <span class="s2">&quot;don&#39;t contain all treatments&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">108</span>     <span class="n">Target</span> <span class="o">=</span> <span class="n">inverse_onehot</span><span class="p">(</span><span class="n">Target</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">110</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">is_selecting</span><span class="p">,</span> <span class="n">folds</span><span class="p">,</span> <span class="n">_combine</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">Target</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">Target</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">111</span>                   <span class="o">**</span><span class="n">filter_none_kwargs</span><span class="p">(</span><span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">112</span> <span class="k">return</span> <span class="bp">self</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\econml\sklearn_extensions\model_selection.py:405,</span> in <span class="ni">FixedModelSelector.train</span><span class="nt">(self, is_selecting, folds, X, y, groups, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">402</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">403</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">404</span>     <span class="c1"># we need to train the model on the data</span>
-<span class="ne">--&gt; </span><span class="mi">405</span>     <span class="n">_fit_with_groups</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">407</span> <span class="k">return</span> <span class="bp">self</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\econml\sklearn_extensions\model_selection.py:378,</span> in <span class="ni">_fit_with_groups</span><span class="nt">(model, X, y, sub_model, groups, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">375</span>             <span class="n">sub_model</span><span class="o">.</span><span class="n">cv</span> <span class="o">=</span> <span class="n">old_cv</span>
-<span class="g g-Whitespace">    </span><span class="mi">377</span> <span class="c1"># drop groups from arg list, which were already used at the outer level and may not be supported by the model</span>
-<span class="ne">--&gt; </span><span class="mi">378</span> <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\sklearn\base.py:1389,</span> in <span class="ni">_fit_context.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper</span><span class="nt">(estimator, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1382</span>     <span class="n">estimator</span><span class="o">.</span><span class="n">_validate_params</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1384</span> <span class="k">with</span> <span class="n">config_context</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1385</span>     <span class="n">skip_parameter_validation</span><span class="o">=</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1386</span>         <span class="n">prefer_skip_nested_validation</span> <span class="ow">or</span> <span class="n">global_skip_validation</span>
-<span class="g g-Whitespace">   </span><span class="mi">1387</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1388</span> <span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1389</span>     <span class="k">return</span> <span class="n">fit_method</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\sklearn\ensemble\_forest.py:487,</span> in <span class="ni">BaseForest.fit</span><span class="nt">(self, X, y, sample_weight)</span>
-<span class="g g-Whitespace">    </span><span class="mi">476</span> <span class="n">trees</span> <span class="o">=</span> <span class="p">[</span>
-<span class="g g-Whitespace">    </span><span class="mi">477</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_make_estimator</span><span class="p">(</span><span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
-<span class="nn">    478     for i</span> in <span class="ni">range</span><span class="nt">(n_more_estimators)</span>
-<span class="g g-Whitespace">    </span><span class="mi">479</span> <span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">481</span> <span class="c1"># Parallel loop: we prefer the threading backend as the Cython code</span>
-<span class="g g-Whitespace">    </span><span class="mi">482</span> <span class="c1"># for fitting the trees is internally releasing the Python GIL</span>
-<span class="g g-Whitespace">    </span><span class="mi">483</span> <span class="c1"># making threading more efficient than multiprocessing in</span>
-<span class="g g-Whitespace">    </span><span class="mi">484</span> <span class="c1"># that case. However, for joblib 0.12+ we respect any</span>
-<span class="g g-Whitespace">    </span><span class="mi">485</span> <span class="c1"># parallel_backend contexts set at a higher level,</span>
-<span class="g g-Whitespace">    </span><span class="mi">486</span> <span class="c1"># since correctness does not rely on using threads.</span>
-<span class="ne">--&gt; </span><span class="mi">487</span> <span class="n">trees</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">488</span>     <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">489</span>     <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">490</span>     <span class="n">prefer</span><span class="o">=</span><span class="s2">&quot;threads&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">491</span> <span class="p">)(</span>
-<span class="g g-Whitespace">    </span><span class="mi">492</span>     <span class="n">delayed</span><span class="p">(</span><span class="n">_parallel_build_trees</span><span class="p">)(</span>
-<span class="g g-Whitespace">    </span><span class="mi">493</span>         <span class="n">t</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">494</span>         <span class="bp">self</span><span class="o">.</span><span class="n">bootstrap</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">495</span>         <span class="n">X</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">496</span>         <span class="n">y</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">497</span>         <span class="n">sample_weight</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">498</span>         <span class="n">i</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">499</span>         <span class="nb">len</span><span class="p">(</span><span class="n">trees</span><span class="p">),</span>
-<span class="g g-Whitespace">    </span><span class="mi">500</span>         <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">501</span>         <span class="n">class_weight</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">class_weight</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">502</span>         <span class="n">n_samples_bootstrap</span><span class="o">=</span><span class="n">n_samples_bootstrap</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">503</span>         <span class="n">missing_values_in_feature_mask</span><span class="o">=</span><span class="n">missing_values_in_feature_mask</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">504</span>     <span class="p">)</span>
-<span class="nn">    505     for i, t</span> in <span class="ni">enumerate</span><span class="nt">(trees)</span>
-<span class="g g-Whitespace">    </span><span class="mi">506</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">508</span> <span class="c1"># Collect newly grown trees</span>
-<span class="g g-Whitespace">    </span><span class="mi">509</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimators_</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">trees</span><span class="p">)</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\sklearn\utils\parallel.py:77,</span> in <span class="ni">Parallel.__call__</span><span class="nt">(self, iterable)</span>
-<span class="g g-Whitespace">     </span><span class="mi">72</span> <span class="n">config</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">73</span> <span class="n">iterable_with_config</span> <span class="o">=</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">74</span>     <span class="p">(</span><span class="n">_with_config</span><span class="p">(</span><span class="n">delayed_func</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">75</span>     <span class="k">for</span> <span class="n">delayed_func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="ow">in</span> <span class="n">iterable</span>
-<span class="g g-Whitespace">     </span><span class="mi">76</span> <span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">77</span> <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">iterable_with_config</span><span class="p">)</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\joblib\parallel.py:1986,</span> in <span class="ni">Parallel.__call__</span><span class="nt">(self, iterable)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1984</span>     <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_sequential_output</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1985</span>     <span class="nb">next</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1986</span>     <span class="k">return</span> <span class="n">output</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_generator</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1988</span> <span class="c1"># Let&#39;s create an ID that uniquely identifies the current call. If the</span>
-<span class="g g-Whitespace">   </span><span class="mi">1989</span> <span class="c1"># call is interrupted early and that the same instance is immediately</span>
-<span class="g g-Whitespace">   </span><span class="mi">1990</span> <span class="c1"># reused, this id will be used to prevent workers that were</span>
-<span class="g g-Whitespace">   </span><span class="mi">1991</span> <span class="c1"># concurrently finalizing a task from the previous call to run the</span>
-<span class="g g-Whitespace">   </span><span class="mi">1992</span> <span class="c1"># callback.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1993</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\joblib\parallel.py:1914,</span> in <span class="ni">Parallel._get_sequential_output</span><span class="nt">(self, iterable)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1912</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_dispatched_batches</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="g g-Whitespace">   </span><span class="mi">1913</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_dispatched_tasks</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="ne">-&gt; </span><span class="mi">1914</span> <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1915</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_completed_tasks</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="g g-Whitespace">   </span><span class="mi">1916</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_progress</span><span class="p">()</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\sklearn\utils\parallel.py:139,</span> in <span class="ni">_FuncWrapper.__call__</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">137</span>     <span class="n">config</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="g g-Whitespace">    </span><span class="mi">138</span> <span class="k">with</span> <span class="n">config_context</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">139</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\sklearn\ensemble\_forest.py:189,</span> in <span class="ni">_parallel_build_trees</span><span class="nt">(tree, bootstrap, X, y, sample_weight, tree_idx, n_trees, verbose, class_weight, n_samples_bootstrap, missing_values_in_feature_mask)</span>
-<span class="g g-Whitespace">    </span><span class="mi">186</span>     <span class="k">elif</span> <span class="n">class_weight</span> <span class="o">==</span> <span class="s2">&quot;balanced_subsample&quot;</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">187</span>         <span class="n">curr_sample_weight</span> <span class="o">*=</span> <span class="n">compute_sample_weight</span><span class="p">(</span><span class="s2">&quot;balanced&quot;</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">indices</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">189</span>     <span class="n">tree</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">190</span>         <span class="n">X</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">191</span>         <span class="n">y</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">192</span>         <span class="n">sample_weight</span><span class="o">=</span><span class="n">curr_sample_weight</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">193</span>         <span class="n">check_input</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">194</span>         <span class="n">missing_values_in_feature_mask</span><span class="o">=</span><span class="n">missing_values_in_feature_mask</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">195</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">196</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">197</span>     <span class="n">tree</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">198</span>         <span class="n">X</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">199</span>         <span class="n">y</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>    <span class="mi">202</span>         <span class="n">missing_values_in_feature_mask</span><span class="o">=</span><span class="n">missing_values_in_feature_mask</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">203</span>     <span class="p">)</span>
-
-<span class="nn">File ~\.conda\envs\causalinference\Lib\site-packages\sklearn\tree\_classes.py:472,</span> in <span class="ni">BaseDecisionTree._fit</span><span class="nt">(self, X, y, sample_weight, check_input, missing_values_in_feature_mask)</span>
-<span class="g g-Whitespace">    </span><span class="mi">461</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">462</span>     <span class="n">builder</span> <span class="o">=</span> <span class="n">BestFirstTreeBuilder</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">463</span>         <span class="n">splitter</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">464</span>         <span class="n">min_samples_split</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>    <span class="mi">469</span>         <span class="bp">self</span><span class="o">.</span><span class="n">min_impurity_decrease</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">470</span>     <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">472</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree_</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="p">,</span> <span class="n">missing_values_in_feature_mask</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">474</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_outputs_</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">is_classifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">475</span>     <span class="bp">self</span><span class="o">.</span><span class="n">n_classes_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_classes_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
 </div>
@@ -2152,8 +2017,8 @@ IV-LATE         -0.0052    21.2                 ✅ Unbiased (compliers only)
     {
         requestKernel: true,
         binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
+            repo: "tbluemlein/causalinference",
+            ref: "gh-pages",
         },
         codeMirrorConfig: {
             theme: "abcdef",
