@@ -2,6 +2,7 @@
 # This enables live code execution using Sphinx-Thebe extension
 
 title: Causal Inference Tutorial
+logo: figure/logo.png
 
 repository:
   url                       : https://github.com/tbluemlein/causalinference  # Online location of our book

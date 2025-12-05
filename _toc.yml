@@ -2,8 +2,19 @@
 format: jb-book
 root: README.md
 chapters:
-  - file: tutorial/motivation
-  - file: tutorial/confounding
+  - file: tutorial/motivation.ipynb
+  - file: tutorial/00_concepts.md
+  - file: 01_assumptions.md
+    - file: tutorial/observational_data
+  - file: 02_graphical_models.md
+  - file: 03_estimation.md
+  - file: 04_IV_methods.md
+  - file: 05_ML.md
+  - file: 06_robustness.md
+  - file: 07_applications.md
+
+
+  - file: tutorial/01_confounding.ipynb
   - file: tutorial/case_study
   - file: tutorial/observational_data
   - file: tutorial/causal_inference
