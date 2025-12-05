@@ -1,4 +1,4 @@
-# Causal Inference Tutorial: Brainstorming
+# Causal Inference Tutorial
 ## Useful Links
 ### Theory
 - [Oxford: Causal Assumptions](https://www.stats.ox.ac.uk/~evans/APTS/causassmp.html)

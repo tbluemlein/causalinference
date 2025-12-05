@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Treatment Effect Estimation &#8212; Causal Inference Tutorial</title>
+    <title>Assumptions &#8212; Causal Inference Tutorial</title>
   
   
   
@@ -59,10 +59,12 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/treatment_effects';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/01_assumptions';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Graphical Models" href="02_graphical_models.html" />
+    <link rel="prev" title="Concepts of Causal Inference" href="00_concepts.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -125,8 +127,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -183,9 +183,9 @@
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="00_concepts.html">Concepts of Causal Inference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01_assumptions.html">Assumptions</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Assumptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02_graphical_models.html">Graphical Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_estimation.html">Estimation Methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_IV_methods.html">IV Methods</a></li>
@@ -244,73 +244,6 @@
 
 
 
-<div class="dropdown dropdown-launch-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
-    <i class="fas fa-rocket"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://mybinder.org/v2/gh/tbluemlein/causalinference/gh-pages?urlpath=tree/tutorial/treatment_effects.ipynb" target="_blank"
-   class="btn btn-sm dropdown-item"
-   title="Launch on Binder"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  
-    <img alt="Binder logo" src="../_static/images/logo_binder.svg">
-  </span>
-<span class="btn__text-container">Binder</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://colab.research.google.com/github/tbluemlein/causalinference/blob/gh-pages/tutorial/treatment_effects.ipynb" target="_blank"
-   class="btn btn-sm dropdown-item"
-   title="Launch on Colab"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  
-    <img alt="Colab logo" src="../_static/images/logo_colab.png">
-  </span>
-<span class="btn__text-container">Colab</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="initThebeSBT()"
-  class="btn btn-sm btn-launch-thebe dropdown-item"
-  title="Launch Thebe"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-play"></i>
-  </span>
-<span class="btn__text-container">Live Code</span>
-</button>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-
-
 <div class="dropdown dropdown-download-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
     <i class="fas fa-download"></i>
@@ -319,7 +252,7 @@
       
       
       
-      <li><a href="../_sources/tutorial/treatment_effects.ipynb" target="_blank"
+      <li><a href="../_sources/tutorial/01_assumptions.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -329,7 +262,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="btn__text-container">.md</span>
 </a>
 </li>
       
@@ -403,7 +336,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Treatment Effect Estimation</h1>
+    <h1>Assumptions</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -413,11 +346,19 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#individual-treatment-effect">Individual Treatment Effect</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fundamental-problem-of-causal-inference">Fundamental Problem of Causal Inference</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#average-treatment-effect-ate">Average Treatment Effect (ATE)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#average-treatment-effect-on-the-treated-att">Average Treatment Effect on the Treated (ATT)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-average-treatment-effect-cate">Conditional Average Treatment Effect (CATE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-observational-data-to-conditionally-randomized-experiments">From Observational Data to Conditionally Randomized Experiments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#potential-outcomes-framework">Potential Outcomes Framework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Assumptions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#consistency"><strong>(1) Consistency</strong>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable-unit-treatment-value-assumption-sutva"><strong>(2) Stable Unit Treatment Value Assumption (SUTVA)</strong>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#positivity"><strong>(3) Positivity</strong>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exchangeability-no-unobserved-confounding"><strong>(4) Exchangeability (No unobserved confounding)</strong>:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collider-bias">Collider Bias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selection-bias">Selection Bias</a></li>
 </ul>
             </nav>
         </div>
@@ -429,60 +370,87 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="treatment-effect-estimation">
-<h1>Treatment Effect Estimation<a class="headerlink" href="#treatment-effect-estimation" title="Link to this heading">#</a></h1>
-<section id="individual-treatment-effect">
-<h2>Individual Treatment Effect<a class="headerlink" href="#individual-treatment-effect" title="Link to this heading">#</a></h2>
-<p>For each unit <span class="math notranslate nohighlight">\( i \)</span> (say, a person):</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="assumptions">
+<h1>Assumptions<a class="headerlink" href="#assumptions" title="Link to this heading">#</a></h1>
+<section id="from-observational-data-to-conditionally-randomized-experiments">
+<h2>From Observational Data to Conditionally Randomized Experiments<a class="headerlink" href="#from-observational-data-to-conditionally-randomized-experiments" title="Link to this heading">#</a></h2>
+<p>Causal inference from observational data relies on the idea that, under the assumptions of the <strong>Rubin Causal Model</strong> (Rubin, 1978), an observational study can be regarded as a <em>conditionally randomized experiment</em>.</p>
+<p>Under the assumptions of ignorability (see below), the observed data represent the essential features of a randomized experiment, enabling the identification and consistent estimation of causal effects within the <strong>potential outcomes framework</strong>.</p>
+</section>
+<section id="potential-outcomes-framework">
+<h2>Potential Outcomes Framework<a class="headerlink" href="#potential-outcomes-framework" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\( T_i \)</span>: treatment indicator (1 if treated, 0 if control)</p></li>
-<li><p><span class="math notranslate nohighlight">\( Y_i(1) \)</span>: potential outcome <strong>if treated</strong></p></li>
-<li><p><span class="math notranslate nohighlight">\( Y_i(0) \)</span>: potential outcome <strong>if not treated</strong></p></li>
+<li><p>(Neyman, 1923; Rubin, 1974 and 1978): Rubin extended Neyman’s theory for randomized experiments to observational studies.</p></li>
+<li><p>Specifically, when treatment assignment is <strong>strongly ignorable</strong> given a set of observed covariates — that is, when the following two conditions hold:</p></li>
 </ul>
-<p>The <strong>causal effect</strong> (ITE: individual treatment effect) for unit <span class="math notranslate nohighlight">\(i\)</span> is:</p>
 <div class="math notranslate nohighlight">
 \[
-\tau_i = Y_i(1) - Y_i(0)
+(Y(1), Y(0)) \perp T \mid X
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+0 &lt; P(T = 1 \mid X) &lt; 1,
+\]</div>
+<p>then conditioning on <span class="math notranslate nohighlight">\(X\)</span> renders the treatment assignment mechanism analogous to that of a randomized controlled trial. More explanation in <a class="reference external" href="https://www.uniqcret.com/post/causal-inference-assumptions-guide.">assumptions guide</a> and in <a class="reference external" href="https://www.bradyneal.com/Introduction_to_Causal_Inference-Aug27_2020-Neal.pdf">2020 Neal</a></p>
+<section id="id1">
+<h3>Assumptions<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<section id="consistency">
+<h4><strong>(1) Consistency</strong>:<a class="headerlink" href="#consistency" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+Y(A) = Y(a) = Y \quad \text{when } A = a
+\]</div>
+<p>links the potential outcomes to the observed outcomes by requiring that the two are equal under the same treatment assignments. This ties the potential outcome <span class="math notranslate nohighlight">\(Y(a)\)</span> to the factual outcome <span class="math notranslate nohighlight">\(Y\)</span> when the treatment actually received is <span class="math notranslate nohighlight">\(A = a\)</span>.</p>
+</section>
+<section id="stable-unit-treatment-value-assumption-sutva">
+<h4><strong>(2) Stable Unit Treatment Value Assumption (SUTVA)</strong>:<a class="headerlink" href="#stable-unit-treatment-value-assumption-sutva" title="Link to this heading">#</a></h4>
+<p>SUTVA combines consistency and no interference. The <strong>no interference</strong> assumption states that:</p>
+<div class="math notranslate nohighlight">
+\[
+Y_i(a_i) \text{ depends only on } a_i \text{ (not on } a_j \text{ for } j \neq i)
+\]</div>
+<p>implies that there is no interference between treatment assignment and outcomes across patients. In the assumption of consistency, we are implicitly making the assumption of no interference; that is, whether one individual receives treatment (or not) has no effect on the potential outcomes of any other individual. This is encapsulated by the usual statistical ‘i.i.d.’ assumption, but it can easily be violated in a study of the effect of a vaccine or if a treatment is assigned at a group level.</p>
+</section>
+<section id="positivity">
+<h4><strong>(3) Positivity</strong>:<a class="headerlink" href="#positivity" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+0 &lt; P(T = 1 \mid X) &lt; 1 \quad \text{with probability } 1
+\]</div>
+<p>or more strictly (strict positivity):</p>
+<div class="math notranslate nohighlight">
+\[
+\varepsilon &lt; P(T = 1 \mid X) &lt; 1 - \varepsilon \quad \text{with probability } 1, \text{ for some } \varepsilon &gt; 0
+\]</div>
+<p>This states that, for any possible patient characteristic, treatment assignment is not deterministic. For all but a measure zero subset of the population, the probability of receiving treatment <strong>and</strong> of receiving control is non-zero.</p>
+</section>
+<section id="exchangeability-no-unobserved-confounding">
+<h4><strong>(4) Exchangeability (No unobserved confounding)</strong>:<a class="headerlink" href="#exchangeability-no-unobserved-confounding" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+Y(a) \perp\!\!\!\perp A \mid X \quad \text{for all } a \in \mathcal{A}
+\]</div>
+<p>or equivalently:</p>
+<div class="math notranslate nohighlight">
+\[
+(Y(1), Y(0)) \perp\!\!\!\perp A \mid X
+\]</div>
+<p>This implies that conditioning on the patient characteristics (covariates <span class="math notranslate nohighlight">\(X\)</span>) is sufficient to remove confounding bias in estimated HTEs. This is also called <em>conditional exchangeability</em>, <em>conditional ignorability</em>, or <em>causal sufficiency</em>.</p>
+<p>By exchangeability <span class="math notranslate nohighlight">\((4)\)</span> and consistency <span class="math notranslate nohighlight">\((1)\)</span>, the estimation of the average (causal) treatment effect (causal inference) can be done based on observed data:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}[Y(a)|T=t] 
+\overset{(4)}{=}\mathbb{E}[Y(a)|T=t, X=x]
+\overset{(1)}{=}\mathbb{E}[Y|T=t, X=x]
 \]</div>
 </section>
-<section id="fundamental-problem-of-causal-inference">
-<h2>Fundamental Problem of Causal Inference<a class="headerlink" href="#fundamental-problem-of-causal-inference" title="Link to this heading">#</a></h2>
-<p>However, we can only <strong>observe one</strong> of these outcomes — the one corresponding to the actual treatment received. This is known as the <strong>fundamental problem of causal inference</strong>: We never observe both potential outcomes for the same unit.</p>
-<p>Only one of the outcomes is observed for each unit: either the outcome if treated <span class="math notranslate nohighlight">\(Y(T = 1)\)</span> or the outcome if untreated <span class="math notranslate nohighlight">\(Y(T = 0)\)</span>. Individual causal effects cannot be expressed as a function of the observed data because of missing data. Identifying individual causal effects is generally impossible. Nonetheless, we aim to identify the average causal effect in a population of interest.</p>
 </section>
-<section id="average-treatment-effect-ate">
-<h2>Average Treatment Effect (ATE)<a class="headerlink" href="#average-treatment-effect-ate" title="Link to this heading">#</a></h2>
-<p>The <strong>Average Treatment Effect</strong> (ATE) compares the average response if everyone were assigned to receive treatment versus if everyone were assigned to receive control:</p>
-<div class="math notranslate nohighlight">
-\[
-\mathrm{ATE} = \mathbb{E}[Y(1)] - \mathbb{E}[Y(0)]
-\]</div>
-<p>In do-notation, this corresponds to:</p>
-<div class="math notranslate nohighlight">
-\[
-\mathrm{ATE} = \mathbb{E}[Y \mid do(A=1)] - \mathbb{E}[Y \mid do(A=0)]
-\]</div>
-<p>The ATE represents the average causal effect in the entire population of interest.</p>
 </section>
-<section id="average-treatment-effect-on-the-treated-att">
-<h2>Average Treatment Effect on the Treated (ATT)<a class="headerlink" href="#average-treatment-effect-on-the-treated-att" title="Link to this heading">#</a></h2>
-<p>The <strong>Average Treatment Effect on the Treated</strong> (ATT) considers the effect only for those who actually received treatment:</p>
-<div class="math notranslate nohighlight">
-\[
-\mathrm{ATT} = \mathbb{E}[Y(1) \mid A=1] - \mathbb{E}[Y(0) \mid A=1]
-\]</div>
-<p>Similarly, we can define the <strong>Average Treatment Effect on the Controls</strong> (ATC) by conditioning on <span class="math notranslate nohighlight">\(A=0\)</span> instead. The ATT is particularly useful when we want to understand the effect for those who actually received the treatment, which may be more relevant for policy decisions.</p>
+<section id="collider-bias">
+<h2>Collider Bias<a class="headerlink" href="#collider-bias" title="Link to this heading">#</a></h2>
 </section>
-<section id="conditional-average-treatment-effect-cate">
-<h2>Conditional Average Treatment Effect (CATE)<a class="headerlink" href="#conditional-average-treatment-effect-cate" title="Link to this heading">#</a></h2>
-<p>The <strong>Conditional Average Treatment Effect</strong> (CATE) allows us to identify <strong>heterogeneous treatment effects</strong> (HTE) by conditioning on covariates:</p>
-<div class="math notranslate nohighlight">
-\[
-\mathrm{CATE}(x) = \mathbb{E}[Y(1) \mid X=x] - \mathbb{E}[Y(0) \mid X=x]
-\]</div>
-<p>for some collection of covariates <span class="math notranslate nohighlight">\(X\)</span>.</p>
-<p>A heterogeneous treatment effect is present if there exist two values <span class="math notranslate nohighlight">\(x, x'\)</span> such that <span class="math notranslate nohighlight">\(\mathrm{CATE}(x) \neq \mathrm{CATE}(x')\)</span>. This enables us to understand how treatment effects vary across different subpopulations defined by the covariates.</p>
-<p><strong>Reference</strong>: <a class="reference external" href="https://www.stats.ox.ac.uk/~evans/APTS/ce.html">Causal Effects - Oxford APTS</a></p>
+<section id="selection-bias">
+<h2>Selection Bias<a class="headerlink" href="#selection-bias" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -516,6 +484,24 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="00_concepts.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Concepts of Causal Inference</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02_graphical_models.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Graphical Models</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -532,11 +518,19 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#individual-treatment-effect">Individual Treatment Effect</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fundamental-problem-of-causal-inference">Fundamental Problem of Causal Inference</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#average-treatment-effect-ate">Average Treatment Effect (ATE)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#average-treatment-effect-on-the-treated-att">Average Treatment Effect on the Treated (ATT)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-average-treatment-effect-cate">Conditional Average Treatment Effect (CATE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-observational-data-to-conditionally-randomized-experiments">From Observational Data to Conditionally Randomized Experiments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#potential-outcomes-framework">Potential Outcomes Framework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Assumptions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#consistency"><strong>(1) Consistency</strong>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable-unit-treatment-value-assumption-sutva"><strong>(2) Stable Unit Treatment Value Assumption (SUTVA)</strong>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#positivity"><strong>(3) Positivity</strong>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exchangeability-no-unobserved-confounding"><strong>(4) Exchangeability (No unobserved confounding)</strong>:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collider-bias">Collider Bias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selection-bias">Selection Bias</a></li>
 </ul>
   </nav></div>
 

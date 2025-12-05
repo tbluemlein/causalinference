@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Treatment Effect Estimation &#8212; Causal Inference Tutorial</title>
+    <title>Confounding and DAGs &#8212; Causal Inference Tutorial</title>
   
   
   
@@ -57,9 +57,7 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/treatment_effects';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'application/confounding';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -184,20 +182,20 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="00_concepts.html">Concepts of Causal Inference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01_assumptions.html">Assumptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02_graphical_models.html">Graphical Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03_estimation.html">Estimation Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04_IV_methods.html">IV Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05_ML.html">Machine Learning Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06_robustness.html">Robustness and Sensitivity Checks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/00_concepts.html">Concepts of Causal Inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/01_assumptions.html">Assumptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/02_graphical_models.html">Graphical Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/03_estimation.html">Estimation Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/04_IV_methods.html">IV Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/05_ML.html">Machine Learning Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/06_robustness.html">Robustness and Sensitivity Checks</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Application</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../application/case_study.html">Case Study: Simpson’s Paradoxon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="case_study.html">Case Study: Simpson’s Paradoxon</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="../application/observational_data.html">Observational Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../application/causal_inference.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="observational_data.html">Observational Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="causal_inference.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
 </ul>
 
     </div>
@@ -252,7 +250,7 @@
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/tbluemlein/causalinference/gh-pages?urlpath=tree/tutorial/treatment_effects.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/tbluemlein/causalinference/gh-pages?urlpath=tree/application/confounding.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Binder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -270,7 +268,7 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/tbluemlein/causalinference/blob/gh-pages/tutorial/treatment_effects.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/tbluemlein/causalinference/blob/gh-pages/application/confounding.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -319,7 +317,7 @@
       
       
       
-      <li><a href="../_sources/tutorial/treatment_effects.ipynb" target="_blank"
+      <li><a href="../_sources/application/confounding.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -403,7 +401,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Treatment Effect Estimation</h1>
+    <h1>Confounding and DAGs</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -413,11 +411,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#individual-treatment-effect">Individual Treatment Effect</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fundamental-problem-of-causal-inference">Fundamental Problem of Causal Inference</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#average-treatment-effect-ate">Average Treatment Effect (ATE)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#average-treatment-effect-on-the-treated-att">Average Treatment Effect on the Treated (ATT)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-average-treatment-effect-cate">Conditional Average Treatment Effect (CATE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpson-s-paradoxon">Simpson’s Paradoxon</a></li>
 </ul>
             </nav>
         </div>
@@ -429,60 +423,33 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="treatment-effect-estimation">
-<h1>Treatment Effect Estimation<a class="headerlink" href="#treatment-effect-estimation" title="Link to this heading">#</a></h1>
-<section id="individual-treatment-effect">
-<h2>Individual Treatment Effect<a class="headerlink" href="#individual-treatment-effect" title="Link to this heading">#</a></h2>
-<p>For each unit <span class="math notranslate nohighlight">\( i \)</span> (say, a person):</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\( T_i \)</span>: treatment indicator (1 if treated, 0 if control)</p></li>
-<li><p><span class="math notranslate nohighlight">\( Y_i(1) \)</span>: potential outcome <strong>if treated</strong></p></li>
-<li><p><span class="math notranslate nohighlight">\( Y_i(0) \)</span>: potential outcome <strong>if not treated</strong></p></li>
-</ul>
-<p>The <strong>causal effect</strong> (ITE: individual treatment effect) for unit <span class="math notranslate nohighlight">\(i\)</span> is:</p>
-<div class="math notranslate nohighlight">
-\[
-\tau_i = Y_i(1) - Y_i(0)
-\]</div>
-</section>
-<section id="fundamental-problem-of-causal-inference">
-<h2>Fundamental Problem of Causal Inference<a class="headerlink" href="#fundamental-problem-of-causal-inference" title="Link to this heading">#</a></h2>
-<p>However, we can only <strong>observe one</strong> of these outcomes — the one corresponding to the actual treatment received. This is known as the <strong>fundamental problem of causal inference</strong>: We never observe both potential outcomes for the same unit.</p>
-<p>Only one of the outcomes is observed for each unit: either the outcome if treated <span class="math notranslate nohighlight">\(Y(T = 1)\)</span> or the outcome if untreated <span class="math notranslate nohighlight">\(Y(T = 0)\)</span>. Individual causal effects cannot be expressed as a function of the observed data because of missing data. Identifying individual causal effects is generally impossible. Nonetheless, we aim to identify the average causal effect in a population of interest.</p>
-</section>
-<section id="average-treatment-effect-ate">
-<h2>Average Treatment Effect (ATE)<a class="headerlink" href="#average-treatment-effect-ate" title="Link to this heading">#</a></h2>
-<p>The <strong>Average Treatment Effect</strong> (ATE) compares the average response if everyone were assigned to receive treatment versus if everyone were assigned to receive control:</p>
-<div class="math notranslate nohighlight">
-\[
-\mathrm{ATE} = \mathbb{E}[Y(1)] - \mathbb{E}[Y(0)]
-\]</div>
-<p>In do-notation, this corresponds to:</p>
-<div class="math notranslate nohighlight">
-\[
-\mathrm{ATE} = \mathbb{E}[Y \mid do(A=1)] - \mathbb{E}[Y \mid do(A=0)]
-\]</div>
-<p>The ATE represents the average causal effect in the entire population of interest.</p>
-</section>
-<section id="average-treatment-effect-on-the-treated-att">
-<h2>Average Treatment Effect on the Treated (ATT)<a class="headerlink" href="#average-treatment-effect-on-the-treated-att" title="Link to this heading">#</a></h2>
-<p>The <strong>Average Treatment Effect on the Treated</strong> (ATT) considers the effect only for those who actually received treatment:</p>
-<div class="math notranslate nohighlight">
-\[
-\mathrm{ATT} = \mathbb{E}[Y(1) \mid A=1] - \mathbb{E}[Y(0) \mid A=1]
-\]</div>
-<p>Similarly, we can define the <strong>Average Treatment Effect on the Controls</strong> (ATC) by conditioning on <span class="math notranslate nohighlight">\(A=0\)</span> instead. The ATT is particularly useful when we want to understand the effect for those who actually received the treatment, which may be more relevant for policy decisions.</p>
-</section>
-<section id="conditional-average-treatment-effect-cate">
-<h2>Conditional Average Treatment Effect (CATE)<a class="headerlink" href="#conditional-average-treatment-effect-cate" title="Link to this heading">#</a></h2>
-<p>The <strong>Conditional Average Treatment Effect</strong> (CATE) allows us to identify <strong>heterogeneous treatment effects</strong> (HTE) by conditioning on covariates:</p>
-<div class="math notranslate nohighlight">
-\[
-\mathrm{CATE}(x) = \mathbb{E}[Y(1) \mid X=x] - \mathbb{E}[Y(0) \mid X=x]
-\]</div>
-<p>for some collection of covariates <span class="math notranslate nohighlight">\(X\)</span>.</p>
-<p>A heterogeneous treatment effect is present if there exist two values <span class="math notranslate nohighlight">\(x, x'\)</span> such that <span class="math notranslate nohighlight">\(\mathrm{CATE}(x) \neq \mathrm{CATE}(x')\)</span>. This enables us to understand how treatment effects vary across different subpopulations defined by the covariates.</p>
-<p><strong>Reference</strong>: <a class="reference external" href="https://www.stats.ox.ac.uk/~evans/APTS/ce.html">Causal Effects - Oxford APTS</a></p>
+  <section class="tex2jax_ignore mathjax_ignore" id="confounding-and-dags">
+<h1>Confounding and DAGs<a class="headerlink" href="#confounding-and-dags" title="Link to this heading">#</a></h1>
+<section id="simpson-s-paradoxon">
+<h2>Simpson’s Paradoxon<a class="headerlink" href="#simpson-s-paradoxon" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p>Correlation is not causation</p>
+</div></blockquote>
+<p>Simpson’s Paradox is one of the most striking examples of why causality matters and why simple statistical associations can be misleading.</p>
+<p>Statistical associations in raw data can be misleading if important confounding variables are ignored. Understanding Simpson’s Paradox is critical in causal inference because:</p>
+<p>It highlights the danger of naive data analysis – Just looking at overall trends can lead to incorrect conclusions.
+It emphasizes the importance of confounding variables – We must control for relevant factors before making causal claims.
+It demonstrates why causal reasoning is necessary – Simply relying on statistical associations (
+P
+(
+Y
+|
+X
+)
+) without considering structural relationships can lead to paradoxical results. A trend observed in an overall population reverses when the population is divided into subgroups (conditioning on confounders).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a class="reference external" href="https://www.biostatistics.ca/when-data-lies-simpsons-paradox-a-step-by-step-simulation-code-notebook/">https://www.biostatistics.ca/when-data-lies-simpsons-paradox-a-step-by-step-simulation-code-notebook/</a></p>
 </section>
 </section>
 
@@ -499,7 +466,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./tutorial"
+            path: "./application"
         },
         predefinedOutput: true
     }
@@ -532,11 +499,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#individual-treatment-effect">Individual Treatment Effect</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fundamental-problem-of-causal-inference">Fundamental Problem of Causal Inference</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#average-treatment-effect-ate">Average Treatment Effect (ATE)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#average-treatment-effect-on-the-treated-att">Average Treatment Effect on the Treated (ATT)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-average-treatment-effect-cate">Conditional Average Treatment Effect (CATE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpson-s-paradoxon">Simpson’s Paradoxon</a></li>
 </ul>
   </nav></div>
 
