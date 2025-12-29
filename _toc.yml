@@ -35,4 +35,5 @@ parts:
       - file: application/health_interventions.ipynb
 
   - caption: References
-    - file: references.md
+    chapters:
+      - file: papers/references.md
