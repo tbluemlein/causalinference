@@ -1,22 +1,35 @@
 # Table of Contents for Jupyter Book
+# https://github.com/TomasBeuzen/python-programming-for-data-science/blob/main/_toc.yml
+# https://www.tomasbeuzen.com/python-programming-for-data-science/README.html
+
 format: jb-book
 root: README.md
-chapters:
-  - file: tutorial/motivation.ipynb
-  - file: tutorial/00_concepts.md
-  - file: 01_assumptions.md
-    - file: tutorial/observational_data
-  - file: 02_graphical_models.md
-  - file: 03_estimation.md
-  - file: 04_IV_methods.md
-  - file: 05_ML.md
-  - file: 06_robustness.md
-  - file: 07_applications.md
 
+parts:
+  - caption: Tutorial
+    chapters:
+      - file: tutorial/1_concepts.md
+      - file: tutorial/2_identification.md
+      sections: 
+        - file: tutorial/2_1_propensity.md
+        - file: tutorial/2_2_graphical_models.md
+      - file: tutorial/3_inference.md
+      sections: 
+        - file: tutorial/3_1_propensity.md
+        - file: tutorial/3_3_2SLS.md
+      - file: tutorial/4_ML.md
+      sections: 
+        - file: tutorial/4_1_causal_trees.md
+        - file: tutorial/4_2_causal_forests.md
+        - file: tutorial/4_3_bayesian_causal_inference.md
+      - file: tutorial/5_sensitivity.md
+      
 
-  - file: tutorial/01_confounding.ipynb
-  - file: tutorial/case_study
-  - file: tutorial/observational_data
-  - file: tutorial/causal_inference
-
-  
+#parts:
+  - caption: Actuarial Applications
+    chapters:
+      - file: application/case_study.ipynb
+      - file: application/observational_data.ipynb
+      - file: application/driver_training.ipynb
+      - file: application/susceptible_subpopulation.ipynb
+      - file: application/health_intervention.ipynb
