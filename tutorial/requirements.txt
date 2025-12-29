@@ -1,0 +1,27 @@
+jupyter-book
+<<<<<<< HEAD
+=======
+git+https://github.com/TeachBooks/Sphinx-Thebe
+>>>>>>> 55f3019c27412cde77b249a9dc2facad061c5d2f
+matplotlib
+numpy
+pandas
+plotly
+seaborn
+econml
+causalml
+ipython
+ipykernel
+<<<<<<< HEAD
+networkx
+scipy
+sympy
+=======
+ipywidgets
+teachbooks == 0.2.2
+sphinx-inline-tabs
+# Temporarily commented out to fix build issue with sphinx-multitoc-numbering
+# git+https://github.com/TeachBooks/TeachBooks-Favourites
+teachbooks-sphinx-grasple
+sympy
+>>>>>>> 55f3019c27412cde77b249a9dc2facad061c5d2f
