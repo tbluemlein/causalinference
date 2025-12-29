@@ -10,26 +10,24 @@ parts:
     chapters:
       - file: tutorial/1_concepts.md
       - file: tutorial/2_identification.md
-      sections: 
-        - file: tutorial/2_1_propensity.md
-        - file: tutorial/2_2_graphical_models.md
+        sections: 
+          - file: tutorial/2_1_assumptions.md
+          - file: tutorial/2_2_graphical_models.md
       - file: tutorial/3_inference.md
-      sections: 
-        - file: tutorial/3_1_propensity.md
-        - file: tutorial/3_3_2SLS.md
+        sections: 
+          - file: tutorial/3_1_propensity.md
+          - file: tutorial/3_3_2SLS.md
       - file: tutorial/4_ML.md
-      sections: 
-        - file: tutorial/4_1_causal_trees.md
-        - file: tutorial/4_2_causal_forests.md
-        - file: tutorial/4_3_bayesian_causal_inference.md
+        sections: 
+          - file: tutorial/4_1_causal_tree.md
+          - file: tutorial/4_2_causal_forest.md
+          - file: tutorial/4_3_bayesian.md
       - file: tutorial/5_sensitivity.md
-      
 
-#parts:
   - caption: Actuarial Applications
     chapters:
-      - file: application/case_study.ipynb
+#      - file: application/case_study.ipynb
       - file: application/observational_data.ipynb
       - file: application/driver_training.ipynb
       - file: application/susceptible_subpopulation.ipynb
-      - file: application/health_intervention.ipynb
+      - file: application/health_interventions.ipynb
