@@ -7,6 +7,8 @@ root: README.md
 
 parts:
   - caption: Tutorial
+    maxdepth: 1 # maximum depth of the table of contents
+    numbered: false
     chapters:
       - file: tutorial/1_concepts.md
       - file: tutorial/2_identification.md
