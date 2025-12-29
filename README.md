@@ -12,21 +12,6 @@ By identifying true causal drivers rather than mere symptoms, we move from passi
 ## Organisation
 TODO: ToC and links to chapters
 
-## Useful Links
-### Theory
-- [Oxford: Causal Assumptions](https://www.stats.ox.ac.uk/~evans/APTS/causassmp.html)
-- [Tutorial on Causal Inference](https://bookdown.org/mike/data_analysis/sec-causal-inference.html)
-- [Causal Assumptions](https://www.uniqcret.com/post/causal-inference-assumptions-guide)
-- [QuantCo Blog Article: MetaLearners for CATE Estimation](https://tech.quantco.com/blog/metalearners)
-- [Confounding Tutorial: Simpson's Paradoxon](https://www.biostatistics.ca/when-data-lies-simpsons-paradox-a-step-by-step-simulation-code-notebook/) 
-- [Causality Handbook](https://matheusfacure.github.io/python-causality-handbook/02-Randomised-Experiments.html)
-
-### Data Sets and Potential Use Cases
-- [French Motor TPL Claims Data Set](https://www.kaggle.com/datasets/karansarpal/fremtpl2-french-motor-tpl-insurance-claims/data)
-- [Medical Cost Data Set](https://www.kaggle.com/datasets/mirichoi0218/insurance)
-- [CausalML: Interpretation of causal trees](https://causalml.readthedocs.io/en/stable/examples/causal_trees_interpretation.html)
-- [Interpretation of causal forests](https://lorentzen.ch/index.php/2024/09/02/explaining-a-causal-forest/) (Waterfall Plot, SHAP Values)
-- [Insurance Fraud Data Set](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/4954928053318020/1058911316420443/167703932442645/latest.html) Fraud 
 
 
 

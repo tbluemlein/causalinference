@@ -33,3 +33,6 @@ parts:
       - file: application/driver_training.ipynb
       - file: application/susceptible_subpopulation.ipynb
       - file: application/health_interventions.ipynb
+
+  - caption: References
+    - file: references.md
