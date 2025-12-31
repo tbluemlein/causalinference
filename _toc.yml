@@ -30,8 +30,7 @@ parts:
     chapters:
 #      - file: application/case_study.ipynb
       - file: application/observational_data.ipynb
-      - file: application/driver_training.ipynb
-      - file: application/susceptible_subpopulation.ipynb
+      - file: application/traffic_study.ipynb
       - file: application/health_interventions.ipynb
 
   - caption: References
