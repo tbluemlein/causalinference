@@ -7,6 +7,8 @@ import pandas as pd
 from scipy.stats import ttest_ind
 import plotly.graph_objects as go
 import plotly.subplots as sp
+import seaborn as sns
+from sklearn.tree import _tree
 
 def plot_causal_dag(causal_model_dict, title, node_color='skyblue'):
     """Generates and displays a causal DAG from a dictionary of causal relationships and weights.
@@ -269,5 +271,95 @@ def plot_love_plot(smd_series, title, subplot_fig, row, col, x_limit, dot_color=
     # Removed subplot_fig.update_layout(title_text=title, row=row, col=col) as 'row' is not a valid layout property
 
     return subplot_fig
+
+
+def draw_causal_dag(edges, title):
+    """Draws a causal DAG from a list of edges.
+    
+    Args:
+        edges: List of tuples representing edges in the DAG, e.g., [('A', 'B'), ('B', 'C')]
+        title: Title for the plot
+    """
+    G = nx.DiGraph()
+    G.add_edges_from(edges)
+    pos = nx.spring_layout(G, seed=42)
+    plt.figure(figsize=(10, 4))
+    nx.draw(G, pos, with_labels=True, node_size=3500, node_color='skyblue', 
+            font_size=10, font_weight='bold', arrowsize=20, connectionstyle='arc3, rad=0.1')
+    plt.title(title)
+    plt.show()
+
+
+def extract_tree_rules(interpreter, feature_names):
+    """Extracts segmentation rules and CATE estimates from a decision tree interpreter.
+    
+    Args:
+        interpreter: A SingleTreeCateInterpreter object with a fitted tree_model_
+        feature_names: List of feature names corresponding to the tree features
+        
+    Returns:
+        List of dictionaries with keys: 'rule', 'cate', 'n_samples'
+    """
+    tree_ = interpreter.tree_model_.tree_
+    feature_name = [feature_names[i] if i != _tree.TREE_UNDEFINED else "undefined!" for i in tree_.feature]
+    
+    def recurse(node, parent_rule=""):
+        if tree_.feature[node] != _tree.TREE_UNDEFINED:
+            name = feature_name[node]
+            threshold = tree_.threshold[node]
+            rule_left = f"{parent_rule} & {name} <= {threshold:.2f}" if parent_rule else f"{name} <= {threshold:.2f}"
+            rule_right = f"{parent_rule} & {name} > {threshold:.2f}" if parent_rule else f"{name} > {threshold:.2f}"
+            return recurse(tree_.children_left[node], rule_left) + recurse(tree_.children_right[node], rule_right)
+        else:
+            return [{'rule': parent_rule or "All", 'cate': tree_.value[node][0][0], 'n_samples': tree_.n_node_samples[node]}]
+    
+    return recurse(0)
+
+
+def extract_tree_rules_native(interpreter, feature_names):
+    """Extracts segmentation rules and CATE estimates from a decision tree interpreter (native version).
+    
+    Similar to extract_tree_rules but uses "Global" instead of "All" for the default rule.
+    
+    Args:
+        interpreter: A SingleTreeCateInterpreter object with a fitted tree_model_
+        feature_names: List of feature names corresponding to the tree features
+        
+    Returns:
+        List of dictionaries with keys: 'rule', 'cate', 'n_samples'
+    """
+    tree_ = interpreter.tree_model_.tree_
+    feature_name = [feature_names[i] if i != _tree.TREE_UNDEFINED else "undefined!" for i in tree_.feature]
+    def recurse(node, parent_rule=""):
+        if tree_.feature[node] != _tree.TREE_UNDEFINED:
+            name = feature_name[node]
+            threshold = tree_.threshold[node]
+            rule_left = f"{parent_rule} & {name} <= {threshold:.2f}" if parent_rule else f"{name} <= {threshold:.2f}"
+            rule_right = f"{parent_rule} & {name} > {threshold:.2f}" if parent_rule else f"{name} > {threshold:.2f}"
+            return recurse(tree_.children_left[node], rule_left) + recurse(tree_.children_right[node], rule_right)
+        else:
+            return [{'rule': parent_rule or "Global", 'cate': tree_.value[node][0][0], 'n_samples': tree_.n_node_samples[node]}]
+    return recurse(0)
+
+
+def get_pdp_speed(model, X_data, feature_name):
+    """Gets partial dependence plot data for a causal forest model.
+    
+    Args:
+        model: A fitted causal forest model with an .effect() method
+        X_data: DataFrame with feature columns (dummy-encoded)
+        feature_name: Prefix of feature columns to analyze (e.g., 'Road_Condition')
+        
+    Returns:
+        labels: List of feature value labels
+        effects: List of average treatment effects for each feature value
+    """
+    unique_vals = [c for c in X_data.columns if c.startswith(feature_name)]
+    labels = [c.split('_')[-1] for c in unique_vals]
+    effects = []
+    for col in unique_vals:
+        X_tmp = X_data.copy(); X_tmp.iloc[:, :] = 0; X_tmp[col] = 1
+        effects.append(np.mean(model.effect(X_tmp)))
+    return labels, effects
 
 
