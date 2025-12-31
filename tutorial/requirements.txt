@@ -1,27 +1,39 @@
+# Jupyter Book and Documentation
 jupyter-book
-<<<<<<< HEAD
-=======
-git+https://github.com/TeachBooks/Sphinx-Thebe
->>>>>>> 55f3019c27412cde77b249a9dc2facad061c5d2f
-matplotlib
-numpy
-pandas
-plotly
-seaborn
-econml
-causalml
-ipython
-ipykernel
-<<<<<<< HEAD
-networkx
-scipy
-sympy
-=======
-ipywidgets
 teachbooks == 0.2.2
 sphinx-inline-tabs
-# Temporarily commented out to fix build issue with sphinx-multitoc-numbering
-# git+https://github.com/TeachBooks/TeachBooks-Favourites
 teachbooks-sphinx-grasple
+
+# Core Data Science Libraries
+numpy
+pandas
+scipy
+matplotlib
+seaborn
+
+# Visualization
+plotly
+
+# Causal Inference
+econml
+causalml
+dowhy
+
+# Machine Learning
+scikit-learn
+shap
+lightgbm
+
+# Statistical Modeling
+statsmodels
+
+# Graph/Network Analysis
+networkx
+
+# Jupyter/IPython
+ipython
+ipykernel
+ipywidgets
+
+# Symbolic Math
 sympy
->>>>>>> 55f3019c27412cde77b249a9dc2facad061c5d2f

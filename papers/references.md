@@ -12,6 +12,7 @@
 
 ## Useful Links
 ### Theory
+- [Causal ML Book](https://www.causalmlbook.com/synthetic-did-and-regression-discontinuity.html)
 - [Oxford: Causal Assumptions](https://www.stats.ox.ac.uk/~evans/APTS/causassmp.html)
 - [Tutorial on Causal Inference](https://bookdown.org/mike/data_analysis/sec-causal-inference.html)
 - [Causal Assumptions](https://www.uniqcret.com/post/causal-inference-assumptions-guide)
