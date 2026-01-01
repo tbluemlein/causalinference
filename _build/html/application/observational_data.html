@@ -61,8 +61,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Synthetic Health Dataset for Causal Inference Tutorial" href="causal_inference.html" />
-    <link rel="prev" title="Case Study: Simpson’s Paradoxon" href="case_study.html" />
+    <link rel="next" title="Traffic Case Study" href="traffic_study.html" />
+    <link rel="prev" title="Sensitivity Analysis" href="../tutorial/5_sensitivity.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,20 +182,34 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/00_concepts.html">Concepts of Causal Inference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/01_assumptions.html">Assumptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/02_graphical_models.html">Graphical Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/03_estimation.html">Estimation Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/04_IV_methods.html">IV Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/05_ML.html">Machine Learning Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/06_robustness.html">Robustness and Sensitivity Checks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/1_concepts.html">Concepts of Causal Inference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/2_identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/2_1_assumptions.html">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/2_2_graphical_models.html">Graphical Models</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Application</span></p>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/3_inference.html">Treatment Effect Estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/3_1_propensity.html">Propensity Score Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/3_3_2SLS.html">Instrumental Variable Approach and Two-Stage-least Squares</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/4_ML.html">Causal ML</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_1_causal_tree.html">Causal Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_2_causal_forest.html">Causal Forests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_3_bayesian.html">Bayesian Causal Inference</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/5_sensitivity.html">Sensitivity Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Actuarial Applications</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="case_study.html">Case Study: Simpson’s Paradoxon</a></li>
-
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Observational Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="causal_inference.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="traffic_study.html">Traffic Case Study</a></li>
+<li class="toctree-l1"><a class="reference internal" href="health_interventions.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../papers/references.html">References</a></li>
 </ul>
 
     </div>
@@ -818,7 +832,7 @@ if (outputEl) {{
 </section>
 <section id="validation-of-exchangeability-assumption">
 <h2>Validation of Exchangeability Assumption<a class="headerlink" href="#validation-of-exchangeability-assumption" title="Link to this heading">#</a></h2>
-<p>[smd plot]<a class="reference external" href="https://cran.r-project.org/web/packages/tableone/vignettes/smd.html">https://cran.r-project.org/web/packages/tableone/vignettes/smd.html</a>
+<p>[smd plot]https://cran.r-project.org/web/packages/tableone/vignettes/smd.html
 TODO: explanation and assessment</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -915,20 +929,20 @@ if (outputEl) {{
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="case_study.html"
+       href="../tutorial/5_sensitivity.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Case Study: Simpson’s Paradoxon</p>
+        <p class="prev-next-title">Sensitivity Analysis</p>
       </div>
     </a>
     <a class="right-next"
-       href="causal_inference.html"
+       href="traffic_study.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Synthetic Health Dataset for Causal Inference Tutorial</p>
+        <p class="prev-next-title">Traffic Case Study</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -966,7 +980,7 @@ if (outputEl) {{
   <div class="footer-item">
     
 <p class="component-author">
-By The Jupyter Book community
+By Daniel Meier, Theresa Blümlein, Michael Mayer, and Patrick Cheridito
 </p>
 
   </div>

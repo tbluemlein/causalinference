@@ -63,7 +63,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Concepts of Causal Inference" href="tutorial/00_concepts.html" />
+    <link rel="next" title="Concepts of Causal Inference" href="tutorial/1_concepts.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -185,20 +185,34 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="tutorial/00_concepts.html">Concepts of Causal Inference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/01_assumptions.html">Assumptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/02_graphical_models.html">Graphical Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/03_estimation.html">Estimation Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/04_IV_methods.html">IV Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/05_ML.html">Machine Learning Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/06_robustness.html">Robustness and Sensitivity Checks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/1_concepts.html">Concepts of Causal Inference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/2_identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/2_1_assumptions.html">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/2_2_graphical_models.html">Graphical Models</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Application</span></p>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/3_inference.html">Treatment Effect Estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/3_1_propensity.html">Propensity Score Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/3_3_2SLS.html">Instrumental Variable Approach and Two-Stage-least Squares</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/4_ML.html">Causal ML</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/4_1_causal_tree.html">Causal Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/4_2_causal_forest.html">Causal Forests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/4_3_bayesian.html">Bayesian Causal Inference</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/5_sensitivity.html">Sensitivity Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Actuarial Applications</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="application/case_study.html">Case Study: Simpson’s Paradoxon</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="application/observational_data.html">Observational Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="application/causal_inference.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="application/traffic_study.html">Traffic Case Study</a></li>
+<li class="toctree-l1"><a class="reference internal" href="application/health_interventions.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="papers/references.html">References</a></li>
 </ul>
 
     </div>
@@ -347,17 +361,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-links">Useful Links</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theory">Theory</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-sets-and-potential-use-cases">Data Sets and Potential Use Cases</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#actuarial-use-cases">Actuarial Use Cases</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methodology-and-practical-applicability">Methodology and Practical Applicability</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches">Approaches</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-and-overview">Introduction and overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organisation">Organisation</a></li>
 </ul>
             </nav>
         </div>
@@ -371,113 +376,19 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="causal-inference-tutorial">
 <h1>Causal Inference Tutorial<a class="headerlink" href="#causal-inference-tutorial" title="Link to this heading">#</a></h1>
-<section id="useful-links">
-<h2>Useful Links<a class="headerlink" href="#useful-links" title="Link to this heading">#</a></h2>
-<section id="theory">
-<h3>Theory<a class="headerlink" href="#theory" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.stats.ox.ac.uk/~evans/APTS/causassmp.html">Oxford: Causal Assumptions</a></p></li>
-<li><p><a class="reference external" href="https://bookdown.org/mike/data_analysis/sec-causal-inference.html">Tutorial on Causal Inference</a></p></li>
-<li><p><a class="reference external" href="https://www.uniqcret.com/post/causal-inference-assumptions-guide">Causal Assumptions</a></p></li>
-<li><p><a class="reference external" href="https://tech.quantco.com/blog/metalearners">QuantCo Blog Article: MetaLearners for CATE Estimation</a></p></li>
-<li><p><a class="reference external" href="https://www.biostatistics.ca/when-data-lies-simpsons-paradox-a-step-by-step-simulation-code-notebook/">Confounding Tutorial: Simpson’s Paradoxon</a></p></li>
-</ul>
+<p>This tutorial demonstrates how we can leverage modern causal machine learning (ML) and data science algorithms to infer causal effects from observational data. While standard ML excels at predicting outcomes, it often remains “causally blind” to the true levers of risk. By moving beyond passive risk measurement toward active and interventional risk management, we explore methods how to quantify causal treatment effects to achieve intelligent risk mitigation. This endeavour is illustrated on a simulated health data set of longitudinal health data and on a second dataset that contains driver training assignments in a motor insurance context where we apply different causal inference methodologies to estimate heterogeneous treatment effects and derive fair interventions.</p>
+<section id="introduction-and-overview">
+<h2>Introduction and overview<a class="headerlink" href="#introduction-and-overview" title="Link to this heading">#</a></h2>
+<p>This study has been carried out for the working group “Data Science” of the Swiss Association of Actuaries SAV, see <a class="reference external" href="https://www.actuarialdatascience.org">https://www.actuarialdatascience.org</a>. The historical responsibility of the actuary has always been to ensure financial and societal stability. By building a collective of insureds, insurance ensures that unforeseeable events do not destabilize society. Traditionally, we relied on identifying historical correlations in claims data to categorize and understand risk. With increasing availability of real-time data, advanced ML methods can perform predictive analytics, i.e., forecast disease trajectories or large losses.</p>
+<p>Today, in the era of AI, actuarial data science evolves towards prescriptive analytics and intelligent disaster management. Causal inference empowers this transition. It allows us to leverage modern AI algorithms to infer causal effects from observational data. While predictive models identify which factors are associated with loss, true risk management requires understanding the causal effect of an intervention: “If we implement this preventative measure, by how much will we actually reduce the expected loss?”.</p>
+<p>By identifying true causal drivers rather than mere symptoms, we move from passive risk measurement to active risk mitigation. We can then actively prevent losses before they occur or engage in intelligent disaster management, i.e., trigger interventions that act as true levers for long-term health and financial stability.  Furthermore, by isolating these causal effects, we can eliminate systemic biases and ensure that insurance pricing is not only statistically robust but ethically fair. This is our next step in ensuring a more stable and just society.</p>
 </section>
-<section id="data-sets-and-potential-use-cases">
-<h3>Data Sets and Potential Use Cases<a class="headerlink" href="#data-sets-and-potential-use-cases" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.kaggle.com/datasets/karansarpal/fremtpl2-french-motor-tpl-insurance-claims/data">French Motor TPL Claims Data Set</a></p></li>
-<li><p><a class="reference external" href="https://www.kaggle.com/datasets/mirichoi0218/insurance">Medical Cost Data Set</a></p></li>
-<li><p><a class="reference external" href="https://causalml.readthedocs.io/en/stable/examples/causal_trees_interpretation.html">CausalML: Interpretation of causal trees</a></p></li>
-<li><p><a class="reference external" href="https://lorentzen.ch/index.php/2024/09/02/explaining-a-causal-forest/">Interpretation of causal forests</a> (Waterfall Plot, SHAP Values)</p></li>
-<li><p><a class="reference external" href="https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/4954928053318020/1058911316420443/167703932442645/latest.html">Insurance Fraud Data Set</a> Fraud</p></li>
-</ul>
+<section id="organisation">
+<h2>Organisation<a class="headerlink" href="#organisation" title="Link to this heading">#</a></h2>
+<p>TODO: ToC and links to chapters</p>
 </section>
-</section>
-<section id="actuarial-use-cases">
-<h2>Actuarial Use Cases<a class="headerlink" href="#actuarial-use-cases" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Pricing: Estimate how product features (e.g., deductibles, limits, telematics devices) cause changes in claim cost or behavior; introduce discrimination measures to tackle fairness (in insurance pricing)</p></li>
-<li><p>Underwriting: Identify which risk factors drive losses, not just correlate</p></li>
-<li><p>Claims management: Quantify impact of interventions (e.g., early triage, litigation management, driver training) using causal forests for HTE estimation</p></li>
-<li><p>Reserving: Assess causal drivers of development patterns (e.g., policy changes, inflation)</p></li>
-<li><p>Customer Management: Predict lapse probability: Test whether retention campaigns cause persistency improvements</p></li>
-</ul>
-<section id="methodology-and-practical-applicability">
-<h3>Methodology and Practical Applicability<a class="headerlink" href="#methodology-and-practical-applicability" title="Link to this heading">#</a></h3>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p><strong>Objective</strong></p></th>
-<th class="head"><p><strong>Causal Question</strong></p></th>
-<th class="head"><p><strong>Outcome</strong></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Loss ratio optimization</p></td>
-<td><p>“Does a $500 deductible reduce expected loss costs?”</p></td>
-<td><p>Quantified causal reduction (%)</p></td>
-</tr>
-<tr class="row-odd"><td><p>Behavioral response</p></td>
-<td><p>“Do customers churn more when deductible increases?”</p></td>
-<td><p>Estimate causal churn elasticity</p></td>
-</tr>
-<tr class="row-even"><td><p>Segmentation</p></td>
-<td><p>“Which customers tolerate higher deductibles?”</p></td>
-<td><p>Personalized pricing &amp; product design</p></td>
-</tr>
-<tr class="row-odd"><td><p>Policy simulation</p></td>
-<td><p>“What if all customers had $250 more deductible?”</p></td>
-<td><p>Counterfactual simulation for pricing strategy</p></td>
-</tr>
-</tbody>
-</table>
+<div class="toctree-wrapper compound">
 </div>
-</section>
-<section id="approaches">
-<h3>Approaches<a class="headerlink" href="#approaches" title="Link to this heading">#</a></h3>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p><strong>Approach</strong></p></th>
-<th class="head"><p><strong>What It Does</strong></p></th>
-<th class="head"><p><strong>When to Use It</strong></p></th>
-<th class="head"><p><strong>Libraries / Tools</strong></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><strong>Propensity Score Matching (PSM)</strong></p></td>
-<td><p>Match policyholders with similar risk profiles, differing only in deductible presence</p></td>
-<td><p>Non-random assignment of deductibles</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">causalml</span></code>, <code class="docutils literal notranslate"><span class="pre">DoWhy</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Difference-in-Differences (DiD)</strong></p></td>
-<td><p>Compare before/after introduction of deductibles between affected and unaffected groups</p></td>
-<td><p>Deductibles introduced at a specific time</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>, <code class="docutils literal notranslate"><span class="pre">EconML</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Instrumental Variables (IV)</strong></p></td>
-<td><p>Use an external “instrument” (e.g., regional rule, agent behavior) that influences deductibles but not claim outcomes directly</p></td>
-<td><p>When unobserved confounders exist</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">linearmodels</span></code>, <code class="docutils literal notranslate"><span class="pre">econml.iv</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Causal Forests / Uplift Modeling</strong></p></td>
-<td><p>Estimate heterogeneous treatment effects — how different segments respond to deductible introduction</p></td>
-<td><p>You want to know <em>for whom</em> deductibles work best</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">EconML</span></code>, <code class="docutils literal notranslate"><span class="pre">grf</span></code>, <code class="docutils literal notranslate"><span class="pre">causalml</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Regression Discontinuity (RD)</strong></p></td>
-<td><p>Exploit a deductible rule threshold (e.g., cutoff by vehicle value)</p></td>
-<td><p>Deductible changes apply near a boundary</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">rdd</span></code>, <code class="docutils literal notranslate"><span class="pre">DoWhy</span></code></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-</section>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://matheusfacure.github.io/python-causality-handbook/02-Randomised-Experiments.html">https://matheusfacure.github.io/python-causality-handbook/02-Randomised-Experiments.html</a></p>
-</section>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -515,7 +426,7 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="right-next"
-       href="tutorial/00_concepts.html"
+       href="tutorial/1_concepts.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
@@ -539,17 +450,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-links">Useful Links</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#theory">Theory</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-sets-and-potential-use-cases">Data Sets and Potential Use Cases</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#actuarial-use-cases">Actuarial Use Cases</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methodology-and-practical-applicability">Methodology and Practical Applicability</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches">Approaches</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-and-overview">Introduction and overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organisation">Organisation</a></li>
 </ul>
   </nav></div>
 
@@ -564,7 +466,7 @@ document.write(`
   <div class="footer-item">
     
 <p class="component-author">
-By The Jupyter Book community
+By Daniel Meier, Theresa Blümlein, Michael Mayer, and Patrick Cheridito
 </p>
 
   </div>

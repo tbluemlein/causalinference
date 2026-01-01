@@ -61,8 +61,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Observational Data" href="observational_data.html" />
-    <link rel="prev" title="Robustness and Sensitivity Checks" href="../tutorial/06_robustness.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -125,6 +123,8 @@
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -182,20 +182,34 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/00_concepts.html">Concepts of Causal Inference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/01_assumptions.html">Assumptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/02_graphical_models.html">Graphical Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/03_estimation.html">Estimation Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/04_IV_methods.html">IV Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/05_ML.html">Machine Learning Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/06_robustness.html">Robustness and Sensitivity Checks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/1_concepts.html">Concepts of Causal Inference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/2_identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/2_1_assumptions.html">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/2_2_graphical_models.html">Graphical Models</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Application</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Case Study: Simpson’s Paradoxon</a></li>
-
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/3_inference.html">Treatment Effect Estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/3_1_propensity.html">Propensity Score Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/3_3_2SLS.html">Instrumental Variable Approach and Two-Stage-least Squares</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/4_ML.html">Causal ML</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_1_causal_tree.html">Causal Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_2_causal_forest.html">Causal Forests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_3_bayesian.html">Bayesian Causal Inference</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/5_sensitivity.html">Sensitivity Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Actuarial Applications</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="observational_data.html">Observational Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="causal_inference.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="traffic_study.html">Traffic Case Study</a></li>
+<li class="toctree-l1"><a class="reference internal" href="health_interventions.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../papers/references.html">References</a></li>
 </ul>
 
     </div>
@@ -731,7 +745,7 @@ Age Cohort
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Theresa\AppData\Local\Temp\ipykernel_13748\75760094.py:2: FutureWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Theresa\AppData\Local\Temp\ipykernel_46032\75760094.py:2: FutureWarning: 
 
 Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
 
@@ -741,7 +755,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1000x600 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/d04feb3c702f0eb98017b489becfe3f9137282d08a2ec6c7deb5c000e1852071.png" src="../_images/d04feb3c702f0eb98017b489becfe3f9137282d08a2ec6c7deb5c000e1852071.png" />
+<img alt="../_images/b0f7b5df1a402a44485c00da1ed4e7325a706bab31dfcdb37f610f21fd0e764b.png" src="../_images/b0f7b5df1a402a44485c00da1ed4e7325a706bab31dfcdb37f610f21fd0e764b.png" />
 </div>
 </div>
 </section>
@@ -763,7 +777,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 2000x600 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/e251004b5d6ec2f09186c3df8cf4cf01aea7b41aab95662f855d0c898c4bb2ab.png" src="../_images/e251004b5d6ec2f09186c3df8cf4cf01aea7b41aab95662f855d0c898c4bb2ab.png" />
+<img alt="../_images/22866113cd23f93447d87192edafc70025805cb97559f8d947a0691be3c416f8.png" src="../_images/22866113cd23f93447d87192edafc70025805cb97559f8d947a0691be3c416f8.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -806,24 +820,6 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="../tutorial/06_robustness.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Robustness and Sensitivity Checks</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="observational_data.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Observational Data</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -867,7 +863,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
   <div class="footer-item">
     
 <p class="component-author">
-By The Jupyter Book community
+By Daniel Meier, Theresa Blümlein, Michael Mayer, and Patrick Cheridito
 </p>
 
   </div>
