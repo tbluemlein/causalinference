@@ -363,3 +363,34 @@ def get_pdp_speed(model, X_data, feature_name):
     return labels, effects
 
 
+def encode_categorical_for_causal_forest(df, columns, drop_first=True):
+    """Encode categorical variables for CausalForestDML compatibility.
+    
+    This function ensures categorical variables are properly one-hot encoded
+    as numeric factors that work with sklearn models used by CausalForestDML.
+    
+    Args:
+        df: DataFrame containing the columns to encode
+        columns: List of column names to encode (can be string or list)
+        drop_first: Whether to drop the first category to avoid multicollinearity
+        
+    Returns:
+        DataFrame with one-hot encoded categorical variables (all numeric dtypes)
+    """
+    if isinstance(columns, str):
+        columns = [columns]
+    
+    # Filter to only columns that exist in dataframe
+    available_cols = [col for col in columns if col in df.columns]
+    if not available_cols:
+        raise ValueError(f"None of the specified columns {columns} found in dataframe")
+    
+    # One-hot encode categorical columns
+    encoded = pd.get_dummies(df[available_cols], drop_first=drop_first, dtype=float)
+    
+    # Ensure all columns are numeric (float64) for sklearn compatibility
+    encoded = encoded.astype(float)
+    
+    return encoded
+
+
