@@ -15,4 +15,5 @@ scipy
 sympy
 teachbooks == 0.2.2
 sphinx-inline-tabs
+sphinx-proof
 teachbooks-sphinx-grasple

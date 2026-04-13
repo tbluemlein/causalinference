@@ -18,7 +18,7 @@ parts:
       - file: tutorial/3_inference.md
         sections: 
           - file: tutorial/3_1_propensity.md
-          - file: tutorial/3_3_2SLS.md
+          - file: tutorial/3_2_Regression_Approaches.md
       - file: tutorial/4_ML.md
         sections: 
           - file: tutorial/4_1_causal_tree.md
