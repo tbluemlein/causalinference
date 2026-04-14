@@ -83,6 +83,10 @@ $$
 $$
 
 
-## Collider Bias
+## Biases and Mitigation Strategies
 
-## Selection Bias
+### Collider Bias
+
+### Selection Bias
+
+### Mitigation Strategies 
