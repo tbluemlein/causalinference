@@ -1,0 +1,1108 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Possible Biases and Mitigation Strategies &#8212; Causal Inference Tutorial</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/thebe.css?v=9bca0c2f" />
+    <link rel="stylesheet" type="text/css" href="../_static/code.css?v=1719a5f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/dark_mode_widget.css?v=7446dea4" />
+    <link rel="stylesheet" type="text/css" href="../_static/thebe-button-patch.css?v=e3482d12" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>let thebePythonReady = 'Python interaction ready!';</script>
+    <script>let thebeRunningCells = 'Running pre-initialized cells...';</script>
+    <script>let thebeLoadingThebe = 'Loading Thebe...';</script>
+    <script>let thebeWaitingForPackages = 'Waiting for packages to load...';</script>
+    <script>let thebeLaunchingPyodide = 'Launching Pyodide kernel';</script>
+    <script>let thebeInitializingThebe = 'Initializing Thebe';</script>
+    <script>let thebeDeleteCell = 'delete cell';</script>
+    <script>let thebeDeleteThisCell = 'delete this cell';</script>
+    <script>let thebeClear = 'clear';</script>
+    <script>let thebeClearOutput = 'clear the output of the cell';</script>
+    <script>let thebeAddCell = 'add cell';</script>
+    <script>let thebeAddNewCell = 'adds a new cell underneath';</script>
+    <script>let thebeLaunchingBinder = 'Launching from mybinder.org';</script>
+    <script>let thebeLoadingCDN = 'Loading thebe from CDN...';</script>
+    <script>let thebeRun = 'run';</script>
+    <script>let thebeRunCell = 'run this cell';</script>
+    <script>let thebeRunAll = 'run all';</script>
+    <script>let thebeRunAllCells = 'run all cells';</script>
+    <script>let thebeRestartRun = 'restart & run all';</script>
+    <script>let thebeRestartRunCells = 'restart the kernel and run all cells';</script>
+    <script>let thebeLiveCode = 'Live Code';</script>
+    <script>let thebeLaunchThebe = 'Launch Thebe';</script>
+    <script src="../_static/sphinx-thebe-i18n.js?v=ea266e56"></script>
+    <script defer="defer" src="../_static/refresh.js?v=9bea9b76"></script>
+    <script>const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script defer="defer" src="../_static/sphinx-thebe-lite.js?v=93e2d225"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>let thebePythonReady = 'Python interaction ready!';</script>
+    <script>let thebeRunningCells = 'Running pre-initialized cells...';</script>
+    <script>let thebeLoadingThebe = 'Loading Thebe...';</script>
+    <script>let thebeWaitingForPackages = 'Waiting for packages to load...';</script>
+    <script>let thebeLaunchingPyodide = 'Launching Pyodide kernel';</script>
+    <script>let thebeInitializingThebe = 'Initializing Thebe';</script>
+    <script>let thebeDeleteCell = 'delete cell';</script>
+    <script>let thebeDeleteThisCell = 'delete this cell';</script>
+    <script>let thebeClear = 'clear';</script>
+    <script>let thebeClearOutput = 'clear the output of the cell';</script>
+    <script>let thebeAddCell = 'add cell';</script>
+    <script>let thebeAddNewCell = 'adds a new cell underneath';</script>
+    <script>let thebeLaunchingBinder = 'Launching from mybinder.org';</script>
+    <script>let thebeLoadingCDN = 'Loading thebe from CDN...';</script>
+    <script>let thebeRun = 'run';</script>
+    <script>let thebeRunCell = 'run this cell';</script>
+    <script>let thebeRunAll = 'run all';</script>
+    <script>let thebeRunAllCells = 'run all cells';</script>
+    <script>let thebeRestartRun = 'restart & run all';</script>
+    <script>let thebeRestartRunCells = 'restart the kernel and run all cells';</script>
+    <script>let thebeLiveCode = 'Live Code';</script>
+    <script>let thebeLaunchThebe = 'Launch Thebe';</script>
+    <script>const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = `pre.mermaid {
+    /* Same as .mermaid-container > pre */
+    display: block;
+    width: 100%;
+}
+
+pre.mermaid > svg {
+    /* Same as .mermaid-container > pre > svg */
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}`;
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = `.mermaid-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.mermaid-container > pre {
+    display: block;
+    width: 100%;
+}
+
+.mermaid-container > pre > svg {
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}
+
+.mermaid-fullscreen-btn {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    color: #333;
+}
+
+.mermaid-fullscreen-btn:hover {
+    opacity: 100% !important;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-btn.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-btn.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal {
+    display: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 95vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 9999;
+    padding: 20px;
+    overflow: auto;
+}
+
+.mermaid-fullscreen-modal.dark-theme {
+    background: rgba(0, 0, 0, 0.98);
+}
+
+.mermaid-fullscreen-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen {
+    position: relative;
+    width: 95vw;
+    height: 90vh;
+    max-width: 95vw;
+    max-height: 90vh;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen.dark-theme {
+    background: #1a1a1a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+.mermaid-container-fullscreen pre.mermaid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen .mermaid svg {
+    height: 100% !important;
+    width: 100% !important;
+    cursor: grab;
+}
+
+.mermaid-fullscreen-close {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+    font-size: 24px;
+    line-height: 1;
+    color: #333;
+}
+
+.mermaid-fullscreen-close:hover {
+    background: white;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-close.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-close.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
+    display: none !important;
+}`;
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        all_mermaids.forEach((el) => {
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+        await mermaid.run();
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
+
+    if ("False" === "True") {
+        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("");
+            if(all_mermaids.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else if(svgs.size() !== mermaids_to_add_zoom) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else {
+                svgs.each(function() {
+                    var svg = d3.select(this);
+                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+                    var inner = svg.select("g");
+                    var zoom = d3.zoom().on("zoom", function(event) {
+                        inner.attr("transform", event.transform);
+                    });
+                    svg.call(zoom);
+                });
+            }
+        }
+    } else if(all_mermaids.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if ("True" !== "True") return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = '⛶';
+        fullscreenBtn.style.opacity = '50%';
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scroll, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.sdisplay = 'block';
+
+                if ("False" === "True") {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+const load = async () => {
+    initStyles();
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...JSON.parse(
+                    `{"startOnLoad": false}`
+                ),
+                ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...JSON.parse(
+        `{"startOnLoad": false}`
+    ),
+    ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/2_3_debias';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Causal Inference" href="3_inference.html" />
+    <link rel="prev" title="Graphical Causal Models" href="2_2_graphical_models.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Causal Inference Tutorial - Home"/>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Causal Inference Tutorial - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    Causal Inference Tutorial
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1_concepts.html">Concepts of Causal Inference</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="2_identification.html">Identification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="2_1_assumptions.html">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_graphical_models.html">Graphical Causal Models</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Possible Biases and Mitigation Strategies</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="3_inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_1_propensity.html">Propensity Score Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_2_Regression_Approaches.html">Regression Approaches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_3_causal_tree.html">Causal Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_4_causal_forest.html">Causal Forests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_5_bayesian.html">Bayesian Causal Inference</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="4_sensitivity.html">Sensitivity Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Actuarial Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../application/observational_data.html">Observational Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application/traffic_study.html">Traffic Case Study</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application/health_interventions.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../papers/references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorial/2_3_debias.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Possible Biases and Mitigation Strategies</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confounding-bias">Confounding Bias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selection-bias">Selection Bias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collider-bias">Collider Bias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#positivity-violations-and-extreme-weights">Positivity Violations and Extreme Weights</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interference-and-spillover">Interference and Spillover</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-biasassumptionmitigation-map">Summary: Bias–Assumption–Mitigation Map</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="possible-biases-and-mitigation-strategies">
+<h1>Possible Biases and Mitigation Strategies<a class="headerlink" href="#possible-biases-and-mitigation-strategies" title="Link to this heading">#</a></h1>
+<p>When the causal assumptions from <a class="reference internal" href="2_1_assumptions.html#consistency">Assumption 1</a>, <a class="reference internal" href="2_1_assumptions.html#sutva">Assumption 2</a>, <a class="reference internal" href="2_1_assumptions.html#positivity">Assumption 3</a>, or <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a> are violated, the resulting treatment effect estimates are <strong>biased</strong>. This chapter catalogues the major biases that arise in observational causal inference and the strategies to mitigate them.</p>
+<section id="confounding-bias">
+<h2>Confounding Bias<a class="headerlink" href="#confounding-bias" title="Link to this heading">#</a></h2>
+<div class="proof definition admonition" id="confounding-bias">
+<p class="admonition-title"><span class="caption-number">Definition 9 </span> (Confounding Bias)</p>
+<section class="definition-content" id="proof-content">
+<p><strong>Confounding bias</strong> occurs when a variable <span class="math notranslate nohighlight">\(C\)</span> causally influences both the treatment <span class="math notranslate nohighlight">\(T\)</span> and the outcome <span class="math notranslate nohighlight">\(Y\)</span>, and the analysis fails to adjust for <span class="math notranslate nohighlight">\(C\)</span>. The observed association between <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> then conflates the causal effect with the spurious association through <span class="math notranslate nohighlight">\(C\)</span>.</p>
+</section>
+</div><pre  class="mermaid">
+        graph TD
+    C[&quot;C (Confounder)&quot;] --&gt; T
+    C --&gt; Y
+    T --&gt; Y
+    style C fill:#e74c3c,color:#fff
+    </pre><p>Confounding violates <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a>. The bias takes the form:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}[Y \mid T=1] - \mathbb{E}[Y \mid T=0] = \underbrace{\mathbb{E}[Y(1) - Y(0)]}_{\text{ATE}} + \underbrace{\mathbb{E}[Y(0) \mid T=1] - \mathbb{E}[Y(0) \mid T=0]}_{\text{confounding bias (baseline difference)}}
+\]</div>
+<p><strong>Mitigation strategies:</strong></p>
+<ul class="simple">
+<li><p><strong>Regression adjustment:</strong> Include confounders <span class="math notranslate nohighlight">\(C\)</span> as covariates in the outcome model (<a class="reference external" href="https://doi.org/10.1016/C2011-0-05506-1">Wooldridge, 2012</a>).</p></li>
+<li><p><strong>Propensity score methods:</strong> Matching, stratification, or inverse-probability weighting on the propensity score <span class="math notranslate nohighlight">\(\pi(x) = P(T=1 \mid X=x)\)</span> (<a class="reference external" href="https://doi.org/10.1093/biomet/70.1.41">Rosenbaum &amp; Rubin, 1983</a>; <a class="reference external" href="https://doi.org/10.1080/00273171.2011.568786">Austin, 2011</a>).</p></li>
+<li><p><strong>Doubly robust estimation:</strong> Combines outcome modelling and propensity weighting; consistent if <em>either</em> model is correctly specified.</p></li>
+<li><p><strong>Instrumental variables:</strong> When unmeasured confounders exist, an instrument <span class="math notranslate nohighlight">\(Z\)</span> that affects <span class="math notranslate nohighlight">\(T\)</span> but not <span class="math notranslate nohighlight">\(Y\)</span> directly can identify the causal effect (<a class="reference external" href="https://doi.org/10.2307/j.ctt5vhbqm">Angrist &amp; Pischke, 2015</a>).</p></li>
+</ul>
+</section>
+<section id="selection-bias">
+<h2>Selection Bias<a class="headerlink" href="#selection-bias" title="Link to this heading">#</a></h2>
+<div class="proof definition admonition" id="selection-bias">
+<p class="admonition-title"><span class="caption-number">Definition 10 </span> (Selection Bias)</p>
+<section class="definition-content" id="proof-content">
+<p><strong>Selection bias</strong> arises when the sample analysed is not representative of the target population, because the selection into the sample depends on variables related to both <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+</section>
+</div><p>Selection bias can occur at study entry (differential enrolment), during follow-up (differential attrition/censoring), or through post-treatment conditioning. It violates <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a> at the population level even if within-sample adjustment is performed.</p>
+<p><strong>Mitigation strategies:</strong></p>
+<ul class="simple">
+<li><p><strong>Inverse-probability-of-censoring weighting (IPCW):</strong> Re-weight observed individuals to represent the target population.</p></li>
+<li><p><strong>Sensitivity analysis:</strong> Bound the impact of selection on the estimated effect.</p></li>
+<li><p><strong>Careful study design:</strong> Define inclusion/exclusion criteria that do not condition on post-treatment variables.</p></li>
+</ul>
+</section>
+<section id="collider-bias">
+<h2>Collider Bias<a class="headerlink" href="#collider-bias" title="Link to this heading">#</a></h2>
+<div class="proof definition admonition" id="collider-bias-def">
+<p class="admonition-title"><span class="caption-number">Definition 11 </span> (Collider Bias)</p>
+<section class="definition-content" id="proof-content">
+<p><strong>Collider bias</strong> (Berkson’s paradox) occurs when the analysis conditions on a <strong>collider</strong> — a variable <span class="math notranslate nohighlight">\(S\)</span> that is a common effect of <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> (or their descendants). Conditioning on <span class="math notranslate nohighlight">\(S\)</span> opens a non-causal path between <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, inducing a spurious association.</p>
+</section>
+</div><pre  class="mermaid">
+        graph TD
+    T --&gt; S[&quot;S (Collider)&quot;]
+    Y --&gt; S
+    T --&gt; Y
+    style S fill:#9b59b6,color:#fff
+    </pre><p>Collider bias does not violate the standard causal assumptions <em>per se</em>, but results from <strong>incorrect adjustment</strong> — conditioning on a variable that should not be conditioned on. In insurance, this can arise when analysing claims conditional on whether a claim was filed (since filing depends on both the treatment and the outcome severity).</p>
+<p><strong>Mitigation strategies:</strong></p>
+<ul class="simple">
+<li><p><strong>Do not condition on post-treatment variables</strong> or descendants of colliders.</p></li>
+<li><p><strong>Use DAGs</strong> to identify colliders before selecting the adjustment set (see <a class="reference internal" href="2_2_graphical_models.html#backdoor-criterion">Criterion 1</a>).</p></li>
+<li><p><strong>Sensitivity analysis</strong> for potential collider bias when the adjustment set is uncertain.</p></li>
+</ul>
+</section>
+<section id="positivity-violations-and-extreme-weights">
+<h2>Positivity Violations and Extreme Weights<a class="headerlink" href="#positivity-violations-and-extreme-weights" title="Link to this heading">#</a></h2>
+<p>When <a class="reference internal" href="2_1_assumptions.html#positivity">Assumption 3</a> is violated, propensity score weights <span class="math notranslate nohighlight">\(w = 1/\hat{\pi}(x)\)</span> or <span class="math notranslate nohighlight">\(w = 1/(1 - \hat{\pi}(x))\)</span> become extreme, leading to <strong>high-variance, unstable estimates</strong>.</p>
+<p><strong>Mitigation strategies:</strong></p>
+<ul class="simple">
+<li><p><strong>Trimming:</strong> Remove units with propensity scores below <span class="math notranslate nohighlight">\(\varepsilon\)</span> or above <span class="math notranslate nohighlight">\(1 - \varepsilon\)</span> (e.g. <span class="math notranslate nohighlight">\(\varepsilon = 0.05\)</span>). This changes the estimand to a <em>trimmed</em> population ATE.</p></li>
+<li><p><strong>Weight truncation/stabilisation:</strong> Cap weights at a percentile (e.g. 99th) or use stabilised weights <span class="math notranslate nohighlight">\(w^s = P(T=t) / P(T=t \mid X)\)</span> (<a class="reference external" href="https://doi.org/10.1080/00273171.2011.568786">Austin, 2011</a>).</p></li>
+<li><p><strong>Overlap weighting:</strong> Use weights proportional to <span class="math notranslate nohighlight">\(\pi(x)(1-\pi(x))\)</span>, which naturally down-weight units in regions of poor overlap.</p></li>
+<li><p><strong>Redefine the target population:</strong> Restrict to the overlap population where both treatments are plausible.</p></li>
+</ul>
+</section>
+<section id="interference-and-spillover">
+<h2>Interference and Spillover<a class="headerlink" href="#interference-and-spillover" title="Link to this heading">#</a></h2>
+<p>When <a class="reference internal" href="2_1_assumptions.html#sutva">Assumption 2</a> is violated because one unit’s treatment affects another’s outcome, standard estimators are biased.</p>
+<p><strong>Mitigation strategies:</strong></p>
+<ul class="simple">
+<li><p><strong>Cluster-level treatment assignment:</strong> Assign treatment at the group level and analyse at the cluster level.</p></li>
+<li><p><strong>Partial interference models:</strong> Assume interference occurs only within known clusters (e.g. households, employer groups).</p></li>
+<li><p><strong>Spatial/network models:</strong> Explicitly model the dependence structure if interference follows a known network.</p></li>
+</ul>
+</section>
+<section id="summary-biasassumptionmitigation-map">
+<h2>Summary: Bias–Assumption–Mitigation Map<a class="headerlink" href="#summary-biasassumptionmitigation-map" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Bias</p></th>
+<th class="head"><p>Violated Assumption</p></th>
+<th class="head"><p>Primary Mitigation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Confounding</p></td>
+<td><p>Exchangeability</p></td>
+<td><p>Regression, propensity scores, IV</p></td>
+</tr>
+<tr class="row-odd"><td><p>Selection bias</p></td>
+<td><p>Exchangeability (population level)</p></td>
+<td><p>IPCW, study design</p></td>
+</tr>
+<tr class="row-even"><td><p>Collider bias</p></td>
+<td><p>Incorrect adjustment</p></td>
+<td><p>DAG-guided variable selection</p></td>
+</tr>
+<tr class="row-odd"><td><p>Extreme weights</p></td>
+<td><p>Positivity</p></td>
+<td><p>Trimming, overlap weighting</p></td>
+</tr>
+<tr class="row-even"><td><p>Spillover/interference</p></td>
+<td><p>SUTVA</p></td>
+<td><p>Cluster randomisation, network models</p></td>
+</tr>
+<tr class="row-odd"><td><p>Treatment ambiguity</p></td>
+<td><p>Consistency</p></td>
+<td><p>Precise treatment definition</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+        <script type="text/x-thebe-config">
+        {
+            "rootPath": "..",
+            "requestKernel": true,
+            "useJupyterLite": true,
+            "useBinder": false,
+            "kernelOptions": {
+                "path": "/"
+            },
+            "codeMirrorConfig": {
+                "theme": "default",
+                "mode": "python"
+            },
+            "mountRestartButton": false,
+            "mountRestartallButton": false
+        }
+        </script>
+        <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2_2_graphical_models.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Graphical Causal Models</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="3_inference.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Causal Inference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confounding-bias">Confounding Bias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selection-bias">Selection Bias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collider-bias">Collider Bias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#positivity-violations-and-extreme-weights">Positivity Violations and Extreme Weights</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interference-and-spillover">Interference and Spillover</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-biasassumptionmitigation-map">Summary: Bias–Assumption–Mitigation Map</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Daniel Meier, Theresa Blümlein, Michael Mayer, and Patrick Cheridito
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

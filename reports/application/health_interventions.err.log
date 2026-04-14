@@ -1,0 +1,90 @@
+Traceback (most recent call last):
+  File "/Users/tbluemlein/Documents/Projekte/SAV/causalinference/causal_venv/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/Users/tbluemlein/Documents/Projekte/SAV/causalinference/causal_venv/lib/python3.12/site-packages/nbclient/client.py", line 1323, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tbluemlein/Documents/Projekte/SAV/causalinference/causal_venv/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tbluemlein/.pyenv/versions/3.12.13/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/tbluemlein/Documents/Projekte/SAV/causalinference/causal_venv/lib/python3.12/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/Users/tbluemlein/Documents/Projekte/SAV/causalinference/causal_venv/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/tbluemlein/Documents/Projekte/SAV/causalinference/causal_venv/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Import LightGBM for modeling
+import lightgbm as lgb
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_auc_score, classification_report
+
+print("=== ADDING TREATMENT VARIABLES TO SYNTHETIC DATASET ===")
+
+# Step 1: Create intent to treat (itt) - randomly assign 80% 
+np.random.seed(2)  # Set seed for reproducible itt assignment
+itt_synth = np.random.binomial(1, 0.8, n_synthetic)
+
+print(f"Step 1 - Intent to treat assignment:")
+print(f"itt=1: {itt_synth.sum():,} individuals ({itt_synth.mean():.1%})")
+print(f"itt=0: {(itt_synth==0).sum():,} individuals ({(itt_synth==0).mean():.1%})")
+
+# Add itt to synthetic dataset
+df_synthetic['itt'] = itt_synth
+
+print(f"\nUpdated df_synthetic shape: {df_synthetic.shape}")
+------------------
+
+
+[31m---------------------------------------------------------------------------[39m
+[31mOSError[39m                                   Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[10][39m[32m, line 2[39m
+[32m      1[39m [38;5;66;03m# Import LightGBM for modeling[39;00m
+[32m----> [39m[32m2[39m [38;5;28;01mimport[39;00m lightgbm [38;5;28;01mas[39;00m lgb
+[32m      3[39m [38;5;28;01mfrom[39;00m sklearn.model_selection [38;5;28;01mimport[39;00m train_test_split
+[32m      4[39m [38;5;28;01mfrom[39;00m sklearn.metrics [38;5;28;01mimport[39;00m roc_auc_score, classification_report
+[32m      5[39m 
+
+[36mFile [39m[32m~/Documents/Projekte/SAV/causalinference/causal_venv/lib/python3.12/site-packages/lightgbm/__init__.py:11[39m
+[32m      7[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mpathlib[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m Path
+[32m      9[39m [38;5;66;03m# .basic is intentionally loaded as early as possible, to dlopen() lib_lightgbm.{dll,dylib,so}[39;00m
+[32m     10[39m [38;5;66;03m# and its dependencies as early as possible[39;00m
+[32m---> [39m[32m11[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01m.[39;00m[34;01mbasic[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m Booster, Dataset, Sequence, register_logger
+[32m     12[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01m.[39;00m[34;01mcallback[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m EarlyStopException, early_stopping, log_evaluation, record_evaluation, reset_parameter
+[32m     13[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01m.[39;00m[34;01mengine[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m CVBooster, cv, train
+
+[36mFile [39m[32m~/Documents/Projekte/SAV/causalinference/causal_venv/lib/python3.12/site-packages/lightgbm/basic.py:9[39m
+[32m      2[39m [33;03m"""Wrapper for C API of LightGBM."""[39;00m
+[32m      4[39m [38;5;66;03m# This import causes lib_lightgbm.{dll,dylib,so} to be loaded.[39;00m
+[32m      5[39m [38;5;66;03m# It's intentionally done here, as early as possible, to avoid issues like[39;00m
+[32m      6[39m [38;5;66;03m# "libgomp.so.1: cannot allocate memory in static TLS block" on aarch64 Linux.[39;00m
+[32m      7[39m [38;5;66;03m#[39;00m
+[32m      8[39m [38;5;66;03m# For details, see the "cannot allocate memory in static TLS block" entry in docs/FAQ.rst.[39;00m
+[32m----> [39m[32m9[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01m.[39;00m[34;01mlibpath[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m _LIB  [38;5;66;03m# isort: skip[39;00m
+[32m     11[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mabc[39;00m
+[32m     12[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mctypes[39;00m
+
+[36mFile [39m[32m~/Documents/Projekte/SAV/causalinference/causal_venv/lib/python3.12/site-packages/lightgbm/libpath.py:49[39m
+[32m     47[39m     _LIB = Mock(ctypes.CDLL)  [38;5;66;03m# type: ignore[39;00m
+[32m     48[39m [38;5;28;01melse[39;00m:
+[32m---> [39m[32m49[39m     _LIB = [43mctypes[49m[43m.[49m[43mcdll[49m[43m.[49m[43mLoadLibrary[49m[43m([49m[43m_find_lib_path[49m[43m([49m[43m)[49m[43m[[49m[32;43m0[39;49m[43m][49m[43m)[49m
+
+[36mFile [39m[32m~/.pyenv/versions/3.12.13/lib/python3.12/ctypes/__init__.py:460[39m, in [36mLibraryLoader.LoadLibrary[39m[34m(self, name)[39m
+[32m    459[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mLoadLibrary[39m([38;5;28mself[39m, name):
+[32m--> [39m[32m460[39m     [38;5;28;01mreturn[39;00m [38;5;28;43mself[39;49m[43m.[49m[43m_dlltype[49m[43m([49m[43mname[49m[43m)[49m
+
+[36mFile [39m[32m~/.pyenv/versions/3.12.13/lib/python3.12/ctypes/__init__.py:379[39m, in [36mCDLL.__init__[39m[34m(self, name, mode, handle, use_errno, use_last_error, winmode)[39m
+[32m    376[39m [38;5;28mself[39m._FuncPtr = _FuncPtr
+[32m    378[39m [38;5;28;01mif[39;00m handle [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[32m--> [39m[32m379[39m     [38;5;28mself[39m._handle = [43m_dlopen[49m[43m([49m[38;5;28;43mself[39;49m[43m.[49m[43m_name[49m[43m,[49m[43m [49m[43mmode[49m[43m)[49m
+[32m    380[39m [38;5;28;01melse[39;00m:
+[32m    381[39m     [38;5;28mself[39m._handle = handle
+
+[31mOSError[39m: dlopen(/Users/tbluemlein/Documents/Projekte/SAV/causalinference/causal_venv/lib/python3.12/site-packages/lightgbm/lib/lib_lightgbm.dylib, 0x0006): Library not loaded: @rpath/libomp.dylib
+  Referenced from: <D44045CD-B874-3A27-9A61-F131D99AACE4> /Users/tbluemlein/Documents/Projekte/SAV/causalinference/causal_venv/lib/python3.12/site-packages/lightgbm/lib/lib_lightgbm.dylib
+  Reason: tried: '/opt/homebrew/opt/libomp/lib/libomp.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/opt/homebrew/opt/libomp/lib/libomp.dylib' (no such file), '/opt/local/lib/libomp/libomp.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/opt/local/lib/libomp/libomp.dylib' (no such file), '/opt/homebrew/opt/libomp/lib/libomp.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/opt/homebrew/opt/libomp/lib/libomp.dylib' (no such file), '/opt/local/lib/libomp/libomp.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/opt/local/lib/libomp/libomp.dylib' (no such file), '/Users/tbluemlein/.pyenv/versions/3.12.13/lib/libomp.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Users/tbluemlein/.pyenv/versions/3.12.13/lib/libomp.dylib' (no such file), '/opt/homebrew/lib/libomp.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/opt/homebrew/lib/libomp.dylib' (no such file), '/Users/tbluemlein/.pyenv/versions/3.12.13/lib/libomp.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Users/tbluemlein/.pyenv/versions/3.12.13/lib/libomp.dylib' (no such file), '/opt/homebrew/lib/libomp.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/opt/homebrew/lib/libomp.dylib' (no such file)
+

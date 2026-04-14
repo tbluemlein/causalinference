@@ -1,0 +1,1424 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Graphical Causal Models &#8212; Causal Inference Tutorial</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/thebe.css?v=9bca0c2f" />
+    <link rel="stylesheet" type="text/css" href="../_static/code.css?v=1719a5f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/dark_mode_widget.css?v=7446dea4" />
+    <link rel="stylesheet" type="text/css" href="../_static/thebe-button-patch.css?v=e3482d12" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>let thebePythonReady = 'Python interaction ready!';</script>
+    <script>let thebeRunningCells = 'Running pre-initialized cells...';</script>
+    <script>let thebeLoadingThebe = 'Loading Thebe...';</script>
+    <script>let thebeWaitingForPackages = 'Waiting for packages to load...';</script>
+    <script>let thebeLaunchingPyodide = 'Launching Pyodide kernel';</script>
+    <script>let thebeInitializingThebe = 'Initializing Thebe';</script>
+    <script>let thebeDeleteCell = 'delete cell';</script>
+    <script>let thebeDeleteThisCell = 'delete this cell';</script>
+    <script>let thebeClear = 'clear';</script>
+    <script>let thebeClearOutput = 'clear the output of the cell';</script>
+    <script>let thebeAddCell = 'add cell';</script>
+    <script>let thebeAddNewCell = 'adds a new cell underneath';</script>
+    <script>let thebeLaunchingBinder = 'Launching from mybinder.org';</script>
+    <script>let thebeLoadingCDN = 'Loading thebe from CDN...';</script>
+    <script>let thebeRun = 'run';</script>
+    <script>let thebeRunCell = 'run this cell';</script>
+    <script>let thebeRunAll = 'run all';</script>
+    <script>let thebeRunAllCells = 'run all cells';</script>
+    <script>let thebeRestartRun = 'restart & run all';</script>
+    <script>let thebeRestartRunCells = 'restart the kernel and run all cells';</script>
+    <script>let thebeLiveCode = 'Live Code';</script>
+    <script>let thebeLaunchThebe = 'Launch Thebe';</script>
+    <script src="../_static/sphinx-thebe-i18n.js?v=ea266e56"></script>
+    <script defer="defer" src="../_static/refresh.js?v=9bea9b76"></script>
+    <script>const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script defer="defer" src="../_static/sphinx-thebe-lite.js?v=93e2d225"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>let thebePythonReady = 'Python interaction ready!';</script>
+    <script>let thebeRunningCells = 'Running pre-initialized cells...';</script>
+    <script>let thebeLoadingThebe = 'Loading Thebe...';</script>
+    <script>let thebeWaitingForPackages = 'Waiting for packages to load...';</script>
+    <script>let thebeLaunchingPyodide = 'Launching Pyodide kernel';</script>
+    <script>let thebeInitializingThebe = 'Initializing Thebe';</script>
+    <script>let thebeDeleteCell = 'delete cell';</script>
+    <script>let thebeDeleteThisCell = 'delete this cell';</script>
+    <script>let thebeClear = 'clear';</script>
+    <script>let thebeClearOutput = 'clear the output of the cell';</script>
+    <script>let thebeAddCell = 'add cell';</script>
+    <script>let thebeAddNewCell = 'adds a new cell underneath';</script>
+    <script>let thebeLaunchingBinder = 'Launching from mybinder.org';</script>
+    <script>let thebeLoadingCDN = 'Loading thebe from CDN...';</script>
+    <script>let thebeRun = 'run';</script>
+    <script>let thebeRunCell = 'run this cell';</script>
+    <script>let thebeRunAll = 'run all';</script>
+    <script>let thebeRunAllCells = 'run all cells';</script>
+    <script>let thebeRestartRun = 'restart & run all';</script>
+    <script>let thebeRestartRunCells = 'restart the kernel and run all cells';</script>
+    <script>let thebeLiveCode = 'Live Code';</script>
+    <script>let thebeLaunchThebe = 'Launch Thebe';</script>
+    <script>const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = `pre.mermaid {
+    /* Same as .mermaid-container > pre */
+    display: block;
+    width: 100%;
+}
+
+pre.mermaid > svg {
+    /* Same as .mermaid-container > pre > svg */
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}`;
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = `.mermaid-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.mermaid-container > pre {
+    display: block;
+    width: 100%;
+}
+
+.mermaid-container > pre > svg {
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}
+
+.mermaid-fullscreen-btn {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    color: #333;
+}
+
+.mermaid-fullscreen-btn:hover {
+    opacity: 100% !important;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-btn.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-btn.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal {
+    display: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 95vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 9999;
+    padding: 20px;
+    overflow: auto;
+}
+
+.mermaid-fullscreen-modal.dark-theme {
+    background: rgba(0, 0, 0, 0.98);
+}
+
+.mermaid-fullscreen-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen {
+    position: relative;
+    width: 95vw;
+    height: 90vh;
+    max-width: 95vw;
+    max-height: 90vh;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen.dark-theme {
+    background: #1a1a1a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+.mermaid-container-fullscreen pre.mermaid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen .mermaid svg {
+    height: 100% !important;
+    width: 100% !important;
+    cursor: grab;
+}
+
+.mermaid-fullscreen-close {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+    font-size: 24px;
+    line-height: 1;
+    color: #333;
+}
+
+.mermaid-fullscreen-close:hover {
+    background: white;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-close.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-close.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
+    display: none !important;
+}`;
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        all_mermaids.forEach((el) => {
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+        await mermaid.run();
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
+
+    if ("False" === "True") {
+        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("");
+            if(all_mermaids.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else if(svgs.size() !== mermaids_to_add_zoom) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else {
+                svgs.each(function() {
+                    var svg = d3.select(this);
+                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+                    var inner = svg.select("g");
+                    var zoom = d3.zoom().on("zoom", function(event) {
+                        inner.attr("transform", event.transform);
+                    });
+                    svg.call(zoom);
+                });
+            }
+        }
+    } else if(all_mermaids.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if ("True" !== "True") return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = '⛶';
+        fullscreenBtn.style.opacity = '50%';
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scroll, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.sdisplay = 'block';
+
+                if ("False" === "True") {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+const load = async () => {
+    initStyles();
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...JSON.parse(
+                    `{"startOnLoad": false}`
+                ),
+                ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...JSON.parse(
+        `{"startOnLoad": false}`
+    ),
+    ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/2_2_graphical_models';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Possible Biases and Mitigation Strategies" href="2_3_debias.html" />
+    <link rel="prev" title="Assumptions" href="2_1_assumptions.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Causal Inference Tutorial - Home"/>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Causal Inference Tutorial - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    Causal Inference Tutorial
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1_concepts.html">Concepts of Causal Inference</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="2_identification.html">Identification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="2_1_assumptions.html">Assumptions</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Graphical Causal Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_debias.html">Possible Biases and Mitigation Strategies</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="3_inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_1_propensity.html">Propensity Score Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_2_Regression_Approaches.html">Regression Approaches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_3_causal_tree.html">Causal Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_4_causal_forest.html">Causal Forests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_5_bayesian.html">Bayesian Causal Inference</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="4_sensitivity.html">Sensitivity Analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Actuarial Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../application/observational_data.html">Observational Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application/traffic_study.html">Traffic Case Study</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application/health_interventions.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../papers/references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorial/2_2_graphical_models.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Graphical Causal Models</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#causal-diagrams">Causal Diagrams</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-terminology">Graph Terminology</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#three-fundamental-path-structures">Three Fundamental Path Structures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chains-mediation">Chains (Mediation)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forks-common-cause-confounding">Forks (Common Cause / Confounding)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#colliders-common-effect">Colliders (Common Effect)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-path-structures">Summary of Path Structures</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-separation"><span class="math notranslate nohighlight">\(d\)</span>-Separation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-independence">Conditional Independence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-d-separation-in-practice">Example: <span class="math notranslate nohighlight">\(d\)</span>-Separation in Practice</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-to-identify-the-correct-adjustment-set">Methods to Identify the Correct Adjustment Set</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backdoor-criterion">Backdoor Criterion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frontdoor-criterion">Frontdoor Criterion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-of-criteria">Comparison of Criteria</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#causal-discovery">Causal Discovery</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-equivalence">Markov Equivalence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sgs-algorithm">The SGS Algorithm</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="graphical-causal-models">
+<h1>Graphical Causal Models<a class="headerlink" href="#graphical-causal-models" title="Link to this heading">#</a></h1>
+<p>This chapter introduces <strong>Directed Acyclic Graphs (DAGs)</strong> as the language for encoding causal assumptions. The presentation follows <a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi (2025, Chs. 21–22)</a>, with additional references to <a class="reference external" href="https://doi.org/10.1017/CBO9780511803161">Pearl (2009)</a>. See also the <a class="reference external" href="https://matheusfacure.github.io/python-causality-handbook/04-Graphical-Models.html">Python Causality Handbook (Ch. 4)</a> for an applied introduction.</p>
+<section id="causal-diagrams">
+<h2>Causal Diagrams<a class="headerlink" href="#causal-diagrams" title="Link to this heading">#</a></h2>
+<p>A causal diagram is a graph where <strong>nodes</strong> represent random variables and <strong>directed edges</strong> (<span class="math notranslate nohighlight">\(\rightarrow\)</span>) represent direct causal effects. The absence of an edge encodes the assumption that there is <em>no</em> direct causal effect between two variables.</p>
+<div class="proof definition admonition" id="dag">
+<p class="admonition-title"><span class="caption-number">Definition 1 </span> (Directed Acyclic Graph (DAG))</p>
+<section class="definition-content" id="proof-content">
+<p>A <strong>directed acyclic graph</strong> <span class="math notranslate nohighlight">\(\mathcal{G} = (V, E)\)</span> consists of:</p>
+<ul class="simple">
+<li><p>a finite set of <strong>vertices</strong> (nodes) <span class="math notranslate nohighlight">\(V = \{V_1, V_2, \dots, V_p\}\)</span>, each representing a random variable,</p></li>
+<li><p>a set of <strong>directed edges</strong> <span class="math notranslate nohighlight">\(E \subseteq V \times V\)</span>, where <span class="math notranslate nohighlight">\((V_i, V_j) \in E\)</span> is drawn as <span class="math notranslate nohighlight">\(V_i \rightarrow V_j\)</span>,</p></li>
+</ul>
+<p>subject to the constraint that there are <strong>no directed cycles</strong>: there is no sequence <span class="math notranslate nohighlight">\(V_{i_1} \rightarrow V_{i_2} \rightarrow \cdots \rightarrow V_{i_k} \rightarrow V_{i_1}\)</span>.</p>
+</section>
+</div><p>The acyclicity constraint reflects the assumption that causes precede their effects — no variable can be its own cause through any chain of intermediate variables (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, §21.1</a>).</p>
+<section id="graph-terminology">
+<h3>Graph Terminology<a class="headerlink" href="#graph-terminology" title="Link to this heading">#</a></h3>
+<div class="proof definition admonition" id="graph-family">
+<p class="admonition-title"><span class="caption-number">Definition 2 </span> (Parents, Children, Ancestors, Descendants)</p>
+<section class="definition-content" id="proof-content">
+<p>Given a DAG <span class="math notranslate nohighlight">\(\mathcal{G} = (V, E)\)</span> and a node <span class="math notranslate nohighlight">\(X \in V\)</span>:</p>
+<ul class="simple">
+<li><p><strong>Parents</strong> of <span class="math notranslate nohighlight">\(X\)</span>: <span class="math notranslate nohighlight">\(\text{Pa}(X) = \{Z \in V : Z \rightarrow X \in E\}\)</span></p></li>
+<li><p><strong>Children</strong> of <span class="math notranslate nohighlight">\(X\)</span>: <span class="math notranslate nohighlight">\(\text{Ch}(X) = \{Z \in V : X \rightarrow Z \in E\}\)</span></p></li>
+<li><p><strong>Ancestors</strong> of <span class="math notranslate nohighlight">\(X\)</span>: all nodes <span class="math notranslate nohighlight">\(Z\)</span> such that there exists a directed path <span class="math notranslate nohighlight">\(Z \rightarrow \cdots \rightarrow X\)</span></p></li>
+<li><p><strong>Descendants</strong> of <span class="math notranslate nohighlight">\(X\)</span>: all nodes <span class="math notranslate nohighlight">\(Z\)</span> such that there exists a directed path <span class="math notranslate nohighlight">\(X \rightarrow \cdots \rightarrow Z\)</span></p></li>
+</ul>
+</section>
+</div><pre  class="mermaid">
+        graph LR
+    Z[&quot;Z (Parent)&quot;] --&gt; X
+    X --&gt; W[&quot;W (Child)&quot;]
+    W --&gt; Y[&quot;Y (Descendant of X)&quot;]
+    style X fill:#4a90d9,color:#fff
+    </pre><p>A <strong>path</strong> between two nodes is any sequence of edges connecting them, regardless of direction. A <strong>directed path</strong> follows the arrow directions. A <strong>causal path</strong> from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> is a directed path <span class="math notranslate nohighlight">\(T \rightarrow \cdots \rightarrow Y\)</span>.</p>
+</section>
+</section>
+<section id="three-fundamental-path-structures">
+<h2>Three Fundamental Path Structures<a class="headerlink" href="#three-fundamental-path-structures" title="Link to this heading">#</a></h2>
+<p>Every path through three variables takes one of exactly three forms. Understanding these structures is the key to reasoning about confounding and adjustment (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, §21.2</a>).</p>
+<section id="chains-mediation">
+<h3>Chains (Mediation)<a class="headerlink" href="#chains-mediation" title="Link to this heading">#</a></h3>
+<div class="proof definition admonition" id="chain">
+<p class="admonition-title"><span class="caption-number">Definition 3 </span> (Chain (Mediator))</p>
+<section class="definition-content" id="proof-content">
+<p>A <strong>chain</strong> is a path of the form <span class="math notranslate nohighlight">\(X \rightarrow M \rightarrow Y\)</span>. The variable <span class="math notranslate nohighlight">\(M\)</span> is called a <strong>mediator</strong> — it transmits the causal effect of <span class="math notranslate nohighlight">\(X\)</span> on <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+</section>
+</div><pre  class="mermaid">
+        graph LR
+    X[&quot;X (Cause)&quot;] --&gt; M[&quot;M (Mediator)&quot;] --&gt; Y[&quot;Y (Effect)&quot;]
+    style M fill:#f5a623,color:#fff
+    </pre><p>In a chain, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <strong>marginally dependent</strong> (information flows through <span class="math notranslate nohighlight">\(M\)</span>), but <strong>conditionally independent given <span class="math notranslate nohighlight">\(M\)</span></strong>: once we know <span class="math notranslate nohighlight">\(M\)</span>, learning <span class="math notranslate nohighlight">\(X\)</span> provides no additional information about <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+X \perp\!\!\!\perp Y \mid M \quad \text{(in a chain)}
+\]</div>
+</section>
+<section id="forks-common-cause-confounding">
+<h3>Forks (Common Cause / Confounding)<a class="headerlink" href="#forks-common-cause-confounding" title="Link to this heading">#</a></h3>
+<div class="proof definition admonition" id="fork">
+<p class="admonition-title"><span class="caption-number">Definition 4 </span> (Fork (Common Cause))</p>
+<section class="definition-content" id="proof-content">
+<p>A <strong>fork</strong> is a path of the form <span class="math notranslate nohighlight">\(X \leftarrow Z \rightarrow Y\)</span>. The variable <span class="math notranslate nohighlight">\(Z\)</span> is a <strong>common cause</strong> (confounder) of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+</section>
+</div><pre  class="mermaid">
+        graph TD
+    Z[&quot;Z (Common Cause)&quot;] --&gt; X
+    Z --&gt; Y
+    style Z fill:#e74c3c,color:#fff
+    </pre><p>In a fork, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are marginally dependent (the common cause <span class="math notranslate nohighlight">\(Z\)</span> induces a spurious association), but conditionally independent given <span class="math notranslate nohighlight">\(Z\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+X \perp\!\!\!\perp Y \mid Z \quad \text{(in a fork)}
+\]</div>
+<p>This is the structure that generates <strong>confounding bias</strong>: if <span class="math notranslate nohighlight">\(Z\)</span> is not adjusted for, the association between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> conflates the causal effect with the spurious path through <span class="math notranslate nohighlight">\(Z\)</span>.</p>
+</section>
+<section id="colliders-common-effect">
+<h3>Colliders (Common Effect)<a class="headerlink" href="#colliders-common-effect" title="Link to this heading">#</a></h3>
+<div class="proof definition admonition" id="collider">
+<p class="admonition-title"><span class="caption-number">Definition 5 </span> (Collider)</p>
+<section class="definition-content" id="proof-content">
+<p>A <strong>collider</strong> on a path is a node <span class="math notranslate nohighlight">\(C\)</span> where two arrowheads meet: <span class="math notranslate nohighlight">\(X \rightarrow C \leftarrow Y\)</span>. The variable <span class="math notranslate nohighlight">\(C\)</span> is a <strong>common effect</strong> of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+</section>
+</div><pre  class="mermaid">
+        graph TD
+    X --&gt; C[&quot;C (Collider)&quot;]
+    Y --&gt; C
+    style C fill:#9b59b6,color:#fff
+    </pre><p>Colliders behave <strong>opposite</strong> to chains and forks. In a collider structure, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <strong>marginally independent</strong> — there is no open path connecting them. However, <strong>conditioning on the collider <span class="math notranslate nohighlight">\(C\)</span> (or any descendant of <span class="math notranslate nohighlight">\(C\)</span>) opens the path</strong> and induces a spurious association:</p>
+<div class="math notranslate nohighlight">
+\[
+X \perp\!\!\!\perp Y \quad \text{but} \quad X \not\!\perp\!\!\!\perp Y \mid C \quad \text{(collider)}
+\]</div>
+<p>This is the source of <strong>collider bias</strong> (also called <strong>selection bias</strong> or <strong>Berkson’s paradox</strong>). Adjusting for a collider — or for a descendant of a collider — creates a spurious association where none existed (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, §21.2</a>).</p>
+</section>
+<section id="summary-of-path-structures">
+<h3>Summary of Path Structures<a class="headerlink" href="#summary-of-path-structures" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Structure</p></th>
+<th class="head"><p>Path</p></th>
+<th class="head"><p>Marginal</p></th>
+<th class="head"><p>Conditional on middle node</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Chain</strong> (Mediator)</p></td>
+<td><p><span class="math notranslate nohighlight">\(X \rightarrow M \rightarrow Y\)</span></p></td>
+<td><p>Dependent</p></td>
+<td><p>Independent</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Fork</strong> (Common Cause)</p></td>
+<td><p><span class="math notranslate nohighlight">\(X \leftarrow Z \rightarrow Y\)</span></p></td>
+<td><p>Dependent</p></td>
+<td><p>Independent</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Collider</strong> (Common Effect)</p></td>
+<td><p><span class="math notranslate nohighlight">\(X \rightarrow C \leftarrow Y\)</span></p></td>
+<td><p>Independent</p></td>
+<td><p>Dependent</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="d-separation">
+<h2><span class="math notranslate nohighlight">\(d\)</span>-Separation<a class="headerlink" href="#d-separation" title="Link to this heading">#</a></h2>
+<p>The three path structures above give rise to a general graphical criterion for reading off conditional independencies from a DAG.</p>
+<div class="proof definition admonition" id="blocked-path">
+<p class="admonition-title"><span class="caption-number">Definition 6 </span> (Blocked Path)</p>
+<section class="definition-content" id="proof-content">
+<p>A path <span class="math notranslate nohighlight">\(p\)</span> between nodes <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> in a DAG is <strong>blocked</strong> by a set of nodes <span class="math notranslate nohighlight">\(Z\)</span> if and only if <span class="math notranslate nohighlight">\(p\)</span> contains a node <span class="math notranslate nohighlight">\(W\)</span> such that either:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(W\)</span> is a <strong>non-collider</strong> on <span class="math notranslate nohighlight">\(p\)</span> (i.e. <span class="math notranslate nohighlight">\(W\)</span> is in a chain or fork) <strong>and</strong> <span class="math notranslate nohighlight">\(W \in Z\)</span> (we condition on it), or</p></li>
+<li><p><span class="math notranslate nohighlight">\(W\)</span> is a <strong>collider</strong> on <span class="math notranslate nohighlight">\(p\)</span> <strong>and</strong> neither <span class="math notranslate nohighlight">\(W\)</span> nor any descendant of <span class="math notranslate nohighlight">\(W\)</span> is in <span class="math notranslate nohighlight">\(Z\)</span>.</p></li>
+</ol>
+</section>
+</div><div class="proof definition admonition" id="d-separation">
+<p class="admonition-title"><span class="caption-number">Definition 7 </span> (<span class="math notranslate nohighlight">\(d\)</span>-Separation)</p>
+<section class="definition-content" id="proof-content">
+<p>Two nodes <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <strong><span class="math notranslate nohighlight">\(d\)</span>-separated</strong> by a set <span class="math notranslate nohighlight">\(Z\)</span> in a DAG <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>, written <span class="math notranslate nohighlight">\(X \perp_{\mathcal{G}} Y \mid Z\)</span>, if <strong>every</strong> path between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> is blocked by <span class="math notranslate nohighlight">\(Z\)</span>.</p>
+<p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are not <span class="math notranslate nohighlight">\(d\)</span>-separated by <span class="math notranslate nohighlight">\(Z\)</span>, they are <strong><span class="math notranslate nohighlight">\(d\)</span>-connected</strong> given <span class="math notranslate nohighlight">\(Z\)</span>.</p>
+</section>
+</div><p><span class="math notranslate nohighlight">\(d\)</span>-separation is the graphical analogue of conditional independence. It provides a purely mechanical procedure: to check whether <span class="math notranslate nohighlight">\(X \perp\!\!\!\perp Y \mid Z\)</span>, enumerate all paths between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> and verify that each one is blocked (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, §21.2</a>).</p>
+<section id="conditional-independence">
+<h3>Conditional Independence<a class="headerlink" href="#conditional-independence" title="Link to this heading">#</a></h3>
+<p>The connection between the graphical criterion (<span class="math notranslate nohighlight">\(d\)</span>-separation) and the probabilistic property (conditional independence) is formalised by two properties.</p>
+<div class="proof property admonition" id="causal-markov">
+<p class="admonition-title"><span class="caption-number">Property 1 </span> (Causal Markov Condition)</p>
+<section class="property-content" id="proof-content">
+<p>If a DAG <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> is a causal model for a distribution <span class="math notranslate nohighlight">\(P\)</span>, then every variable <span class="math notranslate nohighlight">\(X\)</span> is conditionally independent of its non-descendants given its parents:</p>
+<div class="math notranslate nohighlight">
+\[
+X \perp\!\!\!\perp \text{NonDesc}(X) \mid \text{Pa}(X)
+\]</div>
+<p>Equivalently: if <span class="math notranslate nohighlight">\(X \perp_{\mathcal{G}} Y \mid Z\)</span> (<span class="math notranslate nohighlight">\(d\)</span>-separation), then <span class="math notranslate nohighlight">\(X \perp\!\!\!\perp Y \mid Z\)</span> (conditional independence in <span class="math notranslate nohighlight">\(P\)</span>).</p>
+</section>
+</div><p>The Causal Markov Condition ensures that <span class="math notranslate nohighlight">\(d\)</span>-separation implies conditional independence. The converse — that every conditional independence in the data corresponds to a <span class="math notranslate nohighlight">\(d\)</span>-separation in the graph — requires an additional assumption.</p>
+<div class="proof assumption admonition" id="faithfulness">
+<p class="admonition-title"><span class="caption-number">Assumption 5 </span> (Faithfulness)</p>
+<section class="assumption-content" id="proof-content">
+<p>A distribution <span class="math notranslate nohighlight">\(P\)</span> is <strong>faithful</strong> to a DAG <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> if the <em>only</em> conditional independencies in <span class="math notranslate nohighlight">\(P\)</span> are those entailed by <span class="math notranslate nohighlight">\(d\)</span>-separation in <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>.</p>
+<p>Equivalently: if <span class="math notranslate nohighlight">\(X \perp\!\!\!\perp Y \mid Z\)</span> in <span class="math notranslate nohighlight">\(P\)</span>, then <span class="math notranslate nohighlight">\(X \perp_{\mathcal{G}} Y \mid Z\)</span>.</p>
+</section>
+</div><p>Together, the Causal Markov Condition and faithfulness give a one-to-one correspondence between <span class="math notranslate nohighlight">\(d\)</span>-separation statements and conditional independence relations (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, §22.3</a>).</p>
+</section>
+<section id="example-d-separation-in-practice">
+<h3>Example: <span class="math notranslate nohighlight">\(d\)</span>-Separation in Practice<a class="headerlink" href="#example-d-separation-in-practice" title="Link to this heading">#</a></h3>
+<p>Consider the following DAG:</p>
+<pre  class="mermaid">
+        graph LR
+    C[&quot;C (Confounder)&quot;] --&gt; T
+    C --&gt; Y
+    T --&gt; M --&gt; Y
+    T --&gt; S[&quot;S (Collider)&quot;]
+    Y --&gt; S
+    style C fill:#e74c3c,color:#fff
+    style S fill:#9b59b6,color:#fff
+    style M fill:#f5a623,color:#fff
+    </pre><ul class="simple">
+<li><p><strong><span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(\emptyset\)</span></strong>: The path <span class="math notranslate nohighlight">\(T \leftarrow C \rightarrow Y\)</span> is open (fork, <span class="math notranslate nohighlight">\(C\)</span> not conditioned on). <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <span class="math notranslate nohighlight">\(d\)</span>-connected — <strong>not</strong> independent.</p></li>
+<li><p><strong><span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(C\)</span></strong>: The backdoor path <span class="math notranslate nohighlight">\(T \leftarrow C \rightarrow Y\)</span> is now blocked. The directed path <span class="math notranslate nohighlight">\(T \rightarrow M \rightarrow Y\)</span> remains open (chain, <span class="math notranslate nohighlight">\(M\)</span> not conditioned on). <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <span class="math notranslate nohighlight">\(d\)</span>-connected given <span class="math notranslate nohighlight">\(C\)</span> — but now the remaining open paths are <em>causal</em>.</p></li>
+<li><p><strong><span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(\{C, S\}\)</span></strong>: Conditioning on the collider <span class="math notranslate nohighlight">\(S\)</span> <strong>opens</strong> the path <span class="math notranslate nohighlight">\(T \rightarrow S \leftarrow Y\)</span>, creating collider bias. This is an <strong>incorrect</strong> adjustment set.</p></li>
+</ul>
+</section>
+</section>
+<section id="methods-to-identify-the-correct-adjustment-set">
+<h2>Methods to Identify the Correct Adjustment Set<a class="headerlink" href="#methods-to-identify-the-correct-adjustment-set" title="Link to this heading">#</a></h2>
+<p>The central question in observational causal inference is: <em>which variables should we condition on to identify the causal effect of <span class="math notranslate nohighlight">\(T\)</span> on <span class="math notranslate nohighlight">\(Y\)</span>?</em> The following criteria provide graphical answers (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, §21.3–21.4</a>).</p>
+<section id="backdoor-criterion">
+<h3>Backdoor Criterion<a class="headerlink" href="#backdoor-criterion" title="Link to this heading">#</a></h3>
+<div class="proof criterion admonition" id="backdoor-criterion">
+<p class="admonition-title"><span class="caption-number">Criterion 1 </span> (Backdoor Criterion)</p>
+<section class="criterion-content" id="proof-content">
+<p>A set of variables <span class="math notranslate nohighlight">\(Z\)</span> satisfies the <strong>backdoor criterion</strong> relative to the ordered pair <span class="math notranslate nohighlight">\((T, Y)\)</span> in a DAG <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> if:</p>
+<ol class="arabic simple">
+<li><p>No node in <span class="math notranslate nohighlight">\(Z\)</span> is a <strong>descendant</strong> of <span class="math notranslate nohighlight">\(T\)</span>, and</p></li>
+<li><p><span class="math notranslate nohighlight">\(Z\)</span> <strong>blocks every path</strong> between <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> that contains an arrow <em>into</em> <span class="math notranslate nohighlight">\(T\)</span> (i.e. every “backdoor path”).</p></li>
+</ol>
+<p>If <span class="math notranslate nohighlight">\(Z\)</span> satisfies the backdoor criterion, then the causal effect of <span class="math notranslate nohighlight">\(T\)</span> on <span class="math notranslate nohighlight">\(Y\)</span> is identifiable and given by the <strong>adjustment formula</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+P(Y \mid \text{do}(T=t)) = \sum_{z} P(Y \mid T=t, Z=z) \, P(Z=z)
+\]</div>
+</section>
+</div><p>The adjustment formula converts the interventional distribution <span class="math notranslate nohighlight">\(P(Y \mid \text{do}(T=t))\)</span> into a quantity computable from observational data. This is precisely the bridge between causal and statistical estimands discussed in <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a> (<a class="reference external" href="https://doi.org/10.1093/biomet/70.1.41">Rosenbaum &amp; Rubin, 1983</a>).</p>
+<div class="proof algorithm admonition" id="backdoor-algorithm">
+<p class="admonition-title"><span class="caption-number">Algorithm 1 </span> (Backdoor Criterion Check)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Input:</strong> DAG <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>, treatment <span class="math notranslate nohighlight">\(T\)</span>, outcome <span class="math notranslate nohighlight">\(Y\)</span>, candidate adjustment set <span class="math notranslate nohighlight">\(Z\)</span></p>
+<p><strong>Output:</strong> <code class="docutils literal notranslate"><span class="pre">True</span></code> if <span class="math notranslate nohighlight">\(Z\)</span> satisfies the backdoor criterion, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise</p>
+<ol class="arabic simple">
+<li><p><strong>Check descendant condition:</strong> For each <span class="math notranslate nohighlight">\(z_i \in Z\)</span>:</p>
+<ol class="arabic simple">
+<li><p>If <span class="math notranslate nohighlight">\(z_i \in \text{Descendants}(T)\)</span> in <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>, return <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+</ol>
+</li>
+<li><p><strong>Enumerate backdoor paths:</strong> Find all paths between <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> that have an arrow into <span class="math notranslate nohighlight">\(T\)</span> (i.e. paths of the form <span class="math notranslate nohighlight">\(T \leftarrow \cdots\, Y\)</span> or <span class="math notranslate nohighlight">\(T \leftarrow \cdots \rightarrow Y\)</span>)</p></li>
+<li><p><strong>Check blocking:</strong> For each backdoor path <span class="math notranslate nohighlight">\(p\)</span>:</p>
+<ol class="arabic simple">
+<li><p>If <span class="math notranslate nohighlight">\(p\)</span> is not blocked by <span class="math notranslate nohighlight">\(Z\)</span> (applying the <span class="math notranslate nohighlight">\(d\)</span>-separation rules from <a class="reference internal" href="#blocked-path">Definition 6</a>), return <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+</ol>
+</li>
+<li><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
+</ol>
+</section>
+</div><div class="proof example admonition" id="backdoor-example">
+<p class="admonition-title"><span class="caption-number">Example 1 </span> (Applying the Backdoor Criterion)</p>
+<section class="example-content" id="proof-content">
+<p>Consider the DAG:</p>
+<p><span class="math notranslate nohighlight">\(Z \rightarrow T, \quad Z \rightarrow Y, \quad T \rightarrow Y\)</span></p>
+<ul class="simple">
+<li><p><strong>Candidate <span class="math notranslate nohighlight">\(Z = \{Z\}\)</span></strong>: <span class="math notranslate nohighlight">\(Z\)</span> is not a descendant of <span class="math notranslate nohighlight">\(T\)</span> ✓. The only backdoor path is <span class="math notranslate nohighlight">\(T \leftarrow Z \rightarrow Y\)</span>, which is blocked by conditioning on <span class="math notranslate nohighlight">\(Z\)</span> ✓. The backdoor criterion is satisfied.</p></li>
+<li><p><strong>Candidate <span class="math notranslate nohighlight">\(Z = \emptyset\)</span></strong>: The backdoor path <span class="math notranslate nohighlight">\(T \leftarrow Z \rightarrow Y\)</span> is not blocked ✗. The criterion fails.</p></li>
+</ul>
+</section>
+</div></section>
+<section id="frontdoor-criterion">
+<h3>Frontdoor Criterion<a class="headerlink" href="#frontdoor-criterion" title="Link to this heading">#</a></h3>
+<p>When all backdoor paths are blocked by <strong>unobserved</strong> confounders, the backdoor criterion cannot be applied. The frontdoor criterion provides an alternative identification strategy through an observed mediator (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, §21.4</a>).</p>
+<div class="proof criterion admonition" id="frontdoor-criterion">
+<p class="admonition-title"><span class="caption-number">Criterion 2 </span> (Frontdoor Criterion)</p>
+<section class="criterion-content" id="proof-content">
+<p>A set of variables <span class="math notranslate nohighlight">\(M\)</span> satisfies the <strong>frontdoor criterion</strong> relative to <span class="math notranslate nohighlight">\((T, Y)\)</span> in a DAG <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> if:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(M\)</span> <strong>intercepts all directed paths</strong> from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> (i.e. every causal path from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> passes through some <span class="math notranslate nohighlight">\(m \in M\)</span>),</p></li>
+<li><p>There is <strong>no unblocked backdoor path</strong> from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(M\)</span>, and</p></li>
+<li><p>All backdoor paths from <span class="math notranslate nohighlight">\(M\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> are <strong>blocked by <span class="math notranslate nohighlight">\(T\)</span></strong>.</p></li>
+</ol>
+<p>If <span class="math notranslate nohighlight">\(M\)</span> satisfies the frontdoor criterion, the causal effect is identified by:</p>
+<div class="math notranslate nohighlight">
+\[
+P(Y \mid \text{do}(T=t)) = \sum_{m} P(M=m \mid T=t) \sum_{t'} P(Y \mid T=t', M=m) \, P(T=t')
+\]</div>
+</section>
+</div><div class="proof algorithm admonition" id="frontdoor-algorithm">
+<p class="admonition-title"><span class="caption-number">Algorithm 2 </span> (Frontdoor Criterion Check)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Input:</strong> DAG <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>, treatment <span class="math notranslate nohighlight">\(T\)</span>, outcome <span class="math notranslate nohighlight">\(Y\)</span>, candidate mediator set <span class="math notranslate nohighlight">\(M\)</span></p>
+<p><strong>Output:</strong> <code class="docutils literal notranslate"><span class="pre">True</span></code> if <span class="math notranslate nohighlight">\(M\)</span> satisfies the frontdoor criterion, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise</p>
+<ol class="arabic simple">
+<li><p><strong>Check path interception:</strong> For each directed path <span class="math notranslate nohighlight">\(p\)</span> from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(Y\)</span>:</p>
+<ol class="arabic simple">
+<li><p>If <span class="math notranslate nohighlight">\(p\)</span> does not pass through any <span class="math notranslate nohighlight">\(m_i \in M\)</span>, return <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+</ol>
+</li>
+<li><p><strong>Check no backdoor <span class="math notranslate nohighlight">\(T \to M\)</span>:</strong> For each <span class="math notranslate nohighlight">\(m_i \in M\)</span>:</p>
+<ol class="arabic simple">
+<li><p>If there exists an unblocked backdoor path from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(m_i\)</span> (not through <span class="math notranslate nohighlight">\(Y\)</span>), return <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+</ol>
+</li>
+<li><p><strong>Check backdoor <span class="math notranslate nohighlight">\(M \to Y\)</span> blocked by <span class="math notranslate nohighlight">\(T\)</span>:</strong> For each <span class="math notranslate nohighlight">\(m_i \in M\)</span>:</p>
+<ol class="arabic simple">
+<li><p>If there exists a backdoor path from <span class="math notranslate nohighlight">\(m_i\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> that is not blocked by <span class="math notranslate nohighlight">\(\{T\}\)</span>, return <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+</ol>
+</li>
+<li><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
+</ol>
+</section>
+</div><div class="proof example admonition" id="frontdoor-example">
+<p class="admonition-title"><span class="caption-number">Example 2 </span> (Frontdoor Criterion with Unobserved Confounding)</p>
+<section class="example-content" id="proof-content">
+<p>Consider the DAG where <span class="math notranslate nohighlight">\(U\)</span> is unobserved:</p>
+<p><span class="math notranslate nohighlight">\(U \rightarrow T, \quad U \rightarrow Y, \quad T \rightarrow M, \quad M \rightarrow Y\)</span></p>
+<ul class="simple">
+<li><p>The backdoor criterion <strong>fails</strong> because we cannot condition on <span class="math notranslate nohighlight">\(U\)</span>.</p></li>
+<li><p><strong>Candidate <span class="math notranslate nohighlight">\(M = \{M\}\)</span></strong>: All causal paths from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> go through <span class="math notranslate nohighlight">\(M\)</span> ✓. No backdoor path from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(M\)</span> (since <span class="math notranslate nohighlight">\(U \rightarrow T\)</span> and <span class="math notranslate nohighlight">\(U \rightarrow Y\)</span>, but no path <span class="math notranslate nohighlight">\(T \leftarrow \cdots M\)</span> bypassing the direct edge) ✓. The backdoor path from <span class="math notranslate nohighlight">\(M\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> through <span class="math notranslate nohighlight">\(U\)</span> is <span class="math notranslate nohighlight">\(M \leftarrow T \leftarrow U \rightarrow Y\)</span>, which is blocked by <span class="math notranslate nohighlight">\(T\)</span> ✓. The frontdoor criterion is satisfied.</p></li>
+</ul>
+</section>
+</div><pre  class="mermaid">
+        graph LR
+    U[&quot;U (Unobserved)&quot;] -.-&gt; T
+    U -.-&gt; Y
+    T --&gt; M --&gt; Y
+    style U fill:#999,color:#fff,stroke-dasharray: 5 5
+    style M fill:#f5a623,color:#fff
+    </pre></section>
+<section id="comparison-of-criteria">
+<h3>Comparison of Criteria<a class="headerlink" href="#comparison-of-criteria" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Backdoor Criterion</p></th>
+<th class="head"><p>Frontdoor Criterion</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Requires</strong></p></td>
+<td><p>Observed confounders</p></td>
+<td><p>Observed mediator</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Blocks</strong></p></td>
+<td><p>Non-causal (backdoor) paths</p></td>
+<td><p>Uses causal path through mediator</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Fails when</strong></p></td>
+<td><p>Confounders are unobserved</p></td>
+<td><p>No suitable mediator exists</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Adjusts for</strong></p></td>
+<td><p>Common causes <span class="math notranslate nohighlight">\(Z\)</span></p></td>
+<td><p>Mediator <span class="math notranslate nohighlight">\(M\)</span> via two-step identification</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="causal-discovery">
+<h2>Causal Discovery<a class="headerlink" href="#causal-discovery" title="Link to this heading">#</a></h2>
+<p>Given observational data, can we <em>learn</em> the DAG rather than assuming it? <strong>Causal discovery</strong> algorithms attempt to infer causal structure from conditional independence relations in the data (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, Ch. 22</a>).</p>
+<section id="markov-equivalence">
+<h3>Markov Equivalence<a class="headerlink" href="#markov-equivalence" title="Link to this heading">#</a></h3>
+<div class="proof definition admonition" id="markov-equivalence">
+<p class="admonition-title"><span class="caption-number">Definition 8 </span> (Markov Equivalence Class)</p>
+<section class="definition-content" id="proof-content">
+<p>Two DAGs are <strong>Markov equivalent</strong> if they encode exactly the same set of <span class="math notranslate nohighlight">\(d\)</span>-separation (conditional independence) statements. DAGs in the same equivalence class share the same <strong>skeleton</strong> (undirected edges) and the same set of <strong>v-structures</strong> (collider patterns <span class="math notranslate nohighlight">\(X \rightarrow C \leftarrow Y\)</span> where <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are not adjacent).</p>
+</section>
+</div><p>Observational data alone can only identify the DAG up to its Markov equivalence class. Orienting all edges requires either interventional data or additional assumptions (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, §22.3</a>).</p>
+</section>
+<section id="the-sgs-algorithm">
+<h3>The SGS Algorithm<a class="headerlink" href="#the-sgs-algorithm" title="Link to this heading">#</a></h3>
+<p>The <strong>SGS algorithm</strong> (Spirtes, Glymour &amp; Scheines, 1993) is a constraint-based procedure that recovers the Markov equivalence class from conditional independence tests. The following pseudo-code is adapted from <a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi (2025, §22.7)</a>.</p>
+<div class="proof algorithm admonition" id="sgs-algorithm">
+<p class="admonition-title"><span class="caption-number">Algorithm 3 </span> (SGS Algorithm)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Input:</strong> Set of variables <span class="math notranslate nohighlight">\(V\)</span>, conditional independence oracle (or statistical test)</p>
+<p><strong>Output:</strong> Partially directed graph (CPDAG) representing the Markov equivalence class</p>
+<p><strong>Phase I — Skeleton Recovery:</strong></p>
+<ol class="arabic simple">
+<li><p>Start with the <strong>complete undirected graph</strong> on <span class="math notranslate nohighlight">\(V\)</span></p></li>
+<li><p>For each pair of nodes <span class="math notranslate nohighlight">\((X, Y)\)</span> with <span class="math notranslate nohighlight">\(X \neq Y\)</span>:</p>
+<ol class="arabic simple">
+<li><p>For each subset <span class="math notranslate nohighlight">\(S \subseteq V \setminus \{X, Y\}\)</span> (in order of increasing size):</p>
+<ol class="arabic simple">
+<li><p>Test whether <span class="math notranslate nohighlight">\(X \perp\!\!\!\perp Y \mid S\)</span></p></li>
+<li><p>If independent: <strong>remove</strong> the edge <span class="math notranslate nohighlight">\(X - Y\)</span> and record <span class="math notranslate nohighlight">\(S\)</span> as the <strong>separating set</strong> <span class="math notranslate nohighlight">\(\text{Sep}(X,Y) \leftarrow S\)</span></p></li>
+<li><p>Break (move to next pair)</p></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p><strong>Phase II — Orient V-Structures:</strong></p>
+<ol class="arabic simple" start="3">
+<li><p>For each <strong>unshielded triple</strong> <span class="math notranslate nohighlight">\((X, Z, Y)\)</span> — where <span class="math notranslate nohighlight">\(X - Z\)</span> and <span class="math notranslate nohighlight">\(Z - Y\)</span> but <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <strong>not</strong> adjacent:</p>
+<ol class="arabic simple">
+<li><p>If <span class="math notranslate nohighlight">\(Z \notin \text{Sep}(X, Y)\)</span>: orient as <span class="math notranslate nohighlight">\(X \rightarrow Z \leftarrow Y\)</span> (v-structure / collider)</p></li>
+</ol>
+</li>
+</ol>
+<p><strong>Phase III — Orient Remaining Edges:</strong></p>
+<ol class="arabic simple" start="4">
+<li><p>Repeatedly apply the following <strong>orientation rules</strong> until no more edges can be oriented:</p>
+<ol class="arabic simple">
+<li><p><strong>Acyclicity:</strong> If <span class="math notranslate nohighlight">\(X \rightarrow Z - Y\)</span> and <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are not adjacent, orient as <span class="math notranslate nohighlight">\(Z \rightarrow Y\)</span></p></li>
+<li><p><strong>No new v-structures:</strong> If there is a directed path <span class="math notranslate nohighlight">\(X \rightarrow \cdots \rightarrow Y\)</span> and an undirected edge <span class="math notranslate nohighlight">\(X - Y\)</span>, orient as <span class="math notranslate nohighlight">\(X \rightarrow Y\)</span></p></li>
+</ol>
+</li>
+</ol>
+</section>
+</div><p>The SGS algorithm is correct under the assumptions of the Causal Markov Condition (<a class="reference internal" href="#causal-markov">Property 1</a>) and faithfulness (<a class="reference internal" href="#faithfulness">Assumption 5</a>). In practice, the <strong>PC algorithm</strong> (a computationally efficient variant) is more commonly used: it restricts the conditioning sets in Phase I to neighbours of <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(Y\)</span> in the current skeleton, greatly reducing the number of tests (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, §22.4</a>).</p>
+<div class="proof remark admonition" id="discovery-limitations">
+<p class="admonition-title"><span class="caption-number">Remark 1 </span></p>
+<section class="remark-content" id="proof-content">
+<p>Causal discovery from observational data has fundamental limitations:</p>
+<ul class="simple">
+<li><p>It can only recover the <strong>Markov equivalence class</strong>, not the unique DAG.</p></li>
+<li><p>It requires <strong>faithfulness</strong>, which can be violated when causal effects cancel.</p></li>
+<li><p>It assumes <strong>no latent confounders</strong> (for the basic SGS/PC algorithms; extensions like FCI handle latent variables).</p></li>
+<li><p>Statistical tests for conditional independence have limited power in finite samples, especially with many conditioning variables.</p></li>
+</ul>
+</section>
+</div></section>
+</section>
+</section>
+
+        <script type="text/x-thebe-config">
+        {
+            "rootPath": "..",
+            "requestKernel": true,
+            "useJupyterLite": true,
+            "useBinder": false,
+            "kernelOptions": {
+                "path": "/"
+            },
+            "codeMirrorConfig": {
+                "theme": "default",
+                "mode": "python"
+            },
+            "mountRestartButton": false,
+            "mountRestartallButton": false
+        }
+        </script>
+        <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2_1_assumptions.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Assumptions</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2_3_debias.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Possible Biases and Mitigation Strategies</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#causal-diagrams">Causal Diagrams</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-terminology">Graph Terminology</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#three-fundamental-path-structures">Three Fundamental Path Structures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chains-mediation">Chains (Mediation)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forks-common-cause-confounding">Forks (Common Cause / Confounding)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#colliders-common-effect">Colliders (Common Effect)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-path-structures">Summary of Path Structures</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-separation"><span class="math notranslate nohighlight">\(d\)</span>-Separation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-independence">Conditional Independence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-d-separation-in-practice">Example: <span class="math notranslate nohighlight">\(d\)</span>-Separation in Practice</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-to-identify-the-correct-adjustment-set">Methods to Identify the Correct Adjustment Set</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backdoor-criterion">Backdoor Criterion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frontdoor-criterion">Frontdoor Criterion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-of-criteria">Comparison of Criteria</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#causal-discovery">Causal Discovery</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-equivalence">Markov Equivalence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sgs-algorithm">The SGS Algorithm</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Daniel Meier, Theresa Blümlein, Michael Mayer, and Patrick Cheridito
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
