@@ -15,16 +15,15 @@ parts:
         sections: 
           - file: tutorial/2_1_assumptions.md
           - file: tutorial/2_2_graphical_models.md
+          - file: tutorial/2_3_debias.md
       - file: tutorial/3_inference.md
         sections: 
           - file: tutorial/3_1_propensity.md
           - file: tutorial/3_2_Regression_Approaches.md
-      - file: tutorial/4_ML.md
-        sections: 
-          - file: tutorial/4_1_causal_tree.md
-          - file: tutorial/4_2_causal_forest.md
-          - file: tutorial/4_3_bayesian.md
-      - file: tutorial/5_sensitivity.md
+          - file: tutorial/3_3_causal_tree.md
+          - file: tutorial/3_4_causal_forest.md
+          - file: tutorial/3_5_bayesian.md
+      - file: tutorial/4_sensitivity.md
 
   - caption: Actuarial Applications
     chapters:

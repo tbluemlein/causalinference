@@ -176,19 +176,19 @@ Consider the following DAG:
 
 ```{mermaid}
 graph LR
-    Z --> T
-    Z --> Y
+    C["C (Confounder)"] --> T
+    C --> Y
     T --> M --> Y
-    T --> C
-    Y --> C
-    style Z fill:#e74c3c,color:#fff
-    style C fill:#9b59b6,color:#fff
+    T --> S["S (Collider)"]
+    Y --> S
+    style C fill:#e74c3c,color:#fff
+    style S fill:#9b59b6,color:#fff
     style M fill:#f5a623,color:#fff
 ```
 
-- **$T$ and $Y$ given $\emptyset$**: The path $T \leftarrow Z \rightarrow Y$ is open (fork, $Z$ not conditioned on). $T$ and $Y$ are $d$-connected — **not** independent.
-- **$T$ and $Y$ given $Z$**: The backdoor path $T \leftarrow Z \rightarrow Y$ is now blocked. The directed path $T \rightarrow M \rightarrow Y$ remains open (chain, $M$ not conditioned on). $T$ and $Y$ are $d$-connected given $Z$ — but now the remaining open paths are *causal*.
-- **$T$ and $Y$ given $\{Z, C\}$**: Conditioning on the collider $C$ **opens** the path $T \rightarrow C \leftarrow Y$, creating collider bias. This is an **incorrect** adjustment set.
+- **$T$ and $Y$ given $\emptyset$**: The path $T \leftarrow C \rightarrow Y$ is open (fork, $C$ not conditioned on). $T$ and $Y$ are $d$-connected — **not** independent.
+- **$T$ and $Y$ given $C$**: The backdoor path $T \leftarrow C \rightarrow Y$ is now blocked. The directed path $T \rightarrow M \rightarrow Y$ remains open (chain, $M$ not conditioned on). $T$ and $Y$ are $d$-connected given $C$ — but now the remaining open paths are *causal*.
+- **$T$ and $Y$ given $\{C, S\}$**: Conditioning on the collider $S$ **opens** the path $T \rightarrow S \leftarrow Y$, creating collider bias. This is an **incorrect** adjustment set.
 
 
 ## Methods to Identify the Correct Adjustment Set
