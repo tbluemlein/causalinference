@@ -68,13 +68,6 @@ A causal effect is **identifiable** if it can be expressed purely in terms of th
 The key distinction is between a **causal estimand** — defined via potential outcomes (e.g. $\mathbb{E}[Y(1) - Y(0)]$) — and a **statistical estimand** — a quantity computable from the observed data (e.g. $\mathbb{E}[Y \mid T=1, X] - \mathbb{E}[Y \mid T=0, X]$). Identifiability is the bridge: the assumptions of consistency, positivity, and exchangeability allow us to equate the causal estimand with a statistical estimand, making estimation possible. For a formal treatment, see [Oxford: Causal Assumptions](https://www.stats.ox.ac.uk/~evans/APTS/causassmp.html) and the [Assumptions Guide](https://www.uniqcret.com/post/causal-inference-assumptions-guide).
 
 
-### Treatment Effect Estimation
-* **Average Treatment Effect (ATE):** The population-level causal effect:
-    $$\tau = \mathbb{E}[Y(1) - Y(0)]$$
-* **Conditional Average Treatment Effect (CATE):** The effect for a specific subpopulation defined by characteristics $X$:
-    $$\tau(x) = \mathbb{E}[Y(1) - Y(0) \mid X=x]$$
-* **Average Treatment Effect on the Treated (ATT):** The effect specifically for those who received the intervention:
-    $$\text{ATT} = \mathbb{E}[Y(1) - Y(0) \mid T=1]$$
 
 For heterogeneous treatment effect estimation, see [Athey & Imbens (2016)](https://doi.org/10.1073/pnas.1510489113), [Wager & Athey (2018)](https://doi.org/10.1080/01621459.2017.1319839), and [Schmidt (2018)](https://doi.org/10.48550/arXiv.1810.13237).
 

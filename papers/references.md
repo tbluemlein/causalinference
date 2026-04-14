@@ -8,6 +8,8 @@
 * **Breiman, L., Friedman, J. H., Olshen, R., & Stone, C. J. (1984).** *Classification and regression trees.* 
 * **Rosenbaum, P. R., & Rubin, D. B. (1983).** *The central role of the propensity score in observational studies for causal effects.* Biometrika, 70(1), 41-55. [DOI: 10.1093/biomet/70.1.41](https://doi.org/10.1093/biomet/70.1.41) 
 * **Shalizi, C. R. (2025).** [*Advanced Data Analysis from an Elementary Point of View.*](https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf) 
+* **Kusner, M. J., Loftus, J., Russell, C., & Silva, R. (2017).** *Counterfactual fairness.* Advances in Neural Information Processing Systems 30, 4066–4076. [arXiv:1703.06856](https://arxiv.org/abs/1703.06856)
+* **Lindholm, M., Richman, R., Tsanakas, A., & Wüthrich, M. V. (2022).** *A discussion of discrimination and fairness in insurance pricing.* [arXiv:2209.00858](https://arxiv.org/abs/2209.00858)
 * **Wager, S., & Athey, S. (2018).** *Estimation and inference of heterogeneous treatment effects using random forests.* Journal of the American Statistical Association, 113(523), 1228-1242. [DOI: 10.1080/01621459.2017.1319839](https://doi.org/10.1080/01621459.2017.1319839)
 
 ## Useful Links
