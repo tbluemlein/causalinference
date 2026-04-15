@@ -40,8 +40,12 @@ Throughout this tutorial we adopt the following conventions. Let $D = \{(X_i, T_
 | $T$ | Treatment assignment ($T \in \{0,1\}$ in the binary case) |
 | $Y$ | Observed outcome |
 | $Y(1), Y(0)$ | Potential outcomes under treatment and control |
-| $C$ | Confounder (variable affecting both $T$ and $Y$) |
+| $F$ | Fork / confounder (common cause affecting both $T$ and $Y$) |
+| $C$ | Collider (common effect of two or more variables) |
 | $M$ | Mediator (variable on the causal path from $T$ to $Y$) |
+| $S$ | Sensitive attribute (protected characteristic, e.g. gender, ethnicity) |
+| $U$ | Unmeasured / unobserved confounder |
+| $D$ | Observed dataset: $D = \{(X_i, T_i, Y_i)\}_{i=1}^{n}$ |
 | $\pi(x)$ | Propensity score: $\pi(x) = \mathbb{P}(T=1 \mid X=x)$ |
 
 ### Assignment Mechanism
@@ -53,7 +57,7 @@ Causal inference from observational data relies on the idea that, under the assu
 
 ### Confounding
 
-A **confounder** $C$ is a variable that causally influences both the treatment assignment $T$ and the outcome $Y$. When confounders are present but not adjusted for, the observed association between $T$ and $Y$ is a mixture of the true causal effect and the spurious association induced by the confounder — this is **confounding bias** ([Wooldridge, 2012](https://doi.org/10.1016/C2011-0-05506-1); [Angrist & Pischke, 2015](https://doi.org/10.2307/j.ctt5vhbqm)). For a visual tutorial on confounding via Simpson's Paradox, see [this simulation walkthrough](https://www.biostatistics.ca/when-data-lies-simpsons-paradox-a-step-by-step-simulation-code-notebook/).
+A **confounder** (or fork) $F$ is a variable that causally influences both the treatment assignment $T$ and the outcome $Y$. When confounders are present but not adjusted for, the observed association between $T$ and $Y$ is a mixture of the true causal effect and the spurious association induced by the confounder — this is **confounding bias** ([Wooldridge, 2012](https://doi.org/10.1016/C2011-0-05506-1); [Angrist & Pischke, 2015](https://doi.org/10.2307/j.ctt5vhbqm)). For a visual tutorial on confounding via Simpson's Paradox, see [this simulation walkthrough](https://www.biostatistics.ca/when-data-lies-simpsons-paradox-a-step-by-step-simulation-code-notebook/).
 
 $$
 \underbrace{\mathbb{E}[Y \mid T=1] - \mathbb{E}[Y \mid T=0]}_{\text{observed difference}} \;=\; \underbrace{\mathbb{E}[Y(1) - Y(0)]}_{\text{causal effect (ATE)}} \;+\; \underbrace{\text{bias}}_{\text{due to confounding}}

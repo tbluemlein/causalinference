@@ -22,15 +22,15 @@ The remainder of this section defines each bias precisely.
 ```{prf:definition} Confounding Bias
 :label: confounding-bias
 
-**Confounding bias** occurs when a variable $C$ causally influences both the treatment $T$ and the outcome $Y$, and the analysis fails to adjust for $C$.
+**Confounding bias** occurs when a fork variable $F$ causally influences both the treatment $T$ and the outcome $Y$, and the analysis fails to adjust for $F$.
 ```
 
 ```{mermaid}
 graph TD
-    C["C (Confounder)"] --> T
-    C --> Y
+    F["F (Confounder)"] --> T
+    F --> Y
     T --> Y
-    style C fill:#e74c3c,color:#fff
+    style F fill:#e74c3c,color:#fff
 ```
 
 Confounding violates {prf:ref}`exchangeability`. The naive comparison conflates the causal effect with a baseline difference between groups:
@@ -56,15 +56,15 @@ Selection bias can occur at study entry (differential enrolment), during follow-
 ```{prf:definition} Collider Bias
 :label: collider-bias-def
 
-**Collider bias** (Berkson's paradox) occurs when the analysis conditions on a **collider** $S$ — a common effect of $T$ and $Y$. Conditioning on $S$ opens a non-causal path between $T$ and $Y$.
+**Collider bias** (Berkson's paradox) occurs when the analysis conditions on a **collider** $C$ — a common effect of $T$ and $Y$. Conditioning on $C$ opens a non-causal path between $T$ and $Y$.
 ```
 
 ```{mermaid}
 graph TD
-    T --> S["S (Collider)"]
-    Y --> S
+    T --> C["C (Collider)"]
+    Y --> C
     T --> Y
-    style S fill:#9b59b6,color:#fff
+    style C fill:#9b59b6,color:#fff
 ```
 
 Collider bias results from **incorrect adjustment**, not from a violated assumption per se. In insurance, analysing claims conditional on whether a claim was *filed* can introduce collider bias, since filing depends on both the treatment and the outcome severity. DAG-guided variable selection ({prf:ref}`backdoor-criterion`) is the primary safeguard.
@@ -92,7 +92,7 @@ The biases above are not merely theoretical concerns — they are practical obst
 
 ### Adjust
 
-Include confounders $C$ as covariates in the outcome model ([Wooldridge, 2012](https://doi.org/10.1016/C2011-0-05506-1)), or use propensity score methods — matching, stratification, or inverse-probability weighting on $\pi(x) = P(T{=}1 \mid X{=}x)$ ([Rosenbaum & Rubin, 1983](https://doi.org/10.1093/biomet/70.1.41); [Austin, 2011](https://doi.org/10.1080/00273171.2011.568786)). **Doubly robust** estimators combine both approaches and are consistent if *either* the outcome model or the propensity model is correctly specified. When unmeasured confounders exist, **instrumental variables** can identify the causal effect using exogenous variation ([Angrist & Pischke, 2015](https://doi.org/10.2307/j.ctt5vhbqm)).
+Include confounders $F$ as covariates in the outcome model ([Wooldridge, 2012](https://doi.org/10.1016/C2011-0-05506-1)), or use propensity score methods — matching, stratification, or inverse-probability weighting on $\pi(x) = P(T{=}1 \mid X{=}x)$ ([Rosenbaum & Rubin, 1983](https://doi.org/10.1093/biomet/70.1.41); [Austin, 2011](https://doi.org/10.1080/00273171.2011.568786)). **Doubly robust** estimators combine both approaches and are consistent if *either* the outcome model or the propensity model is correctly specified. When unmeasured confounders exist, **instrumental variables** can identify the causal effect using exogenous variation ([Angrist & Pischke, 2015](https://doi.org/10.2307/j.ctt5vhbqm)).
 
 ### Reweight
 
@@ -116,24 +116,24 @@ When interference is present, assign treatment at the group level and analyse at
 
 ## Is my model fair? — Discrimination and Fairness in Insurance
 
-Beyond causal bias, actuaries face a distinct but related challenge: ensuring that pricing models do not discriminate against protected groups. EU regulation prohibits the use of protected characteristics (e.g. gender, ethnicity) for insurance pricing, but simply dropping the protected attribute $D$ does not solve the problem.
+Beyond causal bias, actuaries face a distinct but related challenge: ensuring that pricing models do not discriminate against protected groups. EU regulation prohibits the use of protected characteristics (e.g. gender, ethnicity) for insurance pricing, but simply dropping the sensitive attribute $S$ does not solve the problem.
 
 ### Proxy Discrimination
 
 ```{prf:definition} Proxy Discrimination
 :label: proxy-discrimination
 
-**Proxy discrimination** (indirect discrimination) occurs when non-protected covariates $X$ that are correlated with the protected attribute $D$ allow the model to implicitly reconstruct $D$, even though $D$ is not used as an input.
+**Proxy discrimination** (indirect discrimination) occurs when non-protected covariates $X$ that are correlated with the sensitive attribute $S$ allow the model to implicitly reconstruct $S$, even though $S$ is not used as an input.
 ```
 
-The mechanism is the tower property of conditional expectation: $\mu(X) = \int \mu(X, d) \, \mathrm{d}P(D{=}d \mid X)$. If $X$ and $D$ are dependent, the unawareness price channels information about $D$ through $X$ ([Lindholm et al., 2022](https://arxiv.org/abs/2209.00858)).
+The mechanism is the tower property of conditional expectation: $\mu(X) = \int \mu(X, s) \, \mathrm{d}P(S{=}s \mid X)$. If $X$ and $S$ are dependent, the unawareness price channels information about $S$ through $X$ ([Lindholm et al., 2022](https://arxiv.org/abs/2209.00858)).
 
 ### Three Fairness Definitions
 
 ```{prf:definition} Fairness through Unawareness
 :label: fairness-unawareness
 
-A model satisfies **fairness through unawareness** if it does not use the protected attribute $D$ as input: $\hat{\mu}(X) = f(X)$.
+A model satisfies **fairness through unawareness** if it does not use the sensitive attribute $S$ as input: $\hat{\mu}(X) = f(X)$.
 ```
 
 Unawareness is necessary but not sufficient — it does not prevent proxy discrimination.
@@ -144,19 +144,19 @@ Unawareness is necessary but not sufficient — it does not prevent proxy discri
 An insurance price is **discrimination-free** ([Lindholm et al., 2022](https://arxiv.org/abs/2209.00858)) if
 
 $$
-P(Y \leq y \mid X, D) = P(Y \leq y \mid X) \quad \text{for all } y
+P(Y \leq y \mid X, S) = P(Y \leq y \mid X) \quad \text{for all } y
 $$
 
-i.e., the protected attribute $D$ carries no additional information about $Y$ beyond the non-protected covariates $X$.
+i.e., the sensitive attribute $S$ carries no additional information about $Y$ beyond the non-protected covariates $X$.
 ```
 
 ```{prf:definition} Counterfactual Fairness
 :label: counterfactual-fairness
 
-A predictor $\hat{\mu}$ is **counterfactually fair** ([Kusner et al., 2017](https://arxiv.org/abs/1703.06856)) if, for all $d, d'$:
+A predictor $\hat{\mu}$ is **counterfactually fair** ([Kusner et al., 2017](https://arxiv.org/abs/1703.06856)) if, for all $s, s'$:
 
 $$
-P\bigl(\hat{\mu}_{D \leftarrow d}(X) = y \mid X{=}x, D{=}d\bigr) = P\bigl(\hat{\mu}_{D \leftarrow d'}(X) = y \mid X{=}x, D{=}d\bigr)
+P\bigl(\hat{\mu}_{S \leftarrow s}(X) = y \mid X{=}x, S{=}s\bigr) = P\bigl(\hat{\mu}_{S \leftarrow s'}(X) = y \mid X{=}x, S{=}s\bigr)
 $$
 
 i.e., the prediction would not change had the individual belonged to a different demographic group, all else being equal.
@@ -169,35 +169,35 @@ i.e., the prediction would not change had the individual belonged to a different
 
 The machine learning literature proposes three group fairness criteria as evaluation constraints on a predictor $\hat{\mu}(X)$ ([Barocas et al., 2019](https://fairmlbook.org/)):
 
-- **Statistical parity** (demographic parity): $\hat{\mu}(X) \perp\!\!\!\perp D$ — the price distribution is the same across groups.
-- **Equalized odds**: $\hat{\mu}(X) \perp\!\!\!\perp D \mid Y$ — prediction errors are equal across groups.
-- **Predictive parity**: $Y \perp\!\!\!\perp D \mid \hat{\mu}(X)$ — the model is calibrated across groups.
+- **Statistical parity** (demographic parity): $\hat{\mu}(X) \perp\!\!\!\perp S$ — the price distribution is the same across groups.
+- **Equalized odds**: $\hat{\mu}(X) \perp\!\!\!\perp S \mid Y$ — prediction errors are equal across groups.
+- **Predictive parity**: $Y \perp\!\!\!\perp S \mid \hat{\mu}(X)$ — the model is calibrated across groups.
 
-These criteria are useful **diagnostic checks** but cannot replace causal reasoning. [Lindholm et al. (2022)](https://arxiv.org/abs/2209.00858) show that even a genuinely discrimination-free model violates all three criteria whenever $X$ and $D$ are statistically dependent. Moreover, except in trivial cases, the three criteria are mutually incompatible ([Chouldechova, 2017](https://doi.org/10.1089/big.2016.0047)).
+These criteria are useful **diagnostic checks** but cannot replace causal reasoning. [Lindholm et al. (2022)](https://arxiv.org/abs/2209.00858) show that even a genuinely discrimination-free model violates all three criteria whenever $X$ and $S$ are statistically dependent. Moreover, except in trivial cases, the three criteria are mutually incompatible ([Chouldechova, 2017](https://doi.org/10.1089/big.2016.0047)).
 ```
 
 ### Why Causal Inference Resolves the Fairness Problem
 
 ```{mermaid}
 graph TD
-    D["D (Protected)"] -->|proxy path| X1["X₁ (Proxy)"]
-    D -->|legitimate path| X2["X₂ (Legitimate risk factor)"]
+    S["S (Sensitive)"] -->|proxy path| X1["X₁ (Proxy)"]
+    S -->|legitimate path| X2["X₂ (Legitimate risk factor)"]
     X1 --> Y["Y (Claim)"]
     X2 --> Y
-    C["C (Confounder)"] --> D
-    C --> Y
-    style D fill:#e74c3c,color:#fff
+    F["F (Confounder)"] --> S
+    F --> Y
+    style S fill:#e74c3c,color:#fff
     style X1 fill:#f39c12,color:#fff
     style X2 fill:#27ae60,color:#fff
 ```
 
 Whether a covariate is a discriminatory proxy or a legitimate risk factor depends on the **causal structure**, not the correlation matrix. A causal model allows the actuary to:
 
-- **Include** $X_2$ — a genuine risk mechanism, even if correlated with $D$.
-- **Exclude or adjust** $X_1$ — a proxy that merely transmits discriminatory information from $D$.
-- **Account for** $C$ — a confounder creating spurious associations between $D$ and $Y$.
+- **Include** $X_2$ — a genuine risk mechanism, even if correlated with $S$.
+- **Exclude or adjust** $X_1$ — a proxy that merely transmits discriminatory information from $S$.
+- **Account for** $F$ — a confounder creating spurious associations between $S$ and $Y$.
 
-Without a DAG, removing the influence of $D$ either does too little (unawareness) or too much (statistical parity). Counterfactual fairness is inherently a causal question: *"would this price change if the individual had belonged to a different group?"* — and it can only be answered within the potential outcomes framework ([Kusner et al., 2017](https://arxiv.org/abs/1703.06856)).
+Without a DAG, removing the influence of $S$ either does too little (unawareness) or too much (statistical parity). Counterfactual fairness is inherently a causal question: *"would this price change if the individual had belonged to a different group?"* — and it can only be answered within the potential outcomes framework ([Kusner et al., 2017](https://arxiv.org/abs/1703.06856)).
 
 ## Putting It All Together — The Actuary's Workflow
 
@@ -205,19 +205,19 @@ The following workflow connects the identification theory from this chapter with
 
 ```{mermaid}
 graph LR
-    A["1. Draw the DAG"] --> B["2. Check assumptions"]
-    B --> C["3. Diagnose biases"]
-    C --> D["4. Select de-biasing strategy"]
-    D --> E["5. Estimate causal effect"]
-    E --> F["6. Check fairness"]
-    F --> G["7. Sensitivity analysis"]
-    style A fill:#4a90d9,color:#fff
-    style B fill:#4a90d9,color:#fff
-    style C fill:#e74c3c,color:#fff
-    style D fill:#e74c3c,color:#fff
-    style E fill:#f5a623,color:#fff
-    style F fill:#27ae60,color:#fff
-    style G fill:#27ae60,color:#fff
+    W1["1. Draw the DAG"] --> W2["2. Check assumptions"]
+    W2 --> W3["3. Diagnose biases"]
+    W3 --> W4["4. Select de-biasing strategy"]
+    W4 --> W5["5. Estimate causal effect"]
+    W5 --> W6["6. Check fairness"]
+    W6 --> W7["7. Sensitivity analysis"]
+    style W1 fill:#4a90d9,color:#fff
+    style W2 fill:#4a90d9,color:#fff
+    style W3 fill:#e74c3c,color:#fff
+    style W4 fill:#e74c3c,color:#fff
+    style W5 fill:#f5a623,color:#fff
+    style W6 fill:#27ae60,color:#fff
+    style W7 fill:#27ae60,color:#fff
 ```
 
 | Step | Action | Chapter |
