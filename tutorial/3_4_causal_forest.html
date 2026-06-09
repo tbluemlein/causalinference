@@ -16,25 +16,23 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/thebe.css?v=9bca0c2f" />
     <link rel="stylesheet" type="text/css" href="../_static/code.css?v=1719a5f1" />
@@ -43,18 +41,17 @@
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -127,7 +124,6 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="prev" title="Causal Trees" href="3_3_causal_tree.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -143,8 +139,19 @@ const thebe_selector_output = ".output, .cell_output"
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -152,6 +159,7 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -159,8 +167,8 @@ const thebe_selector_output = ".output, .cell_output"
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -176,8 +184,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -207,17 +214,21 @@ const thebe_selector_output = ".output, .cell_output"
     
     
     <img src="../_static/logo.png" class="logo__image only-light" alt="Causal Inference Tutorial - Home"/>
-    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Causal Inference Tutorial - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Causal Inference Tutorial - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -234,7 +245,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 has-children"><a class="reference internal" href="2_identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="2_1_assumptions.html">Assumptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_2_graphical_models.html">Graphical Causal Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2_3_debias.html">Possible Biases and Mitigation Strategies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_debias.html">Biases, De-biasing, and Fairness</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="3_inference.html">Causal Inference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
@@ -264,14 +275,9 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -354,7 +360,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  class="btn btn-sm btn-fullscreen-button"
   title="Fullscreen mode"
   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
@@ -368,16 +374,24 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 
 </div></div>
       
@@ -405,12 +419,12 @@ const thebe_selector_output = ".output, .cell_output"
                   
   <section class="tex2jax_ignore mathjax_ignore" id="causal-forests">
 <h1>Causal Forests<a class="headerlink" href="#causal-forests" title="Link to this heading">#</a></h1>
-<p id="sec-cf">We additionally introduce causal forests that ensure a stronger degree of personalization in treatment effect estimation using adaptive nearest neighborhood estimation. Similarly as for random forests , the CATEs in this specific ensemble method of causal forests is estimated by a combination of the estimations of the weak learners, i.e. causal trees that are estimated <span class="math notranslate nohighlight">\(B\)</span> times. In addition, principles such as random split selection and recursive binary splitting are the same here as for random forests . However, the CATEs are not calculated as simple averages over <span class="math notranslate nohighlight">\(B\)</span> causal trees but by a weighted average over the local patient neighborhood.</p>
+<p id="sec-cf">We additionally introduce causal forests that ensure a stronger degree of personalization in treatment effect estimation using adaptive nearest neighbourhood estimation. Similarly as for random forests , the CATEs in this specific ensemble method of causal forests are estimated by a combination of the estimations of the weak learners, i.e. causal trees that are estimated <span class="math notranslate nohighlight">\(B\)</span> times. In addition, principles such as random split selection and recursive binary splitting are the same here as for random forests . However, the CATEs are not calculated as simple averages over <span class="math notranslate nohighlight">\(B\)</span> causal trees but by a weighted average over the local patient neighbourhood.</p>
 <div class="proof algorithm dropdown admonition" id="alg-causalforest">
-<p class="admonition-title"><span class="caption-number">Algorithm 9 </span> (Causal Forest)</p>
+<p class="admonition-title"><span class="caption-number">Algorithm 17 </span> (Causal Forest)</p>
 <section class="algorithm-content" id="proof-content">
-<p><strong>Inputs</strong> Patient history <span class="math notranslate nohighlight">\(\mathbf{H}_T \in \mathcal{H}_T\)</span>, observed final outcome <span class="math notranslate nohighlight">\(Y \in \mathcal{Y}_{T+1}\)</span></p>
-<p><strong>Outputs</strong> Estimated CATE <span class="math notranslate nohighlight">\(\hat{\tau}(\mathbf{h}_t)\)</span></p>
+<p><strong>Inputs</strong> Covariates <span class="math notranslate nohighlight">\(X \in \mathcal{X}\)</span>, treatment <span class="math notranslate nohighlight">\(T \in \{0,1\}\)</span>, observed outcome <span class="math notranslate nohighlight">\(Y \in \mathcal{Y}\)</span></p>
+<p><strong>Outputs</strong> Estimated CATE <span class="math notranslate nohighlight">\(\hat{\tau}(x)\)</span></p>
 <ol class="arabic simple">
 <li><p>For every tree <span class="math notranslate nohighlight">\(b = 1, \ldots, B\)</span>:</p>
 <ol class="arabic simple">
@@ -423,29 +437,29 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>Determine leaves <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> based on estimation data <em>(Stopping criterion applies)</em></p></li>
 <li><p>For every leaf <span class="math notranslate nohighlight">\(\ell \in \mathcal{L}\)</span>:</p>
 <ol class="arabic simple">
-<li><p>Estimate the CATE <span class="math notranslate nohighlight">\(\hat{\tau}^{(\ell,b)}(\mathbf{h}_t)\)</span> on estimation data</p></li>
+<li><p>Estimate the CATE <span class="math notranslate nohighlight">\(\hat{\tau}^{(\ell,b)}(x)\)</span> on estimation data</p></li>
 </ol>
 </li>
-<li><p>Return CATE <span class="math notranslate nohighlight">\(\hat{\tau}^{(\ell,b)}(\mathbf{h}_t)\)</span></p></li>
+<li><p>Return CATE <span class="math notranslate nohighlight">\(\hat{\tau}^{(\ell,b)}(x)\)</span></p></li>
 </ol>
 </li>
-<li><p>Calculate weights <span class="math notranslate nohighlight">\(\alpha^{(i)}(\mathbf{h}_t)\)</span> <em>(Forest proximity weights)</em></p></li>
-<li><p>Calculate final CATE <span class="math notranslate nohighlight">\(\hat{\tau}(\mathbf{h}_t)\)</span> <em>(Weighted average)</em></p></li>
-<li><p>Return CATE <span class="math notranslate nohighlight">\(\hat{\tau}(\mathbf{h}_t)\)</span></p></li>
+<li><p>Calculate weights <span class="math notranslate nohighlight">\(\alpha^{(i)}(x)\)</span> <em>(Forest proximity weights)</em></p></li>
+<li><p>Calculate final CATE <span class="math notranslate nohighlight">\(\hat{\tau}(x)\)</span> <em>(Weighted average)</em></p></li>
+<li><p>Return CATE <span class="math notranslate nohighlight">\(\hat{\tau}(x)\)</span></p></li>
 </ol>
 </section>
 </div><p>Fitting <span class="math notranslate nohighlight">\(B\)</span> causal trees, we repeat the separation step into a construction data set and an estimation data set repeatedly for every causal tree. Hence, every single weak learner is fitted on different subsamples of the observational data set. This ensures <em>honesty</em> in the ensemble setting as well, when the individual causal trees are composed to a causal forest. Every causal tree again recursively builds a partition into binary splits of the entire patient population based on the construction set. Then, it estimates the CATEs in the leaves <span class="math notranslate nohighlight">\(\ell^{(b)}\)</span> based on the estimation set. After <span class="math notranslate nohighlight">\(B\)</span> causal trees have been built, the weights required to compose the weighted average of CATEs are calculated for every observation as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ae7904fe-e16c-43fb-b25d-dc79c5403748">
-<span class="eqno">(3)<a class="headerlink" href="#equation-ae7904fe-e16c-43fb-b25d-dc79c5403748" title="Permalink to this equation">#</a></span>\[\begin{equation}
-    \alpha^{(j)}(\mathbf{h}_t)=\frac{1}{B}\sum_{b=1}^{B}\frac{\mathbb{1}\{\mathbf{H}_t^{(j)}\in\ell^{(b)}(\mathbf{h}_t)\}}{\left|\ell^{(b)}(\mathbf{h}_t)\right|}.
+<div class="amsmath math notranslate nohighlight" id="equation-75170fcb-39b8-4e5a-bc84-505b4c47d626">
+<span class="eqno">(3)<a class="headerlink" href="#equation-75170fcb-39b8-4e5a-bc84-505b4c47d626" title="Permalink to this equation">#</a></span>\[\begin{equation}
+    \alpha^{(j)}(x)=\frac{1}{B}\sum_{b=1}^{B}\frac{\mathbb{1}\{X^{(j)}\in\ell^{(b)}(x)\}}{\left|\ell^{(b)}(x)\right|}.
 \end{equation}\]</div>
-<p>The weights indicate how often another patient <span class="math notranslate nohighlight">\(j\not = i\)</span> with history <span class="math notranslate nohighlight">\(\mathbf{H}^{(j)}_t\)</span> falls in the same leaf as the patient of interest <span class="math notranslate nohighlight">\(i\)</span> with the history <span class="math notranslate nohighlight">\(\mathbf{h}_t\)</span> across the trees in the forest. The more often the patients are in the same leaf, the closer they are to each other and the higher is the weight of patient when estimating the treatment effect of the observation with a given patient history and outcome.</p>
-<p>The causal forest is hence not used to construct the final estimate of CATE as average over all single estimations but rather for adaptive neighborhood matching of each individual observation. The actual CATE is then calculated locally as a weighted average over its nearest neighbors, i.e. similar patients , as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-99165861-c98a-4d85-a650-a33e89b682bb">
-<span class="eqno">(4)<a class="headerlink" href="#equation-99165861-c98a-4d85-a650-a33e89b682bb" title="Permalink to this equation">#</a></span>\[\begin{equation}
-    \hat{\tau}(\mathbf{h}_t)=\frac{\sum_{j=1}^n \alpha^{(j)}(\mathbf{h}_t)(Y^{(j)}-\hat{Y}^{(-j)})(A_t^{(j)}-\hat{\pi}^{(-j)}(\mathbf{h}_t))}{ \sum \alpha^{(j)}(\mathbf{h}_t)(A_t^{(j)}-\hat{\pi}^{(-j)}(\mathbf{h}_t))^2}.
+<p>The weights indicate how often another patient <span class="math notranslate nohighlight">\(j\not = i\)</span> with covariates <span class="math notranslate nohighlight">\(X^{(j)}\)</span> falls in the same leaf as the patient of interest <span class="math notranslate nohighlight">\(i\)</span> with covariates <span class="math notranslate nohighlight">\(x\)</span> across the trees in the forest. The more often the patients are in the same leaf, the closer they are to each other and the higher is the weight of patient when estimating the treatment effect of the observation with given covariates and outcome.</p>
+<p>The causal forest is hence not used to construct the final estimate of CATE as average over all single estimations but rather for adaptive neighbourhood matching of each individual observation. The actual CATE is then calculated locally as a weighted average over its nearest neighbours, i.e. similar patients , as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-1ec2309f-c4b1-4aab-a7ea-e4ba8da0343b">
+<span class="eqno">(4)<a class="headerlink" href="#equation-1ec2309f-c4b1-4aab-a7ea-e4ba8da0343b" title="Permalink to this equation">#</a></span>\[\begin{equation}
+    \hat{\tau}(x)=\frac{\sum_{j=1}^n \alpha^{(j)}(x)(Y^{(j)}-\hat{Y}^{(-j)})(T^{(j)}-\hat{\pi}^{(-j)}(x))}{ \sum \alpha^{(j)}(x)(T^{(j)}-\hat{\pi}^{(-j)}(x))^2}.
 \end{equation}\]</div>
-<p>To construct the neighborhood for each single patient <span class="math notranslate nohighlight">\(i\)</span>, weights are calculated for every other patient <span class="math notranslate nohighlight">\(j\not = i\)</span>. Note that <span class="math notranslate nohighlight">\(\hat{Y}^{(-j)}\)</span> and <span class="math notranslate nohighlight">\(\hat{\pi}^{(-j)}(\mathbf{h}_t)\)</span> are calculated out-of-bag, meaning that information about patient <span class="math notranslate nohighlight">\(j\)</span> was not used for their estimation. We refer to  for more details on the estimation procedure. To assign an observation to a leaf <span class="math notranslate nohighlight">\(\ell^{(b)}\)</span> in iteration <span class="math notranslate nohighlight">\(b\)</span>, the set of covariates can vary across patients to determine the path, as causal forests share the property with random forests to randomly select the set of possible covariates at each split . Amongst this set, the splitting covariate that maximizes heterogeneity in treatment effects amongst the subgroups, is chosen on a data-driven basis. This allows the path to vary per leaf <span class="math notranslate nohighlight">\(\ell\)</span> and per iteration <span class="math notranslate nohighlight">\(b\)</span>.</p>
+<p>To construct the neighbourhood for each single patient <span class="math notranslate nohighlight">\(i\)</span>, weights are calculated for every other patient <span class="math notranslate nohighlight">\(j\not = i\)</span>. Note that <span class="math notranslate nohighlight">\(\hat{Y}^{(-j)}\)</span> and <span class="math notranslate nohighlight">\(\hat{\pi}^{(-j)}(x)\)</span> are calculated out-of-bag, meaning that information about patient <span class="math notranslate nohighlight">\(j\)</span> was not used for their estimation. We refer to  for more details on the estimation procedure. To assign an observation to a leaf <span class="math notranslate nohighlight">\(\ell^{(b)}\)</span> in iteration <span class="math notranslate nohighlight">\(b\)</span>, the set of covariates can vary across patients to determine the path, as causal forests share the property with random forests to randomly select the set of possible covariates at each split . Amongst this set, the splitting covariate that maximizes heterogeneity in treatment effects amongst the subgroups, is chosen on a data-driven basis. This allows the path to vary per leaf <span class="math notranslate nohighlight">\(\ell\)</span> and per iteration <span class="math notranslate nohighlight">\(b\)</span>.</p>
 </section>
 
         <script type="text/x-thebe-config">
@@ -545,8 +559,8 @@ By Daniel Meier, Theresa Blümlein, Michael Mayer, and Patrick Cheridito
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

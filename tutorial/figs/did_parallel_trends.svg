@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="340" viewBox="0 0 560 340" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#555"/>
+    </marker>
+  </defs>
+
+  <!-- Axes -->
+  <line x1="70" y1="280" x2="520" y2="280" stroke="#333" stroke-width="1.5"/>
+  <line x1="70" y1="40" x2="70" y2="280" stroke="#333" stroke-width="1.5"/>
+  <text x="295" y="320" text-anchor="middle" font-size="14" fill="#333">time</text>
+  <text x="28" y="160" text-anchor="middle" font-size="14" fill="#333" transform="rotate(-90 28 160)">outcome E[Y]</text>
+
+  <!-- Intervention line -->
+  <line x1="295" y1="40" x2="295" y2="280" stroke="#999" stroke-width="1.2" stroke-dasharray="5,4"/>
+  <text x="295" y="34" text-anchor="middle" font-size="12" fill="#777">intervention</text>
+  <text x="180" y="60" text-anchor="middle" font-size="12" fill="#777">pre-period</text>
+  <text x="410" y="60" text-anchor="middle" font-size="12" fill="#777">post-period</text>
+
+  <!-- Control group line (parallel, lower) -->
+  <line x1="100" y1="230" x2="490" y2="170" stroke="#1f9d55" stroke-width="2.5"/>
+  <circle cx="100" cy="230" r="4" fill="#1f9d55"/>
+  <circle cx="490" cy="170" r="4" fill="#1f9d55"/>
+  <text x="500" y="172" font-size="13" fill="#136c3a">control</text>
+
+  <!-- Treated pre-period -->
+  <line x1="100" y1="170" x2="295" y2="140" stroke="#cc3b3b" stroke-width="2.5"/>
+  <circle cx="100" cy="170" r="4" fill="#cc3b3b"/>
+  <!-- Treated post-period (jump up due to treatment) -->
+  <line x1="295" y1="140" x2="490" y2="80" stroke="#cc3b3b" stroke-width="2.5"/>
+  <circle cx="490" cy="80" r="4" fill="#cc3b3b"/>
+  <text x="500" y="82" font-size="13" fill="#8a1f1f">treated</text>
+
+  <!-- Counterfactual (parallel trend) dashed -->
+  <line x1="295" y1="140" x2="490" y2="110" stroke="#cc3b3b" stroke-width="2" stroke-dasharray="6,4" opacity="0.7"/>
+  <circle cx="490" cy="110" r="4" fill="none" stroke="#cc3b3b" stroke-width="1.5"/>
+  <text x="372" y="132" font-size="11" fill="#cc3b3b" opacity="0.8" font-style="italic">counterfactual</text>
+
+  <!-- Treatment effect bracket -->
+  <line x1="510" y1="80" x2="510" y2="110" stroke="#333" stroke-width="1.5" marker-end="url(#ar)" marker-start="url(#ar)"/>
+  <text x="525" y="98" font-size="14" fill="#333" font-style="italic">&#964;</text>
+  <text x="525" y="114" font-size="10" fill="#777">ATT</text>
+</svg>

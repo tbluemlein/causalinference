@@ -70,23 +70,23 @@ $$
 ```{prf:definition} Fork (Common Cause)
 :label: fork
 
-A **fork** is a path of the form $X \leftarrow Z \rightarrow Y$. The variable $Z$ is a **common cause** (confounder) of $X$ and $Y$.
+A **fork** is a path of the form $X \leftarrow F \rightarrow Y$. The variable $F$ is a **common cause** (confounder) of $X$ and $Y$.
 ```
 
 ```{mermaid}
 graph TD
-    Z["Z (Common Cause)"] --> X
-    Z --> Y
-    style Z fill:#e74c3c,color:#fff
+    F["F (Common Cause)"] --> X
+    F --> Y
+    style F fill:#e74c3c,color:#fff
 ```
 
-In a fork, $X$ and $Y$ are marginally dependent (the common cause $Z$ induces a spurious association), but conditionally independent given $Z$:
+In a fork, $X$ and $Y$ are marginally dependent (the common cause $F$ induces a spurious association), but conditionally independent given $F$:
 
 $$
-X \perp\!\!\!\perp Y \mid Z \quad \text{(in a fork)}
+X \perp\!\!\!\perp Y \mid F \quad \text{(in a fork)}
 $$
 
-This is the structure that generates **confounding bias**: if $Z$ is not adjusted for, the association between $X$ and $Y$ conflates the causal effect with the spurious path through $Z$.
+This is the structure that generates **confounding bias**: if $F$ is not adjusted for, the association between $X$ and $Y$ conflates the causal effect with the spurious path through $F$.
 
 ### Colliders (Common Effect)
 
@@ -116,7 +116,7 @@ This is the source of **collider bias** (also called **selection bias** or **Ber
 | Structure | Path | Marginal | Conditional on middle node |
 |-----------|------|----------|---------------------------|
 | **Chain** (Mediator) | $X \rightarrow M \rightarrow Y$ | Dependent | Independent |
-| **Fork** (Common Cause) | $X \leftarrow Z \rightarrow Y$ | Dependent | Independent |
+| **Fork** (Common Cause) | $X \leftarrow F \rightarrow Y$ | Dependent | Independent |
 | **Collider** (Common Effect) | $X \rightarrow C \leftarrow Y$ | Independent | Dependent |
 
 ## $d$-Separation
@@ -176,19 +176,19 @@ Consider the following DAG:
 
 ```{mermaid}
 graph LR
-    C["C (Confounder)"] --> T
-    C --> Y
+    F["F (Confounder)"] --> T
+    F --> Y
     T --> M --> Y
-    T --> S["S (Collider)"]
-    Y --> S
-    style C fill:#e74c3c,color:#fff
-    style S fill:#9b59b6,color:#fff
+    T --> C["C (Collider)"]
+    Y --> C
+    style F fill:#e74c3c,color:#fff
+    style C fill:#9b59b6,color:#fff
     style M fill:#f5a623,color:#fff
 ```
 
-- **$T$ and $Y$ given $\emptyset$**: The path $T \leftarrow C \rightarrow Y$ is open (fork, $C$ not conditioned on). $T$ and $Y$ are $d$-connected — **not** independent.
-- **$T$ and $Y$ given $C$**: The backdoor path $T \leftarrow C \rightarrow Y$ is now blocked. The directed path $T \rightarrow M \rightarrow Y$ remains open (chain, $M$ not conditioned on). $T$ and $Y$ are $d$-connected given $C$ — but now the remaining open paths are *causal*.
-- **$T$ and $Y$ given $\{C, S\}$**: Conditioning on the collider $S$ **opens** the path $T \rightarrow S \leftarrow Y$, creating collider bias. This is an **incorrect** adjustment set.
+- **$T$ and $Y$ given $\emptyset$**: The path $T \leftarrow F \rightarrow Y$ is open (fork, $F$ not conditioned on). $T$ and $Y$ are $d$-connected — **not** independent.
+- **$T$ and $Y$ given $F$**: The backdoor path $T \leftarrow F \rightarrow Y$ is now blocked. The directed path $T \rightarrow M \rightarrow Y$ remains open (chain, $M$ not conditioned on). $T$ and $Y$ are $d$-connected given $F$ — but now the remaining open paths are *causal*.
+- **$T$ and $Y$ given $\{F, C\}$**: Conditioning on the collider $C$ **opens** the path $T \rightarrow C \leftarrow Y$, creating collider bias. This is an **incorrect** adjustment set.
 
 
 ## Methods to Identify the Correct Adjustment Set
@@ -234,10 +234,10 @@ The adjustment formula converts the interventional distribution $P(Y \mid \text{
 
 Consider the DAG:
 
-$Z \rightarrow T, \quad Z \rightarrow Y, \quad T \rightarrow Y$
+$F \rightarrow T, \quad F \rightarrow Y, \quad T \rightarrow Y$
 
-- **Candidate $Z = \{Z\}$**: $Z$ is not a descendant of $T$ ✓. The only backdoor path is $T \leftarrow Z \rightarrow Y$, which is blocked by conditioning on $Z$ ✓. The backdoor criterion is satisfied.
-- **Candidate $Z = \emptyset$**: The backdoor path $T \leftarrow Z \rightarrow Y$ is not blocked ✗. The criterion fails.
+- **Candidate $Z = \{F\}$**: $F$ is not a descendant of $T$ ✓. The only backdoor path is $T \leftarrow F \rightarrow Y$, which is blocked by conditioning on $F$ ✓. The backdoor criterion is satisfied.
+- **Candidate $Z = \emptyset$**: The backdoor path $T \leftarrow F \rightarrow Y$ is not blocked ✗. The criterion fails.
 ```
 
 ### Frontdoor Criterion
@@ -303,7 +303,7 @@ graph LR
 | **Requires** | Observed confounders | Observed mediator |
 | **Blocks** | Non-causal (backdoor) paths | Uses causal path through mediator |
 | **Fails when** | Confounders are unobserved | No suitable mediator exists |
-| **Adjusts for** | Common causes $Z$ | Mediator $M$ via two-step identification |
+| **Adjusts for** | Common causes $F$ | Mediator $M$ via two-step identification |
 
 
 ## Causal Discovery

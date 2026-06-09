@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Possible Biases and Mitigation Strategies &#8212; Causal Inference Tutorial</title>
+    <title>Biases, De-biasing, and Fairness &#8212; Causal Inference Tutorial</title>
   
   
   
@@ -16,25 +16,23 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!--
-    this give us a css class that will be invisible only if js is disabled
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/thebe.css?v=9bca0c2f" />
     <link rel="stylesheet" type="text/css" href="../_static/code.css?v=1719a5f1" />
@@ -43,18 +41,17 @@
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -119,16 +116,14 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.2.0/dist/mermaid-layout-elk.esm.min.mjs"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.2.0/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
     <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
     <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
 
-
-
-
-
-const initStyles = () => {
-    const defaultStyle = document.createElement('style');
-    defaultStyle.textContent = `pre.mermaid {
+const defaultStyle = document.createElement('style');
+defaultStyle.textContent = `pre.mermaid {
     /* Same as .mermaid-container > pre */
     display: block;
     width: 100%;
@@ -139,11 +134,12 @@ pre.mermaid > svg {
     height: 500px;
     width: 100%;
     max-width: 100% !important;
-}`;
-    document.head.appendChild(defaultStyle);
+}
+`;
+document.head.appendChild(defaultStyle);
 
-    const fullscreenStyle = document.createElement('style');
-    fullscreenStyle.textContent = `.mermaid-container {
+const fullscreenStyle = document.createElement('style');
+fullscreenStyle.textContent = `.mermaid-container {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -295,32 +291,10 @@ pre.mermaid > svg {
 .mermaid-fullscreen-modal .mermaid-fullscreen-btn {
     display: none !important;
 }`;
-    document.head.appendChild(fullscreenStyle);
-}
+document.head.appendChild(fullscreenStyle);
 
 // Detect if page has dark background
 const isDarkTheme = () => {
-    // We use a set of heuristics:
-    // 1. Check for common dark mode classes or attributes
-    // 2. Check computed background color brightness
-    if (document.documentElement.classList.contains('dark') ||
-        document.documentElement.getAttribute('data-theme') === 'dark' ||
-        document.body.classList.contains('dark') ||
-        document.body.getAttribute('data-theme') === 'dark') {
-        // console.log("Dark theme detected via class/attribute");
-        return true;
-    }
-    if (document.documentElement.classList.contains('light') ||
-        document.documentElement.getAttribute('data-theme') === 'light' ||
-        document.body.classList.contains('light') ||
-        document.body.getAttribute('data-theme') === 'light') {
-        // console.log("Light theme detected via class/attribute");
-        return false;
-    }
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        // console.log("Dark theme detected via prefers-color-scheme");
-        return true;
-    }
     const bgColor = window.getComputedStyle(document.body).backgroundColor;
     const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
     if (match) {
@@ -328,45 +302,15 @@ const isDarkTheme = () => {
         const g = parseInt(match[2]);
         const b = parseInt(match[3]);
         const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-        // console.log("Background color brightness:", brightness);
         return brightness < 128;
     }
-    // console.log("No dark or light theme detected, defaulting to light theme");
     return false;
 };
 
-let darkTheme = isDarkTheme();
-let modal = null;
-let modalContent = null;
-let previousScrollOffset = [window.scrollX, window.scrollY];
+const load = async () => {
+    await mermaid.run();
 
-const runMermaid = async (rerun) => {
-    console.log("Running mermaid diagrams, rerun =", rerun);
-    // clear all existing mermaid charts
-    let all_mermaids = document.querySelectorAll(".mermaid");
-
-    if (rerun) {
-        all_mermaids.forEach((el) => {
-            if(!el.hasAttribute("data-original-code")) {
-                // store original code
-                // console.log(`Storing original code for first run: `, el.innerHTML);
-                el.setAttribute('data-original-code', el.innerHTML);
-            }
-            if(el.getAttribute("data-processed") === "true") {
-                // remove and restore original
-                el.removeAttribute("data-processed");
-                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
-                el.innerHTML = el.getAttribute('data-original-code');
-            } else {
-                // store original code
-                // console.log(`Storing original code for re-run: `, el.innerHTML);
-                el.setAttribute('data-original-code', el.innerHTML);
-            }
-        });
-        await mermaid.run();
-    }
-
-    all_mermaids = document.querySelectorAll(".mermaid");
+    const all_mermaids = document.querySelectorAll(".mermaid");
     const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
 
     if ("False" === "True") {
@@ -374,10 +318,10 @@ const runMermaid = async (rerun) => {
         if(mermaids_to_add_zoom > 0) {
             var svgs = d3.selectAll("");
             if(all_mermaids.length !== mermaids_processed.length) {
-                setTimeout(() => runMermaid(false), 200);
+                setTimeout(load, 200);
                 return;
             } else if(svgs.size() !== mermaids_to_add_zoom) {
-                setTimeout(() => runMermaid(false), 200);
+                setTimeout(load, 200);
                 return;
             } else {
                 svgs.each(function() {
@@ -393,21 +337,16 @@ const runMermaid = async (rerun) => {
         }
     } else if(all_mermaids.length !== mermaids_processed.length) {
         // Wait for mermaid to process all diagrams
-        setTimeout(() => runMermaid(false), 200);
+        setTimeout(load, 200);
         return;
     }
+
+    const darkTheme = isDarkTheme();
 
     // Stop here if not adding fullscreen capability
     if ("True" !== "True") return;
 
-    if (modal !== null ) {
-        // Destroy existing modal
-        modal.remove();
-        modal = null;
-        modalContent = null;
-    }
-
-    modal = document.createElement('div');
+    const modal = document.createElement('div');
     modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
     modal.setAttribute('role', 'dialog');
     modal.setAttribute('aria-modal', 'true');
@@ -418,8 +357,10 @@ const runMermaid = async (rerun) => {
     `;
     document.body.appendChild(modal);
 
-    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const modalContent = modal.querySelector('.mermaid-container-fullscreen');
     const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    let previousScrollOffset = [window.scrollX, window.scrollY];
 
     const closeModal = () => {
         modal.classList.remove('active');
@@ -438,14 +379,11 @@ const runMermaid = async (rerun) => {
         }
     });
 
+    const allButtons = [];
+
     document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
         if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
             mermaidDiv.closest('.mermaid-fullscreen-modal')) {
-            // Already processed, adjust button class if needed
-            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
-            if (existingBtn) {
-                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
-            }
             return;
         }
 
@@ -503,58 +441,46 @@ const runMermaid = async (rerun) => {
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
+
         container.appendChild(fullscreenBtn);
+        allButtons.push(fullscreenBtn);
     });
-};
 
-const load = async () => {
-    initStyles();
-
-    await runMermaid(true);
-
-    const reRunIfThemeChanges = async () => {
-        const newDarkTheme = isDarkTheme();
-        if (newDarkTheme !== darkTheme) {
-            darkTheme = newDarkTheme;
-            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
-            await mermaid.initialize(
-                {...JSON.parse(
-                    `{"startOnLoad": false}`
-                ),
-                ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
-                }
-            );
-            await runMermaid(true);
+    // Update theme classes when theme changes
+    const updateTheme = () => {
+        const dark = isDarkTheme();
+        allButtons.forEach(btn => {
+            if (dark) {
+                btn.classList.add('dark-theme');
+            } else {
+                btn.classList.remove('dark-theme');
+            }
+        });
+        if (dark) {
+            modal.classList.add('dark-theme');
+            modalContent.classList.add('dark-theme');
+            closeBtn.classList.add('dark-theme');
+        } else {
+            modal.classList.remove('dark-theme');
+            modalContent.classList.remove('dark-theme');
+            closeBtn.classList.remove('dark-theme');
         }
     };
 
-    // Update theme classes when theme changes
-    const themeObserver = new MutationObserver(reRunIfThemeChanges);
-    themeObserver.observe(document.documentElement, {
+    // Watch for theme changes
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, {
         attributes: true,
         attributeFilter: ['class', 'style', 'data-theme']
     });
-    themeObserver.observe(document.body, {
+    observer.observe(document.body, {
         attributes: true,
-        attributeFilter: ['class', 'style', 'data-theme']
+        attributeFilter: ['class', 'style']
     });
 };
 
-
-
-
-
-console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
-mermaid.initialize(
-    {...JSON.parse(
-        `{"startOnLoad": false}`
-    ),
-    ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
-    }
-);
-
 window.addEventListener("load", load);
-window.runMermaid = runMermaid;</script>
+</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/2_3_debias';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -563,7 +489,6 @@ window.runMermaid = runMermaid;</script>
     <link rel="prev" title="Graphical Causal Models" href="2_2_graphical_models.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -579,8 +504,19 @@ window.runMermaid = runMermaid;</script>
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -588,6 +524,7 @@ window.runMermaid = runMermaid;</script>
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -595,8 +532,8 @@ window.runMermaid = runMermaid;</script>
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -612,8 +549,7 @@ window.runMermaid = runMermaid;</script>
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -643,17 +579,21 @@ window.runMermaid = runMermaid;</script>
     
     
     <img src="../_static/logo.png" class="logo__image only-light" alt="Causal Inference Tutorial - Home"/>
-    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Causal Inference Tutorial - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Causal Inference Tutorial - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -670,7 +610,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="2_identification.html">Identification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="2_1_assumptions.html">Assumptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_2_graphical_models.html">Graphical Causal Models</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Possible Biases and Mitigation Strategies</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Biases, De-biasing, and Fairness</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="3_inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -700,14 +640,9 @@ window.runMermaid = runMermaid;</script>
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
-      <div class="sidebar-primary-item">
-<div id="ethical-ad-placement"
-      class="flat"
-      data-ea-publisher="readthedocs"
-      data-ea-type="readthedocs-sidebar"
-      data-ea-manual="true">
-</div></div>
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -790,7 +725,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  class="btn btn-sm btn-fullscreen-button"
   title="Fullscreen mode"
   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
@@ -804,17 +739,25 @@ window.runMermaid = runMermaid;</script>
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
-<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
 </div></div>
@@ -827,7 +770,7 @@ window.runMermaid = runMermaid;</script>
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Possible Biases and Mitigation Strategies</h1>
+    <h1>Biases, De-biasing, and Fairness</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -837,12 +780,31 @@ window.runMermaid = runMermaid;</script>
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confounding-bias">Confounding Bias</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selection-bias">Selection Bias</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collider-bias">Collider Bias</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#positivity-violations-and-extreme-weights">Positivity Violations and Extreme Weights</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interference-and-spillover">Interference and Spillover</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-biasassumptionmitigation-map">Summary: Bias–Assumption–Mitigation Map</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-went-wrong-from-assumption-violations-to-biases">What went wrong? — From Assumption Violations to Biases</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confounding-bias">Confounding Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selection-bias">Selection Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collider-bias">Collider Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#positivity-violations">Positivity Violations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interference">Interference</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-fix-it-the-de-biasing-toolkit">How to fix it — The De-biasing Toolkit</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adjust">Adjust</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reweight">Reweight</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#restrict">Restrict</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-the-causal-structure">Model the causal structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cluster-or-network-models">Cluster or network models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensitivity-analysis">Sensitivity analysis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#is-my-model-fair-discrimination-and-fairness-in-insurance">Is my model fair? — Discrimination and Fairness in Insurance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxy-discrimination">Proxy Discrimination</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#three-fairness-definitions">Three Fairness Definitions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group-fairness-criteria-as-diagnostic-checks">Group Fairness Criteria as Diagnostic Checks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-causal-inference-resolves-the-fairness-problem">Why Causal Inference Resolves the Fairness Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-the-actuary-s-workflow">Putting It All Together — The Actuary’s Workflow</a></li>
 </ul>
             </nav>
         </div>
@@ -854,125 +816,294 @@ window.runMermaid = runMermaid;</script>
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="possible-biases-and-mitigation-strategies">
-<h1>Possible Biases and Mitigation Strategies<a class="headerlink" href="#possible-biases-and-mitigation-strategies" title="Link to this heading">#</a></h1>
-<p>When the causal assumptions from <a class="reference internal" href="2_1_assumptions.html#consistency">Assumption 1</a>, <a class="reference internal" href="2_1_assumptions.html#sutva">Assumption 2</a>, <a class="reference internal" href="2_1_assumptions.html#positivity">Assumption 3</a>, or <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a> are violated, the resulting treatment effect estimates are <strong>biased</strong>. This chapter catalogues the major biases that arise in observational causal inference and the strategies to mitigate them.</p>
-<section id="confounding-bias">
-<h2>Confounding Bias<a class="headerlink" href="#confounding-bias" title="Link to this heading">#</a></h2>
-<div class="proof definition admonition" id="confounding-bias">
-<p class="admonition-title"><span class="caption-number">Definition 9 </span> (Confounding Bias)</p>
-<section class="definition-content" id="proof-content">
-<p><strong>Confounding bias</strong> occurs when a variable <span class="math notranslate nohighlight">\(C\)</span> causally influences both the treatment <span class="math notranslate nohighlight">\(T\)</span> and the outcome <span class="math notranslate nohighlight">\(Y\)</span>, and the analysis fails to adjust for <span class="math notranslate nohighlight">\(C\)</span>. The observed association between <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> then conflates the causal effect with the spurious association through <span class="math notranslate nohighlight">\(C\)</span>.</p>
-</section>
-</div><pre  class="mermaid">
-        graph TD
-    C[&quot;C (Confounder)&quot;] --&gt; T
-    C --&gt; Y
-    T --&gt; Y
-    style C fill:#e74c3c,color:#fff
-    </pre><p>Confounding violates <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a>. The bias takes the form:</p>
-<div class="math notranslate nohighlight">
-\[
-\mathbb{E}[Y \mid T=1] - \mathbb{E}[Y \mid T=0] = \underbrace{\mathbb{E}[Y(1) - Y(0)]}_{\text{ATE}} + \underbrace{\mathbb{E}[Y(0) \mid T=1] - \mathbb{E}[Y(0) \mid T=0]}_{\text{confounding bias (baseline difference)}}
-\]</div>
-<p><strong>Mitigation strategies:</strong></p>
-<ul class="simple">
-<li><p><strong>Regression adjustment:</strong> Include confounders <span class="math notranslate nohighlight">\(C\)</span> as covariates in the outcome model (<a class="reference external" href="https://doi.org/10.1016/C2011-0-05506-1">Wooldridge, 2012</a>).</p></li>
-<li><p><strong>Propensity score methods:</strong> Matching, stratification, or inverse-probability weighting on the propensity score <span class="math notranslate nohighlight">\(\pi(x) = P(T=1 \mid X=x)\)</span> (<a class="reference external" href="https://doi.org/10.1093/biomet/70.1.41">Rosenbaum &amp; Rubin, 1983</a>; <a class="reference external" href="https://doi.org/10.1080/00273171.2011.568786">Austin, 2011</a>).</p></li>
-<li><p><strong>Doubly robust estimation:</strong> Combines outcome modelling and propensity weighting; consistent if <em>either</em> model is correctly specified.</p></li>
-<li><p><strong>Instrumental variables:</strong> When unmeasured confounders exist, an instrument <span class="math notranslate nohighlight">\(Z\)</span> that affects <span class="math notranslate nohighlight">\(T\)</span> but not <span class="math notranslate nohighlight">\(Y\)</span> directly can identify the causal effect (<a class="reference external" href="https://doi.org/10.2307/j.ctt5vhbqm">Angrist &amp; Pischke, 2015</a>).</p></li>
-</ul>
-</section>
-<section id="selection-bias">
-<h2>Selection Bias<a class="headerlink" href="#selection-bias" title="Link to this heading">#</a></h2>
-<div class="proof definition admonition" id="selection-bias">
-<p class="admonition-title"><span class="caption-number">Definition 10 </span> (Selection Bias)</p>
-<section class="definition-content" id="proof-content">
-<p><strong>Selection bias</strong> arises when the sample analysed is not representative of the target population, because the selection into the sample depends on variables related to both <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
-</section>
-</div><p>Selection bias can occur at study entry (differential enrolment), during follow-up (differential attrition/censoring), or through post-treatment conditioning. It violates <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a> at the population level even if within-sample adjustment is performed.</p>
-<p><strong>Mitigation strategies:</strong></p>
-<ul class="simple">
-<li><p><strong>Inverse-probability-of-censoring weighting (IPCW):</strong> Re-weight observed individuals to represent the target population.</p></li>
-<li><p><strong>Sensitivity analysis:</strong> Bound the impact of selection on the estimated effect.</p></li>
-<li><p><strong>Careful study design:</strong> Define inclusion/exclusion criteria that do not condition on post-treatment variables.</p></li>
-</ul>
-</section>
-<section id="collider-bias">
-<h2>Collider Bias<a class="headerlink" href="#collider-bias" title="Link to this heading">#</a></h2>
-<div class="proof definition admonition" id="collider-bias-def">
-<p class="admonition-title"><span class="caption-number">Definition 11 </span> (Collider Bias)</p>
-<section class="definition-content" id="proof-content">
-<p><strong>Collider bias</strong> (Berkson’s paradox) occurs when the analysis conditions on a <strong>collider</strong> — a variable <span class="math notranslate nohighlight">\(S\)</span> that is a common effect of <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> (or their descendants). Conditioning on <span class="math notranslate nohighlight">\(S\)</span> opens a non-causal path between <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, inducing a spurious association.</p>
-</section>
-</div><pre  class="mermaid">
-        graph TD
-    T --&gt; S[&quot;S (Collider)&quot;]
-    Y --&gt; S
-    T --&gt; Y
-    style S fill:#9b59b6,color:#fff
-    </pre><p>Collider bias does not violate the standard causal assumptions <em>per se</em>, but results from <strong>incorrect adjustment</strong> — conditioning on a variable that should not be conditioned on. In insurance, this can arise when analysing claims conditional on whether a claim was filed (since filing depends on both the treatment and the outcome severity).</p>
-<p><strong>Mitigation strategies:</strong></p>
-<ul class="simple">
-<li><p><strong>Do not condition on post-treatment variables</strong> or descendants of colliders.</p></li>
-<li><p><strong>Use DAGs</strong> to identify colliders before selecting the adjustment set (see <a class="reference internal" href="2_2_graphical_models.html#backdoor-criterion">Criterion 1</a>).</p></li>
-<li><p><strong>Sensitivity analysis</strong> for potential collider bias when the adjustment set is uncertain.</p></li>
-</ul>
-</section>
-<section id="positivity-violations-and-extreme-weights">
-<h2>Positivity Violations and Extreme Weights<a class="headerlink" href="#positivity-violations-and-extreme-weights" title="Link to this heading">#</a></h2>
-<p>When <a class="reference internal" href="2_1_assumptions.html#positivity">Assumption 3</a> is violated, propensity score weights <span class="math notranslate nohighlight">\(w = 1/\hat{\pi}(x)\)</span> or <span class="math notranslate nohighlight">\(w = 1/(1 - \hat{\pi}(x))\)</span> become extreme, leading to <strong>high-variance, unstable estimates</strong>.</p>
-<p><strong>Mitigation strategies:</strong></p>
-<ul class="simple">
-<li><p><strong>Trimming:</strong> Remove units with propensity scores below <span class="math notranslate nohighlight">\(\varepsilon\)</span> or above <span class="math notranslate nohighlight">\(1 - \varepsilon\)</span> (e.g. <span class="math notranslate nohighlight">\(\varepsilon = 0.05\)</span>). This changes the estimand to a <em>trimmed</em> population ATE.</p></li>
-<li><p><strong>Weight truncation/stabilisation:</strong> Cap weights at a percentile (e.g. 99th) or use stabilised weights <span class="math notranslate nohighlight">\(w^s = P(T=t) / P(T=t \mid X)\)</span> (<a class="reference external" href="https://doi.org/10.1080/00273171.2011.568786">Austin, 2011</a>).</p></li>
-<li><p><strong>Overlap weighting:</strong> Use weights proportional to <span class="math notranslate nohighlight">\(\pi(x)(1-\pi(x))\)</span>, which naturally down-weight units in regions of poor overlap.</p></li>
-<li><p><strong>Redefine the target population:</strong> Restrict to the overlap population where both treatments are plausible.</p></li>
-</ul>
-</section>
-<section id="interference-and-spillover">
-<h2>Interference and Spillover<a class="headerlink" href="#interference-and-spillover" title="Link to this heading">#</a></h2>
-<p>When <a class="reference internal" href="2_1_assumptions.html#sutva">Assumption 2</a> is violated because one unit’s treatment affects another’s outcome, standard estimators are biased.</p>
-<p><strong>Mitigation strategies:</strong></p>
-<ul class="simple">
-<li><p><strong>Cluster-level treatment assignment:</strong> Assign treatment at the group level and analyse at the cluster level.</p></li>
-<li><p><strong>Partial interference models:</strong> Assume interference occurs only within known clusters (e.g. households, employer groups).</p></li>
-<li><p><strong>Spatial/network models:</strong> Explicitly model the dependence structure if interference follows a known network.</p></li>
-</ul>
-</section>
-<section id="summary-biasassumptionmitigation-map">
-<h2>Summary: Bias–Assumption–Mitigation Map<a class="headerlink" href="#summary-biasassumptionmitigation-map" title="Link to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="biases-de-biasing-and-fairness">
+<h1>Biases, De-biasing, and Fairness<a class="headerlink" href="#biases-de-biasing-and-fairness" title="Link to this heading">#</a></h1>
+<p>In <a class="reference internal" href="2_1_assumptions.html"><span class="doc">Assumptions</span></a> we established the four assumptions — <a class="reference internal" href="2_1_assumptions.html#consistency">Assumption 1</a>, <a class="reference internal" href="2_1_assumptions.html#sutva">Assumption 2</a>, <a class="reference internal" href="2_1_assumptions.html#positivity">Assumption 3</a>, and <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a> — that allow causal effects to be identified from observational data. In <a class="reference internal" href="2_2_graphical_models.html"><span class="doc">Graphical Causal Models</span></a> we introduced DAGs as the language for encoding and reasoning about these assumptions. In practice, <strong>assumptions are rarely perfectly satisfied</strong>. This chapter is a practical guide for the actuary: how to diagnose what went wrong, how to fix it, and how to ensure the resulting model is fair.</p>
+<section id="what-went-wrong-from-assumption-violations-to-biases">
+<h2>What went wrong? — From Assumption Violations to Biases<a class="headerlink" href="#what-went-wrong-from-assumption-violations-to-biases" title="Link to this heading">#</a></h2>
+<p>When a causal assumption is violated, a specific bias enters the treatment effect estimate. The table below maps each assumption to the bias it produces and the diagnostic pattern visible in data.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>Bias</p></th>
-<th class="head"><p>Violated Assumption</p></th>
-<th class="head"><p>Primary Mitigation</p></th>
+<tr class="row-odd"><th class="head"><p>Violated Assumption</p></th>
+<th class="head"><p>Bias</p></th>
+<th class="head"><p>Diagnostic Pattern</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Confounding</p></td>
-<td><p>Exchangeability</p></td>
-<td><p>Regression, propensity scores, IV</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a></p></td>
+<td><p>Confounding</p></td>
+<td><p>Effect estimate changes when adjusting for additional covariates</p></td>
 </tr>
-<tr class="row-odd"><td><p>Selection bias</p></td>
-<td><p>Exchangeability (population level)</p></td>
-<td><p>IPCW, study design</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a> (population)</p></td>
+<td><p>Selection bias</p></td>
+<td><p>Sample composition differs systematically from target population</p></td>
 </tr>
-<tr class="row-even"><td><p>Collider bias</p></td>
-<td><p>Incorrect adjustment</p></td>
-<td><p>DAG-guided variable selection</p></td>
+<tr class="row-even"><td><p>Incorrect adjustment</p></td>
+<td><p>Collider bias</p></td>
+<td><p>Conditioning on a post-treatment variable <em>creates</em> an association</p></td>
 </tr>
-<tr class="row-odd"><td><p>Extreme weights</p></td>
-<td><p>Positivity</p></td>
-<td><p>Trimming, overlap weighting</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="2_1_assumptions.html#positivity">Assumption 3</a></p></td>
+<td><p>Extreme weights</p></td>
+<td><p>Propensity scores cluster near 0 or 1; IPW estimates are unstable</p></td>
 </tr>
-<tr class="row-even"><td><p>Spillover/interference</p></td>
-<td><p>SUTVA</p></td>
-<td><p>Cluster randomisation, network models</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="2_1_assumptions.html#sutva">Assumption 2</a></p></td>
+<td><p>Interference</p></td>
+<td><p>Control outcomes correlate with treatment intensity in neighbouring units</p></td>
 </tr>
-<tr class="row-odd"><td><p>Treatment ambiguity</p></td>
-<td><p>Consistency</p></td>
-<td><p>Precise treatment definition</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="2_1_assumptions.html#consistency">Assumption 1</a></p></td>
+<td><p>Treatment ambiguity</p></td>
+<td><p>Effect estimates vary when stratifying by treatment sub-type</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The remainder of this section defines each bias precisely.</p>
+<section id="confounding-bias">
+<h3>Confounding Bias<a class="headerlink" href="#confounding-bias" title="Link to this heading">#</a></h3>
+<div class="proof definition admonition" id="confounding-bias">
+<p class="admonition-title"><span class="caption-number">Definition 9 </span> (Confounding Bias)</p>
+<section class="definition-content" id="proof-content">
+<p><strong>Confounding bias</strong> occurs when a fork variable <span class="math notranslate nohighlight">\(F\)</span> causally influences both the treatment <span class="math notranslate nohighlight">\(T\)</span> and the outcome <span class="math notranslate nohighlight">\(Y\)</span>, and the analysis fails to adjust for <span class="math notranslate nohighlight">\(F\)</span>.</p>
+</section>
+</div><pre  class="mermaid">
+        graph TD
+    F[&quot;F (Confounder)&quot;] --&gt; T
+    F --&gt; Y
+    T --&gt; Y
+    style F fill:#e74c3c,color:#fff
+    </pre><p>Confounding violates <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a>. The naive comparison conflates the causal effect with a baseline difference between groups:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}[Y \mid T{=}1] - \mathbb{E}[Y \mid T{=}0] = \underbrace{\mathbb{E}[Y(1) - Y(0)]}_{\text{ATE}} + \underbrace{\mathbb{E}[Y(0) \mid T{=}1] - \mathbb{E}[Y(0) \mid T{=}0]}_{\text{confounding bias}}
+\]</div>
+<p>In insurance, confounding arises when healthier policyholders self-select into wellness programmes, making the programme <em>appear</em> more effective than it is.</p>
+</section>
+<section id="selection-bias">
+<h3>Selection Bias<a class="headerlink" href="#selection-bias" title="Link to this heading">#</a></h3>
+<div class="proof definition admonition" id="selection-bias">
+<p class="admonition-title"><span class="caption-number">Definition 10 </span> (Selection Bias)</p>
+<section class="definition-content" id="proof-content">
+<p><strong>Selection bias</strong> arises when the sample analysed is not representative of the target population, because selection into the sample depends on variables related to both <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+</section>
+</div><p>Selection bias can occur at study entry (differential enrolment), during follow-up (differential attrition), or through post-treatment conditioning. It violates <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a> at the population level. In insurance, survivorship bias in long-term policy data is a common example: only policies that were not cancelled are observed.</p>
+</section>
+<section id="collider-bias">
+<h3>Collider Bias<a class="headerlink" href="#collider-bias" title="Link to this heading">#</a></h3>
+<div class="proof definition admonition" id="collider-bias-def">
+<p class="admonition-title"><span class="caption-number">Definition 11 </span> (Collider Bias)</p>
+<section class="definition-content" id="proof-content">
+<p><strong>Collider bias</strong> (Berkson’s paradox) occurs when the analysis conditions on a <strong>collider</strong> <span class="math notranslate nohighlight">\(C\)</span> — a common effect of <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. Conditioning on <span class="math notranslate nohighlight">\(C\)</span> opens a non-causal path between <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+</section>
+</div><pre  class="mermaid">
+        graph TD
+    T --&gt; C[&quot;C (Collider)&quot;]
+    Y --&gt; C
+    T --&gt; Y
+    style C fill:#9b59b6,color:#fff
+    </pre><p>Collider bias results from <strong>incorrect adjustment</strong>, not from a violated assumption per se. In insurance, analysing claims conditional on whether a claim was <em>filed</em> can introduce collider bias, since filing depends on both the treatment and the outcome severity. DAG-guided variable selection (<a class="reference internal" href="2_2_graphical_models.html#backdoor-criterion">Criterion 1</a>) is the primary safeguard.</p>
+</section>
+<section id="positivity-violations">
+<h3>Positivity Violations<a class="headerlink" href="#positivity-violations" title="Link to this heading">#</a></h3>
+<p>When <a class="reference internal" href="2_1_assumptions.html#positivity">Assumption 3</a> is violated, propensity score weights <span class="math notranslate nohighlight">\(w = 1/\hat{\pi}(x)\)</span> become extreme, leading to high-variance, unstable estimates. In insurance, positivity fails when certain policyholder profiles are <em>always</em> or <em>never</em> eligible for a programme — e.g. a discount that is automatically applied above a certain age.</p>
+</section>
+<section id="interference">
+<h3>Interference<a class="headerlink" href="#interference" title="Link to this heading">#</a></h3>
+<p>When <a class="reference internal" href="2_1_assumptions.html#sutva">Assumption 2</a> is violated because one unit’s treatment affects another’s outcome, the standard individual-level estimators are biased. In insurance, this arises when offering a group discount changes behaviour across all members of a household or employer group.</p>
+</section>
+</section>
+<section id="how-to-fix-it-the-de-biasing-toolkit">
+<h2>How to fix it — The De-biasing Toolkit<a class="headerlink" href="#how-to-fix-it-the-de-biasing-toolkit" title="Link to this heading">#</a></h2>
+<p>The biases above are not merely theoretical concerns — they are practical obstacles that the actuary must address. The following table organises the available de-biasing strategies by <em>what you do</em>, maps each to the bias it addresses, and links to the estimation methods covered in later chapters.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Strategy</p></th>
+<th class="head"><p>Addresses</p></th>
+<th class="head"><p>Covered in</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Adjust</strong> (regression, propensity scores, doubly robust)</p></td>
+<td><p>Confounding, selection</p></td>
+<td><p><a class="reference internal" href="3_1_propensity.html"><span class="doc">Propensity Score Methods</span></a>, <a class="reference internal" href="3_2_Regression_Approaches.html"><span class="doc">Regression Approaches</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Reweight</strong> (IPW, IPCW, overlap weighting)</p></td>
+<td><p>Confounding, selection, positivity</p></td>
+<td><p><a class="reference internal" href="3_1_propensity.html"><span class="doc">Propensity Score Methods</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Restrict</strong> (trimming, redefine target population)</p></td>
+<td><p>Positivity violations</p></td>
+<td><p><a class="reference internal" href="3_1_propensity.html"><span class="doc">Propensity Score Methods</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Model the causal structure</strong> (DAG-guided variable selection)</p></td>
+<td><p>Collider bias, confounding</p></td>
+<td><p><a class="reference internal" href="2_2_graphical_models.html"><span class="doc">Graphical Causal Models</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Cluster or network models</strong></p></td>
+<td><p>Interference / spillover</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Sensitivity analysis</strong></p></td>
+<td><p>Unobserved confounding</p></td>
+<td><p><a class="reference internal" href="4_sensitivity.html"><span class="doc">Sensitivity Analysis</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="adjust">
+<h3>Adjust<a class="headerlink" href="#adjust" title="Link to this heading">#</a></h3>
+<p>Include confounders <span class="math notranslate nohighlight">\(F\)</span> as covariates in the outcome model (<a class="reference external" href="https://doi.org/10.1016/C2011-0-05506-1">Wooldridge, 2012</a>), or use propensity score methods — matching, stratification, or inverse-probability weighting on <span class="math notranslate nohighlight">\(\pi(x) = P(T{=}1 \mid X{=}x)\)</span> (<a class="reference external" href="https://doi.org/10.1093/biomet/70.1.41">Rosenbaum &amp; Rubin, 1983</a>; <a class="reference external" href="https://doi.org/10.1080/00273171.2011.568786">Austin, 2011</a>). <strong>Doubly robust</strong> estimators combine both approaches and are consistent if <em>either</em> the outcome model or the propensity model is correctly specified. When unmeasured confounders exist, <strong>instrumental variables</strong> can identify the causal effect using exogenous variation (<a class="reference external" href="https://doi.org/10.2307/j.ctt5vhbqm">Angrist &amp; Pischke, 2015</a>).</p>
+</section>
+<section id="reweight">
+<h3>Reweight<a class="headerlink" href="#reweight" title="Link to this heading">#</a></h3>
+<p>Inverse-probability weighting (IPW) creates a pseudo-population in which treatment is independent of confounders. <strong>Inverse-probability-of-censoring weighting</strong> (IPCW) extends this idea to correct for selection bias due to attrition or censoring. <strong>Stabilised weights</strong> <span class="math notranslate nohighlight">\(w^{s} = P(T{=}t) / P(T{=}t \mid X)\)</span> reduce variance (<a class="reference external" href="https://doi.org/10.1080/00273171.2011.568786">Austin, 2011</a>). <strong>Overlap weighting</strong> — with weights proportional to <span class="math notranslate nohighlight">\(\pi(x)(1-\pi(x))\)</span> — naturally down-weights units in regions of poor overlap and is particularly useful when positivity is borderline.</p>
+</section>
+<section id="restrict">
+<h3>Restrict<a class="headerlink" href="#restrict" title="Link to this heading">#</a></h3>
+<p>When certain covariate strata have near-deterministic treatment assignment, the estimand itself may need to change. <strong>Trimming</strong> removes units with <span class="math notranslate nohighlight">\(\hat{\pi}(x) &lt; \varepsilon\)</span> or <span class="math notranslate nohighlight">\(\hat{\pi}(x) &gt; 1 - \varepsilon\)</span> (e.g. <span class="math notranslate nohighlight">\(\varepsilon = 0.05\)</span>), targeting a <em>trimmed</em> population ATE. Alternatively, <strong>redefine the target population</strong> to the overlap population where both treatment and control are plausible.</p>
+</section>
+<section id="model-the-causal-structure">
+<h3>Model the causal structure<a class="headerlink" href="#model-the-causal-structure" title="Link to this heading">#</a></h3>
+<p>Use a DAG to distinguish confounders (adjust for them) from colliders (do not condition on them) and mediators (condition only if interested in direct effects). The <a class="reference internal" href="2_2_graphical_models.html#backdoor-criterion">Criterion 1</a> and <a class="reference internal" href="2_2_graphical_models.html#frontdoor-criterion">Criterion 2</a> from <a class="reference internal" href="2_2_graphical_models.html"><span class="doc">Graphical Causal Models</span></a> provide algorithmic tools for selecting the correct adjustment set.</p>
+</section>
+<section id="cluster-or-network-models">
+<h3>Cluster or network models<a class="headerlink" href="#cluster-or-network-models" title="Link to this heading">#</a></h3>
+<p>When interference is present, assign treatment at the group level and analyse at the cluster level. <strong>Partial interference models</strong> assume spillover occurs only within known clusters (e.g. households, employer groups). <strong>Spatial or network models</strong> explicitly model the dependence structure.</p>
+</section>
+<section id="sensitivity-analysis">
+<h3>Sensitivity analysis<a class="headerlink" href="#sensitivity-analysis" title="Link to this heading">#</a></h3>
+<p><a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a> cannot be verified from data alone. <strong>Sensitivity analysis</strong> quantifies how strong an unmeasured confounder would need to be to explain away the estimated effect. Methods include E-values, Rosenbaum bounds, and partial <span class="math notranslate nohighlight">\(R^2\)</span> sensitivity — covered in detail in <a class="reference internal" href="4_sensitivity.html"><span class="doc">Sensitivity Analysis</span></a>.</p>
+</section>
+</section>
+<section id="is-my-model-fair-discrimination-and-fairness-in-insurance">
+<h2>Is my model fair? — Discrimination and Fairness in Insurance<a class="headerlink" href="#is-my-model-fair-discrimination-and-fairness-in-insurance" title="Link to this heading">#</a></h2>
+<p>Beyond causal bias, actuaries face a distinct but related challenge: ensuring that pricing models do not discriminate against protected groups. EU regulation prohibits the use of protected characteristics (e.g. gender, ethnicity) for insurance pricing, but simply dropping the sensitive attribute <span class="math notranslate nohighlight">\(S\)</span> does not solve the problem.</p>
+<section id="proxy-discrimination">
+<h3>Proxy Discrimination<a class="headerlink" href="#proxy-discrimination" title="Link to this heading">#</a></h3>
+<div class="proof definition admonition" id="proxy-discrimination">
+<p class="admonition-title"><span class="caption-number">Definition 12 </span> (Proxy Discrimination)</p>
+<section class="definition-content" id="proof-content">
+<p><strong>Proxy discrimination</strong> (indirect discrimination) occurs when non-protected covariates <span class="math notranslate nohighlight">\(X\)</span> that are correlated with the sensitive attribute <span class="math notranslate nohighlight">\(S\)</span> allow the model to implicitly reconstruct <span class="math notranslate nohighlight">\(S\)</span>, even though <span class="math notranslate nohighlight">\(S\)</span> is not used as an input.</p>
+</section>
+</div><p>The mechanism is the tower property of conditional expectation: <span class="math notranslate nohighlight">\(\mu(X) = \int \mu(X, s) \, \mathrm{d}P(S{=}s \mid X)\)</span>. If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(S\)</span> are dependent, the unawareness price channels information about <span class="math notranslate nohighlight">\(S\)</span> through <span class="math notranslate nohighlight">\(X\)</span> (<a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al., 2022</a>).</p>
+</section>
+<section id="three-fairness-definitions">
+<h3>Three Fairness Definitions<a class="headerlink" href="#three-fairness-definitions" title="Link to this heading">#</a></h3>
+<div class="proof definition admonition" id="fairness-unawareness">
+<p class="admonition-title"><span class="caption-number">Definition 13 </span> (Fairness through Unawareness)</p>
+<section class="definition-content" id="proof-content">
+<p>A model satisfies <strong>fairness through unawareness</strong> if it does not use the sensitive attribute <span class="math notranslate nohighlight">\(S\)</span> as input: <span class="math notranslate nohighlight">\(\hat{\mu}(X) = f(X)\)</span>.</p>
+</section>
+</div><p>Unawareness is necessary but not sufficient — it does not prevent proxy discrimination.</p>
+<div class="proof definition admonition" id="discrimination-free-pricing">
+<p class="admonition-title"><span class="caption-number">Definition 14 </span> (Discrimination-Free Pricing)</p>
+<section class="definition-content" id="proof-content">
+<p>An insurance price is <strong>discrimination-free</strong> (<a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al., 2022</a>) if</p>
+<div class="math notranslate nohighlight">
+\[
+P(Y \leq y \mid X, S) = P(Y \leq y \mid X) \quad \text{for all } y
+\]</div>
+<p>i.e., the sensitive attribute <span class="math notranslate nohighlight">\(S\)</span> carries no additional information about <span class="math notranslate nohighlight">\(Y\)</span> beyond the non-protected covariates <span class="math notranslate nohighlight">\(X\)</span>.</p>
+</section>
+</div><div class="proof definition admonition" id="counterfactual-fairness">
+<p class="admonition-title"><span class="caption-number">Definition 15 </span> (Counterfactual Fairness)</p>
+<section class="definition-content" id="proof-content">
+<p>A predictor <span class="math notranslate nohighlight">\(\hat{\mu}\)</span> is <strong>counterfactually fair</strong> (<a class="reference external" href="https://arxiv.org/abs/1703.06856">Kusner et al., 2017</a>) if, for all <span class="math notranslate nohighlight">\(s, s'\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+P\bigl(\hat{\mu}_{S \leftarrow s}(X) = y \mid X{=}x, S{=}s\bigr) = P\bigl(\hat{\mu}_{S \leftarrow s'}(X) = y \mid X{=}x, S{=}s\bigr)
+\]</div>
+<p>i.e., the prediction would not change had the individual belonged to a different demographic group, all else being equal.</p>
+</section>
+</div></section>
+<section id="group-fairness-criteria-as-diagnostic-checks">
+<h3>Group Fairness Criteria as Diagnostic Checks<a class="headerlink" href="#group-fairness-criteria-as-diagnostic-checks" title="Link to this heading">#</a></h3>
+<div class="proof remark admonition" id="group-fairness-criteria">
+<p class="admonition-title"><span class="caption-number">Remark 2 </span> (Group Fairness Criteria)</p>
+<section class="remark-content" id="proof-content">
+<p>The machine learning literature proposes three group fairness criteria as evaluation constraints on a predictor <span class="math notranslate nohighlight">\(\hat{\mu}(X)\)</span> (<a class="reference external" href="https://fairmlbook.org/">Barocas et al., 2019</a>):</p>
+<ul class="simple">
+<li><p><strong>Statistical parity</strong> (demographic parity): <span class="math notranslate nohighlight">\(\hat{\mu}(X) \perp\!\!\!\perp S\)</span> — the price distribution is the same across groups.</p></li>
+<li><p><strong>Equalized odds</strong>: <span class="math notranslate nohighlight">\(\hat{\mu}(X) \perp\!\!\!\perp S \mid Y\)</span> — prediction errors are equal across groups.</p></li>
+<li><p><strong>Predictive parity</strong>: <span class="math notranslate nohighlight">\(Y \perp\!\!\!\perp S \mid \hat{\mu}(X)\)</span> — the model is calibrated across groups.</p></li>
+</ul>
+<p>These criteria are useful <strong>diagnostic checks</strong> but cannot replace causal reasoning. <a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al. (2022)</a> show that even a genuinely discrimination-free model violates all three criteria whenever <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(S\)</span> are statistically dependent. Moreover, except in trivial cases, the three criteria are mutually incompatible (<a class="reference external" href="https://doi.org/10.1089/big.2016.0047">Chouldechova, 2017</a>).</p>
+</section>
+</div></section>
+<section id="why-causal-inference-resolves-the-fairness-problem">
+<h3>Why Causal Inference Resolves the Fairness Problem<a class="headerlink" href="#why-causal-inference-resolves-the-fairness-problem" title="Link to this heading">#</a></h3>
+<pre  class="mermaid">
+        graph TD
+    S[&quot;S (Sensitive)&quot;] --&gt;|proxy path| X1[&quot;X₁ (Proxy)&quot;]
+    S --&gt;|legitimate path| X2[&quot;X₂ (Legitimate risk factor)&quot;]
+    X1 --&gt; Y[&quot;Y (Claim)&quot;]
+    X2 --&gt; Y
+    F[&quot;F (Confounder)&quot;] --&gt; S
+    F --&gt; Y
+    style S fill:#e74c3c,color:#fff
+    style X1 fill:#f39c12,color:#fff
+    style X2 fill:#27ae60,color:#fff
+    </pre><p>Whether a covariate is a discriminatory proxy or a legitimate risk factor depends on the <strong>causal structure</strong>, not the correlation matrix. A causal model allows the actuary to:</p>
+<ul class="simple">
+<li><p><strong>Include</strong> <span class="math notranslate nohighlight">\(X_2\)</span> — a genuine risk mechanism, even if correlated with <span class="math notranslate nohighlight">\(S\)</span>.</p></li>
+<li><p><strong>Exclude or adjust</strong> <span class="math notranslate nohighlight">\(X_1\)</span> — a proxy that merely transmits discriminatory information from <span class="math notranslate nohighlight">\(S\)</span>.</p></li>
+<li><p><strong>Account for</strong> <span class="math notranslate nohighlight">\(F\)</span> — a confounder creating spurious associations between <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+</ul>
+<p>Without a DAG, removing the influence of <span class="math notranslate nohighlight">\(S\)</span> either does too little (unawareness) or too much (statistical parity). Counterfactual fairness is inherently a causal question: <em>“would this price change if the individual had belonged to a different group?”</em> — and it can only be answered within the potential outcomes framework (<a class="reference external" href="https://arxiv.org/abs/1703.06856">Kusner et al., 2017</a>).</p>
+</section>
+</section>
+<section id="putting-it-all-together-the-actuary-s-workflow">
+<h2>Putting It All Together — The Actuary’s Workflow<a class="headerlink" href="#putting-it-all-together-the-actuary-s-workflow" title="Link to this heading">#</a></h2>
+<p>The following workflow connects the identification theory from this chapter with the estimation methods in <a class="reference internal" href="3_inference.html"><span class="doc">Causal Inference</span></a> and the validation tools in <a class="reference internal" href="4_sensitivity.html"><span class="doc">Sensitivity Analysis</span></a>.</p>
+<pre  class="mermaid">
+        graph LR
+    W1[&quot;1. Draw the DAG&quot;] --&gt; W2[&quot;2. Check assumptions&quot;]
+    W2 --&gt; W3[&quot;3. Diagnose biases&quot;]
+    W3 --&gt; W4[&quot;4. Select de-biasing strategy&quot;]
+    W4 --&gt; W5[&quot;5. Estimate causal effect&quot;]
+    W5 --&gt; W6[&quot;6. Check fairness&quot;]
+    W6 --&gt; W7[&quot;7. Sensitivity analysis&quot;]
+    style W1 fill:#4a90d9,color:#fff
+    style W2 fill:#4a90d9,color:#fff
+    style W3 fill:#e74c3c,color:#fff
+    style W4 fill:#e74c3c,color:#fff
+    style W5 fill:#f5a623,color:#fff
+    style W6 fill:#27ae60,color:#fff
+    style W7 fill:#27ae60,color:#fff
+    </pre><div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Step</p></th>
+<th class="head"><p>Action</p></th>
+<th class="head"><p>Chapter</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1. <strong>Draw the DAG</strong></p></td>
+<td><p>Encode domain knowledge as a directed acyclic graph</p></td>
+<td><p><a class="reference internal" href="2_2_graphical_models.html"><span class="doc">Graphical Causal Models</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>2. <strong>Check assumptions</strong></p></td>
+<td><p>Verify consistency, SUTVA, positivity, exchangeability</p></td>
+<td><p><a class="reference internal" href="2_1_assumptions.html"><span class="doc">Assumptions</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>3. <strong>Diagnose biases</strong></p></td>
+<td><p>Use the diagnostic table above to identify which biases may be present</p></td>
+<td><p>This chapter</p></td>
+</tr>
+<tr class="row-odd"><td><p>4. <strong>Select de-biasing strategy</strong></p></td>
+<td><p>Choose from adjust, reweight, restrict, or restructure based on the DAG</p></td>
+<td><p>This chapter</p></td>
+</tr>
+<tr class="row-even"><td><p>5. <strong>Estimate causal effect</strong></p></td>
+<td><p>Apply propensity scores, DML, causal forests, or Bayesian methods</p></td>
+<td><p><a class="reference internal" href="3_inference.html"><span class="doc">Causal Inference</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>6. <strong>Check fairness</strong></p></td>
+<td><p>Evaluate proxy discrimination and group fairness diagnostics</p></td>
+<td><p>This chapter</p></td>
+</tr>
+<tr class="row-even"><td><p>7. <strong>Sensitivity analysis</strong></p></td>
+<td><p>Quantify robustness to unmeasured confounding and untestable assumptions</p></td>
+<td><p><a class="reference internal" href="4_sensitivity.html"><span class="doc">Sensitivity Analysis</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1034,23 +1165,40 @@ window.runMermaid = runMermaid;</script>
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
-  <div class="sidebar-secondary-item"><div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
-  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+  <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confounding-bias">Confounding Bias</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selection-bias">Selection Bias</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collider-bias">Collider Bias</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#positivity-violations-and-extreme-weights">Positivity Violations and Extreme Weights</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interference-and-spillover">Interference and Spillover</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-biasassumptionmitigation-map">Summary: Bias–Assumption–Mitigation Map</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-went-wrong-from-assumption-violations-to-biases">What went wrong? — From Assumption Violations to Biases</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confounding-bias">Confounding Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selection-bias">Selection Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collider-bias">Collider Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#positivity-violations">Positivity Violations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interference">Interference</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-fix-it-the-de-biasing-toolkit">How to fix it — The De-biasing Toolkit</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adjust">Adjust</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reweight">Reweight</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#restrict">Restrict</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-the-causal-structure">Model the causal structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cluster-or-network-models">Cluster or network models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensitivity-analysis">Sensitivity analysis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#is-my-model-fair-discrimination-and-fairness-in-insurance">Is my model fair? — Discrimination and Fairness in Insurance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxy-discrimination">Proxy Discrimination</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#three-fairness-definitions">Three Fairness Definitions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group-fairness-criteria-as-diagnostic-checks">Group Fairness Criteria as Diagnostic Checks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-causal-inference-resolves-the-fairness-problem">Why Causal Inference Resolves the Fairness Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-the-actuary-s-workflow">Putting It All Together — The Actuary’s Workflow</a></li>
 </ul>
   </nav></div>
 
@@ -1099,8 +1247,8 @@ By Daniel Meier, Theresa Blümlein, Michael Mayer, and Patrick Cheridito
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
