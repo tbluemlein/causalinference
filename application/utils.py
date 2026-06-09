@@ -520,10 +520,20 @@ def ols_treatment_effect(df, outcome, treatment, covariates):
     Returns a dict with the treatment coefficient, its standard error,
     t-statistic, two-sided p-value and the residual degrees of freedom — the
     latter is needed for the partial-:math:`R^2` sensitivity analysis.
+
+    The covariates are standardised before fitting purely for numerical
+    stability (variables on very different scales can overflow ``matmul`` on
+    some BLAS backends). Standardising the covariates leaves the treatment
+    coefficient and its standard error unchanged.
     """
-    cols = [treatment] + list(covariates)
-    X = df[cols].astype(float).values
-    X = np.column_stack([np.ones(len(X)), X])
+    Xc = df[list(covariates)].astype(float).values
+    mean = Xc.mean(axis=0)
+    std = Xc.std(axis=0)
+    std[std == 0] = 1.0  # guard against constant columns
+    Xc = (Xc - mean) / std
+
+    t = df[treatment].astype(float).values.reshape(-1, 1)
+    X = np.column_stack([np.ones(len(df)), t, Xc])
     y = df[outcome].astype(float).values
 
     beta, *_ = np.linalg.lstsq(X, y, rcond=None)
@@ -791,3 +801,8 @@ def plot_rosenbaum(bounds_df, alpha=0.05, title='Rosenbaum Sensitivity Bounds'):
         yaxis_title='Upper-bound p-value', yaxis_range=[0, 1])
     return fig
 
+def show(fig):
+    """Display a Plotly figure that auto-resizes to the page width."""
+    import plotly.offline
+    fig.update_layout(autosize=True, width=None)
+    plotly.offline.iplot(fig, config={"responsive": True})
