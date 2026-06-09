@@ -1,14 +1,19 @@
+import os
+
 import networkx as nx
 import matplotlib.pyplot as plt
+from matplotlib.patches import Circle, FancyArrowPatch
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import numpy as np
 import pandas as pd
-from scipy.stats import ttest_ind
+from scipy.stats import ttest_ind, norm, pearsonr
+from scipy.stats import t as tdist
 import plotly.graph_objects as go
 import plotly.subplots as sp
 import seaborn as sns
 from sklearn.tree import _tree
+from sklearn.linear_model import LogisticRegression
 
 def plot_causal_dag(causal_model_dict, title, node_color='skyblue'):
     """Generates and displays a causal DAG from a dictionary of causal relationships and weights.
@@ -393,4 +398,396 @@ def encode_categorical_for_causal_forest(df, columns, drop_first=True):
     
     return encoded
 
+
+# =========================================================================== #
+# Causal graphs as embeddable SVG figures
+# =========================================================================== #
+
+# Colour palette for the different roles a node can play in a causal DAG.
+_DAG_PALETTE = {
+    'treatment':  dict(face='#2ca02c', edge='#1b6b1b', text='white',   dashed=False),
+    'outcome':    dict(face='#d62728', edge='#8c1414', text='white',   dashed=False),
+    'confounder': dict(face='#1f77b4', edge='#10416b', text='white',   dashed=False),
+    'covariate':  dict(face='#aec7e8', edge='#5a87b0', text='black',   dashed=False),
+    'mediator':   dict(face='#ff7f0e', edge='#a85405', text='white',   dashed=False),
+    'collider':   dict(face='#9467bd', edge='#5e3d7a', text='white',   dashed=False),
+    'unobserved': dict(face='white',   edge='#7f7f7f', text='#404040', dashed=True),
+}
+
+
+def draw_causal_graph_svg(edges, positions, node_styles, filepath, title=None,
+                          figsize=(7.2, 4.8), node_radius=0.18, font_size=13,
+                          legend_types=None):
+    """Render a causal DAG to a stand-alone ``.svg`` file and return its path.
+
+    The resulting vector graphic can be embedded directly in a notebook with
+    ``IPython.display.SVG(filepath)`` so that it appears crisply in the rendered
+    Jupyter Book.
+
+    Args:
+        edges: Iterable of edges. Each edge is ``(src, dst)`` for a causal arrow
+            or ``(src, dst, kind)`` where ``kind`` is ``'causal'`` (solid black)
+            or ``'biasing'`` (dashed red — e.g. a confounding path).
+        positions: Dict mapping each node name to an ``(x, y)`` coordinate.
+        node_styles: Dict mapping each node name to a role in ``_DAG_PALETTE``
+            (``'treatment'``, ``'outcome'``, ``'confounder'``, ``'covariate'``,
+            ``'mediator'``, ``'collider'`` or ``'unobserved'``).
+        filepath: Destination path for the ``.svg`` file (folders are created).
+        title: Optional figure title.
+        figsize: Figure size in inches.
+        node_radius: Radius of each node circle in data coordinates.
+        font_size: Font size for node labels.
+        legend_types: Optional list of role keys to display as a legend.
+
+    Returns:
+        The ``filepath`` that was written.
+    """
+    fig, ax = plt.subplots(figsize=figsize)
+
+    # --- Edges ---------------------------------------------------------- #
+    for edge in edges:
+        if len(edge) == 3:
+            src, dst, kind = edge
+        else:
+            src, dst = edge
+            kind = 'causal'
+        x0, y0 = positions[src]
+        x1, y1 = positions[dst]
+        dx, dy = x1 - x0, y1 - y0
+        dist = np.hypot(dx, dy)
+        if dist == 0:
+            continue
+        ux, uy = dx / dist, dy / dist
+        start = (x0 + ux * node_radius, y0 + uy * node_radius)
+        end = (x1 - ux * node_radius, y1 - uy * node_radius)
+        if kind == 'biasing':
+            color, style = '#d62728', (0, (5, 4))
+        else:
+            color, style = '#333333', 'solid'
+        ax.add_patch(FancyArrowPatch(
+            start, end, arrowstyle='-|>', mutation_scale=16,
+            color=color, lw=1.8, linestyle=style, zorder=1,
+            connectionstyle='arc3,rad=0.0'))
+
+    # --- Nodes ---------------------------------------------------------- #
+    for node, (x, y) in positions.items():
+        st = _DAG_PALETTE[node_styles.get(node, 'covariate')]
+        ax.add_patch(Circle(
+            (x, y), node_radius, facecolor=st['face'], edgecolor=st['edge'],
+            lw=2, linestyle='--' if st['dashed'] else '-', zorder=2))
+        ax.text(x, y, node, ha='center', va='center', color=st['text'],
+                fontsize=font_size, fontweight='bold', zorder=3)
+
+    # --- Axes / title / legend ------------------------------------------ #
+    xs = [p[0] for p in positions.values()]
+    ys = [p[1] for p in positions.values()]
+    pad = node_radius * 2.8
+    ax.set_xlim(min(xs) - pad, max(xs) + pad)
+    ax.set_ylim(min(ys) - pad, max(ys) + pad)
+    ax.set_aspect('equal')
+    ax.axis('off')
+    if title:
+        ax.set_title(title, fontsize=14, fontweight='bold')
+
+    if legend_types:
+        from matplotlib.lines import Line2D
+        handles = []
+        for key in legend_types:
+            st = _DAG_PALETTE[key]
+            handles.append(Line2D(
+                [0], [0], marker='o', linestyle='None', markersize=11,
+                markerfacecolor=st['face'], markeredgecolor=st['edge'],
+                label=key.capitalize()))
+        ax.legend(handles=handles, loc='upper center',
+                  bbox_to_anchor=(0.5, -0.02), ncol=len(handles),
+                  frameon=False, fontsize=9)
+
+    directory = os.path.dirname(filepath)
+    if directory:
+        os.makedirs(directory, exist_ok=True)
+    fig.savefig(filepath, format='svg', bbox_inches='tight')
+    plt.close(fig)
+    return filepath
+
+
+# =========================================================================== #
+# Estimation helpers (OLS / propensity / IPW)
+# =========================================================================== #
+
+def ols_treatment_effect(df, outcome, treatment, covariates):
+    """Estimate a regression-adjusted treatment effect via ordinary least squares.
+
+    Returns a dict with the treatment coefficient, its standard error,
+    t-statistic, two-sided p-value and the residual degrees of freedom — the
+    latter is needed for the partial-:math:`R^2` sensitivity analysis.
+    """
+    cols = [treatment] + list(covariates)
+    X = df[cols].astype(float).values
+    X = np.column_stack([np.ones(len(X)), X])
+    y = df[outcome].astype(float).values
+
+    beta, *_ = np.linalg.lstsq(X, y, rcond=None)
+    resid = y - X @ beta
+    dof = len(y) - X.shape[1]
+    sigma2 = (resid @ resid) / dof
+    cov = sigma2 * np.linalg.inv(X.T @ X)
+    se = np.sqrt(np.diag(cov))
+
+    idx = 1  # treatment is the first column after the intercept
+    tstat = beta[idx] / se[idx]
+    pval = 2 * (1 - tdist.cdf(abs(tstat), dof))
+    return {'coef': beta[idx], 'se': se[idx], 't': tstat, 'p': pval, 'dof': dof}
+
+
+def estimate_propensity(df, treatment, covariates, max_iter=1000):
+    """Fit a logistic-regression propensity model and return P(T=1 | X).
+
+    Covariates are standardised before fitting so that variables on very
+    different scales (e.g. X1 ~ 40, X3 in [0, 100]) do not cause numerical
+    overflow in the optimiser.
+    """
+    X = df[covariates].astype(float).values
+    mean = X.mean(axis=0)
+    std = X.std(axis=0)
+    std[std == 0] = 1.0  # guard against constant columns
+    X_scaled = (X - mean) / std
+    model = LogisticRegression(max_iter=max_iter)
+    model.fit(X_scaled, df[treatment].astype(int).values)
+    return model.predict_proba(X_scaled)[:, 1]
+
+
+def ipw_ate(df, treatment, outcome, ps, stabilized=True):
+    """Inverse-probability-weighted ATE. ``ps`` is an array of propensity scores."""
+    t = df[treatment].astype(int).values
+    y = df[outcome].astype(float).values
+    ps = np.asarray(ps, dtype=float)
+    if stabilized:
+        pt = t.mean()
+        w = np.where(t == 1, pt / ps, (1 - pt) / (1 - ps))
+    else:
+        w = np.where(t == 1, 1.0 / ps, 1.0 / (1.0 - ps))
+    ate = (np.sum(w * t * y) / np.sum(w * t)
+           - np.sum(w * (1 - t) * y) / np.sum(w * (1 - t)))
+    return ate, w
+
+
+def trim_common_support(df, ps, eps=0.05):
+    """Restrict to the overlap region by trimming units with extreme propensity.
+
+    Returns ``(trimmed_df, ps_trimmed, keep_mask)``.
+    """
+    ps = np.asarray(ps, dtype=float)
+    keep = (ps > eps) & (ps < 1 - eps)
+    return df.loc[keep].copy(), ps[keep], keep
+
+
+def overlap_weighted_ate(df, treatment, outcome, ps):
+    """ATE estimated with Li-Morgan-Zaslavsky overlap weights (focal: overlap population)."""
+    t = df[treatment].astype(int).values
+    y = df[outcome].astype(float).values
+    ps = np.asarray(ps, dtype=float)
+    w = np.where(t == 1, 1 - ps, ps)
+    ate = (np.sum(w * t * y) / np.sum(w * t)
+           - np.sum(w * (1 - t) * y) / np.sum(w * (1 - t)))
+    return ate, w
+
+
+def calculate_smd_weighted(df, covariates, treatment, weights):
+    """Standardised mean differences after applying weights (for balance checks)."""
+    t = df[treatment].astype(int).values
+    w = np.asarray(weights, dtype=float)
+    out = {}
+    for cov in covariates:
+        x = df[cov].astype(float).values
+        wt, wc = w[t == 1], w[t == 0]
+        xt, xc = x[t == 1], x[t == 0]
+        mt = np.average(xt, weights=wt)
+        mc = np.average(xc, weights=wc)
+        vt = np.average((xt - mt) ** 2, weights=wt)
+        vc = np.average((xc - mc) ** 2, weights=wc)
+        pooled = np.sqrt((vt + vc) / 2)
+        out[cov] = (mt - mc) / pooled if pooled > 0 else 0.0
+    return pd.Series(out)
+
+
+# =========================================================================== #
+# Assumption diagnostics
+# =========================================================================== #
+
+def consistency_diagnostic(df, treatment, outcome, subtype_col, covariates):
+    """Probe {prf:ref}`consistency` by re-estimating the effect per treatment sub-type.
+
+    A well-defined treatment should yield a stable effect across sub-types. Each
+    sub-type's treated units are compared against the *common* control group with
+    regression adjustment. Large variation flags an ambiguous (multi-version)
+    treatment.
+    """
+    rows = []
+    overall = ols_treatment_effect(df, outcome, treatment, covariates)
+    rows.append({'Group': 'Overall (pooled)', 'Effect': overall['coef'],
+                 'Std. Error': overall['se'], 'n_treated': int((df[treatment] == 1).sum())})
+
+    controls = df[df[treatment] == 0]
+    for s in sorted(df.loc[df[treatment] == 1, subtype_col].unique()):
+        treated_s = df[(df[treatment] == 1) & (df[subtype_col] == s)]
+        sub = pd.concat([treated_s, controls])
+        res = ols_treatment_effect(sub, outcome, treatment, covariates)
+        rows.append({'Group': f'Sub-type {s}', 'Effect': res['coef'],
+                     'Std. Error': res['se'], 'n_treated': len(treated_s)})
+    return pd.DataFrame(rows)
+
+
+def interference_diagnostic(df, cluster_col, treatment, outcome):
+    """Probe {prf:ref}`sutva` by correlating control outcomes with neighbours' treatment.
+
+    For each unit we compute the leave-one-out treatment intensity in its cluster.
+    Under no interference, control units' outcomes should be uncorrelated with how
+    treated their cluster is. A significant correlation signals spillover.
+
+    Returns ``(pearson_r, p_value, control_frame)``.
+    """
+    csum = df.groupby(cluster_col)[treatment].transform('sum')
+    csize = df.groupby(cluster_col)[treatment].transform('count')
+    loo_intensity = (csum - df[treatment]) / (csize - 1).clip(lower=1)
+
+    ctrl = df[df[treatment] == 0].copy()
+    ctrl['cluster_treat_intensity'] = loo_intensity[df[treatment] == 0].values
+    r, p = pearsonr(ctrl['cluster_treat_intensity'], ctrl[outcome])
+    return r, p, ctrl
+
+
+def negative_control_test(df, neg_control_outcome, treatment, covariates):
+    """Placebo / negative-control test: the treatment should have *no* effect here.
+
+    A statistically significant effect on an outcome that the treatment cannot
+    plausibly affect signals residual confounding (a violation of
+    {prf:ref}`exchangeability`).
+    """
+    return ols_treatment_effect(df, neg_control_outcome, treatment, covariates)
+
+
+# =========================================================================== #
+# Sensitivity analysis for unmeasured confounding
+# =========================================================================== #
+
+def e_value(rr):
+    """E-value for a risk ratio (VanderWeele & Ding, 2017)."""
+    rr = float(rr)
+    if rr < 1:
+        rr = 1.0 / rr
+    return rr + np.sqrt(rr * (rr - 1))
+
+
+def e_value_from_effect(coef, se, sd_outcome, ci_mult=1.96):
+    """E-value for a continuous effect, via the standardised-mean-difference → RR map.
+
+    Uses the approximation ``RR ≈ exp(0.91 * d)`` where ``d`` is the standardised
+    effect size (VanderWeele, 2017). Returns the E-value for the point estimate
+    and for the confidence-interval limit nearest the null.
+    """
+    d = coef / sd_outcome
+    rr_point = np.exp(0.91 * d)
+    lo = (coef - ci_mult * se) / sd_outcome
+    hi = (coef + ci_mult * se) / sd_outcome
+    rr_lo, rr_hi = np.exp(0.91 * lo), np.exp(0.91 * hi)
+    # If the confidence interval crosses RR = 1 the E-value for the limit is 1
+    # (the observed association is already compatible with the null).
+    if min(rr_lo, rr_hi) <= 1 <= max(rr_lo, rr_hi):
+        rr_ci, ev_ci = 1.0, 1.0
+    elif rr_point >= 1:
+        rr_ci = min(rr_lo, rr_hi)   # limit closest to the null from above
+        ev_ci = e_value(rr_ci)
+    else:
+        rr_ci = max(rr_lo, rr_hi)   # limit closest to the null from below
+        ev_ci = e_value(rr_ci)
+    return {'rr_point': rr_point, 'e_value': e_value(rr_point),
+            'rr_ci': rr_ci, 'e_value_ci': ev_ci}
+
+
+def robustness_value(t_stat, dof, q=1.0):
+    """Cinelli & Hazlett (2020) robustness value (RV) for reducing the effect by ``q``.
+
+    The RV is the partial :math:`R^2` that an unmeasured confounder would need to
+    have with *both* treatment and outcome to bring the estimate to ``(1-q)`` of
+    its value (q=1 → to zero).
+    """
+    f = abs(t_stat) / np.sqrt(dof)
+    fq = q * f
+    return 0.5 * (np.sqrt(fq ** 4 + 4 * fq ** 2) - fq ** 2)
+
+
+def adjusted_estimate(coef, se, dof, r2_tu, r2_yu):
+    """Cinelli & Hazlett bias-adjusted estimate given confounder partial-R² strengths."""
+    r2_tu = np.clip(r2_tu, 0, 0.999)
+    bias = se * np.sqrt(dof) * np.sqrt((r2_yu * r2_tu) / (1 - r2_tu))
+    return np.sign(coef) * (abs(coef) - bias)
+
+
+def plot_sensitivity_contour(coef, se, dof, title='Sensitivity Contours',
+                             grid=40, benchmark=None):
+    """Plotly contour of the bias-adjusted estimate over a grid of confounder strengths."""
+    r2_vals = np.linspace(0, 0.6, grid)
+    Z = np.array([[adjusted_estimate(coef, se, dof, rt, ry) for rt in r2_vals]
+                  for ry in r2_vals])
+    fig = go.Figure(data=go.Contour(
+        z=Z, x=r2_vals, y=r2_vals,
+        colorscale='RdBu', contours=dict(showlabels=True),
+        colorbar=dict(title='Adjusted<br>effect')))
+    # Highlight the line where the effect is driven to zero
+    fig.add_trace(go.Contour(
+        z=Z, x=r2_vals, y=r2_vals, showscale=False,
+        contours=dict(start=0, end=0, coloring='lines'),
+        line=dict(color='black', width=3), name='effect = 0'))
+    fig.add_trace(go.Scatter(
+        x=[0], y=[0], mode='markers+text', text=['Unadjusted'],
+        textposition='top right', marker=dict(color='black', size=10),
+        name='Observed estimate'))
+    if benchmark is not None:
+        fig.add_trace(go.Scatter(
+            x=[benchmark['r2_tu']], y=[benchmark['r2_yu']],
+            mode='markers+text', text=[benchmark.get('label', 'benchmark')],
+            textposition='top right',
+            marker=dict(color='orange', size=12, symbol='diamond'),
+            name='Benchmark covariate'))
+    fig.update_layout(
+        title_text=title,
+        xaxis_title='Partial R² of confounder with Treatment',
+        yaxis_title='Partial R² of confounder with Outcome')
+    return fig
+
+
+def rosenbaum_sensitivity(differences, gammas):
+    """Rosenbaum bounds (sign-test version) for matched-pair differences.
+
+    For each :math:`\\Gamma`, returns the worst-case (upper-bound) one-sided
+    p-value for the null of no effect. The largest :math:`\\Gamma` keeping the
+    p-value below the significance level is the *critical* :math:`\\Gamma`.
+    """
+    diffs = np.asarray(differences, dtype=float)
+    diffs = diffs[diffs != 0]
+    n = len(diffs)
+    t_obs = int(np.sum(diffs > 0))
+    rows = []
+    for g in gammas:
+        p_plus = g / (1 + g)
+        mu = n * p_plus
+        sd = np.sqrt(n * p_plus * (1 - p_plus))
+        z = (t_obs - mu) / sd
+        rows.append({'Gamma': g, 'p_upper_bound': float(1 - norm.cdf(z))})
+    return pd.DataFrame(rows)
+
+
+def plot_rosenbaum(bounds_df, alpha=0.05, title='Rosenbaum Sensitivity Bounds'):
+    """Plot worst-case p-value vs. the sensitivity parameter Gamma."""
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=bounds_df['Gamma'], y=bounds_df['p_upper_bound'],
+        mode='lines+markers', line=dict(color='#1f77b4', width=2),
+        name='Worst-case p-value'))
+    fig.add_hline(y=alpha, line_dash='dash', line_color='red',
+                  annotation_text=f'α = {alpha}', annotation_position='bottom right')
+    fig.update_layout(
+        title_text=title, xaxis_title='Γ (allowed confounding)',
+        yaxis_title='Upper-bound p-value', yaxis_range=[0, 1])
+    return fig
 
