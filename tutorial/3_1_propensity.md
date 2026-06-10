@@ -92,7 +92,11 @@ The panels let you compare, on the same data, (1) propensity score overlap, (2) 
 
   // Resolve the book's current theme: data-mode is auto|light|dark.
   function currentTheme() {
-    var mode = document.documentElement.getAttribute('data-mode') || 'auto';
+    var root = document.documentElement;
+    // data-theme holds the *resolved* light|dark value (preferred).
+    var theme = root.getAttribute('data-theme');
+    if (theme === 'light' || theme === 'dark') return theme;
+    var mode = root.getAttribute('data-mode') || 'auto';
     if (mode === 'light' || mode === 'dark') return mode;
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
@@ -111,9 +115,9 @@ The panels let you compare, on the same data, (1) propensity score overlap, (2) 
     }
   });
 
-  // Re-send whenever the book theme toggle flips data-mode.
+  // Re-send whenever the book theme toggle flips data-mode or data-theme.
   new MutationObserver(sendTheme).observe(document.documentElement, {
-    attributes: true, attributeFilter: ['data-mode']
+    attributes: true, attributeFilter: ['data-mode', 'data-theme']
   });
   // Re-send when the OS theme changes while the book is in "auto" mode.
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sendTheme);
