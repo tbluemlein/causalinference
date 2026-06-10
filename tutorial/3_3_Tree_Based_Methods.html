@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Causal Trees &#8212; Causal Inference Tutorial</title>
+    <title>Tree-Based Methods &#8212; Causal Inference Tutorial</title>
   
   
   
@@ -40,6 +40,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/thebe-button-patch.css?v=e3482d12" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=7b192c10" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -116,12 +117,13 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/3_3_causal_tree';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/3_3_Tree_Based_Methods';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/figure-theme.js?v=a9394cc5"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Causal Forests" href="3_4_causal_forest.html" />
-    <link rel="prev" title="Regression Approaches" href="3_2_Regression_Approaches.html" />
+    <link rel="next" title="Bayesian Causal Inference" href="3_5_bayesian.html" />
+    <link rel="prev" title="Regression Methods" href="3_2_Regression_Methods.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -250,9 +252,8 @@ const thebe_selector_output = ".output, .cell_output"
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="3_inference.html">Causal Inference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="3_1_propensity.html">Propensity Score Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_2_Regression_Approaches.html">Regression Approaches</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Causal Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_4_causal_forest.html">Causal Forests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_2_Regression_Methods.html">Regression Methods</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Tree-Based Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3_5_bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
@@ -321,7 +322,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/tutorial/3_3_causal_tree.md" target="_blank"
+      <li><a href="../_sources/tutorial/3_3_Tree_Based_Methods.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -392,7 +393,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -403,11 +406,20 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Causal Trees</h1>
+    <h1>Tree-Based Methods</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#causal-trees">Causal Trees</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#causal-forests">Causal Forests</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -417,8 +429,17 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="causal-trees">
-<h1>Causal Trees<a class="headerlink" href="#causal-trees" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="tree-based-methods">
+<h1>Tree-Based Methods<a class="headerlink" href="#tree-based-methods" title="Link to this heading">#</a></h1>
+<p>The methods in <a class="reference internal" href="3_1_propensity.html"><span class="doc">Propensity Score Methods</span></a> and <a class="reference internal" href="3_2_Regression_Methods.html"><span class="doc">Regression Methods</span></a> are built to recover a <em>single</em> number — the ATE or ATT averaged over the population. Tree-based methods instead target the <strong>conditional average treatment effect</strong> (CATE) <span class="math notranslate nohighlight">\(\tau(x) = \mathbb{E}[Y(1) - Y(0) \mid X = x]\)</span>, asking <em>for whom</em> the treatment works rather than <em>whether</em> it works on average. They share the same identification backbone (unconfoundedness and <a class="reference internal" href="3_1_propensity.html#overlap"><span class="std std-ref">Overlap (Common Support)</span></a>) but let the data, rather than a fixed functional form, discover which covariates drive effect heterogeneity.</p>
+<p>Conceptually they sit at the intersection of the two earlier toolkits:</p>
+<ul class="simple">
+<li><p><strong>From propensity score methods.</strong> <a class="reference internal" href="3_1_propensity.html#alg-psm">Algorithm 4</a> matches treated and control units on the <em>scalar</em> propensity score <span class="math notranslate nohighlight">\(\hat{\pi}(x)\)</span>, while <a class="reference internal" href="3_1_propensity.html#alg-psw">Algorithm 5</a> reweights them. A causal forest generalises both ideas: instead of matching on a hand-picked distance, it learns an <strong>adaptive neighbourhood</strong> directly in covariate space — two patients are “close” when the trees repeatedly place them in the same leaf. The resulting forest weights <span class="math notranslate nohighlight">\(\alpha^{(j)}(x)\)</span> play the role of data-driven matching weights, and overlap remains the binding requirement (a leaf needs both treated and control members to yield a contrast).</p></li>
+<li><p><strong>From regression methods.</strong> Like the doubly robust and orthogonal estimators (<a class="reference internal" href="3_2_Regression_Methods.html#alg-aipw">Algorithm 7</a>, <a class="reference internal" href="3_2_Regression_Methods.html#alg-dml">Algorithm 9</a>), causal trees and forests <em>residualise</em> the outcome and the treatment against out-of-bag nuisance predictions <span class="math notranslate nohighlight">\(\hat{Y}^{(-i)}\)</span> and <span class="math notranslate nohighlight">\(\hat{\pi}^{(-i)}(x)\)</span>. This makes them doubly robust to misspecification and connects them directly to the R-learner of <a class="reference internal" href="3_2_Regression_Methods.html#alg-rlearner">Algorithm 11</a> — a causal forest can be read as a locally-weighted, non-parametric R-learner.</p></li>
+</ul>
+<p>The two algorithms below differ in granularity. A <strong>causal tree</strong> partitions the population into a handful of interpretable subgroups, assigning every member of a leaf the same effect estimate. A <strong>causal forest</strong> averages many such trees to deliver a smooth, individualised estimate <span class="math notranslate nohighlight">\(\hat{\tau}(x)\)</span> for each patient.</p>
+<section id="causal-trees">
+<h2>Causal Trees<a class="headerlink" href="#causal-trees" title="Link to this heading">#</a></h2>
 <p id="sec-ct">Our first approach to infer heterogeneous treatment effects is based on causal trees. In contrast to modelling the effect of the treatment on the potential outcome effect linearly, we rely on the idea of . <a class="reference internal" href="#alg-causaltree">Algorithm 16</a> shows their procedure according to which a causal tree estimates heterogeneous treatment effects from covariates <span class="math notranslate nohighlight">\(X\)</span> and an observed outcome <span class="math notranslate nohighlight">\(Y\)</span>.</p>
 <div class="proof algorithm dropdown admonition" id="alg-causaltree">
 <p class="admonition-title"><span class="caption-number">Algorithm 16 </span> (Causal Tree)</p>
@@ -443,20 +464,79 @@ document.write(`
 </section>
 </div><p>Similar to CART , a causal tree partitions the sample into subgroups. It creates a partition of the patient population into subpopulations (i.e., leaves <span class="math notranslate nohighlight">\(\ell\in\mathcal{L}\)</span>) using recursive binary splitting. In contrast to a decision tree, a causal tree estimates the treatment effect <span class="math notranslate nohighlight">\(\hat{\tau}\)</span> directly by modelling the contrast in potential outcomes rather than modelling both potential outcomes and then taking their contrast. Since a covariate that affects the expected outcome <span class="math notranslate nohighlight">\(\mathbb{E}[Y \mid X = x]\)</span> does not necessarily affect the treatment effect and vice versa, the splitting criterion is chosen with respect to covariates that actually cause treatment effect heterogeneity, as explained below.</p>
 <p>For each split, the outcome-covariate pair is determined such that it maximizes the weighted difference <span class="math notranslate nohighlight">\(n_L\cdot n_R\cdot (\hat{\tau}_L-\hat{\tau}_R)^2\)</span> where <span class="math notranslate nohighlight">\(n_L\)</span> denotes the number of observations assigned to the left node and <span class="math notranslate nohighlight">\(n_R\)</span> the number of observations that are assigned to right node. The first two factors, <span class="math notranslate nohighlight">\(n_L\)</span> and <span class="math notranslate nohighlight">\(n_R\)</span> make sure that the two sides are well balanced and the squared difference makes sure that the treatment effects between the two subpopulations are as heterogeneous as possible. A constant, hence homogeneous, treatment effect is assumed across all observations within the respective subpopulation aggregated in a leaf. We denote <span class="math notranslate nohighlight">\(\mathbb{E}[Y^{(-i)} \mid X = x^{(i)}] = \hat{Y}^{(-i)}\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5d3422c6-f5b4-4e4c-95a5-bd7aca2aab3d">
-<span class="eqno">(1)<a class="headerlink" href="#equation-5d3422c6-f5b4-4e4c-95a5-bd7aca2aab3d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5b23107f-f62c-426c-be8a-f5cbdaf06c9b">
+<span class="eqno">(1)<a class="headerlink" href="#equation-5b23107f-f62c-426c-be8a-f5cbdaf06c9b" title="Permalink to this equation">#</a></span>\[\begin{align}
      \hat{\tau}_L\leftarrow lm\left((Y^{(i)}-\hat{Y}^{(-i)})\sim(T^{(i)}-\hat{\pi}^{(-i)}(x^{(i)})):x^{(i)}\in L\right) \\
      \hat{\tau}_R\leftarrow  lm\left((Y^{(i)}-\hat{Y}^{(-i)})\sim(T^{(i)}-\hat{\pi}^{(-i)}(x^{(i)})):x^{(i)}\in R\right)
 \end{align}\]</div>
 <p>The stopping criterion of further partitioning the population into subgroups is usually pre-specified by hyperparameters such as the minimum number of observations per leaf, a threshold for the weighted difference in the resulting treatment effects or a difference in sizes between the resulting nodes in terms of control and treatment group. If one of these minimum requirements is not met due to an additional split, the partitioning process is stopped and the algorithm intermediately returns the partition of <span class="math notranslate nohighlight">\(\mathcal{L}\)</span>. Given this partition, the estimation step is executed to get CATEs that basically are differences in outcomes for treatment and control observations. In every leaf <span class="math notranslate nohighlight">\(\ell\)</span>, there are both treated and untreated patients. Hence, the CATE is estimated as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-401c51e2-b347-4784-9784-c016cb3a3f69">
-<span class="eqno">(2)<a class="headerlink" href="#equation-401c51e2-b347-4784-9784-c016cb3a3f69" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-92018c42-5ac8-4417-bc46-d32a7c344121">
+<span class="eqno">(2)<a class="headerlink" href="#equation-92018c42-5ac8-4417-bc46-d32a7c344121" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \hat{\tau}^{(\ell)}(x)=\frac{\sum_{\{i:T^{(i)}=0,\, x^{(i)}\in \ell\}}Y^{(i)}}{\left|\{i:T^{(i)}=0,\, x^{(i)}\in \ell\}\right|}-\frac{\sum_{\{i:T^{(i)}=1,\, x^{(i)}\in \ell\}}Y^{(i)}}{\left|\{i:T^{(i)}=1,\, x^{(i)}\in \ell\}\right|}
 \end{equation}\]</div>
+<figure class="align-default" id="fig-causal-tree">
+<a class="reference internal image-reference" href="../_images/causal_tree.svg"><img alt="../_images/causal_tree.svg" src="../_images/causal_tree.svg" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Anatomy of a causal tree. Recursive binary splits on the covariates <span class="math notranslate nohighlight">\(X\)</span> carve the population into leaves, with each split chosen to maximise the heterogeneity <span class="math notranslate nohighlight">\(n_L \cdot n_R \cdot (\hat{\tau}_L - \hat{\tau}_R)^2\)</span> of the resulting effects — not to predict <span class="math notranslate nohighlight">\(Y\)</span>. Within a leaf the units behave as if randomised, so the CATE is simply the difference in mean outcomes between its treated and control members (an exact, equal-weight match inside the leaf). The leaves estimate visibly different effects (<span class="math notranslate nohighlight">\(\hat{\tau}^{(\ell)} \approx +6, +1, -2\)</span>), which is exactly the heterogeneity the splits are designed to expose.</span><a class="headerlink" href="#fig-causal-tree" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The underlying assumptions are that in each leaf, the treatment effect is the same across all observations in the leaf and the leaves are small enough that the <span class="math notranslate nohighlight">\((Y, T)\)</span> pairs of each observation in a leaf behave as if they have come from a RCT: this requires that <span class="math notranslate nohighlight">\(T\)</span> is randomly distributed across the observations in the leaf given the covariates and the outcome <span class="math notranslate nohighlight">\(Y\)</span> is independent of the assigned treatment <span class="math notranslate nohighlight">\(T\)</span>.</p>
 <p>To ensure unbiased estimates of CATEs, the principle of <em>honesty</em> is introduced for causal trees and causal forests . A method is called honest if the entire sample of patients is split into two parts, one for tree construction and one to estimate the treatment effects within the leaves. Hence, model selection is decoupled from model estimation. This addresses the post-selection inference problem and ensures unbiased estimates of CATEs.</p>
 <p>The method is regarded doubly robust since we apply inverse propensity score weighting at every step <span class="math notranslate nohighlight">\(t\)</span>: We combine the outcome model and propensity score model to reduce the sensitivity to misspecifications. Even if only one of the two is well specified, the resulting CATE estimator is more robust. This is necessary in presence of observational data, where the treatment is not assigned randomly.</p>
 <p>With a causal tree, we estimate heterogeneous treatment effects, differentiating by subgroups. We additionally introduce causal forests that ensure a stronger degree of personalization in treatment effect estimation using adaptive nearest neighborhood estimation.</p>
+</section>
+<section id="causal-forests">
+<h2>Causal Forests<a class="headerlink" href="#causal-forests" title="Link to this heading">#</a></h2>
+<p id="sec-cf">We additionally introduce causal forests that ensure a stronger degree of personalization in treatment effect estimation using adaptive nearest neighbourhood estimation. Similarly as for random forests , the CATEs in this specific ensemble method of causal forests are estimated by a combination of the estimations of the weak learners, i.e. causal trees that are estimated <span class="math notranslate nohighlight">\(B\)</span> times. In addition, principles such as random split selection and recursive binary splitting are the same here as for random forests . However, the CATEs are not calculated as simple averages over <span class="math notranslate nohighlight">\(B\)</span> causal trees but by a weighted average over the local patient neighbourhood.</p>
+<div class="proof algorithm dropdown admonition" id="alg-causalforest">
+<p class="admonition-title"><span class="caption-number">Algorithm 17 </span> (Causal Forest)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong> Covariates <span class="math notranslate nohighlight">\(X \in \mathcal{X}\)</span>, treatment <span class="math notranslate nohighlight">\(T \in \{0,1\}\)</span>, observed outcome <span class="math notranslate nohighlight">\(Y \in \mathcal{Y}\)</span></p>
+<p><strong>Outputs</strong> Estimated CATE <span class="math notranslate nohighlight">\(\hat{\tau}(x)\)</span></p>
+<ol class="arabic simple">
+<li><p>For every tree <span class="math notranslate nohighlight">\(b = 1, \ldots, B\)</span>:</p>
+<ol class="arabic simple">
+<li><p>Split data into <em>construction</em> and <em>estimation</em> sets <em>(For honesty)</em></p></li>
+<li><p>While partition of construction data is possible: <em>(Maximize heterogeneity)</em></p>
+<ol class="arabic simple">
+<li><p>Create partition into two subpopulations</p></li>
+</ol>
+</li>
+<li><p>Determine leaves <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> based on estimation data <em>(Stopping criterion applies)</em></p></li>
+<li><p>For every leaf <span class="math notranslate nohighlight">\(\ell \in \mathcal{L}\)</span>:</p>
+<ol class="arabic simple">
+<li><p>Estimate the CATE <span class="math notranslate nohighlight">\(\hat{\tau}^{(\ell,b)}(x)\)</span> on estimation data</p></li>
+</ol>
+</li>
+<li><p>Return CATE <span class="math notranslate nohighlight">\(\hat{\tau}^{(\ell,b)}(x)\)</span></p></li>
+</ol>
+</li>
+<li><p>Calculate weights <span class="math notranslate nohighlight">\(\alpha^{(i)}(x)\)</span> <em>(Forest proximity weights)</em></p></li>
+<li><p>Calculate final CATE <span class="math notranslate nohighlight">\(\hat{\tau}(x)\)</span> <em>(Weighted average)</em></p></li>
+<li><p>Return CATE <span class="math notranslate nohighlight">\(\hat{\tau}(x)\)</span></p></li>
+</ol>
+</section>
+</div><p>Fitting <span class="math notranslate nohighlight">\(B\)</span> causal trees, we repeat the separation step into a construction data set and an estimation data set repeatedly for every causal tree. Hence, every single weak learner is fitted on different subsamples of the observational data set. This ensures <em>honesty</em> in the ensemble setting as well, when the individual causal trees are composed to a causal forest. Every causal tree again recursively builds a partition into binary splits of the entire patient population based on the construction set. Then, it estimates the CATEs in the leaves <span class="math notranslate nohighlight">\(\ell^{(b)}\)</span> based on the estimation set. After <span class="math notranslate nohighlight">\(B\)</span> causal trees have been built, the weights required to compose the weighted average of CATEs are calculated for every observation as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-cf752d4f-1a21-4a93-958a-631d9f3b5886">
+<span class="eqno">(3)<a class="headerlink" href="#equation-cf752d4f-1a21-4a93-958a-631d9f3b5886" title="Permalink to this equation">#</a></span>\[\begin{equation}
+    \alpha^{(j)}(x)=\frac{1}{B}\sum_{b=1}^{B}\frac{\mathbb{1}\{X^{(j)}\in\ell^{(b)}(x)\}}{\left|\ell^{(b)}(x)\right|}.
+\end{equation}\]</div>
+<p>The weights indicate how often another patient <span class="math notranslate nohighlight">\(j\not = i\)</span> with covariates <span class="math notranslate nohighlight">\(X^{(j)}\)</span> falls in the same leaf as the patient of interest <span class="math notranslate nohighlight">\(i\)</span> with covariates <span class="math notranslate nohighlight">\(x\)</span> across the trees in the forest. The more often the patients are in the same leaf, the closer they are to each other and the higher is the weight of patient when estimating the treatment effect of the observation with given covariates and outcome.</p>
+<p>The causal forest is hence not used to construct the final estimate of CATE as average over all single estimations but rather for adaptive neighbourhood matching of each individual observation. The actual CATE is then calculated locally as a weighted average over its nearest neighbours, i.e. similar patients , as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-9fe3273b-b9f6-4117-b3ad-0ae79ac73ff0">
+<span class="eqno">(4)<a class="headerlink" href="#equation-9fe3273b-b9f6-4117-b3ad-0ae79ac73ff0" title="Permalink to this equation">#</a></span>\[\begin{equation}
+    \hat{\tau}(x)=\frac{\sum_{j=1}^n \alpha^{(j)}(x)(Y^{(j)}-\hat{Y}^{(-j)})(T^{(j)}-\hat{\pi}^{(-j)}(x))}{ \sum \alpha^{(j)}(x)(T^{(j)}-\hat{\pi}^{(-j)}(x))^2}.
+\end{equation}\]</div>
+<figure class="align-default" id="fig-causal-forest">
+<a class="reference internal image-reference" href="../_images/causal_forest.svg"><img alt="../_images/causal_forest.svg" src="../_images/causal_forest.svg" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">How a causal forest builds an adaptive neighbourhood. Across the <span class="math notranslate nohighlight">\(B\)</span> honest trees (left), the query patient <span class="math notranslate nohighlight">\(x\)</span> repeatedly lands in a leaf alongside different sets of patients. Tallying how often each patient <span class="math notranslate nohighlight">\(j\)</span> shares <span class="math notranslate nohighlight">\(x\)</span>’s leaf yields the forest weight <span class="math notranslate nohighlight">\(\alpha^{(j)}(x)\)</span> (right): patient <span class="math notranslate nohighlight">\(j_1\)</span>, a leaf-mate in every tree, weighs most, whereas <span class="math notranslate nohighlight">\(j_4\)</span> — never co-located — contributes nothing. The result is a <em>learned</em> local match in covariate space rather than a match on a single propensity score, with out-of-bag residuals making the final weighted estimate doubly robust.</span><a class="headerlink" href="#fig-causal-forest" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>To construct the neighbourhood for each single patient <span class="math notranslate nohighlight">\(i\)</span>, weights are calculated for every other patient <span class="math notranslate nohighlight">\(j\not = i\)</span>. Note that <span class="math notranslate nohighlight">\(\hat{Y}^{(-j)}\)</span> and <span class="math notranslate nohighlight">\(\hat{\pi}^{(-j)}(x)\)</span> are calculated out-of-bag, meaning that information about patient <span class="math notranslate nohighlight">\(j\)</span> was not used for their estimation. We refer to  for more details on the estimation procedure. To assign an observation to a leaf <span class="math notranslate nohighlight">\(\ell^{(b)}\)</span> in iteration <span class="math notranslate nohighlight">\(b\)</span>, the set of covariates can vary across patients to determine the path, as causal forests share the property with random forests to randomly select the set of possible covariates at each split . Amongst this set, the splitting covariate that maximizes heterogeneity in treatment effects amongst the subgroups, is chosen on a data-driven basis. This allows the path to vary per leaf <span class="math notranslate nohighlight">\(\ell\)</span> and per iteration <span class="math notranslate nohighlight">\(b\)</span>.</p>
+</section>
 </section>
 
         <script type="text/x-thebe-config">
@@ -489,20 +569,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="3_2_Regression_Approaches.html"
+       href="3_2_Regression_Methods.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Regression Approaches</p>
+        <p class="prev-next-title">Regression Methods</p>
       </div>
     </a>
     <a class="right-next"
-       href="3_4_causal_forest.html"
+       href="3_5_bayesian.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Causal Forests</p>
+        <p class="prev-next-title">Bayesian Causal Inference</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -512,6 +592,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#causal-trees">Causal Trees</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#causal-forests">Causal Forests</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

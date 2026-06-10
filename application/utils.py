@@ -411,8 +411,14 @@ _DAG_PALETTE = {
     'covariate':  dict(face='#aec7e8', edge='#5a87b0', text='black',   dashed=False),
     'mediator':   dict(face='#ff7f0e', edge='#a85405', text='white',   dashed=False),
     'collider':   dict(face='#9467bd', edge='#5e3d7a', text='white',   dashed=False),
-    'unobserved': dict(face='white',   edge='#7f7f7f', text='#404040', dashed=True),
+    'unobserved': dict(face='none',    edge='#9aa0ac', text='#6b7280', dashed=True),
 }
+
+# Neutral "ink" colour for arrows, titles and legends. A mid slate-grey keeps
+# these elements legible on both the light and the dark Jupyter Book theme
+# (the figures are saved with a transparent background, so the page colour
+# always shows through).
+_DAG_INK = '#6b7280'
 
 
 def draw_causal_graph_svg(edges, positions, node_styles, filepath, title=None,
@@ -463,7 +469,7 @@ def draw_causal_graph_svg(edges, positions, node_styles, filepath, title=None,
         if kind == 'biasing':
             color, style = '#d62728', (0, (5, 4))
         else:
-            color, style = '#333333', 'solid'
+            color, style = _DAG_INK, 'solid'
         ax.add_patch(FancyArrowPatch(
             start, end, arrowstyle='-|>', mutation_scale=16,
             color=color, lw=1.8, linestyle=style, zorder=1,
@@ -487,7 +493,7 @@ def draw_causal_graph_svg(edges, positions, node_styles, filepath, title=None,
     ax.set_aspect('equal')
     ax.axis('off')
     if title:
-        ax.set_title(title, fontsize=14, fontweight='bold')
+        ax.set_title(title, fontsize=14, fontweight='bold', color=_DAG_INK)
 
     if legend_types:
         from matplotlib.lines import Line2D
@@ -500,12 +506,12 @@ def draw_causal_graph_svg(edges, positions, node_styles, filepath, title=None,
                 label=key.capitalize()))
         ax.legend(handles=handles, loc='upper center',
                   bbox_to_anchor=(0.5, -0.02), ncol=len(handles),
-                  frameon=False, fontsize=9)
+                  frameon=False, fontsize=9, labelcolor=_DAG_INK)
 
     directory = os.path.dirname(filepath)
     if directory:
         os.makedirs(directory, exist_ok=True)
-    fig.savefig(filepath, format='svg', bbox_inches='tight')
+    fig.savefig(filepath, format='svg', bbox_inches='tight', transparent=True)
     plt.close(fig)
     return filepath
 

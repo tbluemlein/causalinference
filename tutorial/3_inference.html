@@ -40,6 +40,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/thebe-button-patch.css?v=e3482d12" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=7b192c10" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -118,6 +119,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/3_inference';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/figure-theme.js?v=a9394cc5"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Propensity Score Methods" href="3_1_propensity.html" />
@@ -250,9 +252,8 @@ const thebe_selector_output = ".output, .cell_output"
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Causal Inference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="3_1_propensity.html">Propensity Score Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_2_Regression_Approaches.html">Regression Approaches</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_3_causal_tree.html">Causal Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_4_causal_forest.html">Causal Forests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_2_Regression_Methods.html">Regression Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_3_Tree_Based_Methods.html">Tree-Based Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3_5_bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
@@ -420,8 +421,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimation-methods-overview">Estimation Methods Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-contents">Chapter Contents</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propensity-score-methods">Propensity Score Methods</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-approaches">Regression Approaches</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning-approaches">Machine Learning Approaches</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-methods">Regression Methods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-based-methods">Tree-Based Methods</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-approaches">Bayesian Approaches</a></li>
 </ul>
 </li>
@@ -485,22 +486,22 @@ $<span class="math notranslate nohighlight">\(\text{ATT} = \mathbb{E}[Y(1) - Y(0
 <tr class="row-even"><td><p><strong>Double Machine Learning</strong></p></td>
 <td><p>ATE</p></td>
 <td><p>Residualise both <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(T\)</span> on <span class="math notranslate nohighlight">\(X\)</span> to isolate causal variation</p></td>
-<td><p><a class="reference internal" href="3_2_Regression_Approaches.html"><span class="doc">Regression Approaches</span></a></p></td>
+<td><p><a class="reference internal" href="3_2_Regression_Methods.html"><span class="doc">Regression Methods</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Instrumental Variables / 2SLS</strong></p></td>
 <td><p>LATE</p></td>
 <td><p>Use exogenous variation from an instrument</p></td>
-<td><p><a class="reference internal" href="3_2_Regression_Approaches.html"><span class="doc">Regression Approaches</span></a></p></td>
+<td><p><a class="reference internal" href="3_2_Regression_Methods.html"><span class="doc">Regression Methods</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Causal Trees</strong></p></td>
 <td><p>CATE</p></td>
 <td><p>Recursive partitioning to maximise treatment effect heterogeneity</p></td>
-<td><p><a class="reference internal" href="3_3_causal_tree.html"><span class="doc">Causal Trees</span></a></p></td>
+<td><p><a class="reference internal" href="3_3_Tree_Based_Methods.html"><span class="doc">Tree-Based Methods</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Causal Forests</strong></p></td>
 <td><p>CATE</p></td>
 <td><p>Ensemble of causal trees with adaptive neighbourhood weighting</p></td>
-<td><p><a class="reference internal" href="3_4_causal_forest.html"><span class="doc">Causal Forests</span></a></p></td>
+<td><p><a class="reference internal" href="3_3_Tree_Based_Methods.html"><span class="doc">Tree-Based Methods</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Bayesian (BART / BCF)</strong></p></td>
 <td><p>CATE</p></td>
@@ -518,14 +519,13 @@ $<span class="math notranslate nohighlight">\(\text{ATT} = \mathbb{E}[Y(1) - Y(0
 <h3>Propensity Score Methods<a class="headerlink" href="#propensity-score-methods" title="Link to this heading">#</a></h3>
 <p><strong><a class="reference internal" href="3_1_propensity.html"><span class="doc">Propensity Score Methods</span></a></strong> — Methods that use the estimated propensity score <span class="math notranslate nohighlight">\(\pi(x) = P(T=1 \mid X=x)\)</span> to balance treated and control groups. Covers propensity score matching (targeting ATT) and inverse probability weighting (targeting ATE).</p>
 </section>
-<section id="regression-approaches">
-<h3>Regression Approaches<a class="headerlink" href="#regression-approaches" title="Link to this heading">#</a></h3>
-<p><strong><a class="reference internal" href="3_2_Regression_Approaches.html"><span class="doc">Regression Approaches</span></a></strong> — Regression-based approaches including Double Machine Learning (DML) for high-dimensional confounding, and Instrumental Variables / Two-Stage Least Squares (2SLS) for settings with unmeasured confounding.</p>
+<section id="regression-methods">
+<h3>Regression Methods<a class="headerlink" href="#regression-methods" title="Link to this heading">#</a></h3>
+<p><strong><a class="reference internal" href="3_2_Regression_Methods.html"><span class="doc">Regression Methods</span></a></strong> — Regression-based approaches including outcome regression / g-computation, doubly robust estimators (AIPW, TMLE), Double Machine Learning (DML) and meta-learners for heterogeneous effects, plus quasi-experimental designs (IV / 2SLS, difference-in-differences, regression discontinuity, synthetic control).</p>
 </section>
-<section id="machine-learning-approaches">
-<h3>Machine Learning Approaches<a class="headerlink" href="#machine-learning-approaches" title="Link to this heading">#</a></h3>
-<p><strong><a class="reference internal" href="3_3_causal_tree.html"><span class="doc">Causal Trees</span></a></strong> — Causal trees partition the covariate space to discover subpopulations with heterogeneous treatment effects (CATEs), using honest splitting to ensure unbiased estimation (<a class="reference external" href="https://doi.org/10.1073/pnas.1510489113">Athey &amp; Imbens, 2016</a>).</p>
-<p><strong><a class="reference internal" href="3_4_causal_forest.html"><span class="doc">Causal Forests</span></a></strong> — Causal forests extend causal trees to an ensemble method that estimates individualised treatment effects via adaptive nearest-neighbour weighting (<a class="reference external" href="https://doi.org/10.1080/01621459.2017.1319839">Wager &amp; Athey, 2018</a>; <a class="reference external" href="https://doi.org/10.1214/18-AOS1709">Athey, Tibshirani &amp; Wager, 2019</a>).</p>
+<section id="tree-based-methods">
+<h3>Tree-Based Methods<a class="headerlink" href="#tree-based-methods" title="Link to this heading">#</a></h3>
+<p><strong><a class="reference internal" href="3_3_Tree_Based_Methods.html"><span class="doc">Tree-Based Methods</span></a></strong> — Causal trees partition the covariate space to discover subpopulations with heterogeneous treatment effects (CATEs) using honest splitting (<a class="reference external" href="https://doi.org/10.1073/pnas.1510489113">Athey &amp; Imbens, 2016</a>), and causal forests extend them to an ensemble that estimates individualised effects via adaptive nearest-neighbour weighting (<a class="reference external" href="https://doi.org/10.1080/01621459.2017.1319839">Wager &amp; Athey, 2018</a>; <a class="reference external" href="https://doi.org/10.1214/18-AOS1709">Athey, Tibshirani &amp; Wager, 2019</a>).</p>
 </section>
 <section id="bayesian-approaches">
 <h3>Bayesian Approaches<a class="headerlink" href="#bayesian-approaches" title="Link to this heading">#</a></h3>
@@ -604,8 +604,8 @@ $<span class="math notranslate nohighlight">\(\text{ATT} = \mathbb{E}[Y(1) - Y(0
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimation-methods-overview">Estimation Methods Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-contents">Chapter Contents</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propensity-score-methods">Propensity Score Methods</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-approaches">Regression Approaches</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning-approaches">Machine Learning Approaches</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-methods">Regression Methods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-based-methods">Tree-Based Methods</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-approaches">Bayesian Approaches</a></li>
 </ul>
 </li>

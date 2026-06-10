@@ -39,6 +39,7 @@
     <link rel="stylesheet" type="text/css" href="_static/thebe-button-patch.css?v=e3482d12" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/figure-theme.css?v=7b192c10" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -480,6 +481,7 @@ window.addEventListener("load", load);
 </script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'prf-prf';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/figure-theme.js?v=a9394cc5"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
 
@@ -619,9 +621,8 @@ window.addEventListener("load", load);
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/3_inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/3_1_propensity.html">Propensity Score Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/3_2_Regression_Approaches.html">Regression Approaches</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/3_3_causal_tree.html">Causal Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/3_4_causal_forest.html">Causal Forests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/3_2_Regression_Methods.html">Regression Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/3_3_Tree_Based_Methods.html">Tree-Based Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/3_5_bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
@@ -804,7 +805,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/3_2_Regression_Approaches.html#alg-2sls"><code class="xref">alg-2sls</code></a> <em>(tutorial/3_2_Regression_Approaches)</em></td><td>
+       <a href="tutorial/3_2_Regression_Methods.html#alg-2sls"><code class="xref">alg-2sls</code></a> <em>(tutorial/3_2_Regression_Methods)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-alg-aipw"><td></td><td>
@@ -812,7 +813,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/3_2_Regression_Approaches.html#alg-aipw"><code class="xref">alg-aipw</code></a> <em>(tutorial/3_2_Regression_Approaches)</em></td><td>
+       <a href="tutorial/3_2_Regression_Methods.html#alg-aipw"><code class="xref">alg-aipw</code></a> <em>(tutorial/3_2_Regression_Methods)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-alg-causalforest"><td></td><td>
@@ -820,7 +821,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/3_4_causal_forest.html#alg-causalforest"><code class="xref">alg-causalforest</code></a> <em>(tutorial/3_4_causal_forest)</em></td><td>
+       <a href="tutorial/3_3_Tree_Based_Methods.html#alg-causalforest"><code class="xref">alg-causalforest</code></a> <em>(tutorial/3_3_Tree_Based_Methods)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-alg-causaltree"><td></td><td>
@@ -828,7 +829,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/3_3_causal_tree.html#alg-causaltree"><code class="xref">alg-causaltree</code></a> <em>(tutorial/3_3_causal_tree)</em></td><td>
+       <a href="tutorial/3_3_Tree_Based_Methods.html#alg-causaltree"><code class="xref">alg-causaltree</code></a> <em>(tutorial/3_3_Tree_Based_Methods)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-alg-did"><td></td><td>
@@ -836,7 +837,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/3_2_Regression_Approaches.html#alg-did"><code class="xref">alg-did</code></a> <em>(tutorial/3_2_Regression_Approaches)</em></td><td>
+       <a href="tutorial/3_2_Regression_Methods.html#alg-did"><code class="xref">alg-did</code></a> <em>(tutorial/3_2_Regression_Methods)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-alg-dml"><td></td><td>
@@ -844,7 +845,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/3_2_Regression_Approaches.html#alg-dml"><code class="xref">alg-dml</code></a> <em>(tutorial/3_2_Regression_Approaches)</em></td><td>
+       <a href="tutorial/3_2_Regression_Methods.html#alg-dml"><code class="xref">alg-dml</code></a> <em>(tutorial/3_2_Regression_Methods)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-alg-gcomp"><td></td><td>
@@ -852,7 +853,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/3_2_Regression_Approaches.html#alg-gcomp"><code class="xref">alg-gcomp</code></a> <em>(tutorial/3_2_Regression_Approaches)</em></td><td>
+       <a href="tutorial/3_2_Regression_Methods.html#alg-gcomp"><code class="xref">alg-gcomp</code></a> <em>(tutorial/3_2_Regression_Methods)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-alg-metalearners"><td></td><td>
@@ -860,7 +861,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/3_2_Regression_Approaches.html#alg-metalearners"><code class="xref">alg-metalearners</code></a> <em>(tutorial/3_2_Regression_Approaches)</em></td><td>
+       <a href="tutorial/3_2_Regression_Methods.html#alg-metalearners"><code class="xref">alg-metalearners</code></a> <em>(tutorial/3_2_Regression_Methods)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-alg-psm"><td></td><td>
@@ -884,7 +885,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/3_2_Regression_Approaches.html#alg-rdd"><code class="xref">alg-rdd</code></a> <em>(tutorial/3_2_Regression_Approaches)</em></td><td>
+       <a href="tutorial/3_2_Regression_Methods.html#alg-rdd"><code class="xref">alg-rdd</code></a> <em>(tutorial/3_2_Regression_Methods)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-alg-rlearner"><td></td><td>
@@ -892,7 +893,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/3_2_Regression_Approaches.html#alg-rlearner"><code class="xref">alg-rlearner</code></a> <em>(tutorial/3_2_Regression_Approaches)</em></td><td>
+       <a href="tutorial/3_2_Regression_Methods.html#alg-rlearner"><code class="xref">alg-rlearner</code></a> <em>(tutorial/3_2_Regression_Methods)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-alg-synth"><td></td><td>
@@ -900,7 +901,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/3_2_Regression_Approaches.html#alg-synth"><code class="xref">alg-synth</code></a> <em>(tutorial/3_2_Regression_Approaches)</em></td><td>
+       <a href="tutorial/3_2_Regression_Methods.html#alg-synth"><code class="xref">alg-synth</code></a> <em>(tutorial/3_2_Regression_Methods)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-alg-tmle"><td></td><td>
@@ -908,7 +909,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/3_2_Regression_Approaches.html#alg-tmle"><code class="xref">alg-tmle</code></a> <em>(tutorial/3_2_Regression_Approaches)</em></td><td>
+       <a href="tutorial/3_2_Regression_Methods.html#alg-tmle"><code class="xref">alg-tmle</code></a> <em>(tutorial/3_2_Regression_Methods)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-backdoor-algorithm"><td></td><td>

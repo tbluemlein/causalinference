@@ -40,6 +40,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/thebe-button-patch.css?v=e3482d12" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=7b192c10" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -483,6 +484,7 @@ window.addEventListener("load", load);
 </script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/2_3_debias';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/figure-theme.js?v=a9394cc5"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Causal Inference" href="3_inference.html" />
@@ -615,9 +617,8 @@ window.addEventListener("load", load);
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="3_inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="3_1_propensity.html">Propensity Score Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_2_Regression_Approaches.html">Regression Approaches</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_3_causal_tree.html">Causal Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_4_causal_forest.html">Causal Forests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_2_Regression_Methods.html">Regression Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_3_Tree_Based_Methods.html">Tree-Based Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3_5_bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
@@ -924,7 +925,7 @@ document.write(`
 <tbody>
 <tr class="row-even"><td><p><strong>Adjust</strong> (regression, propensity scores, doubly robust)</p></td>
 <td><p>Confounding, selection</p></td>
-<td><p><a class="reference internal" href="3_1_propensity.html"><span class="doc">Propensity Score Methods</span></a>, <a class="reference internal" href="3_2_Regression_Approaches.html"><span class="doc">Regression Approaches</span></a></p></td>
+<td><p><a class="reference internal" href="3_1_propensity.html"><span class="doc">Propensity Score Methods</span></a>, <a class="reference internal" href="3_2_Regression_Methods.html"><span class="doc">Regression Methods</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Reweight</strong> (IPW, IPCW, overlap weighting)</p></td>
 <td><p>Confounding, selection, positivity</p></td>

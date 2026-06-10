@@ -40,6 +40,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/thebe-button-patch.css?v=e3482d12" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=7b192c10" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -118,9 +119,10 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/3_1_propensity';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/figure-theme.js?v=a9394cc5"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Regression Approaches" href="3_2_Regression_Approaches.html" />
+    <link rel="next" title="Regression Methods" href="3_2_Regression_Methods.html" />
     <link rel="prev" title="Causal Inference" href="3_inference.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -250,9 +252,8 @@ const thebe_selector_output = ".output, .cell_output"
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="3_inference.html">Causal Inference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Propensity Score Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_2_Regression_Approaches.html">Regression Approaches</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_3_causal_tree.html">Causal Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_4_causal_forest.html">Causal Forests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_2_Regression_Methods.html">Regression Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_3_Tree_Based_Methods.html">Tree-Based Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3_5_bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
@@ -543,7 +544,11 @@ It reduces high-dimensional control variables into a single score in order to ac
 
   // Resolve the book's current theme: data-mode is auto|light|dark.
   function currentTheme() {
-    var mode = document.documentElement.getAttribute('data-mode') || 'auto';
+    var root = document.documentElement;
+    // data-theme holds the *resolved* light|dark value (preferred).
+    var theme = root.getAttribute('data-theme');
+    if (theme === 'light' || theme === 'dark') return theme;
+    var mode = root.getAttribute('data-mode') || 'auto';
     if (mode === 'light' || mode === 'dark') return mode;
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
@@ -562,9 +567,9 @@ It reduces high-dimensional control variables into a single score in order to ac
     }
   });
 
-  // Re-send whenever the book theme toggle flips data-mode.
+  // Re-send whenever the book theme toggle flips data-mode or data-theme.
   new MutationObserver(sendTheme).observe(document.documentElement, {
-    attributes: true, attributeFilter: ['data-mode']
+    attributes: true, attributeFilter: ['data-mode', 'data-theme']
   });
   // Re-send when the OS theme changes while the book is in "auto" mode.
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sendTheme);
@@ -614,11 +619,11 @@ It reduces high-dimensional control variables into a single score in order to ac
       </div>
     </a>
     <a class="right-next"
-       href="3_2_Regression_Approaches.html"
+       href="3_2_Regression_Methods.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Regression Approaches</p>
+        <p class="prev-next-title">Regression Methods</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
