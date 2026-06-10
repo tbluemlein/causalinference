@@ -631,6 +631,7 @@ window.addEventListener("load", load);
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Actuarial Applications</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="application/observational_data.html">Observational Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="application/fairness.html">Fairness in Insurance Pricing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="application/traffic_study.html">Traffic Case Study</a></li>
 <li class="toctree-l1"><a class="reference internal" href="application/health_interventions.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
 </ul>
@@ -748,6 +749,7 @@ document.write(`
    <a href="#cap-alg-causalforest"><strong>alg-causalforest</strong></a> | 
    <a href="#cap-alg-causaltree"><strong>alg-causaltree</strong></a> | 
    <a href="#cap-alg-did"><strong>alg-did</strong></a> | 
+   <a href="#cap-alg-discfree-price"><strong>alg-discfree-price</strong></a> | 
    <a href="#cap-alg-dml"><strong>alg-dml</strong></a> | 
    <a href="#cap-alg-gcomp"><strong>alg-gcomp</strong></a> | 
    <a href="#cap-alg-metalearners"><strong>alg-metalearners</strong></a> | 
@@ -763,6 +765,7 @@ document.write(`
    <a href="#cap-bart"><strong>bart</strong></a> | 
    <a href="#cap-bayesian-causal-model"><strong>bayesian-causal-model</strong></a> | 
    <a href="#cap-bayesian-propensity"><strong>bayesian-propensity</strong></a> | 
+   <a href="#cap-best-estimate-price"><strong>best-estimate-price</strong></a> | 
    <a href="#cap-blocked-path"><strong>blocked-path</strong></a> | 
    <a href="#cap-causal-markov"><strong>causal-markov</strong></a> | 
    <a href="#cap-chain"><strong>chain</strong></a> | 
@@ -774,6 +777,7 @@ document.write(`
    <a href="#cap-d-separation"><strong>d-separation</strong></a> | 
    <a href="#cap-dag"><strong>dag</strong></a> | 
    <a href="#cap-discovery-limitations"><strong>discovery-limitations</strong></a> | 
+   <a href="#cap-discrimination-free-price-app"><strong>discrimination-free-price-app</strong></a> | 
    <a href="#cap-discrimination-free-pricing"><strong>discrimination-free-pricing</strong></a> | 
    <a href="#cap-e-value"><strong>e-value</strong></a> | 
    <a href="#cap-exchangeability"><strong>exchangeability</strong></a> | 
@@ -795,7 +799,8 @@ document.write(`
    <a href="#cap-selection-bias"><strong>selection-bias</strong></a> | 
    <a href="#cap-sgs-algorithm"><strong>sgs-algorithm</strong></a> | 
    <a href="#cap-smd"><strong>smd</strong></a> | 
-   <a href="#cap-sutva"><strong>sutva</strong></a>
+   <a href="#cap-sutva"><strong>sutva</strong></a> | 
+   <a href="#cap-unawareness-price"><strong>unawareness-price</strong></a>
    </div>
 
    <table class="indextable modindextable">
@@ -838,6 +843,14 @@ document.write(`
        <td></td>
        <td>
        <a href="tutorial/3_2_Regression_Methods.html#alg-did"><code class="xref">alg-did</code></a> <em>(tutorial/3_2_Regression_Methods)</em></td><td>
+       <em>algorithm</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-alg-discfree-price"><td></td><td>
+       <strong>alg-discfree-price</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="application/fairness.html#alg-discfree-price"><code class="xref">alg-discfree-price</code></a> <em>(application/fairness)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-alg-dml"><td></td><td>
@@ -960,6 +973,14 @@ document.write(`
        <a href="tutorial/3_5_bayesian.html#bayesian-propensity"><code class="xref">bayesian-propensity</code></a> <em>(tutorial/3_5_bayesian)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-best-estimate-price"><td></td><td>
+       <strong>best-estimate-price</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="application/fairness.html#best-estimate-price"><code class="xref">best-estimate-price</code></a> <em>(application/fairness)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-blocked-path"><td></td><td>
        <strong>blocked-path</strong></td><td></td></tr>
      <tr>
@@ -1047,6 +1068,14 @@ document.write(`
        <td>
        <a href="tutorial/2_2_graphical_models.html#discovery-limitations"><code class="xref">discovery-limitations</code></a> <em>(tutorial/2_2_graphical_models)</em></td><td>
        <em>remark</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-discrimination-free-price-app"><td></td><td>
+       <strong>discrimination-free-price-app</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="application/fairness.html#discrimination-free-price-app"><code class="xref">discrimination-free-price-app</code></a> <em>(application/fairness)</em></td><td>
+       <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-discrimination-free-pricing"><td></td><td>
        <strong>discrimination-free-pricing</strong></td><td></td></tr>
@@ -1223,6 +1252,14 @@ document.write(`
        <td>
        <a href="tutorial/2_1_assumptions.html#sutva"><code class="xref">sutva</code></a> <em>(tutorial/2_1_assumptions)</em></td><td>
        <em>assumption</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-unawareness-price"><td></td><td>
+       <strong>unawareness-price</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="application/fairness.html#unawareness-price"><code class="xref">unawareness-price</code></a> <em>(application/fairness)</em></td><td>
+       <em>definition</em></td></tr>
    </table>
 
 

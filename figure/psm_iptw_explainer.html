@@ -7,25 +7,25 @@
 <style>
   :root{
     --txt:#2c2c2a; --txt2:#5f5e5a; --txt3:#8a897f;
-    --card:#f3f2ec; --bd:rgba(0,0,0,0.14); --bd2:rgba(0,0,0,0.28);
-    --accent:#185fa5; --track:rgba(0,0,0,0.12);
+    --card:#e8eae6; --bd:rgba(0,0,0,0.14); --bd2:rgba(0,0,0,0.28);
+    --accent:#7d9f17; --track:rgba(0,0,0,0.12);
   }
   @media (prefers-color-scheme: dark){
     :root{
       --txt:#e6e6e3; --txt2:#aeaca4; --txt3:#86857d;
       --card:rgba(255,255,255,0.06); --bd:rgba(255,255,255,0.16); --bd2:rgba(255,255,255,0.30);
-      --accent:#85b7eb; --track:rgba(255,255,255,0.16);
+      --accent:#aacb3f; --track:rgba(255,255,255,0.16);
     }
   }
   html[data-mode="light"]{
     --txt:#2c2c2a; --txt2:#5f5e5a; --txt3:#8a897f;
-    --card:#f3f2ec; --bd:rgba(0,0,0,0.14); --bd2:rgba(0,0,0,0.28);
-    --accent:#185fa5; --track:rgba(0,0,0,0.12);
+    --card:#e8eae6; --bd:rgba(0,0,0,0.14); --bd2:rgba(0,0,0,0.28);
+    --accent:#7d9f17; --track:rgba(0,0,0,0.12);
   }
   html[data-mode="dark"]{
     --txt:#e6e6e3; --txt2:#aeaca4; --txt3:#86857d;
     --card:rgba(255,255,255,0.06); --bd:rgba(255,255,255,0.16); --bd2:rgba(255,255,255,0.30);
-    --accent:#85b7eb; --track:rgba(255,255,255,0.16);
+    --accent:#aacb3f; --track:rgba(255,255,255,0.16);
   }
   html,body{background:transparent; margin:0;}
   body{
@@ -109,14 +109,27 @@
   var p=new URLSearchParams(location.search).get('theme');
   function apply(t){document.documentElement.setAttribute('data-mode',t);}
   function systemTheme(){return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+  // Read the embedding book's resolved theme directly (same-origin). This makes
+  // the initial render correct even if the parent's postMessage handshake is
+  // missed (e.g. a cached embed script), so we never get stuck showing light.
+  function parentTheme(){
+    try{
+      var root=window.parent.document.documentElement;
+      var t=root.getAttribute('data-theme');
+      if(t==='light'||t==='dark')return t;
+      var m=root.getAttribute('data-mode');
+      if(m==='light'||m==='dark')return m;
+    }catch(e){}
+    return null;
+  }
   if(p==='dark'||p==='light')apply(p);
-  else apply(systemTheme());
-  if(!p){matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){apply(e.matches?'dark':'light');});}
+  else apply(parentTheme()||systemTheme());
+  if(!p){matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(!parentTheme())apply(e.matches?'dark':'light');});}
   window.addEventListener('message',function(ev){
     var d=ev.data;
     if(d&&d.type==='set-theme'){
       if(d.value==='dark'||d.value==='light')apply(d.value);
-      else if(d.value==='auto')apply(systemTheme());
+      else if(d.value==='auto')apply(parentTheme()||systemTheme());
     }
   });
   // Ask the embedding page for the current theme once we're ready.
@@ -176,7 +189,7 @@
   function getSample(beta,seed){var key=beta+"_"+seed;if(state.key===key)return state.data;state.data=build(beta,seed);state.key=key;return state.data;}
   function fmt(v,d){if(v===null||isNaN(v))return "\u2014";return v.toFixed(d===undefined?2:d);}
 
-  function postHeight(){try{parent.postMessage({type:'psm-iptw-height',height:document.documentElement.scrollHeight},'*');}catch(e){}}
+  function postHeight(){try{parent.postMessage({type:'psm-iptw-height',height:Math.ceil(document.body.getBoundingClientRect().height)},'*');}catch(e){}}
 
   function render(){
     var beta=parseFloat(document.getElementById('beta').value);

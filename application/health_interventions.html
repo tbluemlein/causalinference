@@ -260,6 +260,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Actuarial Applications</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="observational_data.html">Observational Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fairness.html">Fairness in Insurance Pricing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="traffic_study.html">Traffic Case Study</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
 </ul>
@@ -673,11 +674,11 @@ c (confounder): mean = 0.505, range = [0.091, 1.000]
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>w (treatment uptake):
+  Total participants: 13,581.0 individuals (13.6% of all)
+  Among itt=1: 13,581.0 / 79,732 = 17.0%
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Total participants: 13,581.0 individuals (13.6% of all)
-  Among itt=1: 13,581.0 / 79,732 = 17.0%
-  Among itt=0: 0.0 / 20,268 = 0.0%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Among itt=0: 0.0 / 20,268 = 0.0%
 </pre></div>
 </div>
 </div>
@@ -1154,9 +1155,7 @@ trigs    | 157.55±40.41      | 156.41±38.27
 9  156.875518  
 
 === DESCRIPTIVE STATISTICS ===
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>             age       sex        bmi     smoker      hba1c        sbp  \
+             age       sex        bmi     smoker      hba1c        sbp  \
 count  200000.00  200000.0  200000.00  200000.00  200000.00  200000.00   
 mean       45.37       0.5      25.77       0.16       5.21     121.08   
 std        13.85       0.5       3.90       0.37       0.77      15.54   
@@ -1221,8 +1220,9 @@ Synthetic dataset created successfully!
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== SYNTHETIC DATA VALIDATION ===
-
-Key health correlations in synthetic data:
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Key health correlations in synthetic data:
 Age - SBP: 0.420 (should be positive)
 BMI - SBP: 0.248 (should be positive)
 BMI - HbA1c: 0.258 (should be positive)

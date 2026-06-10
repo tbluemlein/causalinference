@@ -262,6 +262,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Actuarial Applications</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../application/observational_data.html">Observational Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application/fairness.html">Fairness in Insurance Pricing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../application/traffic_study.html">Traffic Case Study</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../application/health_interventions.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
 </ul>
@@ -535,7 +536,7 @@ It reduces high-dimensional control variables into a single score in order to ac
 <li><p><strong>New sample</strong> — redraw the data to see the sampling variability of each estimate.</p></li>
 </ul>
 <p>The panels let you compare, on the same data, (1) propensity score overlap, (2) the matched pairs formed by PSM, (3) the inverse-probability-weighted points used by IPTW, and (4) covariate balance via the standardised mean difference (SMD, target <span class="math notranslate nohighlight">\(&lt; 0.1\)</span>). The summary cards contrast the naïve difference in means against the PSM estimate of the ATT (<span class="math notranslate nohighlight">\(\hat{\tau}_{ATT}\)</span>) and the IPTW estimate of the ATE (<span class="math notranslate nohighlight">\(\hat{\tau}_{ATE}\)</span>), both relative to the true effect.</p>
-<iframe id="psm-iptw" src="../figure/psm_iptw_explainer.html"
+<iframe id="psm-iptw" src="../figure/psm_iptw_explainer.html?v=20260610c"
         style="width:100%; border:none; height:1500px;"
         title="PSM vs IPTW interactive explainer"></iframe>
 <script>
