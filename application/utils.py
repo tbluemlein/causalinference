@@ -411,6 +411,7 @@ _DAG_PALETTE = {
     'covariate':  dict(face='#aec7e8', edge='#5a87b0', text='black',   dashed=False),
     'mediator':   dict(face='#ff7f0e', edge='#a85405', text='white',   dashed=False),
     'collider':   dict(face='#9467bd', edge='#5e3d7a', text='white',   dashed=False),
+    'sensitive':  dict(face='#e377c2', edge='#a3357f', text='white',   dashed=False),
     'unobserved': dict(face='none',    edge='#9aa0ac', text='#6b7280', dashed=True),
 }
 

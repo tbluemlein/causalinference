@@ -6,15 +6,19 @@
 * **Athey, S., & Wager, S. (2019).** *Estimating treatment effects with causal forests: An application.* Observational Studies, 5, 37-51. [DOI: 10.1353/obs.2019.0001](https://doi.org/10.1353/obs.2019.0001) 
 * **Austin, P. C. (2011).** *An introduction to propensity score methods for reducing the effects of confounding in observational studies.* Multivariate Behavioral Research, 46(3), 399-424. [DOI: 10.1080/00273171.2011.568786](https://doi.org/10.1080/00273171.2011.568786) 
 * **Bang, H., & Robins, J. M. (2005).** *Doubly robust estimation in missing data and causal inference models.* Biometrics, 61(4), 962-973. [DOI: 10.1111/j.1541-0420.2005.00377.x](https://doi.org/10.1111/j.1541-0420.2005.00377.x)
+* **Barocas, S., Hardt, M., & Narayanan, A. (2019).** [*Fairness and Machine Learning: Limitations and Opportunities.*](https://fairmlbook.org/) MIT Press.
 * **Breiman, L. (2001).** *Random forests.* Machine Learning, 45(1), 5-32. 
 * **Breiman, L., Friedman, J. H., Olshen, R., & Stone, C. J. (1984).** *Classification and regression trees.* 
 * **Callaway, B., & Sant'Anna, P. H. C. (2021).** *Difference-in-differences with multiple time periods.* Journal of Econometrics, 225(2), 200-230. [DOI: 10.1016/j.jeconom.2020.12.001](https://doi.org/10.1016/j.jeconom.2020.12.001)
 * **Chernozhukov, V., Chetverikov, D., Demirer, M., Duflo, E., Hansen, C., Newey, W., & Robins, J. (2018).** *Double/debiased machine learning for treatment and structural parameters.* The Econometrics Journal, 21(1), C1-C68. [DOI: 10.1111/ectj.12097](https://doi.org/10.1111/ectj.12097)
+* **Chouldechova, A. (2017).** *Fair prediction with disparate impact: A study of bias in recidivism prediction instruments.* Big Data, 5(2), 153-163. [DOI: 10.1089/big.2016.0047](https://doi.org/10.1089/big.2016.0047)
 * **Goodman-Bacon, A. (2021).** *Difference-in-differences with variation in treatment timing.* Journal of Econometrics, 225(2), 254-277. [DOI: 10.1016/j.jeconom.2021.03.014](https://doi.org/10.1016/j.jeconom.2021.03.014)
 * **Hahn, J., Todd, P., & van der Klaauw, W. (2001).** *Identification and estimation of treatment effects with a regression-discontinuity design.* Econometrica, 69(1), 201-209. [DOI: 10.1111/1468-0262.00183](https://doi.org/10.1111/1468-0262.00183)
+* **Hardt, M., Price, E., & Srebro, N. (2016).** *Equality of opportunity in supervised learning.* Advances in Neural Information Processing Systems 29, 3315–3323. [arXiv:1610.02413](https://arxiv.org/abs/1610.02413)
 * **Hernán, M. A., & Robins, J. M. (2020).** [*Causal Inference: What If.*](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) Boca Raton: Chapman & Hall/CRC.
 * **Imbens, G. W., & Lemieux, T. (2008).** *Regression discontinuity designs: A guide to practice.* Journal of Econometrics, 142(2), 615-635. [DOI: 10.1016/j.jeconom.2007.05.001](https://doi.org/10.1016/j.jeconom.2007.05.001)
 * **Kennedy, E. H. (2023).** *Towards optimal doubly robust estimation of heterogeneous causal effects.* Electronic Journal of Statistics, 17(2), 3008-3049. [DOI: 10.1214/23-EJS2157](https://doi.org/10.1214/23-EJS2157)
+* **Kleinberg, J., Mullainathan, S., & Raghavan, M. (2017).** *Inherent trade-offs in the fair determination of risk scores.* 8th Innovations in Theoretical Computer Science Conference (ITCS). [arXiv:1609.05807](https://arxiv.org/abs/1609.05807)
 * **Künzel, S. R., Sekhon, J. S., Bickel, P. J., & Yu, B. (2019).** *Metalearners for estimating heterogeneous treatment effects using machine learning.* Proceedings of the National Academy of Sciences, 116(10), 4156-4165. [DOI: 10.1073/pnas.1804597116](https://doi.org/10.1073/pnas.1804597116)
 * **Kusner, M. J., Loftus, J., Russell, C., & Silva, R. (2017).** *Counterfactual fairness.* Advances in Neural Information Processing Systems 30, 4066–4076. [arXiv:1703.06856](https://arxiv.org/abs/1703.06856)
 * **Lindholm, M., Richman, R., Tsanakas, A., & Wüthrich, M. V. (2022).** *A discussion of discrimination and fairness in insurance pricing.* [arXiv:2209.00858](https://arxiv.org/abs/2209.00858)
@@ -38,6 +42,7 @@
 - [QuantCo Blog Article: MetaLearners for CATE Estimation](https://tech.quantco.com/blog/metalearners)
 - [Confounding Tutorial: Simpson's Paradoxon](https://www.biostatistics.ca/when-data-lies-simpsons-paradox-a-step-by-step-simulation-code-notebook/) 
 - [Causality Handbook](https://matheusfacure.github.io/python-causality-handbook/02-Randomised-Experiments.html)
+- [Google PAIR: *Measuring Fairness* explorable (2020)](https://pair.withgoogle.com/explorables/measuring-fairness/)
 
 ### Data Sets and Potential Use Cases
 - [French Motor TPL Claims Data Set](https://www.kaggle.com/datasets/karansarpal/fremtpl2-french-motor-tpl-insurance-claims/data)

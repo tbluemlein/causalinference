@@ -28,6 +28,7 @@ parts:
     chapters:
 #      - file: application/case_study.ipynb
       - file: application/observational_data.ipynb
+      - file: application/fairness.ipynb
       - file: application/traffic_study.ipynb
       - file: application/health_interventions.ipynb
 
