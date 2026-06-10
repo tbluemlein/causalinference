@@ -11,18 +11,10 @@ By identifying true causal drivers rather than mere symptoms, we move from passi
 
 ## Organisation
 
-The tutorial guides the reader from foundational concepts, identificazion and infetence of causal effects, to the validation of causal conclusions.
+### Tutorial
+The tutorial guides the reader from foundational concepts, identification and inference of causal effects, to the validation of causal conclusions using sensitivity measures.
 
-```{mermaid}
-graph LR
-    A["1. Concepts"] --> B["2. Identification"]
-    B --> C["3. Inference"]
-    C --> D["4. Sensitivity"]
-    style A fill:#4a90d9,color:#fff
-    style B fill:#e74c3c,color:#fff
-    style C fill:#f5a623,color:#fff
-    style D fill:#27ae60,color:#fff
-```
+> TODO: visualization? 
 
 **Stage 1 — {doc}`tutorial/1_concepts`:** Introduces the language of causal inference — treatments, potential outcomes, counterfactuals, confounding — and motivates why association is not causation, especially in actuarial applications.
 
@@ -33,9 +25,12 @@ graph LR
 
 **Stage 3 — {doc}`tutorial/3_inference`:** Covers *how* to estimate causal effects once identification is established. Methods range from classical propensity score approaches to modern machine learning estimators.
 - {doc}`tutorial/3_1_propensity` — Propensity score matching and inverse probability weighting.
-- {doc}`tutorial/3_2_Regression_Approaches` — Double machine learning and instrumental variables / 2SLS.
-- {doc}`tutorial/3_3_causal_tree` — Causal trees for heterogeneous treatment effect discovery.
-- {doc}`tutorial/3_4_causal_forest` — Causal forests for individualised treatment effect estimation.
+- {doc}`tutorial/3_2_Regression_Methods` — Regression adjustment, doubly robust and orthogonal ML estimators, and quasi-experimental designs.
+- {doc}`tutorial/3_3_Tree_Based_Methods` — Causal trees and forests for heterogeneous and individualised treatment effect estimation.
 - {doc}`tutorial/3_5_bayesian` — Bayesian causal inference with BART and Bayesian Causal Forests.
 
 **Stage 4 — {doc}`tutorial/4_sensitivity`:** Validates causal conclusions by assessing their robustness to untestable assumptions. Covers balance diagnostics, placebo tests, E-values, Rosenbaum bounds, and partial $R^2$ sensitivity analysis.
+
+### Actuarial Applications
+
+> TODO: visualization, use cases that are embedded in actuarial workflows

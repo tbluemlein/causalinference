@@ -411,8 +411,15 @@ _DAG_PALETTE = {
     'covariate':  dict(face='#aec7e8', edge='#5a87b0', text='black',   dashed=False),
     'mediator':   dict(face='#ff7f0e', edge='#a85405', text='white',   dashed=False),
     'collider':   dict(face='#9467bd', edge='#5e3d7a', text='white',   dashed=False),
-    'unobserved': dict(face='white',   edge='#7f7f7f', text='#404040', dashed=True),
+    'sensitive':  dict(face='#e377c2', edge='#a3357f', text='white',   dashed=False),
+    'unobserved': dict(face='none',    edge='#9aa0ac', text='#6b7280', dashed=True),
 }
+
+# Neutral "ink" colour for arrows, titles and legends. A mid slate-grey keeps
+# these elements legible on both the light and the dark Jupyter Book theme
+# (the figures are saved with a transparent background, so the page colour
+# always shows through).
+_DAG_INK = '#6b7280'
 
 
 def draw_causal_graph_svg(edges, positions, node_styles, filepath, title=None,
@@ -463,7 +470,7 @@ def draw_causal_graph_svg(edges, positions, node_styles, filepath, title=None,
         if kind == 'biasing':
             color, style = '#d62728', (0, (5, 4))
         else:
-            color, style = '#333333', 'solid'
+            color, style = _DAG_INK, 'solid'
         ax.add_patch(FancyArrowPatch(
             start, end, arrowstyle='-|>', mutation_scale=16,
             color=color, lw=1.8, linestyle=style, zorder=1,
@@ -487,7 +494,7 @@ def draw_causal_graph_svg(edges, positions, node_styles, filepath, title=None,
     ax.set_aspect('equal')
     ax.axis('off')
     if title:
-        ax.set_title(title, fontsize=14, fontweight='bold')
+        ax.set_title(title, fontsize=14, fontweight='bold', color=_DAG_INK)
 
     if legend_types:
         from matplotlib.lines import Line2D
@@ -500,12 +507,12 @@ def draw_causal_graph_svg(edges, positions, node_styles, filepath, title=None,
                 label=key.capitalize()))
         ax.legend(handles=handles, loc='upper center',
                   bbox_to_anchor=(0.5, -0.02), ncol=len(handles),
-                  frameon=False, fontsize=9)
+                  frameon=False, fontsize=9, labelcolor=_DAG_INK)
 
     directory = os.path.dirname(filepath)
     if directory:
         os.makedirs(directory, exist_ok=True)
-    fig.savefig(filepath, format='svg', bbox_inches='tight')
+    fig.savefig(filepath, format='svg', bbox_inches='tight', transparent=True)
     plt.close(fig)
     return filepath
 
@@ -520,10 +527,20 @@ def ols_treatment_effect(df, outcome, treatment, covariates):
     Returns a dict with the treatment coefficient, its standard error,
     t-statistic, two-sided p-value and the residual degrees of freedom — the
     latter is needed for the partial-:math:`R^2` sensitivity analysis.
+
+    The covariates are standardised before fitting purely for numerical
+    stability (variables on very different scales can overflow ``matmul`` on
+    some BLAS backends). Standardising the covariates leaves the treatment
+    coefficient and its standard error unchanged.
     """
-    cols = [treatment] + list(covariates)
-    X = df[cols].astype(float).values
-    X = np.column_stack([np.ones(len(X)), X])
+    Xc = df[list(covariates)].astype(float).values
+    mean = Xc.mean(axis=0)
+    std = Xc.std(axis=0)
+    std[std == 0] = 1.0  # guard against constant columns
+    Xc = (Xc - mean) / std
+
+    t = df[treatment].astype(float).values.reshape(-1, 1)
+    X = np.column_stack([np.ones(len(df)), t, Xc])
     y = df[outcome].astype(float).values
 
     beta, *_ = np.linalg.lstsq(X, y, rcond=None)
@@ -791,3 +808,8 @@ def plot_rosenbaum(bounds_df, alpha=0.05, title='Rosenbaum Sensitivity Bounds'):
         yaxis_title='Upper-bound p-value', yaxis_range=[0, 1])
     return fig
 
+def show(fig):
+    """Display a Plotly figure that auto-resizes to the page width."""
+    import plotly.offline
+    fig.update_layout(autosize=True, width=None)
+    plotly.offline.iplot(fig, config={"responsive": True})

@@ -19,9 +19,8 @@ parts:
       - file: tutorial/3_inference.md
         sections: 
           - file: tutorial/3_1_propensity.md
-          - file: tutorial/3_2_Regression_Approaches.md
-          - file: tutorial/3_3_causal_tree.md
-          - file: tutorial/3_4_causal_forest.md
+          - file: tutorial/3_2_Regression_Methods.md
+          - file: tutorial/3_3_Tree_Based_Methods.md
           - file: tutorial/3_5_bayesian.md
       - file: tutorial/4_sensitivity.md
 
@@ -29,6 +28,7 @@ parts:
     chapters:
 #      - file: application/case_study.ipynb
       - file: application/observational_data.ipynb
+      - file: application/fairness.ipynb
       - file: application/traffic_study.ipynb
       - file: application/health_interventions.ipynb
 

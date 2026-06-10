@@ -83,7 +83,7 @@ The interactive figure below applies both methods to a single simulated dataset 
 The panels let you compare, on the same data, (1) propensity score overlap, (2) the matched pairs formed by PSM, (3) the inverse-probability-weighted points used by IPTW, and (4) covariate balance via the standardised mean difference (SMD, target $< 0.1$). The summary cards contrast the naïve difference in means against the PSM estimate of the ATT ($\hat{\tau}_{ATT}$) and the IPTW estimate of the ATE ($\hat{\tau}_{ATE}$), both relative to the true effect.
 
 ```{raw} html
-<iframe id="psm-iptw" src="../figure/psm_iptw_explainer.html"
+<iframe id="psm-iptw" src="../figure/psm_iptw_explainer.html?v=20260610c"
         style="width:100%; border:none; height:1500px;"
         title="PSM vs IPTW interactive explainer"></iframe>
 <script>
@@ -92,7 +92,11 @@ The panels let you compare, on the same data, (1) propensity score overlap, (2) 
 
   // Resolve the book's current theme: data-mode is auto|light|dark.
   function currentTheme() {
-    var mode = document.documentElement.getAttribute('data-mode') || 'auto';
+    var root = document.documentElement;
+    // data-theme holds the *resolved* light|dark value (preferred).
+    var theme = root.getAttribute('data-theme');
+    if (theme === 'light' || theme === 'dark') return theme;
+    var mode = root.getAttribute('data-mode') || 'auto';
     if (mode === 'light' || mode === 'dark') return mode;
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
@@ -111,9 +115,9 @@ The panels let you compare, on the same data, (1) propensity score overlap, (2) 
     }
   });
 
-  // Re-send whenever the book theme toggle flips data-mode.
+  // Re-send whenever the book theme toggle flips data-mode or data-theme.
   new MutationObserver(sendTheme).observe(document.documentElement, {
-    attributes: true, attributeFilter: ['data-mode']
+    attributes: true, attributeFilter: ['data-mode', 'data-theme']
   });
   // Re-send when the OS theme changes while the book is in "auto" mode.
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sendTheme);

@@ -31,10 +31,10 @@ Different estimation methods target different estimands. The table below maps me
 |--------|-----------------|----------|---------|
 | **Propensity Score Matching** | ATT | Pair treated/control units with similar $\pi(x)$ | {doc}`3_1_propensity` |
 | **Inverse Probability Weighting** | ATE | Re-weight sample to remove confounding | {doc}`3_1_propensity` |
-| **Double Machine Learning** | ATE | Residualise both $Y$ and $T$ on $X$ to isolate causal variation | {doc}`3_2_Regression_Approaches` |
-| **Instrumental Variables / 2SLS** | LATE | Use exogenous variation from an instrument | {doc}`3_2_Regression_Approaches` |
-| **Causal Trees** | CATE | Recursive partitioning to maximise treatment effect heterogeneity | {doc}`3_3_causal_tree` |
-| **Causal Forests** | CATE | Ensemble of causal trees with adaptive neighbourhood weighting | {doc}`3_4_causal_forest` |
+| **Double Machine Learning** | ATE | Residualise both $Y$ and $T$ on $X$ to isolate causal variation | {doc}`3_2_Regression_Methods` |
+| **Instrumental Variables / 2SLS** | LATE | Use exogenous variation from an instrument | {doc}`3_2_Regression_Methods` |
+| **Causal Trees** | CATE | Recursive partitioning to maximise treatment effect heterogeneity | {doc}`3_3_Tree_Based_Methods` |
+| **Causal Forests** | CATE | Ensemble of causal trees with adaptive neighbourhood weighting | {doc}`3_3_Tree_Based_Methods` |
 | **Bayesian (BART / BCF)** | CATE | Posterior distributions over treatment effects via sum-of-trees priors | {doc}`3_5_bayesian` |
 
 ## Chapter Contents
@@ -45,15 +45,13 @@ This chapter covers the following estimation approaches:
 
 **{doc}`3_1_propensity`** — Methods that use the estimated propensity score $\pi(x) = P(T=1 \mid X=x)$ to balance treated and control groups. Covers propensity score matching (targeting ATT) and inverse probability weighting (targeting ATE).
 
-### Regression Approaches
+### Regression Methods
 
-**{doc}`3_2_Regression_Approaches`** — Regression-based approaches including Double Machine Learning (DML) for high-dimensional confounding, and Instrumental Variables / Two-Stage Least Squares (2SLS) for settings with unmeasured confounding.
+**{doc}`3_2_Regression_Methods`** — Regression-based approaches including outcome regression / g-computation, doubly robust estimators (AIPW, TMLE), Double Machine Learning (DML) and meta-learners for heterogeneous effects, plus quasi-experimental designs (IV / 2SLS, difference-in-differences, regression discontinuity, synthetic control).
 
-### Machine Learning Approaches
+### Tree-Based Methods
 
-**{doc}`3_3_causal_tree`** — Causal trees partition the covariate space to discover subpopulations with heterogeneous treatment effects (CATEs), using honest splitting to ensure unbiased estimation ([Athey & Imbens, 2016](https://doi.org/10.1073/pnas.1510489113)).
-
-**{doc}`3_4_causal_forest`** — Causal forests extend causal trees to an ensemble method that estimates individualised treatment effects via adaptive nearest-neighbour weighting ([Wager & Athey, 2018](https://doi.org/10.1080/01621459.2017.1319839); [Athey, Tibshirani & Wager, 2019](https://doi.org/10.1214/18-AOS1709)).
+**{doc}`3_3_Tree_Based_Methods`** — Causal trees partition the covariate space to discover subpopulations with heterogeneous treatment effects (CATEs) using honest splitting ([Athey & Imbens, 2016](https://doi.org/10.1073/pnas.1510489113)), and causal forests extend them to an ensemble that estimates individualised effects via adaptive nearest-neighbour weighting ([Wager & Athey, 2018](https://doi.org/10.1080/01621459.2017.1319839); [Athey, Tibshirani & Wager, 2019](https://doi.org/10.1214/18-AOS1709)).
 
 ### Bayesian Approaches
 
