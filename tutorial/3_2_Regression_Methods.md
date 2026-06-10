@@ -1,4 +1,4 @@
-# Regression Approaches
+# Regression Methods
 
 Regression-based estimators identify causal effects by explicitly modelling the relationship between covariates $X$, treatment $T$, and outcome $Y$. They span a spectrum: from a single *outcome model* (g-computation), to estimators that combine an outcome model with a *propensity model* for robustness (AIPW, TMLE), to *orthogonal* machine-learning estimators that remain valid under flexible nuisance models (Double Machine Learning and its meta-learner extensions for heterogeneous effects). A second family — *quasi-experimental designs* such as instrumental variables, difference-in-differences, and regression discontinuity — exploits structural sources of exogenous variation rather than adjustment alone. The figure below shows the common causal structure that the adjustment-based estimators target.
 
