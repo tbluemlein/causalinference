@@ -83,7 +83,7 @@ The biases above are not merely theoretical concerns — they are practical obst
 
 | Strategy | Addresses | Covered in |
 |---|---|---|
-| **Adjust** (regression, propensity scores, doubly robust) | Confounding, selection | {doc}`3_1_propensity`, {doc}`3_2_Regression_Approaches` |
+| **Adjust** (regression, propensity scores, doubly robust) | Confounding, selection | {doc}`3_1_propensity`, {doc}`3_2_Regression_Methods` |
 | **Reweight** (IPW, IPCW, overlap weighting) | Confounding, selection, positivity | {doc}`3_1_propensity` |
 | **Restrict** (trimming, redefine target population) | Positivity violations | {doc}`3_1_propensity` |
 | **Model the causal structure** (DAG-guided variable selection) | Collider bias, confounding | {doc}`2_2_graphical_models` |
