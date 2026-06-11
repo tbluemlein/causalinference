@@ -1,4 +1,4 @@
-# Biases, De-biasing, and Fairness
+# Biases and De-Biasing Toolkit
 
 In {doc}`2_1_assumptions` we established the four assumptions — {prf:ref}`consistency`, {prf:ref}`sutva`, {prf:ref}`positivity`, and {prf:ref}`exchangeability` — that allow causal effects to be identified from observational data. In {doc}`2_2_graphical_models` we introduced DAGs as the language for encoding and reasoning about these assumptions. In practice, **assumptions are rarely perfectly satisfied**. This chapter is a practical guide for the actuary: how to diagnose what went wrong, how to fix it, and how to ensure the resulting model is fair.
 

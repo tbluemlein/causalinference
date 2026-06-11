@@ -1,5 +1,5 @@
 
-## Discrimination and Fairness in Insurance
+## Why Causal Inference Resolves the Fairness Problem
 
 Beyond causal bias, actuaries face a distinct but related challenge: ensuring that models do not discriminate against protected groups. EU regulation prohibits the use of protected characteristics (e.g. gender, ethnicity) for insurance pricing, but simply dropping the sensitive attribute $S$ does not solve the problem.
 
@@ -61,7 +61,7 @@ The machine learning literature proposes three group fairness criteria as evalua
 These criteria are useful **diagnostic checks** but cannot replace causal reasoning. [Lindholm et al. (2022)](https://arxiv.org/abs/2209.00858) show that even a genuinely discrimination-free model violates all three criteria whenever $X$ and $S$ are statistically dependent. Moreover, except in trivial cases, the three criteria are mutually incompatible ([Chouldechova, 2017](https://doi.org/10.1089/big.2016.0047)).
 ```
 
-### Why Causal Inference Resolves the Fairness Problem
+### How Causal Inference Resolves the Fairness Problem
 
 ```{figure} figs/fairness_dag.svg
 :width: 85%
@@ -70,5 +70,4 @@ These criteria are useful **diagnostic checks** but cannot replace causal reason
 The fairness DAG: the sensitive attribute $S$ reaches the claim $Y$ via a discriminatory proxy path through $X_1$ and a legitimate path through the risk factor $X_2$, while the confounder $F$ creates a spurious $S$–$Y$ association.
 ```
 
-
-
+> TODO: How ? Wasserstein distance ? 

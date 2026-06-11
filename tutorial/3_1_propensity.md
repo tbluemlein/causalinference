@@ -80,10 +80,10 @@ The interactive figure below applies both methods to a single simulated dataset 
 - **Matching caliper** $\delta$ — widen or tighten the maximum propensity gap allowed within a pair, and see how many treated units get matched versus discarded.
 - **New sample** — redraw the data to see the sampling variability of each estimate.
 
-The panels let you compare, on the same data, (1) propensity score overlap, (2) the matched pairs formed by PSM, (3) the inverse-probability-weighted points used by IPTW, and (4) covariate balance via the standardised mean difference (SMD, target $< 0.1$). The summary cards contrast the naïve difference in means against the PSM estimate of the ATT ($\hat{\tau}_{ATT}$) and the IPTW estimate of the ATE ($\hat{\tau}_{ATE}$), both relative to the true effect.
+The panels let you compare, on the same data, (1) propensity score overlap, (2) the matched pairs formed by PSM, and (3) the inverse-probability-weighted points used by IPTW. The summary cards contrast the naïve difference in means against the PSM estimate of the ATT ($\hat{\tau}_{ATT}$) and the IPTW estimate of the ATE ($\hat{\tau}_{ATE}$), both relative to the true effect.
 
 ```{raw} html
-<iframe id="psm-iptw" src="../figure/psm_iptw_explainer.html?v=20260610c"
+<iframe id="psm-iptw" src="../figure/psm_iptw_explainer.html?v=20260610d"
         style="width:100%; border:none; height:1500px;"
         title="PSM vs IPTW interactive explainer"></iframe>
 <script>

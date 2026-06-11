@@ -56,7 +56,7 @@
 </style>
 </head>
 <body>
-<h2 class="sr-only">Interactive comparison of propensity score matching and inverse probability weighting on one simulated dataset, showing propensity overlap, matched pairs, weighted points, and covariate balance.</h2>
+<h2 class="sr-only">Interactive comparison of propensity score matching and inverse probability weighting on one simulated dataset, showing propensity overlap, matched pairs, and weighted points.</h2>
 
 <div class="ctrls">
   <div>
@@ -95,14 +95,6 @@
 
 <div class="panlbl"><span>3 &middot; Weighting &mdash; keeps everyone, resizes by inverse probability</span><em id="weightInfo"></em></div>
 <div class="pan" id="pWeight"></div>
-
-<div class="legend">
-  <span><span style="width:10px;height:10px;border:1.5px solid #888780;border-radius:50%;display:inline-block;"></span>Before (na&iuml;ve)</span>
-  <span><span style="width:10px;height:10px;background:#1D9E75;display:inline-block;"></span>Matched</span>
-  <span><span style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:10px solid #7F77DD;display:inline-block;"></span>Weighted</span>
-</div>
-<div class="panlbl"><span>4 &middot; Covariate balance (|standardised mean difference|, want &lt; 0.1)</span></div>
-<div class="pan" id="pLove"></div>
 
 <script>
 (function(){
@@ -227,15 +219,6 @@
     document.getElementById('matchInfo').textContent=pairs.length+" of "+tr.length+" treated matched ("+Math.round(matchRate*100)+"%)";
     document.getElementById('weightInfo').textContent="max weight "+fmt(maxW,1)+" \u00b7 "+N+" kept";
 
-    function smd(vsel,which){
-      var vt,vc,den;
-      if(which==='naive'){vt=[];vc=[];for(i=0;i<N;i++){(t[i]?vt:vc).push(vsel(i));}den=Math.sqrt((variance(vt)+variance(vc))/2)||1;return Math.abs(mean(vt)-mean(vc))/den;}
-      if(which==='match'){if(!pairs.length)return 0;vt=[];vc=[];for(i=0;i<pairs.length;i++){vt.push(vsel(pairs[i][0]));vc.push(vsel(pairs[i][1]));}den=Math.sqrt((variance(vt)+variance(vc))/2)||1;return Math.abs(mean(vt)-mean(vc))/den;}
-      var xt=[],wt=[],xc=[],wc=[];for(i=0;i<N;i++){if(t[i]){xt.push(vsel(i));wt.push(w[i]);}else{xc.push(vsel(i));wc.push(w[i]);}}den=Math.sqrt((wvar(xt,wt)+wvar(xc,wc))/2)||1;return Math.abs(wmean(xt,wt)-wmean(xc,wc))/den;
-    }
-    var getx1=function(k){return s.x1[k];},getx2=function(k){return s.x2[k];};
-    var balance={x1:{naive:smd(getx1,'naive'),match:smd(getx1,'match'),weight:smd(getx1,'weight')},x2:{naive:smd(getx2,'naive'),match:smd(getx2,'match'),weight:smd(getx2,'weight')}};
-
     var W=640,Xa=40,Xb=620;
     function X(pp){return Xa+(Xb-Xa)*pp;}
 
@@ -286,24 +269,6 @@
     axw+='<text x="'+Xa+'" y="'+(rowT-22)+'" font-size="11" fill="var(--txt2)">treated</text>';
     axw+='<text x="'+Xa+'" y="'+(rowC+30)+'" font-size="11" fill="var(--txt2)">control</text>';
     document.getElementById('pWeight').innerHTML='<svg viewBox="0 0 '+W+' '+(mH+4)+'" width="100%" role="img" aria-label="Same points sized by inverse probability weight, larger circles for rarer combinations">'+dotsW+axw+'</svg>';
-
-    var lH=130,lx0=120,lx1=600,maxS=Math.max(0.6,balance.x1.naive,balance.x2.naive);
-    function LX(v){return lx0+(lx1-lx0)*Math.min(v,maxS)/maxS;}
-    var rows=[{n:'x1',d:balance.x1,y:42},{n:'x2',d:balance.x2,y:86}];
-    var love="";
-    love+='<line x1="'+LX(0.1).toFixed(1)+'" y1="20" x2="'+LX(0.1).toFixed(1)+'" y2="100" stroke="var(--txt3)" stroke-width="1" stroke-dasharray="3,3"/>';
-    love+='<text x="'+LX(0.1).toFixed(1)+'" y="14" font-size="11" text-anchor="middle" fill="var(--txt3)">0.1</text>';
-    love+='<line x1="'+lx0+'" y1="110" x2="'+lx1+'" y2="110" stroke="var(--bd2)" stroke-width="1"/>';
-    [0,0.2,0.4,0.6].forEach(function(tk){if(tk<=maxS)love+='<text x="'+LX(tk).toFixed(1)+'" y="124" font-size="11" text-anchor="middle" fill="var(--txt3)">'+tk.toFixed(1)+'</text>';});
-    rows.forEach(function(rw){
-      love+='<text x="'+(lx0-12)+'" y="'+(rw.y+4)+'" font-size="12" text-anchor="end" fill="var(--txt2)">'+rw.n+'</text>';
-      love+='<line x1="'+LX(0)+'" y1="'+rw.y+'" x2="'+LX(rw.d.naive).toFixed(1)+'" y2="'+rw.y+'" stroke="var(--bd2)" stroke-width="0.5"/>';
-      love+='<circle cx="'+LX(rw.d.naive).toFixed(1)+'" cy="'+rw.y+'" r="5" fill="none" stroke="#888780" stroke-width="1.6"/>';
-      love+='<rect x="'+(LX(rw.d.match)-4.5).toFixed(1)+'" y="'+(rw.y-4.5)+'" width="9" height="9" fill="#1D9E75"/>';
-      var tx=LX(rw.d.weight);
-      love+='<polygon points="'+tx.toFixed(1)+','+(rw.y-5)+' '+(tx-5).toFixed(1)+','+(rw.y+4)+' '+(tx+5).toFixed(1)+','+(rw.y+4)+'" fill="#7F77DD"/>';
-    });
-    document.getElementById('pLove').innerHTML='<svg viewBox="0 0 '+W+' '+lH+'" width="100%" role="img" aria-label="Balance plot of standardised mean differences before adjustment, after matching, and after weighting, relative to the 0.1 threshold">'+love+'</svg>';
 
     postHeight();
   }
