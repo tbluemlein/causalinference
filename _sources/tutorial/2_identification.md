@@ -14,4 +14,4 @@ This chapter develops the identification toolkit in three steps, using the notat
 
 ## Structural Identification Strategies
 
-**{doc}`2_3_debias`** — A practical guide that maps each assumption violation to the bias it produces (confounding, selection, collider bias, positivity violations, interference) and to the de-biasing strategy that addresses it. The chapter closes with the connection between causal identification and fairness in insurance pricing.
+**{doc}`2_3_methods`** — The main identification strategies that re-express a causal estimand in terms of the observed data distribution: back-door adjustment when all confounders are observed, front-door adjustment through an observed mediator, and instrumental variables when confounding is unmeasured. Each strategy sets up an estimand that the methods in {doc}`3_inference` then estimate.

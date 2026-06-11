@@ -117,378 +117,13 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.2.0/dist/mermaid-layout-elk.esm.min.mjs"></script>
-    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.2.0/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
-    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
-    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
-
-const defaultStyle = document.createElement('style');
-defaultStyle.textContent = `pre.mermaid {
-    /* Same as .mermaid-container > pre */
-    display: block;
-    width: 100%;
-}
-
-pre.mermaid > svg {
-    /* Same as .mermaid-container > pre > svg */
-    height: 500px;
-    width: 100%;
-    max-width: 100% !important;
-}
-`;
-document.head.appendChild(defaultStyle);
-
-const fullscreenStyle = document.createElement('style');
-fullscreenStyle.textContent = `.mermaid-container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
-.mermaid-container > pre {
-    display: block;
-    width: 100%;
-}
-
-.mermaid-container > pre > svg {
-    height: 500px;
-    width: 100%;
-    max-width: 100% !important;
-}
-
-.mermaid-fullscreen-btn {
-    width: 28px;
-    height: 28px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    font-size: 14px;
-    line-height: 1;
-    padding: 0;
-    color: #333;
-}
-
-.mermaid-fullscreen-btn:hover {
-    opacity: 100% !important;
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    transform: scale(1.1);
-}
-
-.mermaid-fullscreen-btn.dark-theme {
-    background: rgba(50, 50, 50, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: #e0e0e0;
-}
-
-.mermaid-fullscreen-btn.dark-theme:hover {
-    background: rgba(60, 60, 60, 1);
-    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
-}
-
-.mermaid-fullscreen-modal {
-    display: none;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 95vw;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.98);
-    z-index: 9999;
-    padding: 20px;
-    overflow: auto;
-}
-
-.mermaid-fullscreen-modal.dark-theme {
-    background: rgba(0, 0, 0, 0.98);
-}
-
-.mermaid-fullscreen-modal.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mermaid-container-fullscreen {
-    position: relative;
-    width: 95vw;
-    height: 90vh;
-    max-width: 95vw;
-    max-height: 90vh;
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    overflow: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mermaid-container-fullscreen.dark-theme {
-    background: #1a1a1a;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-}
-
-.mermaid-container-fullscreen pre.mermaid {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mermaid-container-fullscreen .mermaid svg {
-    height: 100% !important;
-    width: 100% !important;
-    cursor: grab;
-}
-
-.mermaid-fullscreen-close {
-    position: fixed !important;
-    top: 20px !important;
-    right: 20px !important;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    transition: all 0.2s;
-    font-size: 24px;
-    line-height: 1;
-    color: #333;
-}
-
-.mermaid-fullscreen-close:hover {
-    background: white;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-    transform: scale(1.1);
-}
-
-.mermaid-fullscreen-close.dark-theme {
-    background: rgba(50, 50, 50, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #e0e0e0;
-}
-
-.mermaid-fullscreen-close.dark-theme:hover {
-    background: rgba(60, 60, 60, 1);
-    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
-}
-
-.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
-    display: none !important;
-}`;
-document.head.appendChild(fullscreenStyle);
-
-// Detect if page has dark background
-const isDarkTheme = () => {
-    const bgColor = window.getComputedStyle(document.body).backgroundColor;
-    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
-    if (match) {
-        const r = parseInt(match[1]);
-        const g = parseInt(match[2]);
-        const b = parseInt(match[3]);
-        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-        return brightness < 128;
-    }
-    return false;
-};
-
-const load = async () => {
-    await mermaid.run();
-
-    const all_mermaids = document.querySelectorAll(".mermaid");
-    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
-
-    if ("False" === "True") {
-        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
-        if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll("");
-            if(all_mermaids.length !== mermaids_processed.length) {
-                setTimeout(load, 200);
-                return;
-            } else if(svgs.size() !== mermaids_to_add_zoom) {
-                setTimeout(load, 200);
-                return;
-            } else {
-                svgs.each(function() {
-                    var svg = d3.select(this);
-                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
-                    var inner = svg.select("g");
-                    var zoom = d3.zoom().on("zoom", function(event) {
-                        inner.attr("transform", event.transform);
-                    });
-                    svg.call(zoom);
-                });
-            }
-        }
-    } else if(all_mermaids.length !== mermaids_processed.length) {
-        // Wait for mermaid to process all diagrams
-        setTimeout(load, 200);
-        return;
-    }
-
-    const darkTheme = isDarkTheme();
-
-    // Stop here if not adding fullscreen capability
-    if ("True" !== "True") return;
-
-    const modal = document.createElement('div');
-    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
-    modal.setAttribute('role', 'dialog');
-    modal.setAttribute('aria-modal', 'true');
-    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
-    modal.innerHTML = `
-        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
-        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
-    `;
-    document.body.appendChild(modal);
-
-    const modalContent = modal.querySelector('.mermaid-container-fullscreen');
-    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
-
-    let previousScrollOffset = [window.scrollX, window.scrollY];
-
-    const closeModal = () => {
-        modal.classList.remove('active');
-        modalContent.innerHTML = '';
-        document.body.style.overflow = ''
-        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
-    };
-
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
-        }
-    });
-
-    const allButtons = [];
-
-    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
-        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
-            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
-            return;
-        }
-
-        const container = document.createElement('div');
-        container.className = 'mermaid-container';
-        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
-        container.appendChild(mermaidDiv);
-
-        const fullscreenBtn = document.createElement('button');
-        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
-        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
-        fullscreenBtn.textContent = '⛶';
-        fullscreenBtn.style.opacity = '50%';
-
-        // Calculate dynamic position based on diagram's margin and padding
-        const diagramStyle = window.getComputedStyle(mermaidDiv);
-        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
-        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
-        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
-        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
-        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
-        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
-
-        fullscreenBtn.addEventListener('click', () => {
-            previousScrollOffset = [window.scroll, window.scrollY];
-            const clone = mermaidDiv.cloneNode(true);
-            modalContent.innerHTML = '';
-            modalContent.appendChild(clone);
-
-            const svg = clone.querySelector('svg');
-            if (svg) {
-                svg.removeAttribute('width');
-                svg.removeAttribute('height');
-                svg.style.width = '100%';
-                svg.style.height = 'auto';
-                svg.style.maxWidth = '100%';
-                svg.style.sdisplay = 'block';
-
-                if ("False" === "True") {
-                    setTimeout(() => {
-                        const g = svg.querySelector('g');
-                        if (g) {
-                            var svgD3 = d3.select(svg);
-                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
-                            var inner = svgD3.select("g");
-                            var zoom = d3.zoom().on("zoom", function(event) {
-                                inner.attr("transform", event.transform);
-                            });
-                            svgD3.call(zoom);
-                        }
-                    }, 100);
-                }
-            }
-
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-
-        container.appendChild(fullscreenBtn);
-        allButtons.push(fullscreenBtn);
-    });
-
-    // Update theme classes when theme changes
-    const updateTheme = () => {
-        const dark = isDarkTheme();
-        allButtons.forEach(btn => {
-            if (dark) {
-                btn.classList.add('dark-theme');
-            } else {
-                btn.classList.remove('dark-theme');
-            }
-        });
-        if (dark) {
-            modal.classList.add('dark-theme');
-            modalContent.classList.add('dark-theme');
-            closeBtn.classList.add('dark-theme');
-        } else {
-            modal.classList.remove('dark-theme');
-            modalContent.classList.remove('dark-theme');
-            closeBtn.classList.remove('dark-theme');
-        }
-    };
-
-    // Watch for theme changes
-    const observer = new MutationObserver(updateTheme);
-    observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class', 'style', 'data-theme']
-    });
-    observer.observe(document.body, {
-        attributes: true,
-        attributeFilter: ['class', 'style']
-    });
-};
-
-window.addEventListener("load", load);
-</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/2_3_debias';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/4_2_debias';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../_static/figure-theme.js?v=a9394cc5"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Causal Inference" href="3_inference.html" />
-    <link rel="prev" title="Graphical Causal Models" href="2_2_graphical_models.html" />
+    <link rel="next" title="Discrimination and Fairness in Insurance" href="4_3_fairness.html" />
+    <link rel="prev" title="Diagnostics and Sensitivity Analysis" href="4_1_diagnostics.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -609,10 +244,10 @@ window.addEventListener("load", load);
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1_concepts.html">Concepts of Causal Inference</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="2_identification.html">Identification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="2_identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="2_1_assumptions.html">Assumptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_2_graphical_models.html">Graphical Causal Models</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Biases, De-biasing, and Fairness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_methods.html">Identification Strategies</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="3_inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -622,13 +257,18 @@ window.addEventListener("load", load);
 <li class="toctree-l2"><a class="reference internal" href="3_5_bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="4_sensitivity.html">Sensitivity Analysis</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="4_sensitivity.html">Validation and Sensitivity Analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="4_1_diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Biases, De-biasing, and Fairness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_3_fairness.html">Discrimination and Fairness in Insurance</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Actuarial Applications</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../application/observational_data.html">Observational Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../application/fairness.html">Fairness in Insurance Pricing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../application/traffic_study.html">Traffic Case Study</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application/pricing.html">Fairness in Insurance Pricing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application/claims_triage.html">Claims Triaging using CATE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../application/health_interventions.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
@@ -688,7 +328,7 @@ window.addEventListener("load", load);
       
       
       
-      <li><a href="../_sources/tutorial/2_3_debias.md" target="_blank"
+      <li><a href="../_sources/tutorial/4_2_debias.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -799,14 +439,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensitivity-analysis">Sensitivity analysis</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#is-my-model-fair-discrimination-and-fairness-in-insurance">Is my model fair? — Discrimination and Fairness in Insurance</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxy-discrimination">Proxy Discrimination</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#three-fairness-definitions">Three Fairness Definitions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group-fairness-criteria-as-diagnostic-checks">Group Fairness Criteria as Diagnostic Checks</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-causal-inference-resolves-the-fairness-problem">Why Causal Inference Resolves the Fairness Problem</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-the-actuary-s-workflow">Putting It All Together — The Actuary’s Workflow</a></li>
 </ul>
             </nav>
         </div>
@@ -863,17 +495,18 @@ document.write(`
 <section id="confounding-bias">
 <h3>Confounding Bias<a class="headerlink" href="#confounding-bias" title="Link to this heading">#</a></h3>
 <div class="proof definition admonition" id="confounding-bias">
-<p class="admonition-title"><span class="caption-number">Definition 9 </span> (Confounding Bias)</p>
+<p class="admonition-title"><span class="caption-number">Definition 18 </span> (Confounding Bias)</p>
 <section class="definition-content" id="proof-content">
 <p><strong>Confounding bias</strong> occurs when a fork variable <span class="math notranslate nohighlight">\(F\)</span> causally influences both the treatment <span class="math notranslate nohighlight">\(T\)</span> and the outcome <span class="math notranslate nohighlight">\(Y\)</span>, and the analysis fails to adjust for <span class="math notranslate nohighlight">\(F\)</span>.</p>
 </section>
-</div><pre  class="mermaid">
-        graph TD
-    F[&quot;F (Confounder)&quot;] --&gt; T
-    F --&gt; Y
-    T --&gt; Y
-    style F fill:#e74c3c,color:#fff
-    </pre><p>Confounding violates <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a>. The naive comparison conflates the causal effect with a baseline difference between groups:</p>
+</div><figure class="align-default" id="fig-confounding-bias">
+<a class="reference internal image-reference" href="../_images/confounding.svg"><img alt="../_images/confounding.svg" src="../_images/confounding.svg" style="width: 55%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Confounding: the fork variable <span class="math notranslate nohighlight">\(F\)</span> influences both treatment <span class="math notranslate nohighlight">\(T\)</span> and outcome <span class="math notranslate nohighlight">\(Y\)</span>, biasing the naive <span class="math notranslate nohighlight">\(T\)</span>–<span class="math notranslate nohighlight">\(Y\)</span> comparison unless adjusted for.</span><a class="headerlink" href="#fig-confounding-bias" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Confounding violates <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a>. The naive comparison conflates the causal effect with a baseline difference between groups:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbb{E}[Y \mid T{=}1] - \mathbb{E}[Y \mid T{=}0] = \underbrace{\mathbb{E}[Y(1) - Y(0)]}_{\text{ATE}} + \underbrace{\mathbb{E}[Y(0) \mid T{=}1] - \mathbb{E}[Y(0) \mid T{=}0]}_{\text{confounding bias}}
@@ -883,7 +516,7 @@ document.write(`
 <section id="selection-bias">
 <h3>Selection Bias<a class="headerlink" href="#selection-bias" title="Link to this heading">#</a></h3>
 <div class="proof definition admonition" id="selection-bias">
-<p class="admonition-title"><span class="caption-number">Definition 10 </span> (Selection Bias)</p>
+<p class="admonition-title"><span class="caption-number">Definition 19 </span> (Selection Bias)</p>
 <section class="definition-content" id="proof-content">
 <p><strong>Selection bias</strong> arises when the sample analysed is not representative of the target population, because selection into the sample depends on variables related to both <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
 </section>
@@ -892,17 +525,18 @@ document.write(`
 <section id="collider-bias">
 <h3>Collider Bias<a class="headerlink" href="#collider-bias" title="Link to this heading">#</a></h3>
 <div class="proof definition admonition" id="collider-bias-def">
-<p class="admonition-title"><span class="caption-number">Definition 11 </span> (Collider Bias)</p>
+<p class="admonition-title"><span class="caption-number">Definition 20 </span> (Collider Bias)</p>
 <section class="definition-content" id="proof-content">
 <p><strong>Collider bias</strong> (Berkson’s paradox) occurs when the analysis conditions on a <strong>collider</strong> <span class="math notranslate nohighlight">\(C\)</span> — a common effect of <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. Conditioning on <span class="math notranslate nohighlight">\(C\)</span> opens a non-causal path between <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
 </section>
-</div><pre  class="mermaid">
-        graph TD
-    T --&gt; C[&quot;C (Collider)&quot;]
-    Y --&gt; C
-    T --&gt; Y
-    style C fill:#9b59b6,color:#fff
-    </pre><p>Collider bias results from <strong>incorrect adjustment</strong>, not from a violated assumption per se. In insurance, analysing claims conditional on whether a claim was <em>filed</em> can introduce collider bias, since filing depends on both the treatment and the outcome severity. DAG-guided variable selection (<a class="reference internal" href="2_2_graphical_models.html#backdoor-criterion">Criterion 1</a>) is the primary safeguard.</p>
+</div><figure class="align-default" id="fig-collider-bias">
+<a class="reference internal image-reference" href="../_images/collider_bias.svg"><img alt="../_images/collider_bias.svg" src="../_images/collider_bias.svg" style="width: 55%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">Collider bias: <span class="math notranslate nohighlight">\(C\)</span> is a common effect of <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. Conditioning on <span class="math notranslate nohighlight">\(C\)</span> opens a non-causal path between treatment and outcome.</span><a class="headerlink" href="#fig-collider-bias" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Collider bias results from <strong>incorrect adjustment</strong>, not from a violated assumption per se. In insurance, analysing claims conditional on whether a claim was <em>filed</em> can introduce collider bias, since filing depends on both the treatment and the outcome severity. DAG-guided variable selection (<a class="reference internal" href="2_3_methods.html#backdoor-criterion">Criterion 1</a>) is the primary safeguard.</p>
 </section>
 <section id="positivity-violations">
 <h3>Positivity Violations<a class="headerlink" href="#positivity-violations" title="Link to this heading">#</a></h3>
@@ -946,7 +580,7 @@ document.write(`
 </tr>
 <tr class="row-odd"><td><p><strong>Sensitivity analysis</strong></p></td>
 <td><p>Unobserved confounding</p></td>
-<td><p><a class="reference internal" href="4_sensitivity.html"><span class="doc">Sensitivity Analysis</span></a></p></td>
+<td><p><a class="reference internal" href="4_sensitivity.html"><span class="doc">Validation and Sensitivity Analysis</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -965,7 +599,7 @@ document.write(`
 </section>
 <section id="model-the-causal-structure">
 <h3>Model the causal structure<a class="headerlink" href="#model-the-causal-structure" title="Link to this heading">#</a></h3>
-<p>Use a DAG to distinguish confounders (adjust for them) from colliders (do not condition on them) and mediators (condition only if interested in direct effects). The <a class="reference internal" href="2_2_graphical_models.html#backdoor-criterion">Criterion 1</a> and <a class="reference internal" href="2_2_graphical_models.html#frontdoor-criterion">Criterion 2</a> from <a class="reference internal" href="2_2_graphical_models.html"><span class="doc">Graphical Causal Models</span></a> provide algorithmic tools for selecting the correct adjustment set.</p>
+<p>Use a DAG to distinguish confounders (adjust for them) from colliders (do not condition on them) and mediators (condition only if interested in direct effects). The <a class="reference internal" href="2_3_methods.html#backdoor-criterion">Criterion 1</a> and <code class="xref prf prf-ref docutils literal notranslate"><span class="pre">frontdoor-criterion</span></code> from <a class="reference internal" href="2_2_graphical_models.html"><span class="doc">Graphical Causal Models</span></a> provide algorithmic tools for selecting the correct adjustment set.</p>
 </section>
 <section id="cluster-or-network-models">
 <h3>Cluster or network models<a class="headerlink" href="#cluster-or-network-models" title="Link to this heading">#</a></h3>
@@ -973,143 +607,8 @@ document.write(`
 </section>
 <section id="sensitivity-analysis">
 <h3>Sensitivity analysis<a class="headerlink" href="#sensitivity-analysis" title="Link to this heading">#</a></h3>
-<p><a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a> cannot be verified from data alone. <strong>Sensitivity analysis</strong> quantifies how strong an unmeasured confounder would need to be to explain away the estimated effect. Methods include E-values, Rosenbaum bounds, and partial <span class="math notranslate nohighlight">\(R^2\)</span> sensitivity — covered in detail in <a class="reference internal" href="4_sensitivity.html"><span class="doc">Sensitivity Analysis</span></a>.</p>
+<p><a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a> cannot be verified from data alone. <strong>Sensitivity analysis</strong> quantifies how strong an unmeasured confounder would need to be to explain away the estimated effect. Methods include E-values, Rosenbaum bounds, and partial <span class="math notranslate nohighlight">\(R^2\)</span> sensitivity — covered in detail in <a class="reference internal" href="4_sensitivity.html"><span class="doc">Validation and Sensitivity Analysis</span></a>.</p>
 </section>
-</section>
-<section id="is-my-model-fair-discrimination-and-fairness-in-insurance">
-<h2>Is my model fair? — Discrimination and Fairness in Insurance<a class="headerlink" href="#is-my-model-fair-discrimination-and-fairness-in-insurance" title="Link to this heading">#</a></h2>
-<p>Beyond causal bias, actuaries face a distinct but related challenge: ensuring that pricing models do not discriminate against protected groups. EU regulation prohibits the use of protected characteristics (e.g. gender, ethnicity) for insurance pricing, but simply dropping the sensitive attribute <span class="math notranslate nohighlight">\(S\)</span> does not solve the problem.</p>
-<section id="proxy-discrimination">
-<h3>Proxy Discrimination<a class="headerlink" href="#proxy-discrimination" title="Link to this heading">#</a></h3>
-<div class="proof definition admonition" id="proxy-discrimination">
-<p class="admonition-title"><span class="caption-number">Definition 12 </span> (Proxy Discrimination)</p>
-<section class="definition-content" id="proof-content">
-<p><strong>Proxy discrimination</strong> (indirect discrimination) occurs when non-protected covariates <span class="math notranslate nohighlight">\(X\)</span> that are correlated with the sensitive attribute <span class="math notranslate nohighlight">\(S\)</span> allow the model to implicitly reconstruct <span class="math notranslate nohighlight">\(S\)</span>, even though <span class="math notranslate nohighlight">\(S\)</span> is not used as an input.</p>
-</section>
-</div><p>The mechanism is the tower property of conditional expectation: <span class="math notranslate nohighlight">\(\mu(X) = \int \mu(X, s) \, \mathrm{d}P(S{=}s \mid X)\)</span>. If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(S\)</span> are dependent, the unawareness price channels information about <span class="math notranslate nohighlight">\(S\)</span> through <span class="math notranslate nohighlight">\(X\)</span> (<a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al., 2022</a>).</p>
-</section>
-<section id="three-fairness-definitions">
-<h3>Three Fairness Definitions<a class="headerlink" href="#three-fairness-definitions" title="Link to this heading">#</a></h3>
-<div class="proof definition admonition" id="fairness-unawareness">
-<p class="admonition-title"><span class="caption-number">Definition 13 </span> (Fairness through Unawareness)</p>
-<section class="definition-content" id="proof-content">
-<p>A model satisfies <strong>fairness through unawareness</strong> if it does not use the sensitive attribute <span class="math notranslate nohighlight">\(S\)</span> as input: <span class="math notranslate nohighlight">\(\hat{\mu}(X) = f(X)\)</span>.</p>
-</section>
-</div><p>Unawareness is necessary but not sufficient — it does not prevent proxy discrimination.</p>
-<div class="proof definition admonition" id="discrimination-free-pricing">
-<p class="admonition-title"><span class="caption-number">Definition 14 </span> (Discrimination-Free Pricing)</p>
-<section class="definition-content" id="proof-content">
-<p>An insurance price is <strong>discrimination-free</strong> (<a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al., 2022</a>) if</p>
-<div class="math notranslate nohighlight">
-\[
-P(Y \leq y \mid X, S) = P(Y \leq y \mid X) \quad \text{for all } y
-\]</div>
-<p>i.e., the sensitive attribute <span class="math notranslate nohighlight">\(S\)</span> carries no additional information about <span class="math notranslate nohighlight">\(Y\)</span> beyond the non-protected covariates <span class="math notranslate nohighlight">\(X\)</span>.</p>
-</section>
-</div><div class="proof definition admonition" id="counterfactual-fairness">
-<p class="admonition-title"><span class="caption-number">Definition 15 </span> (Counterfactual Fairness)</p>
-<section class="definition-content" id="proof-content">
-<p>A predictor <span class="math notranslate nohighlight">\(\hat{\mu}\)</span> is <strong>counterfactually fair</strong> (<a class="reference external" href="https://arxiv.org/abs/1703.06856">Kusner et al., 2017</a>) if, for all <span class="math notranslate nohighlight">\(s, s'\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[
-P\bigl(\hat{\mu}_{S \leftarrow s}(X) = y \mid X{=}x, S{=}s\bigr) = P\bigl(\hat{\mu}_{S \leftarrow s'}(X) = y \mid X{=}x, S{=}s\bigr)
-\]</div>
-<p>i.e., the prediction would not change had the individual belonged to a different demographic group, all else being equal.</p>
-</section>
-</div></section>
-<section id="group-fairness-criteria-as-diagnostic-checks">
-<h3>Group Fairness Criteria as Diagnostic Checks<a class="headerlink" href="#group-fairness-criteria-as-diagnostic-checks" title="Link to this heading">#</a></h3>
-<div class="proof remark admonition" id="group-fairness-criteria">
-<p class="admonition-title"><span class="caption-number">Remark 2 </span> (Group Fairness Criteria)</p>
-<section class="remark-content" id="proof-content">
-<p>The machine learning literature proposes three group fairness criteria as evaluation constraints on a predictor <span class="math notranslate nohighlight">\(\hat{\mu}(X)\)</span> (<a class="reference external" href="https://fairmlbook.org/">Barocas et al., 2019</a>):</p>
-<ul class="simple">
-<li><p><strong>Statistical parity</strong> (demographic parity): <span class="math notranslate nohighlight">\(\hat{\mu}(X) \perp\!\!\!\perp S\)</span> — the price distribution is the same across groups.</p></li>
-<li><p><strong>Equalized odds</strong>: <span class="math notranslate nohighlight">\(\hat{\mu}(X) \perp\!\!\!\perp S \mid Y\)</span> — prediction errors are equal across groups.</p></li>
-<li><p><strong>Predictive parity</strong>: <span class="math notranslate nohighlight">\(Y \perp\!\!\!\perp S \mid \hat{\mu}(X)\)</span> — the model is calibrated across groups.</p></li>
-</ul>
-<p>These criteria are useful <strong>diagnostic checks</strong> but cannot replace causal reasoning. <a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al. (2022)</a> show that even a genuinely discrimination-free model violates all three criteria whenever <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(S\)</span> are statistically dependent. Moreover, except in trivial cases, the three criteria are mutually incompatible (<a class="reference external" href="https://doi.org/10.1089/big.2016.0047">Chouldechova, 2017</a>).</p>
-</section>
-</div></section>
-<section id="why-causal-inference-resolves-the-fairness-problem">
-<h3>Why Causal Inference Resolves the Fairness Problem<a class="headerlink" href="#why-causal-inference-resolves-the-fairness-problem" title="Link to this heading">#</a></h3>
-<pre  class="mermaid">
-        graph TD
-    S[&quot;S (Sensitive)&quot;] --&gt;|proxy path| X1[&quot;X₁ (Proxy)&quot;]
-    S --&gt;|legitimate path| X2[&quot;X₂ (Legitimate risk factor)&quot;]
-    X1 --&gt; Y[&quot;Y (Claim)&quot;]
-    X2 --&gt; Y
-    F[&quot;F (Confounder)&quot;] --&gt; S
-    F --&gt; Y
-    style S fill:#e74c3c,color:#fff
-    style X1 fill:#f39c12,color:#fff
-    style X2 fill:#27ae60,color:#fff
-    </pre><p>Whether a covariate is a discriminatory proxy or a legitimate risk factor depends on the <strong>causal structure</strong>, not the correlation matrix. A causal model allows the actuary to:</p>
-<ul class="simple">
-<li><p><strong>Include</strong> <span class="math notranslate nohighlight">\(X_2\)</span> — a genuine risk mechanism, even if correlated with <span class="math notranslate nohighlight">\(S\)</span>.</p></li>
-<li><p><strong>Exclude or adjust</strong> <span class="math notranslate nohighlight">\(X_1\)</span> — a proxy that merely transmits discriminatory information from <span class="math notranslate nohighlight">\(S\)</span>.</p></li>
-<li><p><strong>Account for</strong> <span class="math notranslate nohighlight">\(F\)</span> — a confounder creating spurious associations between <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
-</ul>
-<p>Without a DAG, removing the influence of <span class="math notranslate nohighlight">\(S\)</span> either does too little (unawareness) or too much (statistical parity). Counterfactual fairness is inherently a causal question: <em>“would this price change if the individual had belonged to a different group?”</em> — and it can only be answered within the potential outcomes framework (<a class="reference external" href="https://arxiv.org/abs/1703.06856">Kusner et al., 2017</a>).</p>
-</section>
-</section>
-<section id="putting-it-all-together-the-actuary-s-workflow">
-<h2>Putting It All Together — The Actuary’s Workflow<a class="headerlink" href="#putting-it-all-together-the-actuary-s-workflow" title="Link to this heading">#</a></h2>
-<p>The following workflow connects the identification theory from this chapter with the estimation methods in <a class="reference internal" href="3_inference.html"><span class="doc">Causal Inference</span></a> and the validation tools in <a class="reference internal" href="4_sensitivity.html"><span class="doc">Sensitivity Analysis</span></a>.</p>
-<pre  class="mermaid">
-        graph LR
-    W1[&quot;1. Draw the DAG&quot;] --&gt; W2[&quot;2. Check assumptions&quot;]
-    W2 --&gt; W3[&quot;3. Diagnose biases&quot;]
-    W3 --&gt; W4[&quot;4. Select de-biasing strategy&quot;]
-    W4 --&gt; W5[&quot;5. Estimate causal effect&quot;]
-    W5 --&gt; W6[&quot;6. Check fairness&quot;]
-    W6 --&gt; W7[&quot;7. Sensitivity analysis&quot;]
-    style W1 fill:#4a90d9,color:#fff
-    style W2 fill:#4a90d9,color:#fff
-    style W3 fill:#e74c3c,color:#fff
-    style W4 fill:#e74c3c,color:#fff
-    style W5 fill:#f5a623,color:#fff
-    style W6 fill:#27ae60,color:#fff
-    style W7 fill:#27ae60,color:#fff
-    </pre><div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Step</p></th>
-<th class="head"><p>Action</p></th>
-<th class="head"><p>Chapter</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>1. <strong>Draw the DAG</strong></p></td>
-<td><p>Encode domain knowledge as a directed acyclic graph</p></td>
-<td><p><a class="reference internal" href="2_2_graphical_models.html"><span class="doc">Graphical Causal Models</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>2. <strong>Check assumptions</strong></p></td>
-<td><p>Verify consistency, SUTVA, positivity, exchangeability</p></td>
-<td><p><a class="reference internal" href="2_1_assumptions.html"><span class="doc">Assumptions</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>3. <strong>Diagnose biases</strong></p></td>
-<td><p>Use the diagnostic table above to identify which biases may be present</p></td>
-<td><p>This chapter</p></td>
-</tr>
-<tr class="row-odd"><td><p>4. <strong>Select de-biasing strategy</strong></p></td>
-<td><p>Choose from adjust, reweight, restrict, or restructure based on the DAG</p></td>
-<td><p>This chapter</p></td>
-</tr>
-<tr class="row-even"><td><p>5. <strong>Estimate causal effect</strong></p></td>
-<td><p>Apply propensity scores, DML, causal forests, or Bayesian methods</p></td>
-<td><p><a class="reference internal" href="3_inference.html"><span class="doc">Causal Inference</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>6. <strong>Check fairness</strong></p></td>
-<td><p>Evaluate proxy discrimination and group fairness diagnostics</p></td>
-<td><p>This chapter</p></td>
-</tr>
-<tr class="row-even"><td><p>7. <strong>Sensitivity analysis</strong></p></td>
-<td><p>Quantify robustness to unmeasured confounding and untestable assumptions</p></td>
-<td><p><a class="reference internal" href="4_sensitivity.html"><span class="doc">Sensitivity Analysis</span></a></p></td>
-</tr>
-</tbody>
-</table>
-</div>
 </section>
 </section>
 
@@ -1143,20 +642,20 @@ P\bigl(\hat{\mu}_{S \leftarrow s}(X) = y \mid X{=}x, S{=}s\bigr) = P\bigl(\hat{\
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="2_2_graphical_models.html"
+       href="4_1_diagnostics.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Graphical Causal Models</p>
+        <p class="prev-next-title">Diagnostics and Sensitivity Analysis</p>
       </div>
     </a>
     <a class="right-next"
-       href="3_inference.html"
+       href="4_3_fairness.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Causal Inference</p>
+        <p class="prev-next-title">Discrimination and Fairness in Insurance</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1193,14 +692,6 @@ P\bigl(\hat{\mu}_{S \leftarrow s}(X) = y \mid X{=}x, S{=}s\bigr) = P\bigl(\hat{\
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sensitivity-analysis">Sensitivity analysis</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#is-my-model-fair-discrimination-and-fairness-in-insurance">Is my model fair? — Discrimination and Fairness in Insurance</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proxy-discrimination">Proxy Discrimination</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#three-fairness-definitions">Three Fairness Definitions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group-fairness-criteria-as-diagnostic-checks">Group Fairness Criteria as Diagnostic Checks</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-causal-inference-resolves-the-fairness-problem">Why Causal Inference Resolves the Fairness Problem</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together-the-actuary-s-workflow">Putting It All Together — The Actuary’s Workflow</a></li>
 </ul>
   </nav></div>
 

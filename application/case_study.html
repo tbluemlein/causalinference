@@ -245,7 +245,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/2_identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../tutorial/2_1_assumptions.html">Assumptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorial/2_2_graphical_models.html">Graphical Causal Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/2_3_debias.html">Biases, De-biasing, and Fairness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/2_3_methods.html">Identification Strategies</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/3_inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -255,13 +255,18 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../tutorial/3_5_bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/4_sensitivity.html">Sensitivity Analysis</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/4_sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_1_diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_2_debias.html">Biases, De-biasing, and Fairness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_3_fairness.html">Discrimination and Fairness in Insurance</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Actuarial Applications</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="observational_data.html">Observational Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fairness.html">Fairness in Insurance Pricing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="traffic_study.html">Traffic Case Study</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pricing.html">Fairness in Insurance Pricing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="claims_triage.html">Claims Triaging using CATE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="health_interventions.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
@@ -808,7 +813,7 @@ Age Cohort
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/s4/9c2gnwmj5dlgxxzzhkys15600000gp/T/ipykernel_83376/75760094.py:2: FutureWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/s4/9c2gnwmj5dlgxxzzhkys15600000gp/T/ipykernel_11126/75760094.py:2: FutureWarning: 
 
 Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
 
@@ -840,7 +845,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 2000x600 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/c2005ddb985cd30d88ae941e7631c96ce4c216d79edf9c3e4d11e303673f1474.png" src="../_images/c2005ddb985cd30d88ae941e7631c96ce4c216d79edf9c3e4d11e303673f1474.png" />
+<img alt="../_images/bedac17bf352edf377b346dbc221497f608e4dee6df94c5396c115492f9da1ab.png" src="../_images/bedac17bf352edf377b346dbc221497f608e4dee6df94c5396c115492f9da1ab.png" />
 </div>
 </div>
 <div class="cell docutils container">

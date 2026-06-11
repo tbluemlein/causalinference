@@ -616,7 +616,7 @@ window.addEventListener("load", load);
 <li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/2_identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/2_1_assumptions.html">Assumptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/2_2_graphical_models.html">Graphical Causal Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/2_3_debias.html">Biases, De-biasing, and Fairness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/2_3_methods.html">Identification Strategies</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/3_inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -626,13 +626,18 @@ window.addEventListener("load", load);
 <li class="toctree-l2"><a class="reference internal" href="tutorial/3_5_bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/4_sensitivity.html">Sensitivity Analysis</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/4_sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/4_1_diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/4_2_debias.html">Biases, De-biasing, and Fairness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/4_3_fairness.html">Discrimination and Fairness in Insurance</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Actuarial Applications</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="application/observational_data.html">Observational Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="application/fairness.html">Fairness in Insurance Pricing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="application/traffic_study.html">Traffic Case Study</a></li>
+<li class="toctree-l1"><a class="reference internal" href="application/pricing.html">Fairness in Insurance Pricing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="application/claims_triage.html">Claims Triaging using CATE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="application/health_interventions.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
@@ -774,18 +779,19 @@ document.write(`
    <a href="#cap-confounding-bias"><strong>confounding-bias</strong></a> | 
    <a href="#cap-consistency"><strong>consistency</strong></a> | 
    <a href="#cap-counterfactual-fairness"><strong>counterfactual-fairness</strong></a> | 
+   <a href="#cap-criterion-3"><strong>criterion-3</strong></a> | 
    <a href="#cap-d-separation"><strong>d-separation</strong></a> | 
    <a href="#cap-dag"><strong>dag</strong></a> | 
    <a href="#cap-discovery-limitations"><strong>discovery-limitations</strong></a> | 
    <a href="#cap-discrimination-free-price-app"><strong>discrimination-free-price-app</strong></a> | 
    <a href="#cap-discrimination-free-pricing"><strong>discrimination-free-pricing</strong></a> | 
+   <a href="#cap-dsep-example"><strong>dsep-example</strong></a> | 
    <a href="#cap-e-value"><strong>e-value</strong></a> | 
    <a href="#cap-exchangeability"><strong>exchangeability</strong></a> | 
    <a href="#cap-fairness-unawareness"><strong>fairness-unawareness</strong></a> | 
    <a href="#cap-faithfulness"><strong>faithfulness</strong></a> | 
    <a href="#cap-fork"><strong>fork</strong></a> | 
    <a href="#cap-frontdoor-algorithm"><strong>frontdoor-algorithm</strong></a> | 
-   <a href="#cap-frontdoor-criterion"><strong>frontdoor-criterion</strong></a> | 
    <a href="#cap-frontdoor-example"><strong>frontdoor-example</strong></a> | 
    <a href="#cap-graph-family"><strong>graph-family</strong></a> | 
    <a href="#cap-group-fairness-criteria"><strong>group-fairness-criteria</strong></a> | 
@@ -850,7 +856,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="application/fairness.html#alg-discfree-price"><code class="xref">alg-discfree-price</code></a> <em>(application/fairness)</em></td><td>
+       <a href="application/pricing.html#alg-discfree-price"><code class="xref">alg-discfree-price</code></a> <em>(application/pricing)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-alg-dml"><td></td><td>
@@ -930,7 +936,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/2_2_graphical_models.html#backdoor-algorithm"><code class="xref">backdoor-algorithm</code></a> <em>(tutorial/2_2_graphical_models)</em></td><td>
+       <a href="tutorial/2_3_methods.html#backdoor-algorithm"><code class="xref">backdoor-algorithm</code></a> <em>(tutorial/2_3_methods)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-backdoor-criterion"><td></td><td>
@@ -938,7 +944,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/2_2_graphical_models.html#backdoor-criterion"><code class="xref">backdoor-criterion</code></a> <em>(tutorial/2_2_graphical_models)</em></td><td>
+       <a href="tutorial/2_3_methods.html#backdoor-criterion"><code class="xref">backdoor-criterion</code></a> <em>(tutorial/2_3_methods)</em></td><td>
        <em>criterion</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-backdoor-example"><td></td><td>
@@ -946,7 +952,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/2_2_graphical_models.html#backdoor-example"><code class="xref">backdoor-example</code></a> <em>(tutorial/2_2_graphical_models)</em></td><td>
+       <a href="tutorial/2_3_methods.html#backdoor-example"><code class="xref">backdoor-example</code></a> <em>(tutorial/2_3_methods)</em></td><td>
        <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-bart"><td></td><td>
@@ -978,7 +984,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="application/fairness.html#best-estimate-price"><code class="xref">best-estimate-price</code></a> <em>(application/fairness)</em></td><td>
+       <a href="application/pricing.html#best-estimate-price"><code class="xref">best-estimate-price</code></a> <em>(application/pricing)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-blocked-path"><td></td><td>
@@ -1018,7 +1024,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/2_3_debias.html#collider-bias-def"><code class="xref">collider-bias-def</code></a> <em>(tutorial/2_3_debias)</em></td><td>
+       <a href="tutorial/4_2_debias.html#collider-bias-def"><code class="xref">collider-bias-def</code></a> <em>(tutorial/4_2_debias)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-confounding-bias"><td></td><td>
@@ -1026,7 +1032,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/2_3_debias.html#confounding-bias"><code class="xref">confounding-bias</code></a> <em>(tutorial/2_3_debias)</em></td><td>
+       <a href="tutorial/4_2_debias.html#confounding-bias"><code class="xref">confounding-bias</code></a> <em>(tutorial/4_2_debias)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-consistency"><td></td><td>
@@ -1042,8 +1048,16 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/2_3_debias.html#counterfactual-fairness"><code class="xref">counterfactual-fairness</code></a> <em>(tutorial/2_3_debias)</em></td><td>
+       <a href="tutorial/4_3_fairness.html#counterfactual-fairness"><code class="xref">counterfactual-fairness</code></a> <em>(tutorial/4_3_fairness)</em></td><td>
        <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-criterion-3"><td></td><td>
+       <strong>criterion-3</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="tutorial/2_3_methods.html#criterion-3"><code class="xref">criterion-3</code></a> <em>(tutorial/2_3_methods)</em></td><td>
+       <em>criterion</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-d-separation"><td></td><td>
        <strong>d-separation</strong></td><td></td></tr>
@@ -1066,7 +1080,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/2_2_graphical_models.html#discovery-limitations"><code class="xref">discovery-limitations</code></a> <em>(tutorial/2_2_graphical_models)</em></td><td>
+       <a href="tutorial/2_3_methods.html#discovery-limitations"><code class="xref">discovery-limitations</code></a> <em>(tutorial/2_3_methods)</em></td><td>
        <em>remark</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-discrimination-free-price-app"><td></td><td>
@@ -1074,7 +1088,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="application/fairness.html#discrimination-free-price-app"><code class="xref">discrimination-free-price-app</code></a> <em>(application/fairness)</em></td><td>
+       <a href="application/pricing.html#discrimination-free-price-app"><code class="xref">discrimination-free-price-app</code></a> <em>(application/pricing)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-discrimination-free-pricing"><td></td><td>
@@ -1082,15 +1096,23 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/2_3_debias.html#discrimination-free-pricing"><code class="xref">discrimination-free-pricing</code></a> <em>(tutorial/2_3_debias)</em></td><td>
+       <a href="tutorial/4_3_fairness.html#discrimination-free-pricing"><code class="xref">discrimination-free-pricing</code></a> <em>(tutorial/4_3_fairness)</em></td><td>
        <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-dsep-example"><td></td><td>
+       <strong>dsep-example</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="tutorial/2_2_graphical_models.html#dsep-example"><code class="xref">dsep-example</code></a> <em>(tutorial/2_2_graphical_models)</em></td><td>
+       <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-e-value"><td></td><td>
        <strong>e-value</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/4_sensitivity.html#e-value"><code class="xref">e-value</code></a> <em>(tutorial/4_sensitivity)</em></td><td>
+       <a href="tutorial/4_1_diagnostics.html#e-value"><code class="xref">e-value</code></a> <em>(tutorial/4_1_diagnostics)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-exchangeability"><td></td><td>
@@ -1106,7 +1128,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/2_3_debias.html#fairness-unawareness"><code class="xref">fairness-unawareness</code></a> <em>(tutorial/2_3_debias)</em></td><td>
+       <a href="tutorial/4_3_fairness.html#fairness-unawareness"><code class="xref">fairness-unawareness</code></a> <em>(tutorial/4_3_fairness)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-faithfulness"><td></td><td>
@@ -1130,23 +1152,15 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/2_2_graphical_models.html#frontdoor-algorithm"><code class="xref">frontdoor-algorithm</code></a> <em>(tutorial/2_2_graphical_models)</em></td><td>
+       <a href="tutorial/2_3_methods.html#frontdoor-algorithm"><code class="xref">frontdoor-algorithm</code></a> <em>(tutorial/2_3_methods)</em></td><td>
        <em>algorithm</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-frontdoor-criterion"><td></td><td>
-       <strong>frontdoor-criterion</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="tutorial/2_2_graphical_models.html#frontdoor-criterion"><code class="xref">frontdoor-criterion</code></a> <em>(tutorial/2_2_graphical_models)</em></td><td>
-       <em>criterion</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-frontdoor-example"><td></td><td>
        <strong>frontdoor-example</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/2_2_graphical_models.html#frontdoor-example"><code class="xref">frontdoor-example</code></a> <em>(tutorial/2_2_graphical_models)</em></td><td>
+       <a href="tutorial/2_3_methods.html#frontdoor-example"><code class="xref">frontdoor-example</code></a> <em>(tutorial/2_3_methods)</em></td><td>
        <em>example</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-graph-family"><td></td><td>
@@ -1162,7 +1176,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/2_3_debias.html#group-fairness-criteria"><code class="xref">group-fairness-criteria</code></a> <em>(tutorial/2_3_debias)</em></td><td>
+       <a href="tutorial/4_3_fairness.html#group-fairness-criteria"><code class="xref">group-fairness-criteria</code></a> <em>(tutorial/4_3_fairness)</em></td><td>
        <em>remark</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-manski-bounds"><td></td><td>
@@ -1170,7 +1184,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/4_sensitivity.html#manski-bounds"><code class="xref">manski-bounds</code></a> <em>(tutorial/4_sensitivity)</em></td><td>
+       <a href="tutorial/4_1_diagnostics.html#manski-bounds"><code class="xref">manski-bounds</code></a> <em>(tutorial/4_1_diagnostics)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-markov-equivalence"><td></td><td>
@@ -1178,7 +1192,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/2_2_graphical_models.html#markov-equivalence"><code class="xref">markov-equivalence</code></a> <em>(tutorial/2_2_graphical_models)</em></td><td>
+       <a href="tutorial/2_3_methods.html#markov-equivalence"><code class="xref">markov-equivalence</code></a> <em>(tutorial/2_3_methods)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-partial-r2"><td></td><td>
@@ -1186,7 +1200,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/4_sensitivity.html#partial-r2"><code class="xref">partial-r2</code></a> <em>(tutorial/4_sensitivity)</em></td><td>
+       <a href="tutorial/4_1_diagnostics.html#partial-r2"><code class="xref">partial-r2</code></a> <em>(tutorial/4_1_diagnostics)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-placebo-test"><td></td><td>
@@ -1194,7 +1208,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/4_sensitivity.html#placebo-test"><code class="xref">placebo-test</code></a> <em>(tutorial/4_sensitivity)</em></td><td>
+       <a href="tutorial/4_1_diagnostics.html#placebo-test"><code class="xref">placebo-test</code></a> <em>(tutorial/4_1_diagnostics)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-positivity"><td></td><td>
@@ -1210,7 +1224,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/2_3_debias.html#proxy-discrimination"><code class="xref">proxy-discrimination</code></a> <em>(tutorial/2_3_debias)</em></td><td>
+       <a href="tutorial/4_3_fairness.html#proxy-discrimination"><code class="xref">proxy-discrimination</code></a> <em>(tutorial/4_3_fairness)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-rosenbaum-gamma"><td></td><td>
@@ -1218,7 +1232,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/4_sensitivity.html#rosenbaum-gamma"><code class="xref">rosenbaum-gamma</code></a> <em>(tutorial/4_sensitivity)</em></td><td>
+       <a href="tutorial/4_1_diagnostics.html#rosenbaum-gamma"><code class="xref">rosenbaum-gamma</code></a> <em>(tutorial/4_1_diagnostics)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-selection-bias"><td></td><td>
@@ -1226,7 +1240,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/2_3_debias.html#selection-bias"><code class="xref">selection-bias</code></a> <em>(tutorial/2_3_debias)</em></td><td>
+       <a href="tutorial/4_2_debias.html#selection-bias"><code class="xref">selection-bias</code></a> <em>(tutorial/4_2_debias)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-sgs-algorithm"><td></td><td>
@@ -1234,7 +1248,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/2_2_graphical_models.html#sgs-algorithm"><code class="xref">sgs-algorithm</code></a> <em>(tutorial/2_2_graphical_models)</em></td><td>
+       <a href="tutorial/2_3_methods.html#sgs-algorithm"><code class="xref">sgs-algorithm</code></a> <em>(tutorial/2_3_methods)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-smd"><td></td><td>
@@ -1242,7 +1256,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="tutorial/4_sensitivity.html#smd"><code class="xref">smd</code></a> <em>(tutorial/4_sensitivity)</em></td><td>
+       <a href="tutorial/4_1_diagnostics.html#smd"><code class="xref">smd</code></a> <em>(tutorial/4_1_diagnostics)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-sutva"><td></td><td>
@@ -1258,7 +1272,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="application/fairness.html#unawareness-price"><code class="xref">unawareness-price</code></a> <em>(application/fairness)</em></td><td>
+       <a href="application/pricing.html#unawareness-price"><code class="xref">unawareness-price</code></a> <em>(application/pricing)</em></td><td>
        <em>definition</em></td></tr>
    </table>
 

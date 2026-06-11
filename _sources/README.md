@@ -14,14 +14,13 @@ By identifying true causal drivers rather than mere symptoms, we move from passi
 ### Tutorial
 The tutorial guides the reader from foundational concepts, identification and inference of causal effects, to the validation of causal conclusions using sensitivity measures.
 
-> TODO: visualization? 
 
 **Stage 1 — {doc}`tutorial/1_concepts`:** Introduces the language of causal inference — treatments, potential outcomes, counterfactuals, confounding — and motivates why association is not causation, especially in actuarial applications.
 
-**Stage 2 — {doc}`tutorial/2_identification`:** Establishes *when* causal effects can be recovered from observational data. This requires verifying the causal assumptions and using graphical models to select correct adjustment sets.
+**Stage 2 — {doc}`tutorial/2_identification`:** Establishes *when* causal effects can be recovered from observational data. This requires verifying the causal assumptions, using graphical models to select correct adjustment sets, and choosing an identification strategy.
 - {doc}`tutorial/2_1_assumptions` — Consistency, SUTVA, positivity, exchangeability, and how to detect violations.
 - {doc}`tutorial/2_2_graphical_models` — DAGs, d-separation, backdoor and frontdoor criteria, causal discovery.
-- {doc}`tutorial/2_3_debias` — Catalogue of biases (confounding, selection, collider) and mitigation strategies.
+- {doc}`tutorial/2_3_methods` — Identification strategies: back-door adjustment, front-door adjustment, and instrumental variables.
 
 **Stage 3 — {doc}`tutorial/3_inference`:** Covers *how* to estimate causal effects once identification is established. Methods range from classical propensity score approaches to modern machine learning estimators.
 - {doc}`tutorial/3_1_propensity` — Propensity score matching and inverse probability weighting.
@@ -29,7 +28,21 @@ The tutorial guides the reader from foundational concepts, identification and in
 - {doc}`tutorial/3_3_Tree_Based_Methods` — Causal trees and forests for heterogeneous and individualised treatment effect estimation.
 - {doc}`tutorial/3_5_bayesian` — Bayesian causal inference with BART and Bayesian Causal Forests.
 
-**Stage 4 — {doc}`tutorial/4_sensitivity`:** Validates causal conclusions by assessing their robustness to untestable assumptions. Covers balance diagnostics, placebo tests, E-values, Rosenbaum bounds, and partial $R^2$ sensitivity analysis.
+**Stage 4 — {doc}`tutorial/4_sensitivity`:** Validates causal conclusions by assessing their robustness to untestable assumptions and ensuring the resulting model is fair.
+- {doc}`tutorial/4_1_diagnostics` — Balance diagnostics, placebo tests, E-values, Rosenbaum bounds, and partial $R^2$ sensitivity analysis.
+- {doc}`tutorial/4_2_debias` — Catalogue of biases (confounding, selection, collider) and de-biasing strategies.
+- {doc}`tutorial/4_3_fairness` — Discrimination and fairness in insurance pricing, and why fairness is a causal question.
+
+
+The actuary's end-to-end workflow: from drawing the DAG and checking assumptions, through diagnosing and de-biasing, to inference, fairness checks, and sensitivity analysis.
+
+The following workflow connects the identification theory from {doc}`tutorial/2_identification` with the estimation methods in {doc}`3_inference` and the validation tools in {doc}`4_sensitivity`.
+
+```{figure} tutorial/figs/actuary_workflow.svg
+:width: 100%
+:name: fig-actuary-workflow
+```
+
 
 ### Actuarial Applications
 

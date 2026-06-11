@@ -117,12 +117,12 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'application/fairness';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'application/pricing';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../_static/figure-theme.js?v=a9394cc5"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Traffic Case Study" href="traffic_study.html" />
+    <link rel="next" title="Claims Triaging using CATE" href="claims_triage.html" />
     <link rel="prev" title="Observational Data" href="observational_data.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -247,7 +247,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/2_identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../tutorial/2_1_assumptions.html">Assumptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorial/2_2_graphical_models.html">Graphical Causal Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/2_3_debias.html">Biases, De-biasing, and Fairness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/2_3_methods.html">Identification Strategies</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/3_inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -257,13 +257,18 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../tutorial/3_5_bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/4_sensitivity.html">Sensitivity Analysis</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/4_sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_1_diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_2_debias.html">Biases, De-biasing, and Fairness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_3_fairness.html">Discrimination and Fairness in Insurance</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Actuarial Applications</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="observational_data.html">Observational Data</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Fairness in Insurance Pricing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="traffic_study.html">Traffic Case Study</a></li>
+<li class="toctree-l1"><a class="reference internal" href="claims_triage.html">Claims Triaging using CATE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="health_interventions.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
@@ -323,7 +328,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/tbluemlein/causalinference/gh-pages?urlpath=tree/application/fairness.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/tbluemlein/causalinference/gh-pages?urlpath=tree/application/pricing.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Binder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -341,7 +346,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://colab.research.google.com/github/tbluemlein/causalinference/blob/gh-pages/application/fairness.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/tbluemlein/causalinference/blob/gh-pages/application/pricing.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -390,7 +395,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/application/fairness.ipynb" target="_blank"
+      <li><a href="../_sources/application/pricing.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -527,8 +532,8 @@ if not hasattr(matplotlib.RcParams, "_get"):
 <li><p><strong>Direct discrimination</strong> — using a <em>protected attribute</em> <span class="math notranslate nohighlight">\(S\)</span> (sex, race, ethnicity, sometimes health or disability status) directly as a rating factor.</p></li>
 <li><p><strong>Indirect / proxy discrimination</strong> — using non-protected covariates <span class="math notranslate nohighlight">\(X\)</span> (postcode, occupation, car model, a lifestyle flag) that are <em>correlated</em> with <span class="math notranslate nohighlight">\(S\)</span>, so the model can implicitly reconstruct the protected attribute even though it was never an input.</p></li>
 </ul>
-<p>The central, counter-intuitive lesson of this page is that <strong>“fairness through unawareness” — simply deleting <span class="math notranslate nohighlight">\(S\)</span> — does not remove discrimination</strong>. Because the remaining covariates still carry information about <span class="math notranslate nohighlight">\(S\)</span>, an unaware model can keep pricing on the protected attribute through the back door, and in some cases does so <em>more</em> opaquely than a model that used <span class="math notranslate nohighlight">\(S\)</span> openly. Deciding whether a correlated covariate is a <em>legitimate risk factor</em> or a <em>discriminatory proxy</em> is not a question the correlation matrix can answer — it is a <strong>causal</strong> question. That is where the machinery from <a class="reference internal" href="../tutorial/2_2_graphical_models.html"><span class="doc">Graphical Causal Models</span></a> and <a class="reference internal" href="../tutorial/2_3_debias.html"><span class="doc">Biases, De-biasing, and Fairness</span></a> earns its place.</p>
-<p>This notebook makes the fairness concepts from <a class="reference internal" href="../tutorial/2_3_debias.html"><span class="doc">Biases, De-biasing, and Fairness</span></a> — <a class="reference internal" href="../tutorial/2_3_debias.html#proxy-discrimination">Definition 12</a>, <a class="reference internal" href="../tutorial/2_3_debias.html#fairness-unawareness">Definition 13</a>, <a class="reference internal" href="../tutorial/2_3_debias.html#discrimination-free-pricing">Definition 14</a>, <a class="reference internal" href="../tutorial/2_3_debias.html#counterfactual-fairness">Definition 15</a> and the <a class="reference internal" href="../tutorial/2_3_debias.html#group-fairness-criteria">Remark 2</a> — concrete on a synthetic insurance portfolio. The treatment of the three prices follows <a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm, Richman, Tsanakas &amp; Wüthrich (2022)</a>, the canonical actuarial reference; the comparison of statistical fairness definitions follows the <a class="reference external" href="https://pair.withgoogle.com/explorables/measuring-fairness/">Google PAIR <em>Measuring Fairness</em> explorable (2020)</a> and the impossibility result of <a class="reference external" href="https://doi.org/10.1089/big.2016.0047">Chouldechova (2017)</a>.</p>
+<p>The central, counter-intuitive lesson of this page is that <strong>“fairness through unawareness” — simply deleting <span class="math notranslate nohighlight">\(S\)</span> — does not remove discrimination</strong>. Because the remaining covariates still carry information about <span class="math notranslate nohighlight">\(S\)</span>, an unaware model can keep pricing on the protected attribute through the back door, and in some cases does so <em>more</em> opaquely than a model that used <span class="math notranslate nohighlight">\(S\)</span> openly. Deciding whether a correlated covariate is a <em>legitimate risk factor</em> or a <em>discriminatory proxy</em> is not a question the correlation matrix can answer — it is a <strong>causal</strong> question. That is where the machinery from <a class="reference internal" href="../tutorial/2_2_graphical_models.html"><span class="doc">Graphical Causal Models</span></a> and <span class="xref std std-doc">../tutorial/2_3_debias</span> earns its place.</p>
+<p>This notebook makes the fairness concepts from <span class="xref std std-doc">../tutorial/2_3_debias</span> — <a class="reference internal" href="../tutorial/4_3_fairness.html#proxy-discrimination">Definition 21</a>, <a class="reference internal" href="../tutorial/4_3_fairness.html#fairness-unawareness">Definition 22</a>, <a class="reference internal" href="../tutorial/4_3_fairness.html#discrimination-free-pricing">Definition 23</a>, <a class="reference internal" href="../tutorial/4_3_fairness.html#counterfactual-fairness">Definition 24</a> and the <a class="reference internal" href="../tutorial/4_3_fairness.html#group-fairness-criteria">Remark 2</a> — concrete on a synthetic insurance portfolio. The treatment of the three prices follows <a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm, Richman, Tsanakas &amp; Wüthrich (2022)</a>, the canonical actuarial reference; the comparison of statistical fairness definitions follows the <a class="reference external" href="https://pair.withgoogle.com/explorables/measuring-fairness/">Google PAIR <em>Measuring Fairness</em> explorable (2020)</a> and the impossibility result of <a class="reference external" href="https://doi.org/10.1089/big.2016.0047">Chouldechova (2017)</a>.</p>
 <p><strong>Road map</strong></p>
 <ol class="arabic simple">
 <li><p><strong>Frame the tension</strong> — why risk classification is discriminatory by design, and what makes a distinction <em>unfair</em>.</p></li>
@@ -648,7 +653,7 @@ if not hasattr(matplotlib.RcParams, "_get"):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/43be15257dc89002e85182674176be6ed1bb94b49868f83d032cda469a150b2a.svg" src="../_images/43be15257dc89002e85182674176be6ed1bb94b49868f83d032cda469a150b2a.svg" />
+<img alt="../_images/584f5780b3781349a02d345f09397f807dbf0085dcc55247a8f9954b102f84f2.svg" src="../_images/584f5780b3781349a02d345f09397f807dbf0085dcc55247a8f9954b102f84f2.svg" />
 </div>
 </div>
 </section>
@@ -674,7 +679,7 @@ if not hasattr(matplotlib.RcParams, "_get"):
 \[
 \mu(x) = \mathbb{E}[Y \mid X = x] = \sum_{s} \mu(x, s)\, \underbrace{P(S = s \mid X = x)}_{\text{conditional}}.
 \]</div>
-<p>It satisfies <a class="reference internal" href="../tutorial/2_3_debias.html#fairness-unawareness">Definition 13</a>, yet the tower property shows it is a <strong>weighted average of the best-estimate price using the conditional <span class="math notranslate nohighlight">\(P(S \mid X)\)</span></strong> — exactly the term that lets <span class="math notranslate nohighlight">\(X\)</span> <em>infer</em> <span class="math notranslate nohighlight">\(S\)</span>. Whenever <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(S\)</span> are dependent, the unawareness price still channels protected information: this is <a class="reference internal" href="../tutorial/2_3_debias.html#proxy-discrimination">Definition 12</a>.</p>
+<p>It satisfies <a class="reference internal" href="../tutorial/4_3_fairness.html#fairness-unawareness">Definition 22</a>, yet the tower property shows it is a <strong>weighted average of the best-estimate price using the conditional <span class="math notranslate nohighlight">\(P(S \mid X)\)</span></strong> — exactly the term that lets <span class="math notranslate nohighlight">\(X\)</span> <em>infer</em> <span class="math notranslate nohighlight">\(S\)</span>. Whenever <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(S\)</span> are dependent, the unawareness price still channels protected information: this is <a class="reference internal" href="../tutorial/4_3_fairness.html#proxy-discrimination">Definition 21</a>.</p>
 </section>
 </div><div class="proof definition admonition" id="discrimination-free-price-app">
 <p class="admonition-title"><span class="caption-number">Definition 27 </span> (Discrimination-free price)</p>
@@ -684,7 +689,7 @@ if not hasattr(matplotlib.RcParams, "_get"):
 \[
 h(x) = \sum_{s} \mu(x, s)\, P^{\*}(S = s).
 \]</div>
-<p>By replacing the conditional <span class="math notranslate nohighlight">\(P(S \mid X)\)</span> with a fixed marginal <span class="math notranslate nohighlight">\(P^{\*}(S)\)</span>, it severs the inference channel: <span class="math notranslate nohighlight">\(h\)</span> depends on <span class="math notranslate nohighlight">\(x\)</span> only, and no longer uses <span class="math notranslate nohighlight">\(X\)</span> to deduce <span class="math notranslate nohighlight">\(S\)</span>. It is the actuarial realisation of <a class="reference internal" href="../tutorial/2_3_debias.html#discrimination-free-pricing">Definition 14</a>.</p>
+<p>By replacing the conditional <span class="math notranslate nohighlight">\(P(S \mid X)\)</span> with a fixed marginal <span class="math notranslate nohighlight">\(P^{\*}(S)\)</span>, it severs the inference channel: <span class="math notranslate nohighlight">\(h\)</span> depends on <span class="math notranslate nohighlight">\(x\)</span> only, and no longer uses <span class="math notranslate nohighlight">\(X\)</span> to deduce <span class="math notranslate nohighlight">\(S\)</span>. It is the actuarial realisation of <a class="reference internal" href="../tutorial/4_3_fairness.html#discrimination-free-pricing">Definition 23</a>.</p>
 </section>
 </div><p>The contrast that matters is the <strong>weighting</strong>: the unawareness price weights <span class="math notranslate nohighlight">\(\mu(x,s)\)</span> by the <em>conditional</em> <span class="math notranslate nohighlight">\(P(S\mid X)\)</span> (which encodes how much <span class="math notranslate nohighlight">\(X\)</span> reveals about <span class="math notranslate nohighlight">\(S\)</span>), whereas the discrimination-free price weights by a <em>marginal</em> <span class="math notranslate nohighlight">\(P^{\*}(S)\)</span> (which reveals nothing). Their difference,</p>
 <div class="math notranslate nohighlight">
@@ -935,7 +940,7 @@ h(x) = \sum_{s} \mu(x, s)\, P^{\*}(S = s).
 <section id="from-statistical-to-causal-fairness-counterfactuals-and-path-specific-effects">
 <h2>From statistical to causal fairness: counterfactuals and path-specific effects<a class="headerlink" href="#from-statistical-to-causal-fairness-counterfactuals-and-path-specific-effects" title="Link to this heading">#</a></h2>
 <p>The discrimination-free price answers an <em>associational</em> question — it removes the <span class="math notranslate nohighlight">\(X \to S\)</span> inference channel. But it still prices on <code class="docutils literal notranslate"><span class="pre">lifestyle</span></code>, and we have not yet asked the genuinely causal question: <strong>is the <span class="math notranslate nohighlight">\(S \rightarrow \text{lifestyle} \rightarrow Y\)</span> path a legitimate risk pathway, or proxy discrimination we should also remove?</strong> Answering that requires a model of <em>counterfactuals</em>, not just conditional expectations.</p>
-<p><a class="reference internal" href="../tutorial/2_3_debias.html#counterfactual-fairness">Definition 15</a> (<a class="reference external" href="https://arxiv.org/abs/1703.06856">Kusner et al., 2017</a>) formalises it: a price is counterfactually fair if it would be <strong>unchanged in the world where the policyholder’s protected attribute had been different</strong>, with everything that descends from <span class="math notranslate nohighlight">\(S\)</span> propagated accordingly. Computing such a counterfactual is the three-step recipe from <a class="reference internal" href="../tutorial/2_3_debias.html"><span class="doc">Biases, De-biasing, and Fairness</span></a>: <em>abduction</em> (recover the structural noise — here <code class="docutils literal notranslate"><span class="pre">U_life</span></code>), <em>action</em> (set <span class="math notranslate nohighlight">\(S \leftarrow 1 - S\)</span>), <em>prediction</em> (recompute the descendants).</p>
+<p><a class="reference internal" href="../tutorial/4_3_fairness.html#counterfactual-fairness">Definition 24</a> (<a class="reference external" href="https://arxiv.org/abs/1703.06856">Kusner et al., 2017</a>) formalises it: a price is counterfactually fair if it would be <strong>unchanged in the world where the policyholder’s protected attribute had been different</strong>, with everything that descends from <span class="math notranslate nohighlight">\(S\)</span> propagated accordingly. Computing such a counterfactual is the three-step recipe from <span class="xref std std-doc">../tutorial/2_3_debias</span>: <em>abduction</em> (recover the structural noise — here <code class="docutils literal notranslate"><span class="pre">U_life</span></code>), <em>action</em> (set <span class="math notranslate nohighlight">\(S \leftarrow 1 - S\)</span>), <em>prediction</em> (recompute the descendants).</p>
 <p>This exposes a trap. Consider two ways of “flipping the sex”:</p>
 <ol class="arabic simple">
 <li><p><strong>Naive flip</strong> — change <span class="math notranslate nohighlight">\(S\)</span> but leave the covariates untouched. The unawareness price never reads <span class="math notranslate nohighlight">\(S\)</span>, so it is <strong>unchanged</strong> — it looks counterfactually fair.</p></li>
@@ -982,7 +987,7 @@ h(x) = \sum_{s} \mu(x, s)\, P^{\*}(S = s).
 <section id="why-you-cannot-satisfy-every-fairness-definition-at-once">
 <h2>Why you cannot satisfy every fairness definition at once<a class="headerlink" href="#why-you-cannot-satisfy-every-fairness-definition-at-once" title="Link to this heading">#</a></h2>
 <p>It is tempting to ask for a price that is fair by <em>every</em> statistical yardstick — equal acceptance rates, equal error rates, and equal predictive accuracy across groups. The <a class="reference external" href="https://pair.withgoogle.com/explorables/measuring-fairness/">Google PAIR “Measuring Fairness” explorable</a> shows visually why this is impossible whenever the groups have <strong>different base rates</strong>, and the result is made precise by the impossibility theorems of <a class="reference external" href="https://arxiv.org/abs/1609.05807">Kleinberg, Mullainathan &amp; Raghavan (2017)</a> and <a class="reference external" href="https://arxiv.org/abs/1703.00056">Chouldechova (2017)</a>: except in degenerate cases, <strong>calibration and equalised error rates cannot both hold</strong>.</p>
-<p>To see it on our portfolio, recast pricing as a binary decision — flag the costliest policyholders (top 20% of claims) for a manual underwriting review, using the discrimination-free price as the score — and compute the classic group-fairness diagnostics (<a class="reference internal" href="../tutorial/2_3_debias.html#group-fairness-criteria">Remark 2</a>):</p>
+<p>To see it on our portfolio, recast pricing as a binary decision — flag the costliest policyholders (top 20% of claims) for a manual underwriting review, using the discrimination-free price as the score — and compute the classic group-fairness diagnostics (<a class="reference internal" href="../tutorial/4_3_fairness.html#group-fairness-criteria">Remark 2</a>):</p>
 <ul class="simple">
 <li><p><strong>Selection rate</strong> — share flagged in each group (<em>demographic / statistical parity</em>);</p></li>
 <li><p><strong>TPR / recall</strong> — of the truly high-cost, the share flagged (<em>equal opportunity</em>, <a class="reference external" href="https://arxiv.org/abs/1610.02413">Hardt et al., 2016</a>);</p></li>
@@ -1116,7 +1121,7 @@ h(x) = \sum_{s} \mu(x, s)\, P^{\*}(S = s).
 </tbody>
 </table>
 </div>
-<p>The lesson of <a class="reference internal" href="../tutorial/2_3_debias.html"><span class="doc">Biases, De-biasing, and Fairness</span></a> returns here in applied form: the <strong>statistical</strong> definitions disagree with one another and none of them, on its own, captures “this price does not discriminate.” Only by drawing the DAG and naming which <strong>paths</strong> from <span class="math notranslate nohighlight">\(S\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> are legitimate can an actuary state precisely what fairness means for a given product — and the discrimination-free price plus a path-specific / counterfactual audit operationalises that choice.</p>
+<p>The lesson of <span class="xref std std-doc">../tutorial/2_3_debias</span> returns here in applied form: the <strong>statistical</strong> definitions disagree with one another and none of them, on its own, captures “this price does not discriminate.” Only by drawing the DAG and naming which <strong>paths</strong> from <span class="math notranslate nohighlight">\(S\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> are legitimate can an actuary state precisely what fairness means for a given product — and the discrimination-free price plus a path-specific / counterfactual audit operationalises that choice.</p>
 </section>
 <section id="interactive-prices-vs-fairness-measures">
 <h3>Interactive: prices vs. fairness measures<a class="headerlink" href="#interactive-prices-vs-fairness-measures" title="Link to this heading">#</a></h3>
@@ -1179,8 +1184,8 @@ h(x) = \sum_{s} \mu(x, s)\, P^{\*}(S = s).
 <li><p><strong>Pick your fairness criterion deliberately.</strong> The statistical definitions are mutually incompatible at unequal base rates; document which one the product targets and why.</p></li>
 </ol>
 </div>
-<p><strong>The bottom line.</strong> Insurance must discriminate between <em>risks</em>; it must not discriminate on <em>protected attributes</em>, directly or by proxy. “Fairness through unawareness” fails because correlated covariates reconstruct the protected attribute. The discrimination-free price of <a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al. (2022)</a> gives actuaries a concrete, implementable remedy for the inference channel, and the causal toolkit of this book — DAGs, path-specific effects and <a class="reference internal" href="../tutorial/2_3_debias.html#counterfactual-fairness">Definition 15</a> — is what lets us decide <em>which</em> differences are legitimate in the first place. Fairness is ultimately a causal question dressed as a statistical one.</p>
-<p>For the underlying definitions and theory, see <a class="reference internal" href="../tutorial/2_3_debias.html"><span class="doc">Biases, De-biasing, and Fairness</span></a>; the references are collected in <a class="reference internal" href="../papers/references.html"><span class="doc">References</span></a>.</p>
+<p><strong>The bottom line.</strong> Insurance must discriminate between <em>risks</em>; it must not discriminate on <em>protected attributes</em>, directly or by proxy. “Fairness through unawareness” fails because correlated covariates reconstruct the protected attribute. The discrimination-free price of <a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al. (2022)</a> gives actuaries a concrete, implementable remedy for the inference channel, and the causal toolkit of this book — DAGs, path-specific effects and <a class="reference internal" href="../tutorial/4_3_fairness.html#counterfactual-fairness">Definition 24</a> — is what lets us decide <em>which</em> differences are legitimate in the first place. Fairness is ultimately a causal question dressed as a statistical one.</p>
+<p>For the underlying definitions and theory, see <span class="xref std std-doc">../tutorial/2_3_debias</span>; the references are collected in <a class="reference internal" href="../papers/references.html"><span class="doc">References</span></a>.</p>
 </section>
 </section>
 
@@ -1223,11 +1228,11 @@ h(x) = \sum_{s} \mu(x, s)\, P^{\*}(S = s).
       </div>
     </a>
     <a class="right-next"
-       href="traffic_study.html"
+       href="claims_triage.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Traffic Case Study</p>
+        <p class="prev-next-title">Claims Triaging using CATE</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

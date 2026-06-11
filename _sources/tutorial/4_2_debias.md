@@ -25,12 +25,11 @@ The remainder of this section defines each bias precisely.
 **Confounding bias** occurs when a fork variable $F$ causally influences both the treatment $T$ and the outcome $Y$, and the analysis fails to adjust for $F$.
 ```
 
-```{mermaid}
-graph TD
-    F["F (Confounder)"] --> T
-    F --> Y
-    T --> Y
-    style F fill:#e74c3c,color:#fff
+```{figure} figs/confounding.svg
+:width: 55%
+:name: fig-confounding-bias
+
+Confounding: the fork variable $F$ influences both treatment $T$ and outcome $Y$, biasing the naive $T$–$Y$ comparison unless adjusted for.
 ```
 
 Confounding violates {prf:ref}`exchangeability`. The naive comparison conflates the causal effect with a baseline difference between groups:
@@ -59,12 +58,11 @@ Selection bias can occur at study entry (differential enrolment), during follow-
 **Collider bias** (Berkson's paradox) occurs when the analysis conditions on a **collider** $C$ — a common effect of $T$ and $Y$. Conditioning on $C$ opens a non-causal path between $T$ and $Y$.
 ```
 
-```{mermaid}
-graph TD
-    T --> C["C (Collider)"]
-    Y --> C
-    T --> Y
-    style C fill:#9b59b6,color:#fff
+```{figure} figs/collider_bias.svg
+:width: 55%
+:name: fig-collider-bias
+
+Collider bias: $C$ is a common effect of $T$ and $Y$. Conditioning on $C$ opens a non-causal path between treatment and outcome.
 ```
 
 Collider bias results from **incorrect adjustment**, not from a violated assumption per se. In insurance, analysing claims conditional on whether a claim was *filed* can introduce collider bias, since filing depends on both the treatment and the outcome severity. DAG-guided variable selection ({prf:ref}`backdoor-criterion`) is the primary safeguard.
@@ -113,119 +111,3 @@ When interference is present, assign treatment at the group level and analyse at
 ### Sensitivity analysis
 
 {prf:ref}`exchangeability` cannot be verified from data alone. **Sensitivity analysis** quantifies how strong an unmeasured confounder would need to be to explain away the estimated effect. Methods include E-values, Rosenbaum bounds, and partial $R^2$ sensitivity — covered in detail in {doc}`4_sensitivity`.
-
-## Is my model fair? — Discrimination and Fairness in Insurance
-
-Beyond causal bias, actuaries face a distinct but related challenge: ensuring that pricing models do not discriminate against protected groups. EU regulation prohibits the use of protected characteristics (e.g. gender, ethnicity) for insurance pricing, but simply dropping the sensitive attribute $S$ does not solve the problem.
-
-### Proxy Discrimination
-
-```{prf:definition} Proxy Discrimination
-:label: proxy-discrimination
-
-**Proxy discrimination** (indirect discrimination) occurs when non-protected covariates $X$ that are correlated with the sensitive attribute $S$ allow the model to implicitly reconstruct $S$, even though $S$ is not used as an input.
-```
-
-The mechanism is the tower property of conditional expectation: $\mu(X) = \int \mu(X, s) \, \mathrm{d}P(S{=}s \mid X)$. If $X$ and $S$ are dependent, the unawareness price channels information about $S$ through $X$ ([Lindholm et al., 2022](https://arxiv.org/abs/2209.00858)).
-
-### Three Fairness Definitions
-
-```{prf:definition} Fairness through Unawareness
-:label: fairness-unawareness
-
-A model satisfies **fairness through unawareness** if it does not use the sensitive attribute $S$ as input: $\hat{\mu}(X) = f(X)$.
-```
-
-Unawareness is necessary but not sufficient — it does not prevent proxy discrimination.
-
-```{prf:definition} Discrimination-Free Pricing
-:label: discrimination-free-pricing
-
-An insurance price is **discrimination-free** ([Lindholm et al., 2022](https://arxiv.org/abs/2209.00858)) if
-
-$$
-P(Y \leq y \mid X, S) = P(Y \leq y \mid X) \quad \text{for all } y
-$$
-
-i.e., the sensitive attribute $S$ carries no additional information about $Y$ beyond the non-protected covariates $X$.
-```
-
-```{prf:definition} Counterfactual Fairness
-:label: counterfactual-fairness
-
-A predictor $\hat{\mu}$ is **counterfactually fair** ([Kusner et al., 2017](https://arxiv.org/abs/1703.06856)) if, for all $s, s'$:
-
-$$
-P\bigl(\hat{\mu}_{S \leftarrow s}(X) = y \mid X{=}x, S{=}s\bigr) = P\bigl(\hat{\mu}_{S \leftarrow s'}(X) = y \mid X{=}x, S{=}s\bigr)
-$$
-
-i.e., the prediction would not change had the individual belonged to a different demographic group, all else being equal.
-```
-
-### Group Fairness Criteria as Diagnostic Checks
-
-```{prf:remark} Group Fairness Criteria
-:label: group-fairness-criteria
-
-The machine learning literature proposes three group fairness criteria as evaluation constraints on a predictor $\hat{\mu}(X)$ ([Barocas et al., 2019](https://fairmlbook.org/)):
-
-- **Statistical parity** (demographic parity): $\hat{\mu}(X) \perp\!\!\!\perp S$ — the price distribution is the same across groups.
-- **Equalized odds**: $\hat{\mu}(X) \perp\!\!\!\perp S \mid Y$ — prediction errors are equal across groups.
-- **Predictive parity**: $Y \perp\!\!\!\perp S \mid \hat{\mu}(X)$ — the model is calibrated across groups.
-
-These criteria are useful **diagnostic checks** but cannot replace causal reasoning. [Lindholm et al. (2022)](https://arxiv.org/abs/2209.00858) show that even a genuinely discrimination-free model violates all three criteria whenever $X$ and $S$ are statistically dependent. Moreover, except in trivial cases, the three criteria are mutually incompatible ([Chouldechova, 2017](https://doi.org/10.1089/big.2016.0047)).
-```
-
-### Why Causal Inference Resolves the Fairness Problem
-
-```{mermaid}
-graph TD
-    S["S (Sensitive)"] -->|proxy path| X1["X₁ (Proxy)"]
-    S -->|legitimate path| X2["X₂ (Legitimate risk factor)"]
-    X1 --> Y["Y (Claim)"]
-    X2 --> Y
-    F["F (Confounder)"] --> S
-    F --> Y
-    style S fill:#e74c3c,color:#fff
-    style X1 fill:#f39c12,color:#fff
-    style X2 fill:#27ae60,color:#fff
-```
-
-Whether a covariate is a discriminatory proxy or a legitimate risk factor depends on the **causal structure**, not the correlation matrix. A causal model allows the actuary to:
-
-- **Include** $X_2$ — a genuine risk mechanism, even if correlated with $S$.
-- **Exclude or adjust** $X_1$ — a proxy that merely transmits discriminatory information from $S$.
-- **Account for** $F$ — a confounder creating spurious associations between $S$ and $Y$.
-
-Without a DAG, removing the influence of $S$ either does too little (unawareness) or too much (statistical parity). Counterfactual fairness is inherently a causal question: *"would this price change if the individual had belonged to a different group?"* — and it can only be answered within the potential outcomes framework ([Kusner et al., 2017](https://arxiv.org/abs/1703.06856)).
-
-## Putting It All Together — The Actuary's Workflow
-
-The following workflow connects the identification theory from this chapter with the estimation methods in {doc}`3_inference` and the validation tools in {doc}`4_sensitivity`.
-
-```{mermaid}
-graph LR
-    W1["1. Draw the DAG"] --> W2["2. Check assumptions"]
-    W2 --> W3["3. Diagnose biases"]
-    W3 --> W4["4. Select de-biasing strategy"]
-    W4 --> W5["5. Estimate causal effect"]
-    W5 --> W6["6. Check fairness"]
-    W6 --> W7["7. Sensitivity analysis"]
-    style W1 fill:#4a90d9,color:#fff
-    style W2 fill:#4a90d9,color:#fff
-    style W3 fill:#e74c3c,color:#fff
-    style W4 fill:#e74c3c,color:#fff
-    style W5 fill:#f5a623,color:#fff
-    style W6 fill:#27ae60,color:#fff
-    style W7 fill:#27ae60,color:#fff
-```
-
-| Step | Action | Chapter |
-|---|---|---|
-| 1. **Draw the DAG** | Encode domain knowledge as a directed acyclic graph | {doc}`2_2_graphical_models` |
-| 2. **Check assumptions** | Verify consistency, SUTVA, positivity, exchangeability | {doc}`2_1_assumptions` |
-| 3. **Diagnose biases** | Use the diagnostic table above to identify which biases may be present | This chapter |
-| 4. **Select de-biasing strategy** | Choose from adjust, reweight, restrict, or restructure based on the DAG | This chapter |
-| 5. **Estimate causal effect** | Apply propensity scores, DML, causal forests, or Bayesian methods | {doc}`3_inference` |
-| 6. **Check fairness** | Evaluate proxy discrimination and group fairness diagnostics | This chapter |
-| 7. **Sensitivity analysis** | Quantify robustness to unmeasured confounding and untestable assumptions | {doc}`4_sensitivity` |

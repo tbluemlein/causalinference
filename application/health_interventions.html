@@ -121,7 +121,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="References" href="../papers/references.html" />
-    <link rel="prev" title="Traffic Case Study" href="traffic_study.html" />
+    <link rel="prev" title="Claims Triaging using CATE" href="claims_triage.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -245,7 +245,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/2_identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../tutorial/2_1_assumptions.html">Assumptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorial/2_2_graphical_models.html">Graphical Causal Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/2_3_debias.html">Biases, De-biasing, and Fairness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/2_3_methods.html">Identification Strategies</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/3_inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -255,13 +255,18 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../tutorial/3_5_bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/4_sensitivity.html">Sensitivity Analysis</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/4_sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_1_diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_2_debias.html">Biases, De-biasing, and Fairness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_3_fairness.html">Discrimination and Fairness in Insurance</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Actuarial Applications</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="observational_data.html">Observational Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fairness.html">Fairness in Insurance Pricing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="traffic_study.html">Traffic Case Study</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pricing.html">Fairness in Insurance Pricing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="claims_triage.html">Claims Triaging using CATE</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
@@ -676,9 +681,7 @@ c (confounder): mean = 0.505, range = [0.091, 1.000]
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>w (treatment uptake):
   Total participants: 13,581.0 individuals (13.6% of all)
   Among itt=1: 13,581.0 / 79,732 = 17.0%
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Among itt=0: 0.0 / 20,268 = 0.0%
+  Among itt=0: 0.0 / 20,268 = 0.0%
 </pre></div>
 </div>
 </div>
@@ -2189,12 +2192,12 @@ IV-LATE         -0.0052    21.2                 ✅ Unbiased (compliers only)
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="traffic_study.html"
+       href="claims_triage.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Traffic Case Study</p>
+        <p class="prev-next-title">Claims Triaging using CATE</p>
       </div>
     </a>
     <a class="right-next"

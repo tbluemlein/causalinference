@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Sensitivity Analysis &#8212; Causal Inference Tutorial</title>
+    <title>Validation and Sensitivity Analysis &#8212; Causal Inference Tutorial</title>
   
   
   
@@ -122,7 +122,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script src="../_static/figure-theme.js?v=a9394cc5"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Observational Data" href="../application/observational_data.html" />
+    <link rel="next" title="Diagnostics and Sensitivity Analysis" href="4_1_diagnostics.html" />
     <link rel="prev" title="Bayesian Causal Inference" href="3_5_bayesian.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -247,7 +247,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 has-children"><a class="reference internal" href="2_identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="2_1_assumptions.html">Assumptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_2_graphical_models.html">Graphical Causal Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2_3_debias.html">Biases, De-biasing, and Fairness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_methods.html">Identification Strategies</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="3_inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -257,13 +257,18 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="3_5_bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Sensitivity Analysis</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Validation and Sensitivity Analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="4_1_diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_2_debias.html">Biases, De-biasing, and Fairness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_3_fairness.html">Discrimination and Fairness in Insurance</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Actuarial Applications</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../application/observational_data.html">Observational Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../application/fairness.html">Fairness in Insurance Pricing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../application/traffic_study.html">Traffic Case Study</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application/pricing.html">Fairness in Insurance Pricing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application/claims_triage.html">Claims Triaging using CATE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../application/health_interventions.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
@@ -407,7 +412,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Sensitivity Analysis</h1>
+    <h1>Validation and Sensitivity Analysis</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -417,14 +422,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-sensitivity-analysis">Why Sensitivity Analysis?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#balance-diagnostics">Balance Diagnostics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#placebo-and-falsification-tests">Placebo and Falsification Tests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rosenbaum-bounds">Rosenbaum Bounds</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#e-values">E-Values</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-r-2-and-omitted-variable-bias">Partial <span class="math notranslate nohighlight">\(R^2\)</span> and Omitted Variable Bias</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bounds-on-treatment-effects">Bounds on Treatment Effects</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-sensitivity-analysis-workflow">Recommended Sensitivity Analysis Workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostics-and-sensitivity-analysis">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#biases-and-de-biasing">Biases and De-biasing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fairness">Fairness</a></li>
 </ul>
             </nav>
         </div>
@@ -436,127 +436,23 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="sensitivity-analysis">
-<h1>Sensitivity Analysis<a class="headerlink" href="#sensitivity-analysis" title="Link to this heading">#</a></h1>
-<p>The identification of causal effects from observational data rests on untestable assumptions — most critically, <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a> (no unmeasured confounding). <strong>Sensitivity analysis</strong> asks: <em>how robust are our conclusions to violations of these assumptions?</em> This chapter surveys the main approaches, following <a class="reference external" href="https://doi.org/10.1007/978-1-4757-3692-2">Rosenbaum (2002)</a>, <a class="reference external" href="https://doi.org/10.1111/rssb.12348">Cinelli &amp; Hazlett (2020)</a>, and <a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi (2025)</a>.</p>
-<section id="why-sensitivity-analysis">
-<h2>Why Sensitivity Analysis?<a class="headerlink" href="#why-sensitivity-analysis" title="Link to this heading">#</a></h2>
-<p>Even with careful adjustment for observed confounders, the possibility of <strong>unmeasured confounding</strong> can never be ruled out in observational data. Sensitivity analysis complements point estimation by answering:</p>
-<ol class="arabic simple">
-<li><p><strong>How strong</strong> would an unmeasured confounder <span class="math notranslate nohighlight">\(U\)</span> need to be to explain away the observed effect?</p></li>
-<li><p><strong>How much</strong> would the estimated treatment effect change under plausible confounding scenarios?</p></li>
-<li><p><strong>What are the bounds</strong> on the true effect under worst-case confounding?</p></li>
-</ol>
-<p>Without sensitivity analysis, causal conclusions from observational data remain fundamentally incomplete.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="validation-and-sensitivity-analysis">
+<h1>Validation and Sensitivity Analysis<a class="headerlink" href="#validation-and-sensitivity-analysis" title="Link to this heading">#</a></h1>
+<p>Once a causal effect has been <em>identified</em> (<a class="reference internal" href="2_identification.html"><span class="doc">Identification</span></a>) and <em>estimated</em> (<a class="reference internal" href="3_inference.html"><span class="doc">Causal Inference</span></a>), the final stage is to <strong>validate</strong> the result. Estimation rests on untestable assumptions — most critically <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a> (no unmeasured confounding) — so a credible analysis must diagnose residual bias, quantify robustness to violations, and confirm that the resulting model is fair. This chapter covers the three pillars of that validation.</p>
+<section id="diagnostics-and-sensitivity-analysis">
+<h2>Diagnostics and Sensitivity Analysis<a class="headerlink" href="#diagnostics-and-sensitivity-analysis" title="Link to this heading">#</a></h2>
+<p><strong><a class="reference internal" href="4_1_diagnostics.html"><span class="doc">Diagnostics and Sensitivity Analysis</span></a></strong> — Balance diagnostics (standardised mean differences, overlap and Love plots) confirm that measured confounders are balanced after adjustment, and placebo/falsification tests probe for residual bias. Sensitivity tools — E-values, Rosenbaum bounds, partial <span class="math notranslate nohighlight">\(R^2\)</span> (omitted-variable bias), and Manski bounds — quantify how strong unmeasured confounding would need to be to overturn the conclusion.</p>
 </section>
-<section id="balance-diagnostics">
-<h2>Balance Diagnostics<a class="headerlink" href="#balance-diagnostics" title="Link to this heading">#</a></h2>
-<p>Before performing sensitivity analysis for unmeasured confounding, it is essential to verify that <strong>measured confounders are adequately balanced</strong> after adjustment. Balance diagnostics assess whether the adjustment method (matching, weighting, regression) has successfully eliminated observed confounding (<a class="reference external" href="https://doi.org/10.1080/00273171.2011.568786">Austin, 2011</a>).</p>
-<div class="proof definition admonition" id="smd">
-<p class="admonition-title"><span class="caption-number">Definition 19 </span> (Standardised Mean Difference (SMD))</p>
-<section class="definition-content" id="proof-content">
-<p>The <strong>standardised mean difference</strong> for a covariate <span class="math notranslate nohighlight">\(X_j\)</span> between treated and control groups is:</p>
-<div class="math notranslate nohighlight">
-\[
-\text{SMD}_j = \frac{\bar{X}_{j,1} - \bar{X}_{j,0}}{\sqrt{(s_{j,1}^2 + s_{j,0}^2) / 2}}
-\]</div>
-<p>where <span class="math notranslate nohighlight">\(\bar{X}_{j,t}\)</span> and <span class="math notranslate nohighlight">\(s_{j,t}^2\)</span> are the (weighted) mean and variance of <span class="math notranslate nohighlight">\(X_j\)</span> in treatment group <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<section id="biases-and-de-biasing">
+<h2>Biases and De-biasing<a class="headerlink" href="#biases-and-de-biasing" title="Link to this heading">#</a></h2>
+<p><strong><a class="reference internal" href="4_2_debias.html"><span class="doc">Biases, De-biasing, and Fairness</span></a></strong> — A practical guide that maps each assumption violation to the bias it produces (confounding, selection, collider bias, positivity violations, interference) and to the de-biasing strategy that addresses it (adjust, reweight, restrict, restructure).</p>
 </section>
-</div><p>A common threshold is <span class="math notranslate nohighlight">\(|\text{SMD}| &lt; 0.1\)</span> for adequate balance. For propensity-score-based methods, compare SMDs before and after weighting/matching across all covariates. Poor balance signals residual confounding that undermines the analysis.</p>
-<p>Additional diagnostics include:</p>
-<ul class="simple">
-<li><p><strong>Propensity score overlap plots:</strong> Histograms or density plots of <span class="math notranslate nohighlight">\(\hat{\pi}(x)\)</span> by treatment group.</p></li>
-<li><p><strong>Variance ratios:</strong> The ratio of covariate variances between groups (target: close to 1).</p></li>
-<li><p><strong>Love plots:</strong> Visual display of SMDs for all covariates, before and after adjustment.</p></li>
-</ul>
+<section id="fairness">
+<h2>Fairness<a class="headerlink" href="#fairness" title="Link to this heading">#</a></h2>
+<p><strong><a class="reference internal" href="4_3_fairness.html"><span class="doc">Discrimination and Fairness in Insurance</span></a></strong> — Beyond statistical bias, insurance models must not discriminate against protected groups. Covers proxy discrimination, fairness definitions (unawareness, discrimination-free pricing, counterfactual fairness), group fairness diagnostics, and why fairness is ultimately a causal question — closing with the actuary’s end-to-end workflow.</p>
 </section>
-<section id="placebo-and-falsification-tests">
-<h2>Placebo and Falsification Tests<a class="headerlink" href="#placebo-and-falsification-tests" title="Link to this heading">#</a></h2>
-<div class="proof definition admonition" id="placebo-test">
-<p class="admonition-title"><span class="caption-number">Definition 20 </span> (Placebo Test)</p>
-<section class="definition-content" id="proof-content">
-<p>A <strong>placebo test</strong> (falsification test) applies the causal estimator to a setting where the true effect is known to be zero. If the estimator reports a non-zero effect, this signals bias (likely from unmeasured confounding or model misspecification).</p>
-</section>
-</div><p>Common designs:</p>
-<ul class="simple">
-<li><p><strong>Negative control outcome:</strong> Estimate the effect of <span class="math notranslate nohighlight">\(T\)</span> on an outcome <span class="math notranslate nohighlight">\(\tilde{Y}\)</span> that <span class="math notranslate nohighlight">\(T\)</span> cannot plausibly affect. A non-zero estimate implies residual confounding (<a class="reference external" href="https://doi.org/10.1097/EDE.0b013e3181d8d195">Lipsitch, Tchetgen &amp; Cohen, 2010</a>).</p></li>
-<li><p><strong>Negative control treatment:</strong> Estimate the effect of a “treatment” <span class="math notranslate nohighlight">\(\tilde{T}\)</span> that cannot plausibly affect <span class="math notranslate nohighlight">\(Y\)</span>. A non-zero estimate again signals confounding.</p></li>
-<li><p><strong>Pre-treatment outcome test:</strong> If pre-treatment outcome data exists, test whether the “treatment” predicts the outcome <em>before</em> it was administered. A significant effect indicates confounding.</p></li>
-</ul>
-<p>In insurance applications, a placebo test might assess whether a health intervention <span class="math notranslate nohighlight">\(T\)</span> “affects” a car insurance claim outcome — an effect here would indicate systematic differences between groups unrelated to the intervention.</p>
-</section>
-<section id="rosenbaum-bounds">
-<h2>Rosenbaum Bounds<a class="headerlink" href="#rosenbaum-bounds" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://doi.org/10.1007/978-1-4757-3692-2">Rosenbaum (2002)</a> developed a framework for bounding the effect of unmeasured confounding in matched observational studies.</p>
-<div class="proof definition admonition" id="rosenbaum-gamma">
-<p class="admonition-title"><span class="caption-number">Definition 21 </span> (Rosenbaum’s Sensitivity Parameter <span class="math notranslate nohighlight">\(\Gamma\)</span>)</p>
-<section class="definition-content" id="proof-content">
-<p>In a matched pair <span class="math notranslate nohighlight">\((i, j)\)</span> with similar observed covariates, the sensitivity parameter <span class="math notranslate nohighlight">\(\Gamma \geq 1\)</span> bounds the ratio of treatment assignment odds:</p>
-<div class="math notranslate nohighlight">
-\[
-\frac{1}{\Gamma} \leq \frac{P(T_i = 1 \mid X_i) / P(T_i = 0 \mid X_i)}{P(T_j = 1 \mid X_j) / P(T_j = 0 \mid X_j)} \leq \Gamma
-\]</div>
-<p>When <span class="math notranslate nohighlight">\(\Gamma = 1\)</span>, treatment assignment is random within matched pairs (no unmeasured confounding). As <span class="math notranslate nohighlight">\(\Gamma\)</span> increases, more confounding is allowed.</p>
-</section>
-</div><p>For each value of <span class="math notranslate nohighlight">\(\Gamma\)</span>, Rosenbaum’s method computes <strong>worst-case p-values</strong> and confidence intervals. The analysis reports the <strong>critical <span class="math notranslate nohighlight">\(\Gamma\)</span></strong> at which the effect would no longer be statistically significant — a larger critical <span class="math notranslate nohighlight">\(\Gamma\)</span> indicates a more robust finding.</p>
-</section>
-<section id="e-values">
-<h2>E-Values<a class="headerlink" href="#e-values" title="Link to this heading">#</a></h2>
-<p>The <strong>E-value</strong> (<a class="reference external" href="https://doi.org/10.7326/M16-2607">VanderWeele &amp; Ding, 2017</a>) provides a simple, model-free summary of sensitivity to unmeasured confounding.</p>
-<div class="proof definition admonition" id="e-value">
-<p class="admonition-title"><span class="caption-number">Definition 22 </span> (E-Value)</p>
-<section class="definition-content" id="proof-content">
-<p>The <strong>E-value</strong> for an observed risk ratio <span class="math notranslate nohighlight">\(\text{RR}_{\text{obs}}\)</span> is:</p>
-<div class="math notranslate nohighlight">
-\[
-E = \text{RR}_{\text{obs}} + \sqrt{\text{RR}_{\text{obs}} \times (\text{RR}_{\text{obs}} - 1)}
-\]</div>
-<p>The E-value represents the <strong>minimum strength of association</strong> (on the risk ratio scale) that an unmeasured confounder <span class="math notranslate nohighlight">\(U\)</span> would need to have with <em>both</em> the treatment <span class="math notranslate nohighlight">\(T\)</span> and the outcome <span class="math notranslate nohighlight">\(Y\)</span>, conditional on measured covariates, to fully explain away the observed effect.</p>
-</section>
-</div><p>A large E-value means the observed association is robust: only a very strong unmeasured confounder could explain it away. A small E-value indicates vulnerability to even moderate unmeasured confounding.</p>
-<p>For treatment effects on continuous outcomes, analogous E-values can be computed by first converting the effect to an approximate risk ratio scale.</p>
-</section>
-<section id="partial-r-2-and-omitted-variable-bias">
-<h2>Partial <span class="math notranslate nohighlight">\(R^2\)</span> and Omitted Variable Bias<a class="headerlink" href="#partial-r-2-and-omitted-variable-bias" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://doi.org/10.1111/rssb.12348">Cinelli &amp; Hazlett (2020)</a> provide a regression-based sensitivity analysis framework using the <strong>partial <span class="math notranslate nohighlight">\(R^2\)</span></strong> — the proportion of residual variance explained by an omitted confounder.</p>
-<div class="proof definition admonition" id="partial-r2">
-<p class="admonition-title"><span class="caption-number">Definition 23 </span> (Partial <span class="math notranslate nohighlight">\(R^2\)</span> Sensitivity)</p>
-<section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(R^2_{Y \sim U \mid T, X}\)</span> denote the partial <span class="math notranslate nohighlight">\(R^2\)</span> of the omitted confounder <span class="math notranslate nohighlight">\(U\)</span> with the outcome <span class="math notranslate nohighlight">\(Y\)</span> (after adjusting for <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(X\)</span>), and <span class="math notranslate nohighlight">\(R^2_{T \sim U \mid X}\)</span> the partial <span class="math notranslate nohighlight">\(R^2\)</span> with the treatment <span class="math notranslate nohighlight">\(T\)</span>. The bias in the treatment effect estimate due to omitting <span class="math notranslate nohighlight">\(U\)</span> is bounded by:</p>
-<div class="math notranslate nohighlight">
-\[
-|\text{bias}| \leq \sqrt{R^2_{Y \sim U \mid T, X} \cdot R^2_{T \sim U \mid X}} \cdot \frac{\text{SD}(Y_{\text{res}})}{\text{SD}(T_{\text{res}})}
-\]</div>
-<p>where <span class="math notranslate nohighlight">\(Y_{\text{res}}\)</span> and <span class="math notranslate nohighlight">\(T_{\text{res}}\)</span> are residuals from regressions on <span class="math notranslate nohighlight">\(X\)</span>.</p>
-</section>
-</div><p>This framework is particularly intuitive because the required confounding strengths can be <strong>benchmarked against observed covariates</strong>: “the unmeasured confounder would need to be as strong as [observed covariate <span class="math notranslate nohighlight">\(X_j\)</span>] to reduce the effect to zero.”</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">sensemakr</span></code> R package implements this approach and produces <strong>contour plots</strong> showing how the estimated effect changes across a grid of <span class="math notranslate nohighlight">\((R^2_{Y \sim U \mid T, X}, R^2_{T \sim U \mid X})\)</span> values.</p>
-</section>
-<section id="bounds-on-treatment-effects">
-<h2>Bounds on Treatment Effects<a class="headerlink" href="#bounds-on-treatment-effects" title="Link to this heading">#</a></h2>
-<p>When parametric assumptions are undesirable, <strong>partial identification</strong> provides worst-case bounds on treatment effects under minimal assumptions.</p>
-<div class="proof definition admonition" id="manski-bounds">
-<p class="admonition-title"><span class="caption-number">Definition 24 </span> (Manski Bounds)</p>
-<section class="definition-content" id="proof-content">
-<p>Under no assumptions beyond bounded outcomes (<span class="math notranslate nohighlight">\(Y \in [y_{\min}, y_{\max}]\)</span>), the ATE is bounded by:</p>
-<div class="math notranslate nohighlight">
-\[
-\mathbb{E}[Y \mid T=1] - y_{\max} \cdot P(T=0) - \mathbb{E}[Y \mid T=0] \cdot P(T=0) \;\leq\; \tau \;\leq\; \mathbb{E}[Y \mid T=1] + y_{\max} \cdot P(T=0) - \mathbb{E}[Y \mid T=0]
-\]</div>
-<p>These bounds are <strong>sharp</strong> (cannot be tightened without additional assumptions) but often wide. Adding monotonicity or instrumental variable assumptions narrows them considerably.</p>
-</section>
-</div></section>
-<section id="recommended-sensitivity-analysis-workflow">
-<h2>Recommended Sensitivity Analysis Workflow<a class="headerlink" href="#recommended-sensitivity-analysis-workflow" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p><strong>Balance diagnostics:</strong> Verify covariate balance (SMDs, overlap plots) after adjustment.</p></li>
-<li><p><strong>Placebo/falsification tests:</strong> Check negative controls for residual bias.</p></li>
-<li><p><strong>E-values:</strong> Compute for the main estimate and the confidence interval bound closest to the null.</p></li>
-<li><p><strong>Partial <span class="math notranslate nohighlight">\(R^2\)</span> analysis:</strong> Benchmark against observed covariates using <code class="docutils literal notranslate"><span class="pre">sensemakr</span></code>.</p></li>
-<li><p><strong>Rosenbaum bounds</strong> (if using matching): Report the critical <span class="math notranslate nohighlight">\(\Gamma\)</span>.</p></li>
-<li><p><strong>Report transparently:</strong> Present the main estimate alongside sensitivity results. State explicitly how strong unmeasured confounding would need to be to alter conclusions.</p></li>
-</ol>
-</section>
+<div class="toctree-wrapper compound">
+</div>
 </section>
 
         <script type="text/x-thebe-config">
@@ -598,11 +494,11 @@ E = \text{RR}_{\text{obs}} + \sqrt{\text{RR}_{\text{obs}} \times (\text{RR}_{\te
       </div>
     </a>
     <a class="right-next"
-       href="../application/observational_data.html"
+       href="4_1_diagnostics.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Observational Data</p>
+        <p class="prev-next-title">Diagnostics and Sensitivity Analysis</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -622,14 +518,9 @@ E = \text{RR}_{\text{obs}} + \sqrt{\text{RR}_{\text{obs}} \times (\text{RR}_{\te
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-sensitivity-analysis">Why Sensitivity Analysis?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#balance-diagnostics">Balance Diagnostics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#placebo-and-falsification-tests">Placebo and Falsification Tests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rosenbaum-bounds">Rosenbaum Bounds</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#e-values">E-Values</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-r-2-and-omitted-variable-bias">Partial <span class="math notranslate nohighlight">\(R^2\)</span> and Omitted Variable Bias</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bounds-on-treatment-effects">Bounds on Treatment Effects</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-sensitivity-analysis-workflow">Recommended Sensitivity Analysis Workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostics-and-sensitivity-analysis">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#biases-and-de-biasing">Biases and De-biasing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fairness">Fairness</a></li>
 </ul>
   </nav></div>
 

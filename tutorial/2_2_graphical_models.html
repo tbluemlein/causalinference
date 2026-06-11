@@ -117,377 +117,12 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.2.0/dist/mermaid-layout-elk.esm.min.mjs"></script>
-    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.2.0/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
-    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
-    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
-
-const defaultStyle = document.createElement('style');
-defaultStyle.textContent = `pre.mermaid {
-    /* Same as .mermaid-container > pre */
-    display: block;
-    width: 100%;
-}
-
-pre.mermaid > svg {
-    /* Same as .mermaid-container > pre > svg */
-    height: 500px;
-    width: 100%;
-    max-width: 100% !important;
-}
-`;
-document.head.appendChild(defaultStyle);
-
-const fullscreenStyle = document.createElement('style');
-fullscreenStyle.textContent = `.mermaid-container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
-.mermaid-container > pre {
-    display: block;
-    width: 100%;
-}
-
-.mermaid-container > pre > svg {
-    height: 500px;
-    width: 100%;
-    max-width: 100% !important;
-}
-
-.mermaid-fullscreen-btn {
-    width: 28px;
-    height: 28px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    font-size: 14px;
-    line-height: 1;
-    padding: 0;
-    color: #333;
-}
-
-.mermaid-fullscreen-btn:hover {
-    opacity: 100% !important;
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    transform: scale(1.1);
-}
-
-.mermaid-fullscreen-btn.dark-theme {
-    background: rgba(50, 50, 50, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: #e0e0e0;
-}
-
-.mermaid-fullscreen-btn.dark-theme:hover {
-    background: rgba(60, 60, 60, 1);
-    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
-}
-
-.mermaid-fullscreen-modal {
-    display: none;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 95vw;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.98);
-    z-index: 9999;
-    padding: 20px;
-    overflow: auto;
-}
-
-.mermaid-fullscreen-modal.dark-theme {
-    background: rgba(0, 0, 0, 0.98);
-}
-
-.mermaid-fullscreen-modal.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mermaid-container-fullscreen {
-    position: relative;
-    width: 95vw;
-    height: 90vh;
-    max-width: 95vw;
-    max-height: 90vh;
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    overflow: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mermaid-container-fullscreen.dark-theme {
-    background: #1a1a1a;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-}
-
-.mermaid-container-fullscreen pre.mermaid {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mermaid-container-fullscreen .mermaid svg {
-    height: 100% !important;
-    width: 100% !important;
-    cursor: grab;
-}
-
-.mermaid-fullscreen-close {
-    position: fixed !important;
-    top: 20px !important;
-    right: 20px !important;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    transition: all 0.2s;
-    font-size: 24px;
-    line-height: 1;
-    color: #333;
-}
-
-.mermaid-fullscreen-close:hover {
-    background: white;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-    transform: scale(1.1);
-}
-
-.mermaid-fullscreen-close.dark-theme {
-    background: rgba(50, 50, 50, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #e0e0e0;
-}
-
-.mermaid-fullscreen-close.dark-theme:hover {
-    background: rgba(60, 60, 60, 1);
-    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
-}
-
-.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
-    display: none !important;
-}`;
-document.head.appendChild(fullscreenStyle);
-
-// Detect if page has dark background
-const isDarkTheme = () => {
-    const bgColor = window.getComputedStyle(document.body).backgroundColor;
-    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
-    if (match) {
-        const r = parseInt(match[1]);
-        const g = parseInt(match[2]);
-        const b = parseInt(match[3]);
-        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-        return brightness < 128;
-    }
-    return false;
-};
-
-const load = async () => {
-    await mermaid.run();
-
-    const all_mermaids = document.querySelectorAll(".mermaid");
-    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
-
-    if ("False" === "True") {
-        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
-        if(mermaids_to_add_zoom > 0) {
-            var svgs = d3.selectAll("");
-            if(all_mermaids.length !== mermaids_processed.length) {
-                setTimeout(load, 200);
-                return;
-            } else if(svgs.size() !== mermaids_to_add_zoom) {
-                setTimeout(load, 200);
-                return;
-            } else {
-                svgs.each(function() {
-                    var svg = d3.select(this);
-                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
-                    var inner = svg.select("g");
-                    var zoom = d3.zoom().on("zoom", function(event) {
-                        inner.attr("transform", event.transform);
-                    });
-                    svg.call(zoom);
-                });
-            }
-        }
-    } else if(all_mermaids.length !== mermaids_processed.length) {
-        // Wait for mermaid to process all diagrams
-        setTimeout(load, 200);
-        return;
-    }
-
-    const darkTheme = isDarkTheme();
-
-    // Stop here if not adding fullscreen capability
-    if ("True" !== "True") return;
-
-    const modal = document.createElement('div');
-    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
-    modal.setAttribute('role', 'dialog');
-    modal.setAttribute('aria-modal', 'true');
-    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
-    modal.innerHTML = `
-        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
-        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
-    `;
-    document.body.appendChild(modal);
-
-    const modalContent = modal.querySelector('.mermaid-container-fullscreen');
-    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
-
-    let previousScrollOffset = [window.scrollX, window.scrollY];
-
-    const closeModal = () => {
-        modal.classList.remove('active');
-        modalContent.innerHTML = '';
-        document.body.style.overflow = ''
-        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
-    };
-
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
-        }
-    });
-
-    const allButtons = [];
-
-    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
-        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
-            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
-            return;
-        }
-
-        const container = document.createElement('div');
-        container.className = 'mermaid-container';
-        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
-        container.appendChild(mermaidDiv);
-
-        const fullscreenBtn = document.createElement('button');
-        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
-        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
-        fullscreenBtn.textContent = '⛶';
-        fullscreenBtn.style.opacity = '50%';
-
-        // Calculate dynamic position based on diagram's margin and padding
-        const diagramStyle = window.getComputedStyle(mermaidDiv);
-        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
-        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
-        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
-        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
-        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
-        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
-
-        fullscreenBtn.addEventListener('click', () => {
-            previousScrollOffset = [window.scroll, window.scrollY];
-            const clone = mermaidDiv.cloneNode(true);
-            modalContent.innerHTML = '';
-            modalContent.appendChild(clone);
-
-            const svg = clone.querySelector('svg');
-            if (svg) {
-                svg.removeAttribute('width');
-                svg.removeAttribute('height');
-                svg.style.width = '100%';
-                svg.style.height = 'auto';
-                svg.style.maxWidth = '100%';
-                svg.style.sdisplay = 'block';
-
-                if ("False" === "True") {
-                    setTimeout(() => {
-                        const g = svg.querySelector('g');
-                        if (g) {
-                            var svgD3 = d3.select(svg);
-                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
-                            var inner = svgD3.select("g");
-                            var zoom = d3.zoom().on("zoom", function(event) {
-                                inner.attr("transform", event.transform);
-                            });
-                            svgD3.call(zoom);
-                        }
-                    }, 100);
-                }
-            }
-
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-
-        container.appendChild(fullscreenBtn);
-        allButtons.push(fullscreenBtn);
-    });
-
-    // Update theme classes when theme changes
-    const updateTheme = () => {
-        const dark = isDarkTheme();
-        allButtons.forEach(btn => {
-            if (dark) {
-                btn.classList.add('dark-theme');
-            } else {
-                btn.classList.remove('dark-theme');
-            }
-        });
-        if (dark) {
-            modal.classList.add('dark-theme');
-            modalContent.classList.add('dark-theme');
-            closeBtn.classList.add('dark-theme');
-        } else {
-            modal.classList.remove('dark-theme');
-            modalContent.classList.remove('dark-theme');
-            closeBtn.classList.remove('dark-theme');
-        }
-    };
-
-    // Watch for theme changes
-    const observer = new MutationObserver(updateTheme);
-    observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class', 'style', 'data-theme']
-    });
-    observer.observe(document.body, {
-        attributes: true,
-        attributeFilter: ['class', 'style']
-    });
-};
-
-window.addEventListener("load", load);
-</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/2_2_graphical_models';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../_static/figure-theme.js?v=a9394cc5"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Biases, De-biasing, and Fairness" href="2_3_debias.html" />
+    <link rel="next" title="Identification Strategies" href="2_3_methods.html" />
     <link rel="prev" title="Assumptions" href="2_1_assumptions.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -612,7 +247,7 @@ window.addEventListener("load", load);
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="2_identification.html">Identification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="2_1_assumptions.html">Assumptions</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Graphical Causal Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2_3_debias.html">Biases, De-biasing, and Fairness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_methods.html">Identification Strategies</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="3_inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -622,13 +257,18 @@ window.addEventListener("load", load);
 <li class="toctree-l2"><a class="reference internal" href="3_5_bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="4_sensitivity.html">Sensitivity Analysis</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="4_sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="4_1_diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_2_debias.html">Biases, De-biasing, and Fairness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_3_fairness.html">Discrimination and Fairness in Insurance</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Actuarial Applications</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../application/observational_data.html">Observational Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../application/fairness.html">Fairness in Insurance Pricing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../application/traffic_study.html">Traffic Case Study</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application/pricing.html">Fairness in Insurance Pricing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application/claims_triage.html">Claims Triaging using CATE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../application/health_interventions.html">Synthetic Health Dataset for Causal Inference Tutorial</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
@@ -798,17 +438,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-d-separation-in-practice">Example: <span class="math notranslate nohighlight">\(d\)</span>-Separation in Practice</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-to-identify-the-correct-adjustment-set">Methods to Identify the Correct Adjustment Set</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backdoor-criterion">Backdoor Criterion</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frontdoor-criterion">Frontdoor Criterion</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-of-criteria">Comparison of Criteria</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#causal-discovery">Causal Discovery</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-equivalence">Markov Equivalence</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sgs-algorithm">The SGS Algorithm</a></li>
-</ul>
-</li>
 </ul>
             </nav>
         </div>
@@ -826,7 +455,7 @@ document.write(`
 <section id="causal-diagrams">
 <h2>Causal Diagrams<a class="headerlink" href="#causal-diagrams" title="Link to this heading">#</a></h2>
 <p>A causal diagram is a graph where <strong>nodes</strong> represent random variables and <strong>directed edges</strong> (<span class="math notranslate nohighlight">\(\rightarrow\)</span>) represent direct causal effects. The absence of an edge encodes the assumption that there is <em>no</em> direct causal effect between two variables.</p>
-<div class="proof definition admonition" id="dag">
+<div class="proof definition dropdown admonition" id="dag">
 <p class="admonition-title"><span class="caption-number">Definition 1 </span> (Directed Acyclic Graph (DAG))</p>
 <section class="definition-content" id="proof-content">
 <p>A <strong>directed acyclic graph</strong> <span class="math notranslate nohighlight">\(\mathcal{G} = (V, E)\)</span> consists of:</p>
@@ -839,7 +468,7 @@ document.write(`
 </div><p>The acyclicity constraint reflects the assumption that causes precede their effects — no variable can be its own cause through any chain of intermediate variables (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, §21.1</a>).</p>
 <section id="graph-terminology">
 <h3>Graph Terminology<a class="headerlink" href="#graph-terminology" title="Link to this heading">#</a></h3>
-<div class="proof definition admonition" id="graph-family">
+<div class="proof definition dropdown admonition" id="graph-family">
 <p class="admonition-title"><span class="caption-number">Definition 2 </span> (Parents, Children, Ancestors, Descendants)</p>
 <section class="definition-content" id="proof-content">
 <p>Given a DAG <span class="math notranslate nohighlight">\(\mathcal{G} = (V, E)\)</span> and a node <span class="math notranslate nohighlight">\(X \in V\)</span>:</p>
@@ -850,13 +479,14 @@ document.write(`
 <li><p><strong>Descendants</strong> of <span class="math notranslate nohighlight">\(X\)</span>: all nodes <span class="math notranslate nohighlight">\(Z\)</span> such that there exists a directed path <span class="math notranslate nohighlight">\(X \rightarrow \cdots \rightarrow Z\)</span></p></li>
 </ul>
 </section>
-</div><pre  class="mermaid">
-        graph LR
-    Z[&quot;Z (Parent)&quot;] --&gt; X
-    X --&gt; W[&quot;W (Child)&quot;]
-    W --&gt; Y[&quot;Y (Descendant of X)&quot;]
-    style X fill:#4a90d9,color:#fff
-    </pre><p>A <strong>path</strong> between two nodes is any sequence of edges connecting them, regardless of direction. A <strong>directed path</strong> follows the arrow directions. A <strong>causal path</strong> from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> is a directed path <span class="math notranslate nohighlight">\(T \rightarrow \cdots \rightarrow Y\)</span>.</p>
+</div><figure class="align-default" id="fig-graph-family">
+<a class="reference internal image-reference" href="../_images/graph_family.svg"><img alt="../_images/graph_family.svg" src="../_images/graph_family.svg" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Graph terminology: relative to the node of interest <span class="math notranslate nohighlight">\(X\)</span>, the node <span class="math notranslate nohighlight">\(Z\)</span> is a parent, <span class="math notranslate nohighlight">\(W\)</span> a child, and <span class="math notranslate nohighlight">\(Y\)</span> a descendant.</span><a class="headerlink" href="#fig-graph-family" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>A <strong>path</strong> between two nodes is any sequence of edges connecting them, regardless of direction. A <strong>directed path</strong> follows the arrow directions. A <strong>causal path</strong> from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> is a directed path <span class="math notranslate nohighlight">\(T \rightarrow \cdots \rightarrow Y\)</span>.</p>
 </section>
 </section>
 <section id="three-fundamental-path-structures">
@@ -864,16 +494,19 @@ document.write(`
 <p>Every path through three variables takes one of exactly three forms. Understanding these structures is the key to reasoning about confounding and adjustment (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, §21.2</a>).</p>
 <section id="chains-mediation">
 <h3>Chains (Mediation)<a class="headerlink" href="#chains-mediation" title="Link to this heading">#</a></h3>
-<div class="proof definition admonition" id="chain">
+<div class="proof definition dropdown admonition" id="chain">
 <p class="admonition-title"><span class="caption-number">Definition 3 </span> (Chain (Mediator))</p>
 <section class="definition-content" id="proof-content">
 <p>A <strong>chain</strong> is a path of the form <span class="math notranslate nohighlight">\(X \rightarrow M \rightarrow Y\)</span>. The variable <span class="math notranslate nohighlight">\(M\)</span> is called a <strong>mediator</strong> — it transmits the causal effect of <span class="math notranslate nohighlight">\(X\)</span> on <span class="math notranslate nohighlight">\(Y\)</span>.</p>
 </section>
-</div><pre  class="mermaid">
-        graph LR
-    X[&quot;X (Cause)&quot;] --&gt; M[&quot;M (Mediator)&quot;] --&gt; Y[&quot;Y (Effect)&quot;]
-    style M fill:#f5a623,color:#fff
-    </pre><p>In a chain, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <strong>marginally dependent</strong> (information flows through <span class="math notranslate nohighlight">\(M\)</span>), but <strong>conditionally independent given <span class="math notranslate nohighlight">\(M\)</span></strong>: once we know <span class="math notranslate nohighlight">\(M\)</span>, learning <span class="math notranslate nohighlight">\(X\)</span> provides no additional information about <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+</div><figure class="align-default" id="fig-chain">
+<a class="reference internal image-reference" href="../_images/chain.svg"><img alt="../_images/chain.svg" src="../_images/chain.svg" style="width: 70%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">A chain: the mediator <span class="math notranslate nohighlight">\(M\)</span> transmits the causal effect of the cause <span class="math notranslate nohighlight">\(X\)</span> on the effect <span class="math notranslate nohighlight">\(Y\)</span>.</span><a class="headerlink" href="#fig-chain" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In a chain, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <strong>marginally dependent</strong> (information flows through <span class="math notranslate nohighlight">\(M\)</span>), but <strong>conditionally independent given <span class="math notranslate nohighlight">\(M\)</span></strong>: once we know <span class="math notranslate nohighlight">\(M\)</span>, learning <span class="math notranslate nohighlight">\(X\)</span> provides no additional information about <span class="math notranslate nohighlight">\(Y\)</span>.</p>
 <div class="math notranslate nohighlight">
 \[
 X \perp\!\!\!\perp Y \mid M \quad \text{(in a chain)}
@@ -881,17 +514,19 @@ X \perp\!\!\!\perp Y \mid M \quad \text{(in a chain)}
 </section>
 <section id="forks-common-cause-confounding">
 <h3>Forks (Common Cause / Confounding)<a class="headerlink" href="#forks-common-cause-confounding" title="Link to this heading">#</a></h3>
-<div class="proof definition admonition" id="fork">
+<div class="proof definition dropdown admonition" id="fork">
 <p class="admonition-title"><span class="caption-number">Definition 4 </span> (Fork (Common Cause))</p>
 <section class="definition-content" id="proof-content">
 <p>A <strong>fork</strong> is a path of the form <span class="math notranslate nohighlight">\(X \leftarrow F \rightarrow Y\)</span>. The variable <span class="math notranslate nohighlight">\(F\)</span> is a <strong>common cause</strong> (confounder) of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
 </section>
-</div><pre  class="mermaid">
-        graph TD
-    F[&quot;F (Common Cause)&quot;] --&gt; X
-    F --&gt; Y
-    style F fill:#e74c3c,color:#fff
-    </pre><p>In a fork, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are marginally dependent (the common cause <span class="math notranslate nohighlight">\(F\)</span> induces a spurious association), but conditionally independent given <span class="math notranslate nohighlight">\(F\)</span>:</p>
+</div><figure class="align-default" id="fig-fork">
+<a class="reference internal image-reference" href="../_images/fork.svg"><img alt="../_images/fork.svg" src="../_images/fork.svg" style="width: 55%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">A fork: the common cause <span class="math notranslate nohighlight">\(F\)</span> induces a spurious association between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</span><a class="headerlink" href="#fig-fork" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In a fork, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are marginally dependent (the common cause <span class="math notranslate nohighlight">\(F\)</span> induces a spurious association), but conditionally independent given <span class="math notranslate nohighlight">\(F\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
 X \perp\!\!\!\perp Y \mid F \quad \text{(in a fork)}
@@ -900,17 +535,19 @@ X \perp\!\!\!\perp Y \mid F \quad \text{(in a fork)}
 </section>
 <section id="colliders-common-effect">
 <h3>Colliders (Common Effect)<a class="headerlink" href="#colliders-common-effect" title="Link to this heading">#</a></h3>
-<div class="proof definition admonition" id="collider">
+<div class="proof definition dropdown admonition" id="collider">
 <p class="admonition-title"><span class="caption-number">Definition 5 </span> (Collider)</p>
 <section class="definition-content" id="proof-content">
 <p>A <strong>collider</strong> on a path is a node <span class="math notranslate nohighlight">\(C\)</span> where two arrowheads meet: <span class="math notranslate nohighlight">\(X \rightarrow C \leftarrow Y\)</span>. The variable <span class="math notranslate nohighlight">\(C\)</span> is a <strong>common effect</strong> of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
 </section>
-</div><pre  class="mermaid">
-        graph TD
-    X --&gt; C[&quot;C (Collider)&quot;]
-    Y --&gt; C
-    style C fill:#9b59b6,color:#fff
-    </pre><p>Colliders behave <strong>opposite</strong> to chains and forks. In a collider structure, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <strong>marginally independent</strong> — there is no open path connecting them. However, <strong>conditioning on the collider <span class="math notranslate nohighlight">\(C\)</span> (or any descendant of <span class="math notranslate nohighlight">\(C\)</span>) opens the path</strong> and induces a spurious association:</p>
+</div><figure class="align-default" id="fig-collider">
+<a class="reference internal image-reference" href="../_images/collider.svg"><img alt="../_images/collider.svg" src="../_images/collider.svg" style="width: 55%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">A collider: <span class="math notranslate nohighlight">\(C\)</span> is a common effect of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. Conditioning on <span class="math notranslate nohighlight">\(C\)</span> opens a spurious path between them.</span><a class="headerlink" href="#fig-collider" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Colliders behave <strong>opposite</strong> to chains and forks. In a collider structure, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <strong>marginally independent</strong> — there is no open path connecting them. However, <strong>conditioning on the collider <span class="math notranslate nohighlight">\(C\)</span> (or any descendant of <span class="math notranslate nohighlight">\(C\)</span>) opens the path</strong> and induces a spurious association:</p>
 <div class="math notranslate nohighlight">
 \[
 X \perp\!\!\!\perp Y \quad \text{but} \quad X \not\!\perp\!\!\!\perp Y \mid C \quad \text{(collider)}
@@ -951,7 +588,7 @@ X \perp\!\!\!\perp Y \quad \text{but} \quad X \not\!\perp\!\!\!\perp Y \mid C \q
 <section id="d-separation">
 <h2><span class="math notranslate nohighlight">\(d\)</span>-Separation<a class="headerlink" href="#d-separation" title="Link to this heading">#</a></h2>
 <p>The three path structures above give rise to a general graphical criterion for reading off conditional independencies from a DAG.</p>
-<div class="proof definition admonition" id="blocked-path">
+<div class="proof definition dropdown admonition" id="blocked-path">
 <p class="admonition-title"><span class="caption-number">Definition 6 </span> (Blocked Path)</p>
 <section class="definition-content" id="proof-content">
 <p>A path <span class="math notranslate nohighlight">\(p\)</span> between nodes <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> in a DAG is <strong>blocked</strong> by a set of nodes <span class="math notranslate nohighlight">\(Z\)</span> if and only if <span class="math notranslate nohighlight">\(p\)</span> contains a node <span class="math notranslate nohighlight">\(W\)</span> such that either:</p>
@@ -960,7 +597,7 @@ X \perp\!\!\!\perp Y \quad \text{but} \quad X \not\!\perp\!\!\!\perp Y \mid C \q
 <li><p><span class="math notranslate nohighlight">\(W\)</span> is a <strong>collider</strong> on <span class="math notranslate nohighlight">\(p\)</span> <strong>and</strong> neither <span class="math notranslate nohighlight">\(W\)</span> nor any descendant of <span class="math notranslate nohighlight">\(W\)</span> is in <span class="math notranslate nohighlight">\(Z\)</span>.</p></li>
 </ol>
 </section>
-</div><div class="proof definition admonition" id="d-separation">
+</div><div class="proof definition dropdown admonition" id="d-separation">
 <p class="admonition-title"><span class="caption-number">Definition 7 </span> (<span class="math notranslate nohighlight">\(d\)</span>-Separation)</p>
 <section class="definition-content" id="proof-content">
 <p>Two nodes <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <strong><span class="math notranslate nohighlight">\(d\)</span>-separated</strong> by a set <span class="math notranslate nohighlight">\(Z\)</span> in a DAG <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>, written <span class="math notranslate nohighlight">\(X \perp_{\mathcal{G}} Y \mid Z\)</span>, if <strong>every</strong> path between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> is blocked by <span class="math notranslate nohighlight">\(Z\)</span>.</p>
@@ -970,7 +607,7 @@ X \perp\!\!\!\perp Y \quad \text{but} \quad X \not\!\perp\!\!\!\perp Y \mid C \q
 <section id="conditional-independence">
 <h3>Conditional Independence<a class="headerlink" href="#conditional-independence" title="Link to this heading">#</a></h3>
 <p>The connection between the graphical criterion (<span class="math notranslate nohighlight">\(d\)</span>-separation) and the probabilistic property (conditional independence) is formalised by two properties.</p>
-<div class="proof property admonition" id="causal-markov">
+<div class="proof property dropdown admonition" id="causal-markov">
 <p class="admonition-title"><span class="caption-number">Property 1 </span> (Causal Markov Condition)</p>
 <section class="property-content" id="proof-content">
 <p>If a DAG <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> is a causal model for a distribution <span class="math notranslate nohighlight">\(P\)</span>, then every variable <span class="math notranslate nohighlight">\(X\)</span> is conditionally independent of its non-descendants given its parents:</p>
@@ -981,7 +618,7 @@ X \perp\!\!\!\perp \text{NonDesc}(X) \mid \text{Pa}(X)
 <p>Equivalently: if <span class="math notranslate nohighlight">\(X \perp_{\mathcal{G}} Y \mid Z\)</span> (<span class="math notranslate nohighlight">\(d\)</span>-separation), then <span class="math notranslate nohighlight">\(X \perp\!\!\!\perp Y \mid Z\)</span> (conditional independence in <span class="math notranslate nohighlight">\(P\)</span>).</p>
 </section>
 </div><p>The Causal Markov Condition ensures that <span class="math notranslate nohighlight">\(d\)</span>-separation implies conditional independence. The converse — that every conditional independence in the data corresponds to a <span class="math notranslate nohighlight">\(d\)</span>-separation in the graph — requires an additional assumption.</p>
-<div class="proof assumption admonition" id="faithfulness">
+<div class="proof assumption dropdown admonition" id="faithfulness">
 <p class="admonition-title"><span class="caption-number">Assumption 5 </span> (Faithfulness)</p>
 <section class="assumption-content" id="proof-content">
 <p>A distribution <span class="math notranslate nohighlight">\(P\)</span> is <strong>faithful</strong> to a DAG <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> if the <em>only</em> conditional independencies in <span class="math notranslate nohighlight">\(P\)</span> are those entailed by <span class="math notranslate nohighlight">\(d\)</span>-separation in <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>.</p>
@@ -992,231 +629,26 @@ X \perp\!\!\!\perp \text{NonDesc}(X) \mid \text{Pa}(X)
 <section id="example-d-separation-in-practice">
 <h3>Example: <span class="math notranslate nohighlight">\(d\)</span>-Separation in Practice<a class="headerlink" href="#example-d-separation-in-practice" title="Link to this heading">#</a></h3>
 <p>Consider the following DAG:</p>
-<pre  class="mermaid">
-        graph LR
-    F[&quot;F (Confounder)&quot;] --&gt; T
-    F --&gt; Y
-    T --&gt; M --&gt; Y
-    T --&gt; C[&quot;C (Collider)&quot;]
-    Y --&gt; C
-    style F fill:#e74c3c,color:#fff
-    style C fill:#9b59b6,color:#fff
-    style M fill:#f5a623,color:#fff
-    </pre><ul class="simple">
+<figure class="align-default" id="fig-dsep-example">
+<a class="reference internal image-reference" href="../_images/dsep_example.svg"><img alt="../_images/dsep_example.svg" src="../_images/dsep_example.svg" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">A DAG combining all three path structures: a fork through the confounder <span class="math notranslate nohighlight">\(F\)</span>, a chain through the mediator <span class="math notranslate nohighlight">\(M\)</span>, and a collider <span class="math notranslate nohighlight">\(C\)</span> that is a common effect of <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</span><a class="headerlink" href="#fig-dsep-example" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="proof example dropdown admonition" id="dsep-example">
+<p class="admonition-title"><span class="caption-number">Example 1 </span> (<span class="math notranslate nohighlight">\(d\)</span>-Separation in Practice)</p>
+<section class="example-content" id="proof-content">
+<ul class="simple">
 <li><p><strong><span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(\emptyset\)</span></strong>: The path <span class="math notranslate nohighlight">\(T \leftarrow F \rightarrow Y\)</span> is open (fork, <span class="math notranslate nohighlight">\(F\)</span> not conditioned on). <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <span class="math notranslate nohighlight">\(d\)</span>-connected — <strong>not</strong> independent.</p></li>
 <li><p><strong><span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(F\)</span></strong>: The backdoor path <span class="math notranslate nohighlight">\(T \leftarrow F \rightarrow Y\)</span> is now blocked. The directed path <span class="math notranslate nohighlight">\(T \rightarrow M \rightarrow Y\)</span> remains open (chain, <span class="math notranslate nohighlight">\(M\)</span> not conditioned on). <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <span class="math notranslate nohighlight">\(d\)</span>-connected given <span class="math notranslate nohighlight">\(F\)</span> — but now the remaining open paths are <em>causal</em>.</p></li>
 <li><p><strong><span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(\{F, C\}\)</span></strong>: Conditioning on the collider <span class="math notranslate nohighlight">\(C\)</span> <strong>opens</strong> the path <span class="math notranslate nohighlight">\(T \rightarrow C \leftarrow Y\)</span>, creating collider bias. This is an <strong>incorrect</strong> adjustment set.</p></li>
 </ul>
 </section>
+</div><blockquote>
+<div><p>TODO: more examples</p>
+</div></blockquote>
 </section>
-<section id="methods-to-identify-the-correct-adjustment-set">
-<h2>Methods to Identify the Correct Adjustment Set<a class="headerlink" href="#methods-to-identify-the-correct-adjustment-set" title="Link to this heading">#</a></h2>
-<p>The central question in observational causal inference is: <em>which variables should we condition on to identify the causal effect of <span class="math notranslate nohighlight">\(T\)</span> on <span class="math notranslate nohighlight">\(Y\)</span>?</em> The following criteria provide graphical answers (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, §21.3–21.4</a>).</p>
-<section id="backdoor-criterion">
-<h3>Backdoor Criterion<a class="headerlink" href="#backdoor-criterion" title="Link to this heading">#</a></h3>
-<div class="proof criterion admonition" id="backdoor-criterion">
-<p class="admonition-title"><span class="caption-number">Criterion 1 </span> (Backdoor Criterion)</p>
-<section class="criterion-content" id="proof-content">
-<p>A set of variables <span class="math notranslate nohighlight">\(Z\)</span> satisfies the <strong>backdoor criterion</strong> relative to the ordered pair <span class="math notranslate nohighlight">\((T, Y)\)</span> in a DAG <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> if:</p>
-<ol class="arabic simple">
-<li><p>No node in <span class="math notranslate nohighlight">\(Z\)</span> is a <strong>descendant</strong> of <span class="math notranslate nohighlight">\(T\)</span>, and</p></li>
-<li><p><span class="math notranslate nohighlight">\(Z\)</span> <strong>blocks every path</strong> between <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> that contains an arrow <em>into</em> <span class="math notranslate nohighlight">\(T\)</span> (i.e. every “backdoor path”).</p></li>
-</ol>
-<p>If <span class="math notranslate nohighlight">\(Z\)</span> satisfies the backdoor criterion, then the causal effect of <span class="math notranslate nohighlight">\(T\)</span> on <span class="math notranslate nohighlight">\(Y\)</span> is identifiable and given by the <strong>adjustment formula</strong>:</p>
-<div class="math notranslate nohighlight">
-\[
-P(Y \mid \text{do}(T=t)) = \sum_{z} P(Y \mid T=t, Z=z) \, P(Z=z)
-\]</div>
-</section>
-</div><p>The adjustment formula converts the interventional distribution <span class="math notranslate nohighlight">\(P(Y \mid \text{do}(T=t))\)</span> into a quantity computable from observational data. This is precisely the bridge between causal and statistical estimands discussed in <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a> (<a class="reference external" href="https://doi.org/10.1093/biomet/70.1.41">Rosenbaum &amp; Rubin, 1983</a>).</p>
-<div class="proof algorithm admonition" id="backdoor-algorithm">
-<p class="admonition-title"><span class="caption-number">Algorithm 1 </span> (Backdoor Criterion Check)</p>
-<section class="algorithm-content" id="proof-content">
-<p><strong>Input:</strong> DAG <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>, treatment <span class="math notranslate nohighlight">\(T\)</span>, outcome <span class="math notranslate nohighlight">\(Y\)</span>, candidate adjustment set <span class="math notranslate nohighlight">\(Z\)</span></p>
-<p><strong>Output:</strong> <code class="docutils literal notranslate"><span class="pre">True</span></code> if <span class="math notranslate nohighlight">\(Z\)</span> satisfies the backdoor criterion, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise</p>
-<ol class="arabic simple">
-<li><p><strong>Check descendant condition:</strong> For each <span class="math notranslate nohighlight">\(z_i \in Z\)</span>:</p>
-<ol class="arabic simple">
-<li><p>If <span class="math notranslate nohighlight">\(z_i \in \text{Descendants}(T)\)</span> in <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>, return <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
-</ol>
-</li>
-<li><p><strong>Enumerate backdoor paths:</strong> Find all paths between <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> that have an arrow into <span class="math notranslate nohighlight">\(T\)</span> (i.e. paths of the form <span class="math notranslate nohighlight">\(T \leftarrow \cdots\, Y\)</span> or <span class="math notranslate nohighlight">\(T \leftarrow \cdots \rightarrow Y\)</span>)</p></li>
-<li><p><strong>Check blocking:</strong> For each backdoor path <span class="math notranslate nohighlight">\(p\)</span>:</p>
-<ol class="arabic simple">
-<li><p>If <span class="math notranslate nohighlight">\(p\)</span> is not blocked by <span class="math notranslate nohighlight">\(Z\)</span> (applying the <span class="math notranslate nohighlight">\(d\)</span>-separation rules from <a class="reference internal" href="#blocked-path">Definition 6</a>), return <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
-</ol>
-</li>
-<li><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
-</ol>
-</section>
-</div><div class="proof example admonition" id="backdoor-example">
-<p class="admonition-title"><span class="caption-number">Example 1 </span> (Applying the Backdoor Criterion)</p>
-<section class="example-content" id="proof-content">
-<p>Consider the DAG:</p>
-<p><span class="math notranslate nohighlight">\(F \rightarrow T, \quad F \rightarrow Y, \quad T \rightarrow Y\)</span></p>
-<ul class="simple">
-<li><p><strong>Candidate <span class="math notranslate nohighlight">\(Z = \{F\}\)</span></strong>: <span class="math notranslate nohighlight">\(F\)</span> is not a descendant of <span class="math notranslate nohighlight">\(T\)</span> ✓. The only backdoor path is <span class="math notranslate nohighlight">\(T \leftarrow F \rightarrow Y\)</span>, which is blocked by conditioning on <span class="math notranslate nohighlight">\(F\)</span> ✓. The backdoor criterion is satisfied.</p></li>
-<li><p><strong>Candidate <span class="math notranslate nohighlight">\(Z = \emptyset\)</span></strong>: The backdoor path <span class="math notranslate nohighlight">\(T \leftarrow F \rightarrow Y\)</span> is not blocked ✗. The criterion fails.</p></li>
-</ul>
-</section>
-</div></section>
-<section id="frontdoor-criterion">
-<h3>Frontdoor Criterion<a class="headerlink" href="#frontdoor-criterion" title="Link to this heading">#</a></h3>
-<p>When all backdoor paths are blocked by <strong>unobserved</strong> confounders, the backdoor criterion cannot be applied. The frontdoor criterion provides an alternative identification strategy through an observed mediator (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, §21.4</a>).</p>
-<div class="proof criterion admonition" id="frontdoor-criterion">
-<p class="admonition-title"><span class="caption-number">Criterion 2 </span> (Frontdoor Criterion)</p>
-<section class="criterion-content" id="proof-content">
-<p>A set of variables <span class="math notranslate nohighlight">\(M\)</span> satisfies the <strong>frontdoor criterion</strong> relative to <span class="math notranslate nohighlight">\((T, Y)\)</span> in a DAG <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> if:</p>
-<ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\(M\)</span> <strong>intercepts all directed paths</strong> from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> (i.e. every causal path from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> passes through some <span class="math notranslate nohighlight">\(m \in M\)</span>),</p></li>
-<li><p>There is <strong>no unblocked backdoor path</strong> from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(M\)</span>, and</p></li>
-<li><p>All backdoor paths from <span class="math notranslate nohighlight">\(M\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> are <strong>blocked by <span class="math notranslate nohighlight">\(T\)</span></strong>.</p></li>
-</ol>
-<p>If <span class="math notranslate nohighlight">\(M\)</span> satisfies the frontdoor criterion, the causal effect is identified by:</p>
-<div class="math notranslate nohighlight">
-\[
-P(Y \mid \text{do}(T=t)) = \sum_{m} P(M=m \mid T=t) \sum_{t'} P(Y \mid T=t', M=m) \, P(T=t')
-\]</div>
-</section>
-</div><div class="proof algorithm admonition" id="frontdoor-algorithm">
-<p class="admonition-title"><span class="caption-number">Algorithm 2 </span> (Frontdoor Criterion Check)</p>
-<section class="algorithm-content" id="proof-content">
-<p><strong>Input:</strong> DAG <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>, treatment <span class="math notranslate nohighlight">\(T\)</span>, outcome <span class="math notranslate nohighlight">\(Y\)</span>, candidate mediator set <span class="math notranslate nohighlight">\(M\)</span></p>
-<p><strong>Output:</strong> <code class="docutils literal notranslate"><span class="pre">True</span></code> if <span class="math notranslate nohighlight">\(M\)</span> satisfies the frontdoor criterion, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise</p>
-<ol class="arabic simple">
-<li><p><strong>Check path interception:</strong> For each directed path <span class="math notranslate nohighlight">\(p\)</span> from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(Y\)</span>:</p>
-<ol class="arabic simple">
-<li><p>If <span class="math notranslate nohighlight">\(p\)</span> does not pass through any <span class="math notranslate nohighlight">\(m_i \in M\)</span>, return <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
-</ol>
-</li>
-<li><p><strong>Check no backdoor <span class="math notranslate nohighlight">\(T \to M\)</span>:</strong> For each <span class="math notranslate nohighlight">\(m_i \in M\)</span>:</p>
-<ol class="arabic simple">
-<li><p>If there exists an unblocked backdoor path from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(m_i\)</span> (not through <span class="math notranslate nohighlight">\(Y\)</span>), return <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
-</ol>
-</li>
-<li><p><strong>Check backdoor <span class="math notranslate nohighlight">\(M \to Y\)</span> blocked by <span class="math notranslate nohighlight">\(T\)</span>:</strong> For each <span class="math notranslate nohighlight">\(m_i \in M\)</span>:</p>
-<ol class="arabic simple">
-<li><p>If there exists a backdoor path from <span class="math notranslate nohighlight">\(m_i\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> that is not blocked by <span class="math notranslate nohighlight">\(\{T\}\)</span>, return <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
-</ol>
-</li>
-<li><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
-</ol>
-</section>
-</div><div class="proof example admonition" id="frontdoor-example">
-<p class="admonition-title"><span class="caption-number">Example 2 </span> (Frontdoor Criterion with Unobserved Confounding)</p>
-<section class="example-content" id="proof-content">
-<p>Consider the DAG where <span class="math notranslate nohighlight">\(U\)</span> is unobserved:</p>
-<p><span class="math notranslate nohighlight">\(U \rightarrow T, \quad U \rightarrow Y, \quad T \rightarrow M, \quad M \rightarrow Y\)</span></p>
-<ul class="simple">
-<li><p>The backdoor criterion <strong>fails</strong> because we cannot condition on <span class="math notranslate nohighlight">\(U\)</span>.</p></li>
-<li><p><strong>Candidate <span class="math notranslate nohighlight">\(M = \{M\}\)</span></strong>: All causal paths from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> go through <span class="math notranslate nohighlight">\(M\)</span> ✓. No backdoor path from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(M\)</span> (since <span class="math notranslate nohighlight">\(U \rightarrow T\)</span> and <span class="math notranslate nohighlight">\(U \rightarrow Y\)</span>, but no path <span class="math notranslate nohighlight">\(T \leftarrow \cdots M\)</span> bypassing the direct edge) ✓. The backdoor path from <span class="math notranslate nohighlight">\(M\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> through <span class="math notranslate nohighlight">\(U\)</span> is <span class="math notranslate nohighlight">\(M \leftarrow T \leftarrow U \rightarrow Y\)</span>, which is blocked by <span class="math notranslate nohighlight">\(T\)</span> ✓. The frontdoor criterion is satisfied.</p></li>
-</ul>
-</section>
-</div><pre  class="mermaid">
-        graph LR
-    U[&quot;U (Unobserved)&quot;] -.-&gt; T
-    U -.-&gt; Y
-    T --&gt; M --&gt; Y
-    style U fill:#999,color:#fff,stroke-dasharray: 5 5
-    style M fill:#f5a623,color:#fff
-    </pre></section>
-<section id="comparison-of-criteria">
-<h3>Comparison of Criteria<a class="headerlink" href="#comparison-of-criteria" title="Link to this heading">#</a></h3>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p></p></th>
-<th class="head"><p>Backdoor Criterion</p></th>
-<th class="head"><p>Frontdoor Criterion</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><strong>Requires</strong></p></td>
-<td><p>Observed confounders</p></td>
-<td><p>Observed mediator</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Blocks</strong></p></td>
-<td><p>Non-causal (backdoor) paths</p></td>
-<td><p>Uses causal path through mediator</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Fails when</strong></p></td>
-<td><p>Confounders are unobserved</p></td>
-<td><p>No suitable mediator exists</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Adjusts for</strong></p></td>
-<td><p>Common causes <span class="math notranslate nohighlight">\(F\)</span></p></td>
-<td><p>Mediator <span class="math notranslate nohighlight">\(M\)</span> via two-step identification</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-</section>
-<section id="causal-discovery">
-<h2>Causal Discovery<a class="headerlink" href="#causal-discovery" title="Link to this heading">#</a></h2>
-<p>Given observational data, can we <em>learn</em> the DAG rather than assuming it? <strong>Causal discovery</strong> algorithms attempt to infer causal structure from conditional independence relations in the data (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, Ch. 22</a>).</p>
-<section id="markov-equivalence">
-<h3>Markov Equivalence<a class="headerlink" href="#markov-equivalence" title="Link to this heading">#</a></h3>
-<div class="proof definition admonition" id="markov-equivalence">
-<p class="admonition-title"><span class="caption-number">Definition 8 </span> (Markov Equivalence Class)</p>
-<section class="definition-content" id="proof-content">
-<p>Two DAGs are <strong>Markov equivalent</strong> if they encode exactly the same set of <span class="math notranslate nohighlight">\(d\)</span>-separation (conditional independence) statements. DAGs in the same equivalence class share the same <strong>skeleton</strong> (undirected edges) and the same set of <strong>v-structures</strong> (collider patterns <span class="math notranslate nohighlight">\(X \rightarrow C \leftarrow Y\)</span> where <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are not adjacent).</p>
-</section>
-</div><p>Observational data alone can only identify the DAG up to its Markov equivalence class. Orienting all edges requires either interventional data or additional assumptions (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, §22.3</a>).</p>
-</section>
-<section id="the-sgs-algorithm">
-<h3>The SGS Algorithm<a class="headerlink" href="#the-sgs-algorithm" title="Link to this heading">#</a></h3>
-<p>The <strong>SGS algorithm</strong> (Spirtes, Glymour &amp; Scheines, 1993) is a constraint-based procedure that recovers the Markov equivalence class from conditional independence tests. The following pseudo-code is adapted from <a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi (2025, §22.7)</a>.</p>
-<div class="proof algorithm admonition" id="sgs-algorithm">
-<p class="admonition-title"><span class="caption-number">Algorithm 3 </span> (SGS Algorithm)</p>
-<section class="algorithm-content" id="proof-content">
-<p><strong>Input:</strong> Set of variables <span class="math notranslate nohighlight">\(V\)</span>, conditional independence oracle (or statistical test)</p>
-<p><strong>Output:</strong> Partially directed graph (CPDAG) representing the Markov equivalence class</p>
-<p><strong>Phase I — Skeleton Recovery:</strong></p>
-<ol class="arabic simple">
-<li><p>Start with the <strong>complete undirected graph</strong> on <span class="math notranslate nohighlight">\(V\)</span></p></li>
-<li><p>For each pair of nodes <span class="math notranslate nohighlight">\((X, Y)\)</span> with <span class="math notranslate nohighlight">\(X \neq Y\)</span>:</p>
-<ol class="arabic simple">
-<li><p>For each subset <span class="math notranslate nohighlight">\(S \subseteq V \setminus \{X, Y\}\)</span> (in order of increasing size):</p>
-<ol class="arabic simple">
-<li><p>Test whether <span class="math notranslate nohighlight">\(X \perp\!\!\!\perp Y \mid S\)</span></p></li>
-<li><p>If independent: <strong>remove</strong> the edge <span class="math notranslate nohighlight">\(X - Y\)</span> and record <span class="math notranslate nohighlight">\(S\)</span> as the <strong>separating set</strong> <span class="math notranslate nohighlight">\(\text{Sep}(X,Y) \leftarrow S\)</span></p></li>
-<li><p>Break (move to next pair)</p></li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<p><strong>Phase II — Orient V-Structures:</strong></p>
-<ol class="arabic simple" start="3">
-<li><p>For each <strong>unshielded triple</strong> <span class="math notranslate nohighlight">\((X, Z, Y)\)</span> — where <span class="math notranslate nohighlight">\(X - Z\)</span> and <span class="math notranslate nohighlight">\(Z - Y\)</span> but <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <strong>not</strong> adjacent:</p>
-<ol class="arabic simple">
-<li><p>If <span class="math notranslate nohighlight">\(Z \notin \text{Sep}(X, Y)\)</span>: orient as <span class="math notranslate nohighlight">\(X \rightarrow Z \leftarrow Y\)</span> (v-structure / collider)</p></li>
-</ol>
-</li>
-</ol>
-<p><strong>Phase III — Orient Remaining Edges:</strong></p>
-<ol class="arabic simple" start="4">
-<li><p>Repeatedly apply the following <strong>orientation rules</strong> until no more edges can be oriented:</p>
-<ol class="arabic simple">
-<li><p><strong>Acyclicity:</strong> If <span class="math notranslate nohighlight">\(X \rightarrow Z - Y\)</span> and <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are not adjacent, orient as <span class="math notranslate nohighlight">\(Z \rightarrow Y\)</span></p></li>
-<li><p><strong>No new v-structures:</strong> If there is a directed path <span class="math notranslate nohighlight">\(X \rightarrow \cdots \rightarrow Y\)</span> and an undirected edge <span class="math notranslate nohighlight">\(X - Y\)</span>, orient as <span class="math notranslate nohighlight">\(X \rightarrow Y\)</span></p></li>
-</ol>
-</li>
-</ol>
-</section>
-</div><p>The SGS algorithm is correct under the assumptions of the Causal Markov Condition (<a class="reference internal" href="#causal-markov">Property 1</a>) and faithfulness (<a class="reference internal" href="#faithfulness">Assumption 5</a>). In practice, the <strong>PC algorithm</strong> (a computationally efficient variant) is more commonly used: it restricts the conditioning sets in Phase I to neighbours of <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(Y\)</span> in the current skeleton, greatly reducing the number of tests (<a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi, 2025, §22.4</a>).</p>
-<div class="proof remark admonition" id="discovery-limitations">
-<p class="admonition-title"><span class="caption-number">Remark 1 </span></p>
-<section class="remark-content" id="proof-content">
-<p>Causal discovery from observational data has fundamental limitations:</p>
-<ul class="simple">
-<li><p>It can only recover the <strong>Markov equivalence class</strong>, not the unique DAG.</p></li>
-<li><p>It requires <strong>faithfulness</strong>, which can be violated when causal effects cancel.</p></li>
-<li><p>It assumes <strong>no latent confounders</strong> (for the basic SGS/PC algorithms; extensions like FCI handle latent variables).</p></li>
-<li><p>Statistical tests for conditional independence have limited power in finite samples, especially with many conditioning variables.</p></li>
-</ul>
-</section>
-</div></section>
 </section>
 </section>
 
@@ -1259,11 +691,11 @@ P(Y \mid \text{do}(T=t)) = \sum_{m} P(M=m \mid T=t) \sum_{t'} P(Y \mid T=t', M=m
       </div>
     </a>
     <a class="right-next"
-       href="2_3_debias.html"
+       href="2_3_methods.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Biases, De-biasing, and Fairness</p>
+        <p class="prev-next-title">Identification Strategies</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1297,17 +729,6 @@ P(Y \mid \text{do}(T=t)) = \sum_{m} P(M=m \mid T=t) \sum_{t'} P(Y \mid T=t', M=m
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-separation"><span class="math notranslate nohighlight">\(d\)</span>-Separation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-independence">Conditional Independence</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-d-separation-in-practice">Example: <span class="math notranslate nohighlight">\(d\)</span>-Separation in Practice</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-to-identify-the-correct-adjustment-set">Methods to Identify the Correct Adjustment Set</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backdoor-criterion">Backdoor Criterion</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#frontdoor-criterion">Frontdoor Criterion</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-of-criteria">Comparison of Criteria</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#causal-discovery">Causal Discovery</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-equivalence">Markov Equivalence</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sgs-algorithm">The SGS Algorithm</a></li>
 </ul>
 </li>
 </ul>
