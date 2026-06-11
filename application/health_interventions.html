@@ -257,8 +257,8 @@ const thebe_selector_output = ".output, .cell_output"
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/4_sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../tutorial/4_1_diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_2_debias.html">Biases, De-biasing, and Fairness</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_3_fairness.html">Discrimination and Fairness in Insurance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_2_debias.html">Biases and De-Biasing Toolkit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_3_fairness.html">Why Causal Inference Resolves the Fairness Problem</a></li>
 </ul>
 </details></li>
 </ul>
@@ -679,7 +679,9 @@ c (confounder): mean = 0.505, range = [0.091, 1.000]
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>w (treatment uptake):
-  Total participants: 13,581.0 individuals (13.6% of all)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Total participants: 13,581.0 individuals (13.6% of all)
   Among itt=1: 13,581.0 / 79,732 = 17.0%
   Among itt=0: 0.0 / 20,268 = 0.0%
 </pre></div>
@@ -1158,7 +1160,9 @@ trigs    | 157.55±40.41      | 156.41±38.27
 9  156.875518  
 
 === DESCRIPTIVE STATISTICS ===
-             age       sex        bmi     smoker      hba1c        sbp  \
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>             age       sex        bmi     smoker      hba1c        sbp  \
 count  200000.00  200000.0  200000.00  200000.00  200000.00  200000.00   
 mean       45.37       0.5      25.77       0.16       5.21     121.08   
 std        13.85       0.5       3.90       0.37       0.77      15.54   
@@ -1223,9 +1227,8 @@ Synthetic dataset created successfully!
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== SYNTHETIC DATA VALIDATION ===
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Key health correlations in synthetic data:
+
+Key health correlations in synthetic data:
 Age - SBP: 0.420 (should be positive)
 BMI - SBP: 0.248 (should be positive)
 BMI - HbA1c: 0.258 (should be positive)

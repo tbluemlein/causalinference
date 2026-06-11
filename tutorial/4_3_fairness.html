@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Discrimination and Fairness in Insurance &#8212; Causal Inference Tutorial</title>
+    <title>Why Causal Inference Resolves the Fairness Problem &#8212; Causal Inference Tutorial</title>
   
   
   
@@ -123,7 +123,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Observational Data" href="../application/observational_data.html" />
-    <link rel="prev" title="Biases, De-biasing, and Fairness" href="4_2_debias.html" />
+    <link rel="prev" title="Biases and De-Biasing Toolkit" href="4_2_debias.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -259,8 +259,8 @@ const thebe_selector_output = ".output, .cell_output"
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="4_sensitivity.html">Validation and Sensitivity Analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="4_1_diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="4_2_debias.html">Biases, De-biasing, and Fairness</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Discrimination and Fairness in Insurance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_2_debias.html">Biases and De-Biasing Toolkit</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Why Causal Inference Resolves the Fairness Problem</a></li>
 </ul>
 </details></li>
 </ul>
@@ -412,7 +412,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Discrimination and Fairness in Insurance</h1>
+    <h1>Why Causal Inference Resolves the Fairness Problem</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -425,7 +425,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proxy-discrimination">Proxy Discrimination</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#three-fairness-definitions">Three Fairness Definitions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#group-fairness-criteria-as-diagnostic-checks">Group Fairness Criteria as Diagnostic Checks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-causal-inference-resolves-the-fairness-problem">Why Causal Inference Resolves the Fairness Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-causal-inference-resolves-the-fairness-problem">How Causal Inference Resolves the Fairness Problem</a></li>
 </ul>
             </nav>
         </div>
@@ -437,8 +437,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="discrimination-and-fairness-in-insurance">
-<h1>Discrimination and Fairness in Insurance<a class="headerlink" href="#discrimination-and-fairness-in-insurance" title="Link to this heading">#</a></h1>
+  <section id="why-causal-inference-resolves-the-fairness-problem">
+<h1>Why Causal Inference Resolves the Fairness Problem<a class="headerlink" href="#why-causal-inference-resolves-the-fairness-problem" title="Link to this heading">#</a></h1>
 <p>Beyond causal bias, actuaries face a distinct but related challenge: ensuring that models do not discriminate against protected groups. EU regulation prohibits the use of protected characteristics (e.g. gender, ethnicity) for insurance pricing, but simply dropping the sensitive attribute <span class="math notranslate nohighlight">\(S\)</span> does not solve the problem.</p>
 <section id="proxy-discrimination">
 <h2>Proxy Discrimination<a class="headerlink" href="#proxy-discrimination" title="Link to this heading">#</a></h2>
@@ -492,8 +492,8 @@ P\bigl(\hat{\mu}_{S \leftarrow s}(X) = y \mid X{=}x, S{=}s\bigr) = P\bigl(\hat{\
 <p>These criteria are useful <strong>diagnostic checks</strong> but cannot replace causal reasoning. <a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al. (2022)</a> show that even a genuinely discrimination-free model violates all three criteria whenever <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(S\)</span> are statistically dependent. Moreover, except in trivial cases, the three criteria are mutually incompatible (<a class="reference external" href="https://doi.org/10.1089/big.2016.0047">Chouldechova, 2017</a>).</p>
 </section>
 </div></section>
-<section id="why-causal-inference-resolves-the-fairness-problem">
-<h2>Why Causal Inference Resolves the Fairness Problem<a class="headerlink" href="#why-causal-inference-resolves-the-fairness-problem" title="Link to this heading">#</a></h2>
+<section id="how-causal-inference-resolves-the-fairness-problem">
+<h2>How Causal Inference Resolves the Fairness Problem<a class="headerlink" href="#how-causal-inference-resolves-the-fairness-problem" title="Link to this heading">#</a></h2>
 <figure class="align-default" id="fig-fairness-dag">
 <a class="reference internal image-reference" href="../_images/fairness_dag.svg"><img alt="../_images/fairness_dag.svg" src="../_images/fairness_dag.svg" style="width: 85%;" />
 </a>
@@ -501,6 +501,9 @@ P\bigl(\hat{\mu}_{S \leftarrow s}(X) = y \mid X{=}x, S{=}s\bigr) = P\bigl(\hat{\
 <p><span class="caption-number">Fig. 16 </span><span class="caption-text">The fairness DAG: the sensitive attribute <span class="math notranslate nohighlight">\(S\)</span> reaches the claim <span class="math notranslate nohighlight">\(Y\)</span> via a discriminatory proxy path through <span class="math notranslate nohighlight">\(X_1\)</span> and a legitimate path through the risk factor <span class="math notranslate nohighlight">\(X_2\)</span>, while the confounder <span class="math notranslate nohighlight">\(F\)</span> creates a spurious <span class="math notranslate nohighlight">\(S\)</span>–<span class="math notranslate nohighlight">\(Y\)</span> association.</span><a class="headerlink" href="#fig-fairness-dag" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+<blockquote>
+<div><p>TODO: How ? Wasserstein distance ?</p>
+</div></blockquote>
 </section>
 </section>
 
@@ -539,7 +542,7 @@ P\bigl(\hat{\mu}_{S \leftarrow s}(X) = y \mid X{=}x, S{=}s\bigr) = P\bigl(\hat{\
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Biases, De-biasing, and Fairness</p>
+        <p class="prev-next-title">Biases and De-Biasing Toolkit</p>
       </div>
     </a>
     <a class="right-next"
@@ -570,7 +573,7 @@ P\bigl(\hat{\mu}_{S \leftarrow s}(X) = y \mid X{=}x, S{=}s\bigr) = P\bigl(\hat{\
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proxy-discrimination">Proxy Discrimination</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#three-fairness-definitions">Three Fairness Definitions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#group-fairness-criteria-as-diagnostic-checks">Group Fairness Criteria as Diagnostic Checks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-causal-inference-resolves-the-fairness-problem">Why Causal Inference Resolves the Fairness Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-causal-inference-resolves-the-fairness-problem">How Causal Inference Resolves the Fairness Problem</a></li>
 </ul>
   </nav></div>
 
