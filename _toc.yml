@@ -15,7 +15,7 @@ parts:
         sections: 
           - file: tutorial/2_1_assumptions.md
           - file: tutorial/2_2_graphical_models.md
-          - file: tutorial/2_3_debias.md
+          - file: tutorial/2_3_methods.md
       - file: tutorial/3_inference.md
         sections: 
           - file: tutorial/3_1_propensity.md
@@ -23,13 +23,18 @@ parts:
           - file: tutorial/3_3_Tree_Based_Methods.md
           - file: tutorial/3_5_bayesian.md
       - file: tutorial/4_sensitivity.md
+        sections:
+          - file: tutorial/4_1_diagnostics.md
+          - file: tutorial/4_2_debias.md
+          - file: tutorial/4_3_fairness.md
 
   - caption: Actuarial Applications
     chapters:
 #      - file: application/case_study.ipynb
       - file: application/observational_data.ipynb
-      - file: application/fairness.ipynb
-      - file: application/traffic_study.ipynb
+      - file: application/pricing.ipynb
+      - file: application/claims_triage.ipynb
+#      - file: application/traffic_study.ipynb
       - file: application/health_interventions.ipynb
 
   - caption: References
