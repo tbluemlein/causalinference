@@ -422,14 +422,17 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-sensitivity-analysis">Why Sensitivity Analysis?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-sensitivity-analysis">Why Sensitivity Analysis?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-r-2-how-much-confounding-would-it-take">Partial R^2: how much confounding would it take?</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#balance-diagnostics">Balance Diagnostics</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#placebo-and-falsification-tests">Placebo and Falsification Tests</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rosenbaum-bounds">Rosenbaum Bounds</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#e-values">E-Values</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-r-2-and-omitted-variable-bias">Partial <span class="math notranslate nohighlight">\(R^2\)</span> and Omitted Variable Bias</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bounds-on-treatment-effects">Bounds on Treatment Effects</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-sensitivity-analysis-workflow">Recommended Sensitivity Analysis Workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#actuarial-sensitivity-analysis-workflow">Actuarial Sensitivity Analysis Workflow</a></li>
 </ul>
             </nav>
         </div>
@@ -453,11 +456,55 @@ document.write(`
 <li><p><strong>What are the bounds</strong> on the true effect under worst-case confounding?</p></li>
 </ol>
 <p>Without sensitivity analysis, causal conclusions from observational data remain fundamentally incomplete.</p>
+<section id="partial-r-2-how-much-confounding-would-it-take">
+<h3>Partial R^2: how much confounding would it take?<a class="headerlink" href="#partial-r-2-how-much-confounding-would-it-take" title="Link to this heading">#</a></h3>
+<p>The figure below makes questions 1 and 2 tangible. Imagine our adjusted estimate is a positive effect of <span class="math notranslate nohighlight">\(+3\)</span>. Now hypothesise a confounder <span class="math notranslate nohighlight">\(U\)</span> that we <em>failed</em> to measure and ask: how strongly would it have to be linked to the treatment <strong>and</strong> to the outcome before our conclusion collapses? Drag the two sliders — each one is a <strong>partial <span class="math notranslate nohighlight">\(R^2\)</span></strong>, the share of variation in <span class="math notranslate nohighlight">\(T\)</span> (or <span class="math notranslate nohighlight">\(Y\)</span>) that <span class="math notranslate nohighlight">\(U\)</span> would explain <em>on top of</em> everything we already adjusted for (<a class="reference internal" href="#partial-r2">Definition 16</a>).</p>
+<ul class="simple">
+<li><p>Move along the <strong>diagonal</strong> (equal strength on both fronts) to read off the <strong>robustness value</strong>: the partial <span class="math notranslate nohighlight">\(R^2\)</span> a confounder would need with both <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> to drag the effect to zero.</p></li>
+<li><p>Press <strong>“as strong as covariate <span class="math notranslate nohighlight">\(X\)</span>”</strong> to benchmark against a confounder no stronger than one we already observe — if that point sits well inside the green region, even a substantial omitted variable would not overturn the finding.</p></li>
+<li><p>Watch panel 2: the bias <strong>drags the estimate toward zero</strong>, and the verdict flips to <em>explained away</em> only once the confounder crosses the red frontier.</p></li>
+</ul>
+<iframe id="sensitivity" src="../figure/sensitivity_explainer.html?v=20260612d"
+        style="width:100%; border:none; height:900px;"
+        title="Sensitivity to unmeasured confounding interactive explainer"></iframe>
+<script>
+(function () {
+  var iframe = document.getElementById('sensitivity');
+  function currentTheme() {
+    var root = document.documentElement;
+    var theme = root.getAttribute('data-theme');
+    if (theme === 'light' || theme === 'dark') return theme;
+    var mode = root.getAttribute('data-mode') || 'auto';
+    if (mode === 'light' || mode === 'dark') return mode;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function sendTheme() {
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage({ type: 'set-theme', value: currentTheme() }, '*');
+    }
+  }
+  window.addEventListener('message', function (e) {
+    if (!e.data) return;
+    if (e.data.type === 'sens-height') {
+      iframe.style.height = (e.data.height + 20) + 'px';
+    } else if (e.data.type === 'sens-ready') {
+      sendTheme();
+    }
+  });
+  new MutationObserver(sendTheme).observe(document.documentElement, {
+    attributes: true, attributeFilter: ['data-mode', 'data-theme']
+  });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sendTheme);
+  iframe.addEventListener('load', sendTheme);
+  sendTheme();
+})();
+</script><p>The rest of this section formalises the tools behind this picture: <strong>E-values</strong> put question 1 on a risk-ratio scale, <strong>partial <span class="math notranslate nohighlight">\(R^2\)</span> contours</strong> generalise the map above, <strong>Rosenbaum bounds</strong> answer question 1 for matched designs, and <strong>Manski bounds</strong> answer question 3 directly.</p>
+</section>
 </section>
 <section id="balance-diagnostics">
 <h2>Balance Diagnostics<a class="headerlink" href="#balance-diagnostics" title="Link to this heading">#</a></h2>
 <p>Before performing sensitivity analysis for unmeasured confounding, it is essential to verify that <strong>measured confounders are adequately balanced</strong> after adjustment. Balance diagnostics assess whether the adjustment method (matching, weighting, regression) has successfully eliminated observed confounding (<a class="reference external" href="https://doi.org/10.1080/00273171.2011.568786">Austin, 2011</a>).</p>
-<div class="proof definition admonition" id="smd">
+<div class="proof definition dropdown admonition" id="smd">
 <p class="admonition-title"><span class="caption-number">Definition 12 </span> (Standardised Mean Difference (SMD))</p>
 <section class="definition-content" id="proof-content">
 <p>The <strong>standardised mean difference</strong> for a covariate <span class="math notranslate nohighlight">\(X_j\)</span> between treated and control groups is:</p>
@@ -474,10 +521,45 @@ document.write(`
 <li><p><strong>Variance ratios:</strong> The ratio of covariate variances between groups (target: close to 1).</p></li>
 <li><p><strong>Love plots:</strong> Visual display of SMDs for all covariates, before and after adjustment.</p></li>
 </ul>
-</section>
+<p>The Love plot below is interactive. Drag the <strong>adjustment-strength</strong> slider to weight the sample toward balance: the causal diagram shows the backdoor path <span class="math notranslate nohighlight">\(X \rightarrow T\)</span> closing, and each covariate’s SMD migrates from its raw value (open circle) toward zero (filled circle), turning green once it falls within the <span class="math notranslate nohighlight">\(|\text{SMD}| &lt; 0.1\)</span> band.</p>
+<iframe id="loveplot" src="../figure/loveplot_explainer.html?v=20260612a"
+        style="width:100%; border:none; height:760px;"
+        title="Interactive covariate-balance Love plot"></iframe>
+<script>
+(function () {
+  var iframe = document.getElementById('loveplot');
+  function currentTheme() {
+    var root = document.documentElement;
+    var theme = root.getAttribute('data-theme');
+    if (theme === 'light' || theme === 'dark') return theme;
+    var mode = root.getAttribute('data-mode') || 'auto';
+    if (mode === 'light' || mode === 'dark') return mode;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function sendTheme() {
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage({ type: 'set-theme', value: currentTheme() }, '*');
+    }
+  }
+  window.addEventListener('message', function (e) {
+    if (!e.data) return;
+    if (e.data.type === 'love-height') {
+      iframe.style.height = (e.data.height + 20) + 'px';
+    } else if (e.data.type === 'love-ready') {
+      sendTheme();
+    }
+  });
+  new MutationObserver(sendTheme).observe(document.documentElement, {
+    attributes: true, attributeFilter: ['data-mode', 'data-theme']
+  });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sendTheme);
+  iframe.addEventListener('load', sendTheme);
+  sendTheme();
+})();
+</script></section>
 <section id="placebo-and-falsification-tests">
 <h2>Placebo and Falsification Tests<a class="headerlink" href="#placebo-and-falsification-tests" title="Link to this heading">#</a></h2>
-<div class="proof definition admonition" id="placebo-test">
+<div class="proof definition dropdown admonition" id="placebo-test">
 <p class="admonition-title"><span class="caption-number">Definition 13 </span> (Placebo Test)</p>
 <section class="definition-content" id="proof-content">
 <p>A <strong>placebo test</strong> (falsification test) applies the causal estimator to a setting where the true effect is known to be zero. If the estimator reports a non-zero effect, this signals bias (likely from unmeasured confounding or model misspecification).</p>
@@ -493,7 +575,7 @@ document.write(`
 <section id="rosenbaum-bounds">
 <h2>Rosenbaum Bounds<a class="headerlink" href="#rosenbaum-bounds" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://doi.org/10.1007/978-1-4757-3692-2">Rosenbaum (2002)</a> developed a framework for bounding the effect of unmeasured confounding in matched observational studies.</p>
-<div class="proof definition admonition" id="rosenbaum-gamma">
+<div class="proof definition dropdown admonition" id="rosenbaum-gamma">
 <p class="admonition-title"><span class="caption-number">Definition 14 </span> (Rosenbaum’s Sensitivity Parameter <span class="math notranslate nohighlight">\(\Gamma\)</span>)</p>
 <section class="definition-content" id="proof-content">
 <p>In a matched pair <span class="math notranslate nohighlight">\((i, j)\)</span> with similar observed covariates, the sensitivity parameter <span class="math notranslate nohighlight">\(\Gamma \geq 1\)</span> bounds the ratio of treatment assignment odds:</p>
@@ -504,11 +586,47 @@ document.write(`
 <p>When <span class="math notranslate nohighlight">\(\Gamma = 1\)</span>, treatment assignment is random within matched pairs (no unmeasured confounding). As <span class="math notranslate nohighlight">\(\Gamma\)</span> increases, more confounding is allowed.</p>
 </section>
 </div><p>For each value of <span class="math notranslate nohighlight">\(\Gamma\)</span>, Rosenbaum’s method computes <strong>worst-case p-values</strong> and confidence intervals. The analysis reports the <strong>critical <span class="math notranslate nohighlight">\(\Gamma\)</span></strong> at which the effect would no longer be statistically significant — a larger critical <span class="math notranslate nohighlight">\(\Gamma\)</span> indicates a more robust finding.</p>
+<p>Drag the <span class="math notranslate nohighlight">\(\alpha\)</span> slider below to set the significance threshold: the red dot tracks where the worst-case <span class="math notranslate nohighlight">\(p\)</span>-value curve crosses it, and the green band marks the range of hidden bias the conclusion can still absorb.</p>
+<iframe id="rosenbaum" src="../figure/rosenbaum_explainer.html?v=20260612b"
+        style="width:100%; border:none; height:560px;"
+        title="Rosenbaum bounds interactive explainer"></iframe>
+<script>
+(function () {
+  var iframe = document.getElementById('rosenbaum');
+  function currentTheme() {
+    var root = document.documentElement;
+    var theme = root.getAttribute('data-theme');
+    if (theme === 'light' || theme === 'dark') return theme;
+    var mode = root.getAttribute('data-mode') || 'auto';
+    if (mode === 'light' || mode === 'dark') return mode;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function sendTheme() {
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage({ type: 'set-theme', value: currentTheme() }, '*');
+    }
+  }
+  window.addEventListener('message', function (e) {
+    if (!e.data) return;
+    if (e.data.type === 'rosen-height') {
+      iframe.style.height = (e.data.height + 20) + 'px';
+    } else if (e.data.type === 'rosen-ready') {
+      sendTheme();
+    }
+  });
+  new MutationObserver(sendTheme).observe(document.documentElement, {
+    attributes: true, attributeFilter: ['data-mode', 'data-theme']
+  });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sendTheme);
+  iframe.addEventListener('load', sendTheme);
+  sendTheme();
+})();
+</script><p><strong>Reading the figure.</strong> At <span class="math notranslate nohighlight">\(\Gamma = 1\)</span> (no hidden bias) the result is firmly significant, exactly the conventional analysis. Moving right asks “what if assignment were not random within pairs?” — each step admits a stronger lurking variable, so the worst-case <span class="math notranslate nohighlight">\(p\)</span>-value climbs. A finding whose curve crosses <span class="math notranslate nohighlight">\(\alpha\)</span> only at a large <span class="math notranslate nohighlight">\(\Gamma\)</span> is reassuring; one that crosses just past <span class="math notranslate nohighlight">\(\Gamma = 1\)</span> is fragile, hingeing on the assumption of no unmeasured confounding. Reporting the critical <span class="math notranslate nohighlight">\(\Gamma\)</span> turns “we hope there is no hidden bias” into a quantified statement of <em>how much</em> hidden bias the conclusion could tolerate.</p>
 </section>
 <section id="e-values">
 <h2>E-Values<a class="headerlink" href="#e-values" title="Link to this heading">#</a></h2>
 <p>The <strong>E-value</strong> (<a class="reference external" href="https://doi.org/10.7326/M16-2607">VanderWeele &amp; Ding, 2017</a>) provides a simple, model-free summary of sensitivity to unmeasured confounding.</p>
-<div class="proof definition admonition" id="e-value">
+<div class="proof definition dropdown admonition" id="e-value">
 <p class="admonition-title"><span class="caption-number">Definition 15 </span> (E-Value)</p>
 <section class="definition-content" id="proof-content">
 <p>The <strong>E-value</strong> for an observed risk ratio <span class="math notranslate nohighlight">\(\text{RR}_{\text{obs}}\)</span> is:</p>
@@ -520,11 +638,19 @@ E = \text{RR}_{\text{obs}} + \sqrt{\text{RR}_{\text{obs}} \times (\text{RR}_{\te
 </section>
 </div><p>A large E-value means the observed association is robust: only a very strong unmeasured confounder could explain it away. A small E-value indicates vulnerability to even moderate unmeasured confounding.</p>
 <p>For treatment effects on continuous outcomes, analogous E-values can be computed by first converting the effect to an approximate risk ratio scale.</p>
+<figure class="align-default" id="fig-evalue-curve">
+<a class="reference internal image-reference" href="../_images/evalue_curve.svg"><img alt="../_images/evalue_curve.svg" src="../_images/evalue_curve.svg" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">The E-value as a frontier. Each point on the red curve is a <em>combination</em> of confounder strengths — its association with the treatment <span class="math notranslate nohighlight">\(T\)</span> (horizontal) and with the outcome <span class="math notranslate nohighlight">\(Y\)</span> (vertical), both on the risk-ratio scale — that would be <strong>just</strong> sufficient to explain the observed effect away. Anything in the shaded region (stronger on both fronts) would nullify it; anything below the curve would not. The E-value is the single number where the curve meets the <em>equal-strength</em> diagonal: here <span class="math notranslate nohighlight">\(E \approx 3.4\)</span>, so a confounder would need a risk ratio of at least <span class="math notranslate nohighlight">\(3.4\)</span> with <strong>both</strong> <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> to account for the result.</span><a class="headerlink" href="#fig-evalue-curve" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Reading the figure.</strong> The blue dot at the origin is the world we assume — no confounding. As we travel up the diagonal, we postulate ever-stronger confounders that are equally linked to treatment and outcome. The effect is only “explained away” once we reach the red curve. A large E-value pushes that crossing far from the origin, so the conclusion is robust; a small E-value would place the curve close to the origin, meaning even a weak omitted variable could be responsible. Crucially, an unmeasured confounder need not be balanced across both arrows — points <em>off</em> the diagonal (very strong on one front, weak on the other) can also reach the frontier, which is why the full curve, not just the single E-value, tells the complete story.</p>
 </section>
 <section id="partial-r-2-and-omitted-variable-bias">
 <h2>Partial <span class="math notranslate nohighlight">\(R^2\)</span> and Omitted Variable Bias<a class="headerlink" href="#partial-r-2-and-omitted-variable-bias" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://doi.org/10.1111/rssb.12348">Cinelli &amp; Hazlett (2020)</a> provide a regression-based sensitivity analysis framework using the <strong>partial <span class="math notranslate nohighlight">\(R^2\)</span></strong> — the proportion of residual variance explained by an omitted confounder.</p>
-<div class="proof definition admonition" id="partial-r2">
+<div class="proof definition dropdown admonition" id="partial-r2">
 <p class="admonition-title"><span class="caption-number">Definition 16 </span> (Partial <span class="math notranslate nohighlight">\(R^2\)</span> Sensitivity)</p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(R^2_{Y \sim U \mid T, X}\)</span> denote the partial <span class="math notranslate nohighlight">\(R^2\)</span> of the omitted confounder <span class="math notranslate nohighlight">\(U\)</span> with the outcome <span class="math notranslate nohighlight">\(Y\)</span> (after adjusting for <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(X\)</span>), and <span class="math notranslate nohighlight">\(R^2_{T \sim U \mid X}\)</span> the partial <span class="math notranslate nohighlight">\(R^2\)</span> with the treatment <span class="math notranslate nohighlight">\(T\)</span>. The bias in the treatment effect estimate due to omitting <span class="math notranslate nohighlight">\(U\)</span> is bounded by:</p>
@@ -535,12 +661,12 @@ E = \text{RR}_{\text{obs}} + \sqrt{\text{RR}_{\text{obs}} \times (\text{RR}_{\te
 <p>where <span class="math notranslate nohighlight">\(Y_{\text{res}}\)</span> and <span class="math notranslate nohighlight">\(T_{\text{res}}\)</span> are residuals from regressions on <span class="math notranslate nohighlight">\(X\)</span>.</p>
 </section>
 </div><p>This framework is particularly intuitive because the required confounding strengths can be <strong>benchmarked against observed covariates</strong>: “the unmeasured confounder would need to be as strong as [observed covariate <span class="math notranslate nohighlight">\(X_j\)</span>] to reduce the effect to zero.”</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">sensemakr</span></code> R package implements this approach and produces <strong>contour plots</strong> showing how the estimated effect changes across a grid of <span class="math notranslate nohighlight">\((R^2_{Y \sim U \mid T, X}, R^2_{T \sim U \mid X})\)</span> values.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">sensemakr</span></code> R package implements this approach and produces <strong>contour plots</strong> showing how the estimated effect changes across a grid of <span class="math notranslate nohighlight">\((R^2_{Y \sim U \mid T, X}, R^2_{T \sim U \mid X})\)</span> values. The interactive map at the <a class="reference internal" href="#interactive-how-much-confounding-would-it-take"><span class="xref myst">top of this section</span></a> is exactly such a contour: the red frontier is the locus where the bias reaches the observed estimate, and the orange diamond is the “as strong as covariate <span class="math notranslate nohighlight">\(X\)</span>” benchmark. The further the benchmark sits inside the green (effect-survives) region, the more comfortably the conclusion withstands an omitted variable of comparable strength.</p>
 </section>
 <section id="bounds-on-treatment-effects">
 <h2>Bounds on Treatment Effects<a class="headerlink" href="#bounds-on-treatment-effects" title="Link to this heading">#</a></h2>
 <p>When parametric assumptions are undesirable, <strong>partial identification</strong> provides worst-case bounds on treatment effects under minimal assumptions.</p>
-<div class="proof definition admonition" id="manski-bounds">
+<div class="proof definition dropdown admonition" id="manski-bounds">
 <p class="admonition-title"><span class="caption-number">Definition 17 </span> (Manski Bounds)</p>
 <section class="definition-content" id="proof-content">
 <p>Under no assumptions beyond bounded outcomes (<span class="math notranslate nohighlight">\(Y \in [y_{\min}, y_{\max}]\)</span>), the ATE is bounded by:</p>
@@ -550,17 +676,25 @@ E = \text{RR}_{\text{obs}} + \sqrt{\text{RR}_{\text{obs}} \times (\text{RR}_{\te
 \]</div>
 <p>These bounds are <strong>sharp</strong> (cannot be tightened without additional assumptions) but often wide. Adding monotonicity or instrumental variable assumptions narrows them considerably.</p>
 </section>
-</div></section>
-<section id="recommended-sensitivity-analysis-workflow">
-<h2>Recommended Sensitivity Analysis Workflow<a class="headerlink" href="#recommended-sensitivity-analysis-workflow" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p><strong>Balance diagnostics:</strong> Verify covariate balance (SMDs, overlap plots) after adjustment.</p></li>
-<li><p><strong>Placebo/falsification tests:</strong> Check negative controls for residual bias.</p></li>
-<li><p><strong>E-values:</strong> Compute for the main estimate and the confidence interval bound closest to the null.</p></li>
-<li><p><strong>Partial <span class="math notranslate nohighlight">\(R^2\)</span> analysis:</strong> Benchmark against observed covariates using <code class="docutils literal notranslate"><span class="pre">sensemakr</span></code>.</p></li>
-<li><p><strong>Rosenbaum bounds</strong> (if using matching): Report the critical <span class="math notranslate nohighlight">\(\Gamma\)</span>.</p></li>
-<li><p><strong>Report transparently:</strong> Present the main estimate alongside sensitivity results. State explicitly how strong unmeasured confounding would need to be to alter conclusions.</p></li>
-</ol>
+</div><figure class="align-default" id="fig-manski-bounds">
+<a class="reference internal image-reference" href="../_images/manski_bounds.svg"><img alt="../_images/manski_bounds.svg" src="../_images/manski_bounds.svg" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">Worst-case bounds and the price of assumptions. Each bar is the <em>range</em> of treatment effects compatible with the data under a given set of assumptions. With <strong>no assumptions</strong> beyond a bounded outcome, the interval is so wide it straddles zero — the data alone cannot even tell us the <em>sign</em> of the effect. Adding <strong>monotonicity</strong> (the treatment never hurts) shifts the lower edge above zero. Adding a valid <strong>instrument</strong> collapses the range to a single point — the familiar point estimate <span class="math notranslate nohighlight">\(\hat{\tau}\)</span>. The dashed olive line marks that point estimate; the dashed line at <span class="math notranslate nohighlight">\(\tau = 0\)</span> marks no effect.</span><a class="headerlink" href="#fig-manski-bounds" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Reading the figure.</strong> This answers question 3 — <em>what are the bounds under worst-case confounding?</em> — from the opposite direction to the E-value and Rosenbaum tools. Rather than asking how strong a confounder would have to be, partial identification asks what we can say <em>while assuming as little as possible</em>. The honest starting point (top bar) is often uncomfortably wide, which is precisely the message: a single number is only as credible as the assumptions that pin it down. Each assumption we are willing to defend buys a narrower interval, and the figure makes that trade-off explicit — a transparent alternative to reporting one estimate as if it were assumption-free.</p>
+</section>
+<section id="actuarial-sensitivity-analysis-workflow">
+<h2>Actuarial Sensitivity Analysis Workflow<a class="headerlink" href="#actuarial-sensitivity-analysis-workflow" title="Link to this heading">#</a></h2>
+<p>The tools above slot into a single decision pipeline. The estimate is only trustworthy once it has survived three sequential gates — <strong>balance</strong>, <strong>falsification</strong>, and <strong>robustness to unmeasured confounding</strong> — each with a concrete remedy if the check fails.</p>
+<figure class="align-default" id="fig-pipeline-sensitivity">
+<a class="reference internal image-reference" href="../_images/pipeline_sensitivity.svg"><img alt="../_images/pipeline_sensitivity.svg" src="../_images/pipeline_sensitivity.svg" style="width: 85%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 19 </span><span class="caption-text">The actuarial sensitivity-analysis workflow. After estimating an adjusted effect, three diagnostic gates are applied in turn. Each decision either <strong>passes</strong> the estimate downstream or routes it to a red <strong>remedy</strong> that is re-run before continuing. (1) If covariates are not balanced (<span class="math notranslate nohighlight">\(|\text{SMD}| \ge 0.1\)</span>), re-specify the propensity model — add splines/interactions, trim non-overlap, or switch between matching and weighting. (2) If a placebo / negative-control test detects a non-zero effect, treat it as residual confounding: revisit the DAG, add proxy controls, or move to an instrument or difference-in-differences design. (3) If the effect is not robust to a plausible unmeasured confounder (small E-value, low critical <span class="math notranslate nohighlight">\(\Gamma\)</span>, wide partial-<span class="math notranslate nohighlight">\(R^2\)</span> bias), treat the estimate as fragile — gather more covariates, report worst-case Manski bounds, and temper the pricing or reserving decision. Only an estimate that clears all three gates reaches the transparent report.</span><a class="headerlink" href="#fig-pipeline-sensitivity" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 </section>
 
@@ -627,14 +761,17 @@ E = \text{RR}_{\text{obs}} + \sqrt{\text{RR}_{\text{obs}} \times (\text{RR}_{\te
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-sensitivity-analysis">Why Sensitivity Analysis?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-sensitivity-analysis">Why Sensitivity Analysis?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-r-2-how-much-confounding-would-it-take">Partial R^2: how much confounding would it take?</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#balance-diagnostics">Balance Diagnostics</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#placebo-and-falsification-tests">Placebo and Falsification Tests</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rosenbaum-bounds">Rosenbaum Bounds</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#e-values">E-Values</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-r-2-and-omitted-variable-bias">Partial <span class="math notranslate nohighlight">\(R^2\)</span> and Omitted Variable Bias</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bounds-on-treatment-effects">Bounds on Treatment Effects</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-sensitivity-analysis-workflow">Recommended Sensitivity Analysis Workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#actuarial-sensitivity-analysis-workflow">Actuarial Sensitivity Analysis Workflow</a></li>
 </ul>
   </nav></div>
 

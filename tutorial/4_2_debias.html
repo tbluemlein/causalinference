@@ -503,7 +503,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/confounding.svg"><img alt="../_images/confounding.svg" src="../_images/confounding.svg" style="width: 55%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 17 </span><span class="caption-text">Confounding: the fork variable <span class="math notranslate nohighlight">\(F\)</span> influences both treatment <span class="math notranslate nohighlight">\(T\)</span> and outcome <span class="math notranslate nohighlight">\(Y\)</span>, biasing the naive <span class="math notranslate nohighlight">\(T\)</span>–<span class="math notranslate nohighlight">\(Y\)</span> comparison unless adjusted for.</span><a class="headerlink" href="#fig-confounding-bias" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 20 </span><span class="caption-text">Confounding: the fork variable <span class="math notranslate nohighlight">\(F\)</span> influences both treatment <span class="math notranslate nohighlight">\(T\)</span> and outcome <span class="math notranslate nohighlight">\(Y\)</span>, biasing the naive <span class="math notranslate nohighlight">\(T\)</span>–<span class="math notranslate nohighlight">\(Y\)</span> comparison unless adjusted for.</span><a class="headerlink" href="#fig-confounding-bias" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Confounding violates <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a>. The naive comparison conflates the causal effect with a baseline difference between groups:</p>
@@ -533,7 +533,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/collider_bias.svg"><img alt="../_images/collider_bias.svg" src="../_images/collider_bias.svg" style="width: 55%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 18 </span><span class="caption-text">Collider bias: <span class="math notranslate nohighlight">\(C\)</span> is a common effect of <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. Conditioning on <span class="math notranslate nohighlight">\(C\)</span> opens a non-causal path between treatment and outcome.</span><a class="headerlink" href="#fig-collider-bias" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 21 </span><span class="caption-text">Collider bias: <span class="math notranslate nohighlight">\(C\)</span> is a common effect of <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. Conditioning on <span class="math notranslate nohighlight">\(C\)</span> opens a non-causal path between treatment and outcome.</span><a class="headerlink" href="#fig-collider-bias" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Collider bias results from <strong>incorrect adjustment</strong>, not from a violated assumption per se. In insurance, analysing claims conditional on whether a claim was <em>filed</em> can introduce collider bias, since filing depends on both the treatment and the outcome severity. DAG-guided variable selection (<a class="reference internal" href="2_3_methods.html#backdoor-criterion">Criterion 1</a>) is the primary safeguard.</p>
