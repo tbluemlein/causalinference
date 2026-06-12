@@ -1,4 +1,6 @@
-# Causal Inference Tutorial
+# Actuarial Causal Inference Tutorial
+
+<p class="tutorial-subtitle">From Risk Measurement to Intelligent Risk Management</p>
 
 This tutorial demonstrates how we can leverage modern causal machine learning (ML) and data science algorithms to infer causal effects from observational data. While standard ML excels at predicting outcomes, it often remains "causally blind" to the true levers of risk. By moving beyond passive risk measurement toward active and interventional risk management, we explore methods how to quantify causal treatment effects to achieve intelligent risk mitigation. This endeavour is illustrated on a simulated health data set of longitudinal health data and on a second dataset that contains driver training assignments in a motor insurance context where we apply different causal inference methodologies to estimate heterogeneous treatment effects and derive fair interventions.
 
@@ -34,9 +36,7 @@ The tutorial guides the reader from foundational concepts, identification and in
 - {doc}`tutorial/4_3_fairness` — Discrimination and fairness in insurance pricing, and why fairness is a causal question.
 
 
-The actuary's end-to-end workflow: from drawing the DAG and checking assumptions, through diagnosing and de-biasing, to inference, fairness checks, and sensitivity analysis.
-
-The following workflow connects the identification theory from {doc}`tutorial/2_identification` with the estimation methods in {doc}`3_inference` and the validation tools in {doc}`4_sensitivity`.
+The actuary's end-to-end workflow connects the identification theory from {doc}`tutorial/2_identification` with the estimation methods in {doc}`tutorial/3_inference` and the validation tools in {doc}`tutorial/4_sensitivity`:
 
 ```{figure} tutorial/figs/actuary_workflow.svg
 :width: 100%
