@@ -653,7 +653,7 @@ if not hasattr(matplotlib.RcParams, "_get"):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/286ce2f95d13b881714178c90fabd7fb1923a7dc220526b7bf38d58f0f55a56a.svg" src="../_images/286ce2f95d13b881714178c90fabd7fb1923a7dc220526b7bf38d58f0f55a56a.svg" />
+<img alt="../_images/9f0409a402b6d05afed0e602a8e5ccbee381a58d18878045c0804d8398a22226.svg" src="../_images/9f0409a402b6d05afed0e602a8e5ccbee381a58d18878045c0804d8398a22226.svg" />
 </div>
 </div>
 </section>
@@ -684,29 +684,29 @@ if not hasattr(matplotlib.RcParams, "_get"):
 </div><div class="proof definition admonition" id="discrimination-free-price-app">
 <p class="admonition-title"><span class="caption-number">Definition 27 </span> (Discrimination-free price)</p>
 <section class="definition-content" id="proof-content">
-<p>The <strong>discrimination-free price</strong> (<a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al., 2022</a>) averages the best-estimate price over a <strong>marginal</strong> distribution <span class="math notranslate nohighlight">\(P^{\*}(S)\)</span> that does <em>not</em> depend on <span class="math notranslate nohighlight">\(x\)</span>:</p>
+<p>The <strong>discrimination-free price</strong> (<a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al., 2022</a>) averages the best-estimate price over a <strong>marginal</strong> distribution <span class="math notranslate nohighlight">\(P^{*}(S)\)</span> that does <em>not</em> depend on <span class="math notranslate nohighlight">\(x\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
-h(x) = \sum_{s} \mu(x, s)\, P^{\*}(S = s).
+h(x) = \sum_{s} \mu(x, s)\, P^{*}(S = s).
 \]</div>
-<p>By replacing the conditional <span class="math notranslate nohighlight">\(P(S \mid X)\)</span> with a fixed marginal <span class="math notranslate nohighlight">\(P^{\*}(S)\)</span>, it severs the inference channel: <span class="math notranslate nohighlight">\(h\)</span> depends on <span class="math notranslate nohighlight">\(x\)</span> only, and no longer uses <span class="math notranslate nohighlight">\(X\)</span> to deduce <span class="math notranslate nohighlight">\(S\)</span>. It is the actuarial realisation of <a class="reference internal" href="../tutorial/4_3_fairness.html#discrimination-free-pricing">Definition 23</a>.</p>
+<p>By replacing the conditional <span class="math notranslate nohighlight">\(P(S \mid X)\)</span> with a fixed marginal <span class="math notranslate nohighlight">\(P^{*}(S)\)</span>, it severs the inference channel: <span class="math notranslate nohighlight">\(h\)</span> depends on <span class="math notranslate nohighlight">\(x\)</span> only, and no longer uses <span class="math notranslate nohighlight">\(X\)</span> to deduce <span class="math notranslate nohighlight">\(S\)</span>. It is the actuarial realisation of <a class="reference internal" href="../tutorial/4_3_fairness.html#discrimination-free-pricing">Definition 23</a>.</p>
 </section>
-</div><p>The contrast that matters is the <strong>weighting</strong>: the unawareness price weights <span class="math notranslate nohighlight">\(\mu(x,s)\)</span> by the <em>conditional</em> <span class="math notranslate nohighlight">\(P(S\mid X)\)</span> (which encodes how much <span class="math notranslate nohighlight">\(X\)</span> reveals about <span class="math notranslate nohighlight">\(S\)</span>), whereas the discrimination-free price weights by a <em>marginal</em> <span class="math notranslate nohighlight">\(P^{\*}(S)\)</span> (which reveals nothing). Their difference,</p>
+</div><p>The contrast that matters is the <strong>weighting</strong>: the unawareness price weights <span class="math notranslate nohighlight">\(\mu(x,s)\)</span> by the <em>conditional</em> <span class="math notranslate nohighlight">\(P(S\mid X)\)</span> (which encodes how much <span class="math notranslate nohighlight">\(X\)</span> reveals about <span class="math notranslate nohighlight">\(S\)</span>), whereas the discrimination-free price weights by a <em>marginal</em> <span class="math notranslate nohighlight">\(P^{*}(S)\)</span> (which reveals nothing). Their difference,</p>
 <div class="math notranslate nohighlight">
 \[
-\mu(x) - h(x) = \sum_s \mu(x,s)\,\bigl[P(S = s \mid X = x) - P^{\*}(S = s)\bigr],
+\mu(x) - h(x) = \sum_s \mu(x,s)\,\bigl[P(S = s \mid X = x) - P^{*}(S = s)\bigr],
 \]</div>
 <p>is precisely the <strong>inference / proxy component</strong> baked into the unawareness price.</p>
 <div class="proof algorithm dropdown admonition" id="alg-discfree-price">
 <p class="admonition-title"><span class="caption-number">Algorithm 18 </span> (Discrimination-Free Pricing)</p>
 <section class="algorithm-content" id="proof-content">
-<p><strong>Inputs</strong> Data <span class="math notranslate nohighlight">\(D = \{(X_i, S_i, Y_i)\}_{i=1}^{n}\)</span>, ML learner <span class="math notranslate nohighlight">\(\mathcal{L}\)</span>, reference marginal <span class="math notranslate nohighlight">\(P^{\*}(S)\)</span></p>
+<p><strong>Inputs</strong> Data <span class="math notranslate nohighlight">\(D = \{(X_i, S_i, Y_i)\}_{i=1}^{n}\)</span>, ML learner <span class="math notranslate nohighlight">\(\mathcal{L}\)</span>, reference marginal <span class="math notranslate nohighlight">\(P^{*}(S)\)</span></p>
 <p><strong>Outputs</strong> Discrimination-free price <span class="math notranslate nohighlight">\(h(x)\)</span></p>
 <ol class="arabic simple">
 <li><p>Fit the best-estimate model <span class="math notranslate nohighlight">\(\hat{\mu}(x, s) = \mathcal{L}(Y \sim X, S)\)</span> on <span class="math notranslate nohighlight">\(D\)</span> <em>(this step uses the protected <span class="math notranslate nohighlight">\(S\)</span>)</em></p></li>
-<li><p>Choose a reference marginal <span class="math notranslate nohighlight">\(P^{\*}(S)\)</span> — e.g. the portfolio proportions <span class="math notranslate nohighlight">\(P^{\*}(S = s) = \frac{1}{n}\sum_i \mathbb{1}\{S_i = s\}\)</span>, independent of <span class="math notranslate nohighlight">\(x\)</span></p></li>
+<li><p>Choose a reference marginal <span class="math notranslate nohighlight">\(P^{*}(S)\)</span> — e.g. the portfolio proportions <span class="math notranslate nohighlight">\(P^{*}(S = s) = \frac{1}{n}\sum_i \mathbb{1}\{S_i = s\}\)</span>, independent of <span class="math notranslate nohighlight">\(x\)</span></p></li>
 <li><p>For every policyholder <span class="math notranslate nohighlight">\(i\)</span> and each level <span class="math notranslate nohighlight">\(s\)</span>, predict the counterfactual claim cost <span class="math notranslate nohighlight">\(\hat{\mu}(x_i, s)\)</span></p></li>
-<li><p>Average over the <strong>marginal</strong>, not the conditional: <span class="math notranslate nohighlight">\(h(x_i) = \sum_{s} \hat{\mu}(x_i, s)\, P^{\*}(S = s)\)</span></p></li>
+<li><p>Average over the <strong>marginal</strong>, not the conditional: <span class="math notranslate nohighlight">\(h(x_i) = \sum_{s} \hat{\mu}(x_i, s)\, P^{*}(S = s)\)</span></p></li>
 <li><p>Return <span class="math notranslate nohighlight">\(h(x_i)\)</span> <em>(a function of <span class="math notranslate nohighlight">\(x\)</span> alone — the <span class="math notranslate nohighlight">\(X \to S\)</span> inference channel is removed)</em></p></li>
 </ol>
 </section>
@@ -834,7 +834,7 @@ h(x) = \sum_{s} \mu(x, s)\, P^{\*}(S = s).
 <p>We follow <a class="reference internal" href="#alg-discfree-price">Algorithm 18</a>. A gradient-boosting model estimates the best-estimate price <span class="math notranslate nohighlight">\(\hat\mu(x,s)\)</span> from <strong>all</strong> covariates. We then predict each policyholder’s cost at <em>both</em> sexes, holding the covariates fixed, and combine those two predictions in two different ways:</p>
 <ul class="simple">
 <li><p>the <strong>unawareness</strong> price weights them by the conditional <span class="math notranslate nohighlight">\(\hat P(S\mid X)\)</span>, obtained from a logistic model of <code class="docutils literal notranslate"><span class="pre">sex</span></code> on the covariates — this is the inference channel;</p></li>
-<li><p>the <strong>discrimination-free</strong> price weights them by the fixed marginal <span class="math notranslate nohighlight">\(P^{\*}(S)\)</span> (the portfolio sex split).</p></li>
+<li><p>the <strong>discrimination-free</strong> price weights them by the fixed marginal <span class="math notranslate nohighlight">\(P^{*}(S)\)</span> (the portfolio sex split).</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1110,7 +1110,7 @@ h(x) = \sum_{s} \mu(x, s)\, P^{\*}(S = s).
 </tr>
 <tr class="row-even"><td><p><strong>Discrimination-free price</strong> (Lindholm et al.)</p></td>
 <td><p>Causal-ish</p></td>
-<td><p>Average <span class="math notranslate nohighlight">\(\mu(x,s)\)</span> over a marginal <span class="math notranslate nohighlight">\(P^{\*}(S)\)</span></p></td>
+<td><p>Average <span class="math notranslate nohighlight">\(\mu(x,s)\)</span> over a marginal <span class="math notranslate nohighlight">\(P^{*}(S)\)</span></p></td>
 <td><p>Still prices on proxy <em>paths</em> through <span class="math notranslate nohighlight">\(X\)</span></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Counterfactual fairness</strong> (Kusner et al.)</p></td>
@@ -1179,7 +1179,7 @@ h(x) = \sum_{s} \mu(x, s)\, P^{\*}(S = s).
 <li><p><strong>Draw the DAG.</strong> Place the protected attribute <span class="math notranslate nohighlight">\(S\)</span>, the covariates <span class="math notranslate nohighlight">\(X\)</span>, and the outcome <span class="math notranslate nohighlight">\(Y\)</span>, and enumerate every path <span class="math notranslate nohighlight">\(S \rightsquigarrow Y\)</span> (<a class="reference internal" href="../tutorial/2_2_graphical_models.html"><span class="doc">Graphical Causal Models</span></a>).</p></li>
 <li><p><strong>Classify the paths.</strong> Direct <span class="math notranslate nohighlight">\(S \to Y\)</span> effects are off-limits; legitimate factors independent of <span class="math notranslate nohighlight">\(S\)</span> are fine; proxy paths <span class="math notranslate nohighlight">\(S \to X \to Y\)</span> require an explicit, documented judgement.</p></li>
 <li><p><strong>Do not rely on unawareness.</strong> Dropping <span class="math notranslate nohighlight">\(S\)</span> leaves proxy discrimination intact and may even <em>hide</em> it from audit.</p></li>
-<li><p><strong>Collect <span class="math notranslate nohighlight">\(S\)</span> to neutralise <span class="math notranslate nohighlight">\(S\)</span>.</strong> The discrimination-free price (<a class="reference internal" href="#alg-discfree-price">Algorithm 18</a>) needs the protected attribute at training time, then averages it out with a marginal <span class="math notranslate nohighlight">\(P^{\*}(S)\)</span>.</p></li>
+<li><p><strong>Collect <span class="math notranslate nohighlight">\(S\)</span> to neutralise <span class="math notranslate nohighlight">\(S\)</span>.</strong> The discrimination-free price (<a class="reference internal" href="#alg-discfree-price">Algorithm 18</a>) needs the protected attribute at training time, then averages it out with a marginal <span class="math notranslate nohighlight">\(P^{*}(S)\)</span>.</p></li>
 <li><p><strong>Audit causally, not just statistically.</strong> Use a counterfactual / path-specific check to confirm the price would not move if <span class="math notranslate nohighlight">\(S\)</span> — and its descendants — had been different.</p></li>
 <li><p><strong>Pick your fairness criterion deliberately.</strong> The statistical definitions are mutually incompatible at unequal base rates; document which one the product targets and why.</p></li>
 </ol>
