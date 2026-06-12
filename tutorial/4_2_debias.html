@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Biases and De-Biasing Toolkit &#8212; Causal Inference Tutorial</title>
+    <title>Biases and De-Biasing Toolkit &#8212; Actuarial Causal Inference Tutorial</title>
   
   
   
@@ -40,7 +40,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/thebe-button-patch.css?v=e3482d12" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=7b192c10" />
+    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=1c84b29a" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -215,8 +215,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="Causal Inference Tutorial - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Causal Inference Tutorial - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Actuarial Causal Inference Tutorial - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Actuarial Causal Inference Tutorial - Home"/>`);</script>
   
   
 </a></div>
@@ -237,7 +237,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../README.html">
-                    Causal Inference Tutorial
+                    Actuarial Causal Inference Tutorial
                 </a>
             </li>
         </ul>
@@ -503,7 +503,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/confounding.svg"><img alt="../_images/confounding.svg" src="../_images/confounding.svg" style="width: 55%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Confounding: the fork variable <span class="math notranslate nohighlight">\(F\)</span> influences both treatment <span class="math notranslate nohighlight">\(T\)</span> and outcome <span class="math notranslate nohighlight">\(Y\)</span>, biasing the naive <span class="math notranslate nohighlight">\(T\)</span>–<span class="math notranslate nohighlight">\(Y\)</span> comparison unless adjusted for.</span><a class="headerlink" href="#fig-confounding-bias" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">Confounding: the fork variable <span class="math notranslate nohighlight">\(F\)</span> influences both treatment <span class="math notranslate nohighlight">\(T\)</span> and outcome <span class="math notranslate nohighlight">\(Y\)</span>, biasing the naive <span class="math notranslate nohighlight">\(T\)</span>–<span class="math notranslate nohighlight">\(Y\)</span> comparison unless adjusted for.</span><a class="headerlink" href="#fig-confounding-bias" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Confounding violates <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a>. The naive comparison conflates the causal effect with a baseline difference between groups:</p>
@@ -533,7 +533,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/collider_bias.svg"><img alt="../_images/collider_bias.svg" src="../_images/collider_bias.svg" style="width: 55%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 15 </span><span class="caption-text">Collider bias: <span class="math notranslate nohighlight">\(C\)</span> is a common effect of <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. Conditioning on <span class="math notranslate nohighlight">\(C\)</span> opens a non-causal path between treatment and outcome.</span><a class="headerlink" href="#fig-collider-bias" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">Collider bias: <span class="math notranslate nohighlight">\(C\)</span> is a common effect of <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. Conditioning on <span class="math notranslate nohighlight">\(C\)</span> opens a non-causal path between treatment and outcome.</span><a class="headerlink" href="#fig-collider-bias" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Collider bias results from <strong>incorrect adjustment</strong>, not from a violated assumption per se. In insurance, analysing claims conditional on whether a claim was <em>filed</em> can introduce collider bias, since filing depends on both the treatment and the outcome severity. DAG-guided variable selection (<a class="reference internal" href="2_3_methods.html#backdoor-criterion">Criterion 1</a>) is the primary safeguard.</p>
@@ -706,7 +706,7 @@ document.write(`
   <div class="footer-item">
     
 <p class="component-author">
-By Daniel Meier, Theresa Blümlein, Michael Mayer, and Patrick Cheridito
+By Theresa Blümlein, Patrick Cheridito, and Daniel Meier
 </p>
 
   </div>
@@ -716,7 +716,7 @@ By Daniel Meier, Theresa Blümlein, Michael Mayer, and Patrick Cheridito
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2026.
       <br/>
     
   </p>

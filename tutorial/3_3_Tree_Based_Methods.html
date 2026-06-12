@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Tree-Based Methods &#8212; Causal Inference Tutorial</title>
+    <title>Tree-Based Methods &#8212; Actuarial Causal Inference Tutorial</title>
   
   
   
@@ -40,7 +40,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/thebe-button-patch.css?v=e3482d12" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=7b192c10" />
+    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=1c84b29a" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -215,8 +215,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="Causal Inference Tutorial - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Causal Inference Tutorial - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Actuarial Causal Inference Tutorial - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Actuarial Causal Inference Tutorial - Home"/>`);</script>
   
   
 </a></div>
@@ -237,7 +237,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../README.html">
-                    Causal Inference Tutorial
+                    Actuarial Causal Inference Tutorial
                 </a>
             </li>
         </ul>
@@ -471,21 +471,21 @@ document.write(`
 </div><p>Similar to CART , a causal tree partitions the sample into subgroups. It creates a partition of the patient population into subpopulations (i.e., leaves <span class="math notranslate nohighlight">\(\ell\in\mathcal{L}\)</span>) using recursive binary splitting. In contrast to a decision tree, a causal tree estimates the treatment effect <span class="math notranslate nohighlight">\(\hat{\tau}\)</span> directly by modelling the contrast in potential outcomes rather than modelling both potential outcomes and then taking their contrast.</p>
 <p>Since a covariate that affects the expected outcome <span class="math notranslate nohighlight">\(\mathbb{E}[Y \mid X = x]\)</span> does not necessarily affect the treatment effect and vice versa, the splitting criterion is chosen with respect to covariates that actually cause treatment effect heterogeneity, as explained below.</p>
 <p>For each split, the outcome-covariate pair is determined such that it maximizes the weighted difference <span class="math notranslate nohighlight">\(n_L\cdot n_R\cdot (\hat{\tau}_L-\hat{\tau}_R)^2\)</span> where <span class="math notranslate nohighlight">\(n_L\)</span> denotes the number of observations assigned to the left node and <span class="math notranslate nohighlight">\(n_R\)</span> the number of observations that are assigned to right node. The first two factors, <span class="math notranslate nohighlight">\(n_L\)</span> and <span class="math notranslate nohighlight">\(n_R\)</span> make sure that the two sides are well balanced and the squared difference makes sure that the treatment effects between the two subpopulations are as heterogeneous as possible. A constant, hence homogeneous, treatment effect is assumed across all observations within the respective subpopulation aggregated in a leaf. Within each leaf, units act as if randomised: the CATE is the difference in mean outcomes. We denote <span class="math notranslate nohighlight">\(\mathbb{E}[Y^{(-i)} \mid X = x^{(i)}] = \hat{Y}^{(-i)}\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-eae9ed9a-34e7-4752-ab74-afc0184a935d">
-<span class="eqno">(1)<a class="headerlink" href="#equation-eae9ed9a-34e7-4752-ab74-afc0184a935d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4b24f71e-6bf7-402f-83dc-5b809d0ef80b">
+<span class="eqno">(1)<a class="headerlink" href="#equation-4b24f71e-6bf7-402f-83dc-5b809d0ef80b" title="Permalink to this equation">#</a></span>\[\begin{align}
      \hat{\tau}_L\leftarrow lm\left((Y^{(i)}-\hat{Y}^{(-i)})\sim(T^{(i)}-\hat{\pi}^{(-i)}(x^{(i)})):x^{(i)}\in L\right) \\
      \hat{\tau}_R\leftarrow  lm\left((Y^{(i)}-\hat{Y}^{(-i)})\sim(T^{(i)}-\hat{\pi}^{(-i)}(x^{(i)})):x^{(i)}\in R\right)
 \end{align}\]</div>
 <p>The stopping criterion of further partitioning the population into subgroups is usually pre-specified by hyperparameters such as the minimum number of observations per leaf, a threshold for the weighted difference in the resulting treatment effects or a difference in sizes between the resulting nodes in terms of control and treatment group. If one of these minimum requirements is not met due to an additional split, the partitioning process is stopped and the algorithm intermediately returns the partition of <span class="math notranslate nohighlight">\(\mathcal{L}\)</span>. Given this partition, the estimation step is executed to get CATEs that basically are differences in outcomes for treatment and control observations. In every leaf <span class="math notranslate nohighlight">\(\ell\)</span>, there are both treated and untreated patients. Hence, the CATE is estimated as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-07fbaef6-bd82-40de-a177-9a161592e3c6">
-<span class="eqno">(2)<a class="headerlink" href="#equation-07fbaef6-bd82-40de-a177-9a161592e3c6" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-124e55f5-d039-4b4c-9e83-cdcb6ed51dec">
+<span class="eqno">(2)<a class="headerlink" href="#equation-124e55f5-d039-4b4c-9e83-cdcb6ed51dec" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \hat{\tau}^{(\ell)}(x)=\frac{\sum_{\{i:T^{(i)}=0,\, x^{(i)}\in \ell\}}Y^{(i)}}{\left|\{i:T^{(i)}=0,\, x^{(i)}\in \ell\}\right|}-\frac{\sum_{\{i:T^{(i)}=1,\, x^{(i)}\in \ell\}}Y^{(i)}}{\left|\{i:T^{(i)}=1,\, x^{(i)}\in \ell\}\right|}
 \end{equation}\]</div>
 <figure class="align-default" id="fig-causal-tree">
 <a class="reference internal image-reference" href="../_images/causal_tree.svg"><img alt="../_images/causal_tree.svg" src="../_images/causal_tree.svg" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Anatomy of a causal tree. Recursive binary splits on the covariates <span class="math notranslate nohighlight">\(X\)</span> carve the population into leaves, with each split chosen to maximise the heterogeneity <span class="math notranslate nohighlight">\(n_L \cdot n_R \cdot (\hat{\tau}_L - \hat{\tau}_R)^2\)</span> of the resulting effects — not to predict <span class="math notranslate nohighlight">\(Y\)</span>. Within a leaf the units behave as if randomised, so the CATE is simply the difference in mean outcomes between its treated and control members (an exact, equal-weight match inside the leaf). The leaves estimate visibly different effects (<span class="math notranslate nohighlight">\(\hat{\tau}^{(\ell)} \approx +6, +1, -2\)</span>), which is exactly the heterogeneity the splits are designed to expose.</span><a class="headerlink" href="#fig-causal-tree" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">Anatomy of a causal tree. Recursive binary splits on the covariates <span class="math notranslate nohighlight">\(X\)</span> carve the population into leaves, with each split chosen to maximise the heterogeneity <span class="math notranslate nohighlight">\(n_L \cdot n_R \cdot (\hat{\tau}_L - \hat{\tau}_R)^2\)</span> of the resulting effects — not to predict <span class="math notranslate nohighlight">\(Y\)</span>. Within a leaf the units behave as if randomised, so the CATE is simply the difference in mean outcomes between its treated and control members (an exact, equal-weight match inside the leaf). The leaves estimate visibly different effects (<span class="math notranslate nohighlight">\(\hat{\tau}^{(\ell)} \approx +6, +1, -2\)</span>), which is exactly the heterogeneity the splits are designed to expose.</span><a class="headerlink" href="#fig-causal-tree" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The underlying assumptions are that in each leaf, the treatment effect is the same across all observations in the leaf and the leaves are small enough that the <span class="math notranslate nohighlight">\((Y, T)\)</span> pairs of each observation in a leaf behave as if they have come from a RCT: this requires that <span class="math notranslate nohighlight">\(T\)</span> is randomly distributed across the observations in the leaf given the covariates and the outcome <span class="math notranslate nohighlight">\(Y\)</span> is independent of the assigned treatment <span class="math notranslate nohighlight">\(T\)</span>.</p>
@@ -525,21 +525,21 @@ document.write(`
 </ol>
 </section>
 </div><p>Fitting <span class="math notranslate nohighlight">\(B\)</span> causal trees, we repeat the separation step into a construction data set and an estimation data set repeatedly for every causal tree. Hence, every single weak learner is fitted on different subsamples of the observational data set. This ensures <em>honesty</em> in the ensemble setting as well, when the individual causal trees are composed to a causal forest. Every causal tree again recursively builds a partition into binary splits of the entire patient population based on the construction set. Then, it estimates the CATEs in the leaves <span class="math notranslate nohighlight">\(\ell^{(b)}\)</span> based on the estimation set. After <span class="math notranslate nohighlight">\(B\)</span> causal trees have been built, the weights required to compose the weighted average of CATEs are calculated for every observation as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2deafaf6-0c27-488a-9c69-a5749dc47665">
-<span class="eqno">(3)<a class="headerlink" href="#equation-2deafaf6-0c27-488a-9c69-a5749dc47665" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-e9d75da1-014a-4d40-bdd9-779727bdef88">
+<span class="eqno">(3)<a class="headerlink" href="#equation-e9d75da1-014a-4d40-bdd9-779727bdef88" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \alpha^{(j)}(x)=\frac{1}{B}\sum_{b=1}^{B}\frac{\mathbb{1}\{X^{(j)}\in\ell^{(b)}(x)\}}{\left|\ell^{(b)}(x)\right|}.
 \end{equation}\]</div>
 <p>The weights indicate how often another patient <span class="math notranslate nohighlight">\(j\not = i\)</span> with covariates <span class="math notranslate nohighlight">\(X^{(j)}\)</span> falls in the same leaf as the patient of interest <span class="math notranslate nohighlight">\(i\)</span> with covariates <span class="math notranslate nohighlight">\(x\)</span> across the trees in the forest. The more often the patients are in the same leaf, the closer they are to each other and the higher is the weight of patient when estimating the treatment effect of the observation with given covariates and outcome.</p>
 <p>The causal forest is hence not used to construct the final estimate of CATE as average over all single estimations but rather for adaptive neighbourhood matching of each individual observation. The actual CATE is then calculated locally as a weighted average over its nearest neighbours, i.e. similar patients , as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b1740aec-cf25-4420-862e-d9d5ee70b592">
-<span class="eqno">(4)<a class="headerlink" href="#equation-b1740aec-cf25-4420-862e-d9d5ee70b592" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-c6eb4318-af3a-493d-871e-875112696f23">
+<span class="eqno">(4)<a class="headerlink" href="#equation-c6eb4318-af3a-493d-871e-875112696f23" title="Permalink to this equation">#</a></span>\[\begin{equation}
     \hat{\tau}(x)=\frac{\sum_{j=1}^n \alpha^{(j)}(x)(Y^{(j)}-\hat{Y}^{(-j)})(T^{(j)}-\hat{\pi}^{(-j)}(x))}{ \sum \alpha^{(j)}(x)(T^{(j)}-\hat{\pi}^{(-j)}(x))^2}.
 \end{equation}\]</div>
 <figure class="align-default" id="fig-causal-forest">
 <a class="reference internal image-reference" href="../_images/causal_forest.svg"><img alt="../_images/causal_forest.svg" src="../_images/causal_forest.svg" style="width: 95%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 13 </span><span class="caption-text">How a causal forest builds an adaptive neighbourhood. Across the <span class="math notranslate nohighlight">\(B\)</span> honest trees (left), the query patient <span class="math notranslate nohighlight">\(x\)</span> repeatedly lands in a leaf alongside different sets of patients. Tallying how often each patient <span class="math notranslate nohighlight">\(j\)</span> shares <span class="math notranslate nohighlight">\(x\)</span>’s leaf yields the forest weight <span class="math notranslate nohighlight">\(\alpha^{(j)}(x)\)</span> (right): patient <span class="math notranslate nohighlight">\(j_1\)</span>, a leaf-mate in every tree, weighs most, whereas <span class="math notranslate nohighlight">\(j_4\)</span> — never co-located — contributes nothing. The result is a <em>learned</em> local match in covariate space rather than a match on a single propensity score, with out-of-bag residuals making the final weighted estimate doubly robust.</span><a class="headerlink" href="#fig-causal-forest" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text">How a causal forest builds an adaptive neighbourhood. Across the <span class="math notranslate nohighlight">\(B\)</span> honest trees (left), the query patient <span class="math notranslate nohighlight">\(x\)</span> repeatedly lands in a leaf alongside different sets of patients. Tallying how often each patient <span class="math notranslate nohighlight">\(j\)</span> shares <span class="math notranslate nohighlight">\(x\)</span>’s leaf yields the forest weight <span class="math notranslate nohighlight">\(\alpha^{(j)}(x)\)</span> (right): patient <span class="math notranslate nohighlight">\(j_1\)</span>, a leaf-mate in every tree, weighs most, whereas <span class="math notranslate nohighlight">\(j_4\)</span> — never co-located — contributes nothing. The result is a <em>learned</em> local match in covariate space rather than a match on a single propensity score, with out-of-bag residuals making the final weighted estimate doubly robust.</span><a class="headerlink" href="#fig-causal-forest" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>To construct the neighbourhood for each single patient <span class="math notranslate nohighlight">\(i\)</span>, weights are calculated for every other patient <span class="math notranslate nohighlight">\(j\not = i\)</span>. Note that <span class="math notranslate nohighlight">\(\hat{Y}^{(-j)}\)</span> and <span class="math notranslate nohighlight">\(\hat{\pi}^{(-j)}(x)\)</span> are calculated out-of-bag, meaning that information about patient <span class="math notranslate nohighlight">\(j\)</span> was not used for their estimation. We refer to  for more details on the estimation procedure. To assign an observation to a leaf <span class="math notranslate nohighlight">\(\ell^{(b)}\)</span> in iteration <span class="math notranslate nohighlight">\(b\)</span>, the set of covariates can vary across patients to determine the path, as causal forests share the property with random forests to randomly select the set of possible covariates at each split . Amongst this set, the splitting covariate that maximizes heterogeneity in treatment effects amongst the subgroups, is chosen on a data-driven basis. This allows the path to vary per leaf <span class="math notranslate nohighlight">\(\ell\)</span> and per iteration <span class="math notranslate nohighlight">\(b\)</span>.</p>
@@ -625,7 +625,7 @@ document.write(`
   <div class="footer-item">
     
 <p class="component-author">
-By Daniel Meier, Theresa Blümlein, Michael Mayer, and Patrick Cheridito
+By Theresa Blümlein, Patrick Cheridito, and Daniel Meier
 </p>
 
   </div>
@@ -635,7 +635,7 @@ By Daniel Meier, Theresa Blümlein, Michael Mayer, and Patrick Cheridito
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2026.
       <br/>
     
   </p>

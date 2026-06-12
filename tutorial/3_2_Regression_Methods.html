@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Regression Methods &#8212; Causal Inference Tutorial</title>
+    <title>Regression Methods &#8212; Actuarial Causal Inference Tutorial</title>
   
   
   
@@ -40,7 +40,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/thebe-button-patch.css?v=e3482d12" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=7b192c10" />
+    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=1c84b29a" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -215,8 +215,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="Causal Inference Tutorial - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Causal Inference Tutorial - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Actuarial Causal Inference Tutorial - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Actuarial Causal Inference Tutorial - Home"/>`);</script>
   
   
 </a></div>
@@ -237,7 +237,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../README.html">
-                    Causal Inference Tutorial
+                    Actuarial Causal Inference Tutorial
                 </a>
             </li>
         </ul>
@@ -452,7 +452,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/dag_doubly_robust.svg"><img alt="../_images/dag_doubly_robust.svg" src="../_images/dag_doubly_robust.svg" style="width: 70%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Causal structure underlying adjustment-based regression estimators. The covariates <span class="math notranslate nohighlight">\(X\)</span> confound the treatment–outcome relationship through the <em>propensity model</em> <span class="math notranslate nohighlight">\(\pi(X) = P(T = 1 \mid X)\)</span> and the <em>outcome model</em> <span class="math notranslate nohighlight">\(\mu(X) = \mathbb{E}[Y \mid T, X]\)</span>. Doubly robust estimators combine both to estimate the causal effect <span class="math notranslate nohighlight">\(\tau\)</span>.</span><a class="headerlink" href="#fig-dr-dag" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">Causal structure underlying adjustment-based regression estimators. The covariates <span class="math notranslate nohighlight">\(X\)</span> confound the treatment–outcome relationship through the <em>propensity model</em> <span class="math notranslate nohighlight">\(\pi(X) = P(T = 1 \mid X)\)</span> and the <em>outcome model</em> <span class="math notranslate nohighlight">\(\mu(X) = \mathbb{E}[Y \mid T, X]\)</span>. Doubly robust estimators combine both to estimate the causal effect <span class="math notranslate nohighlight">\(\tau\)</span>.</span><a class="headerlink" href="#fig-dr-dag" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="outcome-regression-and-g-computation">
@@ -588,7 +588,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/iv_structure.svg"><img alt="../_images/iv_structure.svg" src="../_images/iv_structure.svg" style="width: 80%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Instrumental variable <span class="math notranslate nohighlight">\(I\)</span>. The instrument induces exogenous variation in the treatment <span class="math notranslate nohighlight">\(T\)</span> while being independent of the unobserved confounder <span class="math notranslate nohighlight">\(U\)</span> and affecting the outcome <span class="math notranslate nohighlight">\(Y\)</span> only through <span class="math notranslate nohighlight">\(T\)</span>.</span><a class="headerlink" href="#fig-iv" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">Instrumental variable <span class="math notranslate nohighlight">\(I\)</span>. The instrument induces exogenous variation in the treatment <span class="math notranslate nohighlight">\(T\)</span> while being independent of the unobserved confounder <span class="math notranslate nohighlight">\(U\)</span> and affecting the outcome <span class="math notranslate nohighlight">\(Y\)</span> only through <span class="math notranslate nohighlight">\(T\)</span>.</span><a class="headerlink" href="#fig-iv" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -625,7 +625,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/did_parallel_trends.svg"><img alt="../_images/did_parallel_trends.svg" src="../_images/did_parallel_trends.svg" style="width: 80%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 9 </span><span class="caption-text">Difference-in-differences. Under parallel trends, the treated group’s counterfactual (dashed) would have followed the control trend; the vertical gap <span class="math notranslate nohighlight">\(\tau\)</span> in the post-period is the ATT.</span><a class="headerlink" href="#fig-did" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Difference-in-differences. Under parallel trends, the treated group’s counterfactual (dashed) would have followed the control trend; the vertical gap <span class="math notranslate nohighlight">\(\tau\)</span> in the post-period is the ATT.</span><a class="headerlink" href="#fig-did" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="proof algorithm dropdown admonition" id="alg-did">
@@ -649,7 +649,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/rdd_discontinuity.svg"><img alt="../_images/rdd_discontinuity.svg" src="../_images/rdd_discontinuity.svg" style="width: 80%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 10 </span><span class="caption-text">Regression discontinuity. Treatment switches on at the cutoff <span class="math notranslate nohighlight">\(c\)</span>; the vertical jump <span class="math notranslate nohighlight">\(\tau\)</span> in the fitted outcome at <span class="math notranslate nohighlight">\(c\)</span> identifies the local average treatment effect.</span><a class="headerlink" href="#fig-rdd" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Regression discontinuity. Treatment switches on at the cutoff <span class="math notranslate nohighlight">\(c\)</span>; the vertical jump <span class="math notranslate nohighlight">\(\tau\)</span> in the fitted outcome at <span class="math notranslate nohighlight">\(c\)</span> identifies the local average treatment effect.</span><a class="headerlink" href="#fig-rdd" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="proof algorithm dropdown admonition" id="alg-rdd">
@@ -673,7 +673,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/synthetic_control.svg"><img alt="../_images/synthetic_control.svg" src="../_images/synthetic_control.svg" style="width: 80%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 11 </span><span class="caption-text">Synthetic control. Donor-pool units are weighted so the synthetic control (dashed) tracks the treated unit before intervention; the post-intervention gap <span class="math notranslate nohighlight">\(\tau\)</span> is the estimated effect.</span><a class="headerlink" href="#fig-synth" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Synthetic control. Donor-pool units are weighted so the synthetic control (dashed) tracks the treated unit before intervention; the post-intervention gap <span class="math notranslate nohighlight">\(\tau\)</span> is the estimated effect.</span><a class="headerlink" href="#fig-synth" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="proof algorithm dropdown admonition" id="alg-synth">
@@ -781,7 +781,7 @@ document.write(`
   <div class="footer-item">
     
 <p class="component-author">
-By Daniel Meier, Theresa Blümlein, Michael Mayer, and Patrick Cheridito
+By Theresa Blümlein, Patrick Cheridito, and Daniel Meier
 </p>
 
   </div>
@@ -791,7 +791,7 @@ By Daniel Meier, Theresa Blümlein, Michael Mayer, and Patrick Cheridito
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2026.
       <br/>
     
   </p>

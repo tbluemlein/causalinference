@@ -22,16 +22,21 @@
 * **Künzel, S. R., Sekhon, J. S., Bickel, P. J., & Yu, B. (2019).** *Metalearners for estimating heterogeneous treatment effects using machine learning.* Proceedings of the National Academy of Sciences, 116(10), 4156-4165. [DOI: 10.1073/pnas.1804597116](https://doi.org/10.1073/pnas.1804597116)
 * **Kusner, M. J., Loftus, J., Russell, C., & Silva, R. (2017).** *Counterfactual fairness.* Advances in Neural Information Processing Systems 30, 4066–4076. [arXiv:1703.06856](https://arxiv.org/abs/1703.06856)
 * **Lindholm, M., Richman, R., Tsanakas, A., & Wüthrich, M. V. (2022).** *A discussion of discrimination and fairness in insurance pricing.* [arXiv:2209.00858](https://arxiv.org/abs/2209.00858)
+* **Neyman, J. (Splawa-Neyman). (1923).** *On the application of probability theory to agricultural experiments. Essay on principles. Section 9.* (Translated and edited by D. M. Dabrowska & T. P. Speed, 1990.) Statistical Science, 5(4), 465-472. [DOI: 10.1214/ss/1177012031](https://doi.org/10.1214/ss/1177012031)
 * **Nie, X., & Wager, S. (2021).** *Quasi-oracle estimation of heterogeneous treatment effects.* Biometrika, 108(2), 299-319. [DOI: 10.1093/biomet/asaa076](https://doi.org/10.1093/biomet/asaa076)
+* **Pearl, J. (1995).** *Causal diagrams for empirical research.* Biometrika, 82(4), 669-688. [DOI: 10.1093/biomet/82.4.669](https://doi.org/10.1093/biomet/82.4.669)
+* **Pearl, J. (2009).** *Causality: Models, Reasoning, and Inference* (2nd ed.). Cambridge University Press. [DOI: 10.1017/CBO9780511803161](https://doi.org/10.1017/CBO9780511803161)
 * **Robins, J. M. (1986).** *A new approach to causal inference in mortality studies with a sustained exposure period—application to control of the healthy worker survivor effect.* Mathematical Modelling, 7(9-12), 1393-1512. [DOI: 10.1016/0270-0255(86)90088-6](https://doi.org/10.1016/0270-0255(86)90088-6)
 * **Robins, J. M., Rotnitzky, A., & Zhao, L. P. (1994).** *Estimation of regression coefficients when some regressors are not always observed.* Journal of the American Statistical Association, 89(427), 846-866. [DOI: 10.1080/01621459.1994.10476818](https://doi.org/10.1080/01621459.1994.10476818)
 * **Robinson, P. M. (1988).** *Root-N-consistent semiparametric regression.* Econometrica, 56(4), 931-954. [DOI: 10.2307/1912705](https://doi.org/10.2307/1912705)
 * **Rosenbaum, P. R., & Rubin, D. B. (1983).** *The central role of the propensity score in observational studies for causal effects.* Biometrika, 70(1), 41-55. [DOI: 10.1093/biomet/70.1.41](https://doi.org/10.1093/biomet/70.1.41) 
+* **Rubin, D. B. (1974).** *Estimating causal effects of treatments in randomized and nonrandomized studies.* Journal of Educational Psychology, 66(5), 688-701. [DOI: 10.1037/h0037350](https://doi.org/10.1037/h0037350)
 * **Sant'Anna, P. H. C., & Zhao, J. (2020).** *Doubly robust difference-in-differences estimators.* Journal of Econometrics, 219(1), 101-122. [DOI: 10.1016/j.jeconom.2020.06.003](https://doi.org/10.1016/j.jeconom.2020.06.003)
 * **Semenova, V., & Chernozhukov, V. (2021).** *Debiased machine learning of conditional average treatment effects and other causal functions.* The Econometrics Journal, 24(2), 264-289. [DOI: 10.1093/ectj/utaa027](https://doi.org/10.1093/ectj/utaa027)
 * **Shalizi, C. R. (2025).** [*Advanced Data Analysis from an Elementary Point of View.*](https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf) 
 * **van der Laan, M. J., & Rubin, D. (2006).** *Targeted maximum likelihood learning.* The International Journal of Biostatistics, 2(1), Article 11. [DOI: 10.2202/1557-4679.1043](https://doi.org/10.2202/1557-4679.1043)
 * **Wager, S., & Athey, S. (2018).** *Estimation and inference of heterogeneous treatment effects using random forests.* Journal of the American Statistical Association, 113(523), 1228-1242. [DOI: 10.1080/01621459.2017.1319839](https://doi.org/10.1080/01621459.2017.1319839)
+* **Wright, S. (1934).** *The method of path coefficients.* The Annals of Mathematical Statistics, 5(3), 161-215. [DOI: 10.1214/aoms/1177732676](https://doi.org/10.1214/aoms/1177732676)
 
 ## Useful Links
 ### Theory

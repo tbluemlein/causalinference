@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Graphical Causal Models &#8212; Causal Inference Tutorial</title>
+    <title>Graphical Causal Models &#8212; Actuarial Causal Inference Tutorial</title>
   
   
   
@@ -40,7 +40,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/thebe-button-patch.css?v=e3482d12" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=7b192c10" />
+    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=1c84b29a" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -215,8 +215,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="../_static/logo.png" class="logo__image only-light" alt="Causal Inference Tutorial - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Causal Inference Tutorial - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Actuarial Causal Inference Tutorial - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Actuarial Causal Inference Tutorial - Home"/>`);</script>
   
   
 </a></div>
@@ -237,7 +237,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../README.html">
-                    Causal Inference Tutorial
+                    Actuarial Causal Inference Tutorial
                 </a>
             </li>
         </ul>
@@ -483,7 +483,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/graph_family.svg"><img alt="../_images/graph_family.svg" src="../_images/graph_family.svg" style="width: 80%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Graph terminology: relative to the node of interest <span class="math notranslate nohighlight">\(X\)</span>, the node <span class="math notranslate nohighlight">\(Z\)</span> is a parent, <span class="math notranslate nohighlight">\(W\)</span> a child, and <span class="math notranslate nohighlight">\(Y\)</span> a descendant.</span><a class="headerlink" href="#fig-graph-family" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Graph terminology: relative to the node of interest <span class="math notranslate nohighlight">\(X\)</span>, the node <span class="math notranslate nohighlight">\(Z\)</span> is a parent, <span class="math notranslate nohighlight">\(W\)</span> a child, and <span class="math notranslate nohighlight">\(Y\)</span> a descendant.</span><a class="headerlink" href="#fig-graph-family" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>A <strong>path</strong> between two nodes is any sequence of edges connecting them, regardless of direction. A <strong>directed path</strong> follows the arrow directions. A <strong>causal path</strong> from <span class="math notranslate nohighlight">\(T\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> is a directed path <span class="math notranslate nohighlight">\(T \rightarrow \cdots \rightarrow Y\)</span>.</p>
@@ -503,7 +503,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/chain.svg"><img alt="../_images/chain.svg" src="../_images/chain.svg" style="width: 70%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">A chain: the mediator <span class="math notranslate nohighlight">\(M\)</span> transmits the causal effect of the cause <span class="math notranslate nohighlight">\(X\)</span> on the effect <span class="math notranslate nohighlight">\(Y\)</span>.</span><a class="headerlink" href="#fig-chain" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">A chain: the mediator <span class="math notranslate nohighlight">\(M\)</span> transmits the causal effect of the cause <span class="math notranslate nohighlight">\(X\)</span> on the effect <span class="math notranslate nohighlight">\(Y\)</span>.</span><a class="headerlink" href="#fig-chain" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>In a chain, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <strong>marginally dependent</strong> (information flows through <span class="math notranslate nohighlight">\(M\)</span>), but <strong>conditionally independent given <span class="math notranslate nohighlight">\(M\)</span></strong>: once we know <span class="math notranslate nohighlight">\(M\)</span>, learning <span class="math notranslate nohighlight">\(X\)</span> provides no additional information about <span class="math notranslate nohighlight">\(Y\)</span>.</p>
@@ -523,7 +523,7 @@ X \perp\!\!\!\perp Y \mid M \quad \text{(in a chain)}
 <a class="reference internal image-reference" href="../_images/fork.svg"><img alt="../_images/fork.svg" src="../_images/fork.svg" style="width: 55%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">A fork: the common cause <span class="math notranslate nohighlight">\(F\)</span> induces a spurious association between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</span><a class="headerlink" href="#fig-fork" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">A fork: the common cause <span class="math notranslate nohighlight">\(F\)</span> induces a spurious association between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</span><a class="headerlink" href="#fig-fork" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>In a fork, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are marginally dependent (the common cause <span class="math notranslate nohighlight">\(F\)</span> induces a spurious association), but conditionally independent given <span class="math notranslate nohighlight">\(F\)</span>:</p>
@@ -544,7 +544,7 @@ X \perp\!\!\!\perp Y \mid F \quad \text{(in a fork)}
 <a class="reference internal image-reference" href="../_images/collider.svg"><img alt="../_images/collider.svg" src="../_images/collider.svg" style="width: 55%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text">A collider: <span class="math notranslate nohighlight">\(C\)</span> is a common effect of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. Conditioning on <span class="math notranslate nohighlight">\(C\)</span> opens a spurious path between them.</span><a class="headerlink" href="#fig-collider" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">A collider: <span class="math notranslate nohighlight">\(C\)</span> is a common effect of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. Conditioning on <span class="math notranslate nohighlight">\(C\)</span> opens a spurious path between them.</span><a class="headerlink" href="#fig-collider" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Colliders behave <strong>opposite</strong> to chains and forks. In a collider structure, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <strong>marginally independent</strong> — there is no open path connecting them. However, <strong>conditioning on the collider <span class="math notranslate nohighlight">\(C\)</span> (or any descendant of <span class="math notranslate nohighlight">\(C\)</span>) opens the path</strong> and induces a spurious association:</p>
@@ -633,7 +633,7 @@ X \perp\!\!\!\perp \text{NonDesc}(X) \mid \text{Pa}(X)
 <a class="reference internal image-reference" href="../_images/dsep_example.svg"><img alt="../_images/dsep_example.svg" src="../_images/dsep_example.svg" style="width: 80%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 5 </span><span class="caption-text">A DAG combining all three path structures: a fork through the confounder <span class="math notranslate nohighlight">\(F\)</span>, a chain through the mediator <span class="math notranslate nohighlight">\(M\)</span>, and a collider <span class="math notranslate nohighlight">\(C\)</span> that is a common effect of <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</span><a class="headerlink" href="#fig-dsep-example" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">A DAG combining all three path structures: a fork through the confounder <span class="math notranslate nohighlight">\(F\)</span>, a chain through the mediator <span class="math notranslate nohighlight">\(M\)</span>, and a collider <span class="math notranslate nohighlight">\(C\)</span> that is a common effect of <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</span><a class="headerlink" href="#fig-dsep-example" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="proof example dropdown admonition" id="dsep-example">
@@ -745,7 +745,7 @@ X \perp\!\!\!\perp \text{NonDesc}(X) \mid \text{Pa}(X)
   <div class="footer-item">
     
 <p class="component-author">
-By Daniel Meier, Theresa Blümlein, Michael Mayer, and Patrick Cheridito
+By Theresa Blümlein, Patrick Cheridito, and Daniel Meier
 </p>
 
   </div>
@@ -755,7 +755,7 @@ By Daniel Meier, Theresa Blümlein, Michael Mayer, and Patrick Cheridito
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2026.
       <br/>
     
   </p>
