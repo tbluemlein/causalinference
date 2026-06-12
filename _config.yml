@@ -1,8 +1,8 @@
 # Jupyter Book configuration file
 # This enables live code execution using Sphinx-Thebe extension
 
-title: Causal Inference Tutorial
-author: Daniel Meier, Theresa Blümlein, Michael Mayer, and Patrick Cheridito
+title: Actuarial Causal Inference Tutorial
+author: Theresa Blümlein, Patrick Cheridito, and Daniel Meier
 date: 2026-01-01
 logo: figure/logo.png
 
@@ -44,6 +44,7 @@ sphinx:
     - sphinxcontrib.mermaid
   config:
     numfig: true
+    copyright: "2026"
     html_static_path:
     - _static
     html_css_files:
