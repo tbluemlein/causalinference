@@ -1,5 +1,6 @@
 causal_venv/
 .figvenv/
+.venv/
 _build/
 __pycache__/
 *.pyc
