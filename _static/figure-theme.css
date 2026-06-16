@@ -156,3 +156,63 @@ html[data-mode="dark"] {
   border-bottom-color: #98C21F !important;   /* SAV green */
 }
 
+/* ===================================================================== *
+ * Navigation & content link colours
+ * ---------------------------------------------------------------------
+ * pydata-sphinx-theme colours links and the active sidebar entry with its
+ * blue/teal `--pst-color-primary` and an orange hover accent. Re-point
+ * everything to the SAV/ASA palette:
+ *   - active / current item -> SAV charcoal grey (a light grey in dark mode
+ *     so it stays legible against the dark sidebar)
+ *   - hover -> SAV lime green
+ * The variable overrides cover most theme rules; the explicit selectors
+ * below pin the sidebar nav and right-hand page TOC, which carry their own
+ * specificity.
+ * ===================================================================== */
+:root,
+html,
+html[data-theme="light"],
+html[data-mode="light"] {
+  --pst-color-link: #5F625F;          /* SAV charcoal */
+  --pst-color-link-hover: #98C21F;    /* SAV green */
+  --pst-color-primary: #5F625F;       /* active nav + accent bar */
+  --pst-color-primary-highlight: #98C21F;
+}
+
+html[data-theme="dark"],
+html[data-mode="dark"] {
+  --pst-color-link: #C2C5C2;          /* light SAV grey, readable on dark */
+  --pst-color-link-hover: #C5DE7A;    /* light SAV green */
+  --pst-color-primary: #C2C5C2;
+  --pst-color-primary-highlight: #C5DE7A;
+}
+
+/* Active (current) sidebar entry + its left accent bar */
+nav.bd-links .current > a.reference,
+nav.bd-links li.current > a.reference,
+nav.bd-links a.current.reference {
+  color: #5F625F !important;          /* SAV charcoal */
+  border-left-color: #5F625F !important;
+}
+html[data-theme="dark"] nav.bd-links .current > a.reference,
+html[data-theme="dark"] nav.bd-links li.current > a.reference,
+html[data-theme="dark"] nav.bd-links a.current.reference,
+html[data-mode="dark"]  nav.bd-links .current > a.reference,
+html[data-mode="dark"]  nav.bd-links li.current > a.reference,
+html[data-mode="dark"]  nav.bd-links a.current.reference {
+  color: #C2C5C2 !important;          /* light SAV grey */
+  border-left-color: #C2C5C2 !important;
+}
+
+/* Hover on any sidebar / page-TOC link -> SAV green */
+nav.bd-links a.reference:hover,
+nav.bd-toc-nav a.reference:hover {
+  color: #98C21F !important;          /* SAV green */
+}
+html[data-theme="dark"] nav.bd-links a.reference:hover,
+html[data-theme="dark"] nav.bd-toc-nav a.reference:hover,
+html[data-mode="dark"]  nav.bd-links a.reference:hover,
+html[data-mode="dark"]  nav.bd-toc-nav a.reference:hover {
+  color: #C5DE7A !important;          /* light SAV green */
+}
+
