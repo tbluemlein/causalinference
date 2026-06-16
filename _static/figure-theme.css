@@ -119,3 +119,100 @@ html[data-mode="dark"]  .bd-content div.cell_output img[src$=".svg"] {
 html[data-theme="dark"] .tutorial-subtitle,
 html[data-mode="dark"]  .tutorial-subtitle { color: #aab3c0; }
 
+/* ===================================================================== *
+ * Table row hover colour
+ * ---------------------------------------------------------------------
+ * pydata-sphinx-theme highlights the hovered table row with a violet
+ * (`--pst-color-table-row-hover-bg`: #b780ff light / #6432bd dark). That
+ * purple clashes with the SAV/ASA brand palette, so we re-point the
+ * variable to an on-brand SAV-green tint. Every table-hover rule in the
+ * theme reads this variable, so overriding it here is enough.
+ * ===================================================================== */
+:root,
+html,
+html[data-theme="light"],
+html[data-mode="light"] {
+  --pst-color-table-row-hover-bg: #dce9b3;   /* soft SAV-green tint */
+}
+
+html[data-theme="dark"],
+html[data-mode="dark"] {
+  --pst-color-table-row-hover-bg: #45561a;   /* deep SAV-green tint */
+}
+
+/* ===================================================================== *
+ * Table header underline
+ * ---------------------------------------------------------------------
+ * pydata-sphinx-theme draws a 2px underline beneath the table header in
+ * `--pst-color-primary` (teal/blue). Re-colour it to SAV green so tables
+ * match the brand palette, for both Markdown tables (`.table`) and
+ * rendered DataFrame outputs (`table.dataframe`).
+ * ===================================================================== */
+.bd-content table.table thead tr,
+.bd-content div.cell_output table.dataframe thead tr,
+.bd-content .nboutput table.dataframe thead tr,
+.bd-content div.cell_output table thead tr,
+.bd-content table.dataframe thead tr {
+  border-bottom-color: #98C21F !important;   /* SAV green */
+}
+
+/* ===================================================================== *
+ * Navigation & content link colours
+ * ---------------------------------------------------------------------
+ * pydata-sphinx-theme colours links and the active sidebar entry with its
+ * blue/teal `--pst-color-primary` and an orange hover accent. Re-point
+ * everything to the SAV/ASA palette:
+ *   - active / current item -> SAV charcoal grey (a light grey in dark mode
+ *     so it stays legible against the dark sidebar)
+ *   - hover -> SAV lime green
+ * The variable overrides cover most theme rules; the explicit selectors
+ * below pin the sidebar nav and right-hand page TOC, which carry their own
+ * specificity.
+ * ===================================================================== */
+:root,
+html,
+html[data-theme="light"],
+html[data-mode="light"] {
+  --pst-color-link: #5F625F;          /* SAV charcoal */
+  --pst-color-link-hover: #98C21F;    /* SAV green */
+  --pst-color-primary: #5F625F;       /* active nav + accent bar */
+  --pst-color-primary-highlight: #98C21F;
+}
+
+html[data-theme="dark"],
+html[data-mode="dark"] {
+  --pst-color-link: #C2C5C2;          /* light SAV grey, readable on dark */
+  --pst-color-link-hover: #C5DE7A;    /* light SAV green */
+  --pst-color-primary: #C2C5C2;
+  --pst-color-primary-highlight: #C5DE7A;
+}
+
+/* Active (current) sidebar entry + its left accent bar */
+nav.bd-links .current > a.reference,
+nav.bd-links li.current > a.reference,
+nav.bd-links a.current.reference {
+  color: #5F625F !important;          /* SAV charcoal */
+  border-left-color: #5F625F !important;
+}
+html[data-theme="dark"] nav.bd-links .current > a.reference,
+html[data-theme="dark"] nav.bd-links li.current > a.reference,
+html[data-theme="dark"] nav.bd-links a.current.reference,
+html[data-mode="dark"]  nav.bd-links .current > a.reference,
+html[data-mode="dark"]  nav.bd-links li.current > a.reference,
+html[data-mode="dark"]  nav.bd-links a.current.reference {
+  color: #C2C5C2 !important;          /* light SAV grey */
+  border-left-color: #C2C5C2 !important;
+}
+
+/* Hover on any sidebar / page-TOC link -> SAV green */
+nav.bd-links a.reference:hover,
+nav.bd-toc-nav a.reference:hover {
+  color: #98C21F !important;          /* SAV green */
+}
+html[data-theme="dark"] nav.bd-links a.reference:hover,
+html[data-theme="dark"] nav.bd-toc-nav a.reference:hover,
+html[data-mode="dark"]  nav.bd-links a.reference:hover,
+html[data-mode="dark"]  nav.bd-toc-nav a.reference:hover {
+  color: #C5DE7A !important;          /* light SAV green */
+}
+

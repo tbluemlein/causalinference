@@ -15,7 +15,94 @@ import seaborn as sns
 from sklearn.tree import _tree
 from sklearn.linear_model import LogisticRegression
 
-def plot_causal_dag(causal_model_dict, title, node_color='skyblue'):
+# ---------------------------------------------------------------------------
+# SAV / ASA brand palette (Swiss Association of Actuaries logo)
+# ---------------------------------------------------------------------------
+# Colours sampled from figure/logo.png. Use these (and shades of them) for all
+# plotting so the book has a consistent, on-brand look.
+SAV_GREEN = "#98C21F"   # primary lime green
+SAV_CHARCOAL = "#5F625F"  # dark grey from the logo triangles / wordmark
+SAV_BLACK = "#000000"
+
+# Shades / tints derived from the three brand colours
+SAV_GREEN_DARK = "#6E8C16"
+SAV_GREEN_LIGHT = "#C5DE7A"
+SAV_GREY = "#7E817E"
+SAV_GREY_LIGHT = "#A8ABA8"
+
+# Ordered categorical palette (used for the default colour cycle and seaborn)
+SAV_PALETTE = [
+    SAV_GREEN,
+    SAV_CHARCOAL,
+    SAV_GREEN_DARK,
+    SAV_GREY_LIGHT,
+    SAV_GREEN_LIGHT,
+    SAV_BLACK,
+    SAV_GREY,
+]
+
+
+def _register_sav_colormaps():
+    """Register brand colormaps once: 'sav', 'sav_r', 'sav_div'."""
+    import matplotlib as mpl
+    from matplotlib.colors import LinearSegmentedColormap
+
+    cmaps = {
+        # sequential: light -> green -> dark green (good for "more = greener")
+        "sav": LinearSegmentedColormap.from_list(
+            "sav", ["#F4F8E6", SAV_GREEN, SAV_GREEN_DARK]),
+        # diverging: charcoal <-> light <-> green (e.g. bad <-> neutral <-> good)
+        "sav_div": LinearSegmentedColormap.from_list(
+            "sav_div", [SAV_CHARCOAL, "#EDEDEA", SAV_GREEN]),
+    }
+    for name, cmap in cmaps.items():
+        try:
+            mpl.colormaps.register(cmap, name=name, force=True)
+            mpl.colormaps.register(cmap.reversed(), name=name + "_r", force=True)
+        except Exception:
+            pass  # already registered
+
+
+def apply_sav_theme():
+    """Apply the SAV/ASA brand palette to matplotlib and seaborn.
+
+    Call this once near the top of a notebook (after importing utils) so every
+    subsequent plot uses the brand colours by default.
+    """
+    import matplotlib as mpl
+    from cycler import cycler
+
+    _register_sav_colormaps()
+    sns.set_style("whitegrid")
+    sns.set_palette(SAV_PALETTE)
+    mpl.rcParams.update({
+        "axes.prop_cycle": cycler(color=SAV_PALETTE),
+        "image.cmap": "sav",
+        "figure.figsize": (8, 5),
+    })
+    _apply_sav_plotly_template()
+    return SAV_PALETTE
+
+
+def _apply_sav_plotly_template():
+    """Register and activate a Plotly template using the brand colours."""
+    try:
+        import plotly.io as pio
+        import plotly.graph_objects as go
+    except Exception:
+        return
+    tmpl = go.layout.Template()
+    tmpl.layout.colorway = SAV_PALETTE
+    tmpl.layout.font = dict(color=SAV_CHARCOAL)
+    # sequential + diverging colourscales matching the matplotlib colormaps
+    tmpl.layout.colorscale.sequential = [[0.0, "#F4F8E6"], [0.5, SAV_GREEN], [1.0, SAV_GREEN_DARK]]
+    tmpl.layout.colorscale.diverging = [[0.0, SAV_CHARCOAL], [0.5, "#EDEDEA"], [1.0, SAV_GREEN]]
+    pio.templates["sav"] = tmpl
+    # layer on top of the default so gridlines/background stay sensible
+    pio.templates.default = "plotly_white+sav"
+
+
+def plot_causal_dag(causal_model_dict, title, node_color=SAV_GREEN):
     """Generates and displays a causal DAG from a dictionary of causal relationships and weights.
 
     Args:
@@ -99,7 +186,7 @@ def plot_positivity_check_plotly(df, ps_column, treatment_column, title):
         x=hist_control_density, # Density on X-axis
         width=np.diff(bins_control), # Bar height corresponds to bin width
         orientation='h',
-        marker_color='forestgreen',
+        marker_color=SAV_GREEN,
         name='Control',
         customdata=hist_control_counts,
         hovertemplate='Propensity Score: %{y:.2f}<br>' +
@@ -113,7 +200,7 @@ def plot_positivity_check_plotly(df, ps_column, treatment_column, title):
         x=-hist_treated_density, # Mirror by making negative on X-axis
         width=np.diff(bins_treated),
         orientation='h',
-        marker_color='#00008B',
+        marker_color=SAV_CHARCOAL,
         name='Treated',
         customdata=hist_treated_counts,
         hovertemplate='Propensity Score: %{y:.2f}<br>' +
@@ -135,9 +222,9 @@ def plot_positivity_check_plotly(df, ps_column, treatment_column, title):
     fig.add_hline(y=median_ps_treated, line_width=1.5, line_dash='dash', line_color='darkblue', annotation_text=f'Treated Median ({median_ps_treated:.2f})', annotation_position='right')
 
     # Add horizontal lines for control group min/max/median
-    fig.add_hline(y=min_ps_control, line_width=1.5, line_dash='dot', line_color='forestgreen', annotation_text=f'Control Min ({min_ps_control:.2f})', annotation_position='bottom left')
-    fig.add_hline(y=max_ps_control, line_width=1.5, line_dash='dot', line_color='forestgreen', annotation_text=f'Control Max ({max_ps_control:.2f})', annotation_position='top left')
-    fig.add_hline(y=median_ps_control, line_width=1.5, line_dash='dash', line_color='forestgreen', annotation_text=f'Control Median ({median_ps_control:.2f})', annotation_position='left')
+    fig.add_hline(y=min_ps_control, line_width=1.5, line_dash='dot', line_color=SAV_GREEN, annotation_text=f'Control Min ({min_ps_control:.2f})', annotation_position='bottom left')
+    fig.add_hline(y=max_ps_control, line_width=1.5, line_dash='dot', line_color=SAV_GREEN, annotation_text=f'Control Max ({max_ps_control:.2f})', annotation_position='top left')
+    fig.add_hline(y=median_ps_control, line_width=1.5, line_dash='dash', line_color=SAV_GREEN, annotation_text=f'Control Median ({median_ps_control:.2f})', annotation_position='left')
 
     fig.update_layout(
         title_text=title,
@@ -176,7 +263,7 @@ def plot_propensity_score_boxplots(df, ps_column, treatment_column, title):
     fig.add_trace(go.Box(
         y=df[df[treatment_column] == 0][ps_column],
         name='Control',
-        marker_color='forestgreen',
+        marker_color=SAV_GREEN,
         boxpoints=False,
         hovertemplate=hover_template_str
     ))
@@ -185,7 +272,7 @@ def plot_propensity_score_boxplots(df, ps_column, treatment_column, title):
     fig.add_trace(go.Box(
         y=df[df[treatment_column] == 1][ps_column],
         name='Treated',
-        marker_color='#00008B',
+        marker_color=SAV_CHARCOAL,
         boxpoints=False,
         hovertemplate=hover_template_str
     ))
@@ -237,7 +324,7 @@ def calculate_smd(df, covariates, treatment_column):
 
 
 
-def plot_love_plot(smd_series, title, subplot_fig, row, col, x_limit, dot_color='skyblue'):
+def plot_love_plot(smd_series, title, subplot_fig, row, col, x_limit, dot_color=SAV_GREEN):
     """Generates a Love Plot (SMD plot) for covariate balance using Plotly.
 
     Args:
@@ -289,7 +376,7 @@ def draw_causal_dag(edges, title):
     G.add_edges_from(edges)
     pos = nx.spring_layout(G, seed=42)
     plt.figure(figsize=(10, 4))
-    nx.draw(G, pos, with_labels=True, node_size=3500, node_color='skyblue', 
+    nx.draw(G, pos, with_labels=True, node_size=3500, node_color=SAV_GREEN, 
             font_size=10, font_weight='bold', arrowsize=20, connectionstyle='arc3, rad=0.1')
     plt.title(title)
     plt.show()
@@ -404,22 +491,31 @@ def encode_categorical_for_causal_forest(df, columns, drop_first=True):
 # =========================================================================== #
 
 # Colour palette for the different roles a node can play in a causal DAG.
+# Built from the SAV/ASA brand palette and tuned to read on BOTH the light and
+# the dark Jupyter Book theme. The figures are saved with a transparent
+# background and embedded as <img> (so page CSS cannot reach their internals);
+# the only way to stay legible on a dark page is to make every node a *light*
+# box with *dark* text. The focus nodes (treatment / sensitive attribute) keep
+# the bright brand green — light enough to read against a dark background — while
+# the remaining roles use light greys with charcoal text.
+_DAG_TEXT_GREEN = '#2c3608'   # dark olive, readable on the lime-green faces
+_DAG_TEXT_DARK = '#2e2f2e'    # near-charcoal text for the grey faces
 _DAG_PALETTE = {
-    'treatment':  dict(face='#2ca02c', edge='#1b6b1b', text='white',   dashed=False),
-    'outcome':    dict(face='#d62728', edge='#8c1414', text='white',   dashed=False),
-    'confounder': dict(face='#1f77b4', edge='#10416b', text='white',   dashed=False),
-    'covariate':  dict(face='#aec7e8', edge='#5a87b0', text='black',   dashed=False),
-    'mediator':   dict(face='#ff7f0e', edge='#a85405', text='white',   dashed=False),
-    'collider':   dict(face='#9467bd', edge='#5e3d7a', text='white',   dashed=False),
-    'sensitive':  dict(face='#e377c2', edge='#a3357f', text='white',   dashed=False),
-    'unobserved': dict(face='none',    edge='#9aa0ac', text='#6b7280', dashed=True),
+    'treatment':  dict(face=SAV_GREEN,       edge=SAV_GREEN_DARK, text=_DAG_TEXT_GREEN, dashed=False),
+    'outcome':    dict(face='#D4D7D4',       edge=SAV_CHARCOAL,   text=SAV_CHARCOAL,    dashed=False),
+    'confounder': dict(face='#BFC2BF',       edge=SAV_CHARCOAL,   text=_DAG_TEXT_DARK,  dashed=False),
+    'covariate':  dict(face=SAV_GREY_LIGHT,  edge=SAV_GREY,       text=_DAG_TEXT_DARK,  dashed=False),
+    'mediator':   dict(face=SAV_GREEN_LIGHT, edge=SAV_GREEN_DARK, text=_DAG_TEXT_GREEN, dashed=False),
+    'collider':   dict(face='#D4D7D4',       edge=SAV_CHARCOAL,   text=SAV_CHARCOAL,    dashed=False),
+    'sensitive':  dict(face=SAV_GREEN,       edge=SAV_GREEN_DARK, text=_DAG_TEXT_GREEN, dashed=False),
+    'unobserved': dict(face='none',          edge=SAV_GREY,       text=SAV_GREY,        dashed=True),
 }
 
-# Neutral "ink" colour for arrows, titles and legends. A mid slate-grey keeps
+# Neutral "ink" colour for arrows, titles and legends. A mid brand grey keeps
 # these elements legible on both the light and the dark Jupyter Book theme
 # (the figures are saved with a transparent background, so the page colour
 # always shows through).
-_DAG_INK = '#6b7280'
+_DAG_INK = SAV_GREY
 
 
 def draw_causal_graph_svg(edges, positions, node_styles, filepath, title=None,
@@ -748,7 +844,8 @@ def plot_sensitivity_contour(coef, se, dof, title='Sensitivity Contours',
                   for ry in r2_vals])
     fig = go.Figure(data=go.Contour(
         z=Z, x=r2_vals, y=r2_vals,
-        colorscale='RdBu', contours=dict(showlabels=True),
+        colorscale=[[0.0, SAV_CHARCOAL], [0.5, "#EDEDEA"], [1.0, SAV_GREEN]],
+        contours=dict(showlabels=True),
         colorbar=dict(title='Adjusted<br>effect')))
     # Highlight the line where the effect is driven to zero
     fig.add_trace(go.Contour(
@@ -764,12 +861,16 @@ def plot_sensitivity_contour(coef, se, dof, title='Sensitivity Contours',
             x=[benchmark['r2_tu']], y=[benchmark['r2_yu']],
             mode='markers+text', text=[benchmark.get('label', 'benchmark')],
             textposition='top right',
-            marker=dict(color='orange', size=12, symbol='diamond'),
+            textfont=dict(color=SAV_CHARCOAL),
+            marker=dict(color=SAV_CHARCOAL, size=13, symbol='diamond',
+                        line=dict(color='white', width=1.5)),
             name='Benchmark covariate'))
     fig.update_layout(
         title_text=title,
         xaxis_title='Partial R² of confounder with Treatment',
-        yaxis_title='Partial R² of confounder with Outcome')
+        yaxis_title='Partial R² of confounder with Outcome',
+        legend=dict(bgcolor='rgba(255,255,255,0.85)', bordercolor=SAV_GREY,
+                    borderwidth=1, font=dict(color=SAV_CHARCOAL)))
     return fig
 
 
@@ -799,7 +900,7 @@ def plot_rosenbaum(bounds_df, alpha=0.05, title='Rosenbaum Sensitivity Bounds'):
     fig = go.Figure()
     fig.add_trace(go.Scatter(
         x=bounds_df['Gamma'], y=bounds_df['p_upper_bound'],
-        mode='lines+markers', line=dict(color='#1f77b4', width=2),
+        mode='lines+markers', line=dict(color=SAV_GREEN, width=2),
         name='Worst-case p-value'))
     fig.add_hline(y=alpha, line_dash='dash', line_color='red',
                   annotation_text=f'α = {alpha}', annotation_position='bottom right')
