@@ -491,22 +491,31 @@ def encode_categorical_for_causal_forest(df, columns, drop_first=True):
 # =========================================================================== #
 
 # Colour palette for the different roles a node can play in a causal DAG.
+# Built from the SAV/ASA brand palette and tuned to read on BOTH the light and
+# the dark Jupyter Book theme. The figures are saved with a transparent
+# background and embedded as <img> (so page CSS cannot reach their internals);
+# the only way to stay legible on a dark page is to make every node a *light*
+# box with *dark* text. The focus nodes (treatment / sensitive attribute) keep
+# the bright brand green — light enough to read against a dark background — while
+# the remaining roles use light greys with charcoal text.
+_DAG_TEXT_GREEN = '#2c3608'   # dark olive, readable on the lime-green faces
+_DAG_TEXT_DARK = '#2e2f2e'    # near-charcoal text for the grey faces
 _DAG_PALETTE = {
-    'treatment':  dict(face='#2ca02c', edge='#1b6b1b', text='white',   dashed=False),
-    'outcome':    dict(face='#d62728', edge='#8c1414', text='white',   dashed=False),
-    'confounder': dict(face='#1f77b4', edge='#10416b', text='white',   dashed=False),
-    'covariate':  dict(face='#aec7e8', edge='#5a87b0', text='black',   dashed=False),
-    'mediator':   dict(face='#ff7f0e', edge='#a85405', text='white',   dashed=False),
-    'collider':   dict(face='#9467bd', edge='#5e3d7a', text='white',   dashed=False),
-    'sensitive':  dict(face='#e377c2', edge='#a3357f', text='white',   dashed=False),
-    'unobserved': dict(face='none',    edge='#9aa0ac', text='#6b7280', dashed=True),
+    'treatment':  dict(face=SAV_GREEN,       edge=SAV_GREEN_DARK, text=_DAG_TEXT_GREEN, dashed=False),
+    'outcome':    dict(face='#D4D7D4',       edge=SAV_CHARCOAL,   text=SAV_CHARCOAL,    dashed=False),
+    'confounder': dict(face='#BFC2BF',       edge=SAV_CHARCOAL,   text=_DAG_TEXT_DARK,  dashed=False),
+    'covariate':  dict(face=SAV_GREY_LIGHT,  edge=SAV_GREY,       text=_DAG_TEXT_DARK,  dashed=False),
+    'mediator':   dict(face=SAV_GREEN_LIGHT, edge=SAV_GREEN_DARK, text=_DAG_TEXT_GREEN, dashed=False),
+    'collider':   dict(face='#D4D7D4',       edge=SAV_CHARCOAL,   text=SAV_CHARCOAL,    dashed=False),
+    'sensitive':  dict(face=SAV_GREEN,       edge=SAV_GREEN_DARK, text=_DAG_TEXT_GREEN, dashed=False),
+    'unobserved': dict(face='none',          edge=SAV_GREY,       text=SAV_GREY,        dashed=True),
 }
 
-# Neutral "ink" colour for arrows, titles and legends. A mid slate-grey keeps
+# Neutral "ink" colour for arrows, titles and legends. A mid brand grey keeps
 # these elements legible on both the light and the dark Jupyter Book theme
 # (the figures are saved with a transparent background, so the page colour
 # always shows through).
-_DAG_INK = '#6b7280'
+_DAG_INK = SAV_GREY
 
 
 def draw_causal_graph_svg(edges, positions, node_styles, filepath, title=None,
@@ -852,12 +861,16 @@ def plot_sensitivity_contour(coef, se, dof, title='Sensitivity Contours',
             x=[benchmark['r2_tu']], y=[benchmark['r2_yu']],
             mode='markers+text', text=[benchmark.get('label', 'benchmark')],
             textposition='top right',
-            marker=dict(color='orange', size=12, symbol='diamond'),
+            textfont=dict(color=SAV_CHARCOAL),
+            marker=dict(color=SAV_CHARCOAL, size=13, symbol='diamond',
+                        line=dict(color='white', width=1.5)),
             name='Benchmark covariate'))
     fig.update_layout(
         title_text=title,
         xaxis_title='Partial R² of confounder with Treatment',
-        yaxis_title='Partial R² of confounder with Outcome')
+        yaxis_title='Partial R² of confounder with Outcome',
+        legend=dict(bgcolor='rgba(255,255,255,0.85)', bordercolor=SAV_GREY,
+                    borderwidth=1, font=dict(color=SAV_CHARCOAL)))
     return fig
 
 
