@@ -139,6 +139,8 @@ When unobserved confounding exists, an instrument $I$ can identify the causal ef
 2. *Exogenous noise*: $I \perp U$ — the instrumental variable is independent of the unobserved confounder
 3. *Exclusion restriction*: $I$ affects $Y$ only through $T$
 
+The modern econometric interpretation of instrumental variables traces to [Imbens & Angrist (1994)](https://doi.org/10.2307/2951620), who show that 2SLS identifies a *local average treatment effect* for compliers, and to the potential-outcomes framework of [Angrist, Imbens & Rubin (1996)](https://doi.org/10.1080/01621459.1996.10476902); [Angrist & Krueger (1991)](https://doi.org/10.2307/2937954) is the canonical applied example, using quarter of birth as an instrument for schooling.
+
 The instrumental variable $I$ is a source of exogenous variation in $T$ that is uncorrelated with the common ancestors of $T$ and $Y$. By seeing how both $T$ and $Y$ respond to these perturbations, and using the fact that $I$ only influences $Y$ through $T$, we can deduce the causal effect of $T$ on $Y$.
 
 ```{figure} figs/iv_structure.svg
@@ -170,11 +172,11 @@ Instrumental variable $I$. The instrument induces exogenous variation in the tre
 
 ## Quasi-Experimental Designs
 
-When adjustment for measured covariates is insufficient, *quasi-experimental designs* recover causal effects by exploiting structural features of how treatment is assigned — over time, around a threshold, or relative to a comparison unit. These designs are especially relevant for longitudinal data.
+When adjustment for measured covariates is insufficient, *quasi-experimental designs* recover causal effects by exploiting structural features of how treatment is assigned — over time, around a threshold, or relative to a comparison unit. These designs are especially relevant for longitudinal data. They form the empirical core of modern applied econometrics; the introductory textbooks of [Angrist & Pischke (2009)](https://doi.org/10.1515/9781400829828), [Angrist & Pischke (2015)](https://press.princeton.edu/books/paperback/9780691152844/mastering-metrics) and [Cunningham (2021)](https://doi.org/10.12987/9780300255881), together with the more statistical treatment of [Imbens & Rubin (2015)](https://doi.org/10.1017/CBO9781139025751), give book-length introductions to the methods below.
 
 ### Difference-in-Differences
 
-Difference-in-differences (DiD) compares the change in outcomes over time between a treated and a control group. Under the *parallel trends* assumption — that, absent treatment, both groups would have evolved in parallel — the post-period gap beyond the projected control trend identifies the average treatment effect on the treated (ATT). [Sant'Anna & Zhao (2020)](https://doi.org/10.1016/j.jeconom.2020.06.003) give a doubly robust DiD estimator, while [Callaway & Sant'Anna (2021)](https://doi.org/10.1016/j.jeconom.2020.12.001) and [Goodman-Bacon (2021)](https://doi.org/10.1016/j.jeconom.2021.03.014) extend the design to multiple periods and staggered treatment timing.
+Difference-in-differences (DiD) compares the change in outcomes over time between a treated and a control group. Under the *parallel trends* assumption — that, absent treatment, both groups would have evolved in parallel — the post-period gap beyond the projected control trend identifies the average treatment effect on the treated (ATT). The design dates back to [Ashenfelter & Card (1985)](https://doi.org/10.2307/1924810), and [Card & Krueger (1994)](https://doi.org/10.1257/aer.84.4.772) is its best-known application — the New Jersey minimum-wage study. [Sant'Anna & Zhao (2020)](https://doi.org/10.1016/j.jeconom.2020.06.003) give a doubly robust DiD estimator, while [Callaway & Sant'Anna (2021)](https://doi.org/10.1016/j.jeconom.2020.12.001) and [Goodman-Bacon (2021)](https://doi.org/10.1016/j.jeconom.2021.03.014) extend the design to multiple periods and staggered treatment timing.
 
 ```{figure} figs/did_parallel_trends.svg
 :width: 80%
@@ -200,7 +202,7 @@ Difference-in-differences. Under parallel trends, the treated group's counterfac
 
 ### Regression Discontinuity
 
-Regression discontinuity (RD) applies when treatment is assigned by a threshold rule on a continuous *running variable* $X$ (e.g. a risk score). Units just below and just above the cutoff $c$ are comparable, so the jump in the outcome at $c$ identifies the local average treatment effect (LATE) [(Hahn, Todd & van der Klaauw, 2001)](https://doi.org/10.1111/1468-0262.00183). [Imbens & Lemieux (2008)](https://doi.org/10.1016/j.jeconom.2007.05.001) provide a practical guide to estimation and bandwidth selection.
+Regression discontinuity (RD) applies when treatment is assigned by a threshold rule on a continuous *running variable* $X$ (e.g. a risk score). The design was first proposed by [Thistlethwaite & Campbell (1960)](https://doi.org/10.1037/h0044319); its modern econometric foundations are due to [Hahn, Todd & van der Klaauw (2001)](https://doi.org/10.1111/1468-0262.00183). Units just below and just above the cutoff $c$ are comparable, so the jump in the outcome at $c$ identifies the local average treatment effect (LATE). [Imbens & Lemieux (2008)](https://doi.org/10.1016/j.jeconom.2007.05.001) provide a practical guide to estimation and bandwidth selection.
 
 ```{figure} figs/rdd_discontinuity.svg
 :width: 80%
@@ -226,7 +228,7 @@ Regression discontinuity. Treatment switches on at the cutoff $c$; the vertical 
 
 ### Synthetic Control
 
-When only a single (or a few) treated unit is observed over time, the synthetic control method of [Abadie, Diamond & Hainmueller (2010)](https://doi.org/10.1198/jasa.2009.ap08746) constructs a counterfactual as a weighted combination of untreated *donor* units chosen to match the treated unit's pre-intervention trajectory. The post-intervention gap between the treated unit and its synthetic counterpart estimates the effect.
+When only a single (or a few) treated unit is observed over time, the synthetic control method — introduced by [Abadie & Gardeazabal (2003)](https://doi.org/10.1257/000282803321455188) and formalized by [Abadie, Diamond & Hainmueller (2010)](https://doi.org/10.1198/jasa.2009.ap08746) — constructs a counterfactual as a weighted combination of untreated *donor* units chosen to match the treated unit's pre-intervention trajectory. The post-intervention gap between the treated unit and its synthetic counterpart estimates the effect.
 
 ```{figure} figs/synthetic_control.svg
 :width: 80%

@@ -40,7 +40,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/thebe-button-patch.css?v=e3482d12" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=2dab0457" />
+    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=8bba8595" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -510,7 +510,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#robustness-of-the-heterogeneous-effect">Robustness of the <em>heterogeneous</em> effect</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways">Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways-for-the-actuary">Takeaways for the actuary</a></li>
 </ul>
             </nav>
         </div>
@@ -1065,25 +1065,22 @@ True ATE:                                 CHF -867  &lt;-- specialists actually 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 64%|=============       | 258/400 [00:11&lt;00:06]       
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 68%|==============      | 274/400 [00:11&lt;00:05]       
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 71%|==============      | 284/400 [00:12&lt;00:04]       
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 75%|===============     | 300/400 [00:12&lt;00:04]       
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 77%|===============     | 308/400 [00:13&lt;00:03]       
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 82%|================    | 326/400 [00:13&lt;00:02]       
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 83%|=================   | 332/400 [00:14&lt;00:02]       
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 88%|==================  | 351/400 [00:14&lt;00:01]       
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 89%|==================  | 357/400 [00:15&lt;00:01]       
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 94%|=================== | 377/400 [00:15&lt;00:00]       
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 96%|=================== | 382/400 [00:16&lt;00:00]       
-</pre></div>
-</div>
-<img alt="../_images/a63f790f819c027a1bbac8b2578a8dec09a7d8103244a570be7af92c8ed53620.png" src="../_images/a63f790f819c027a1bbac8b2578a8dec09a7d8103244a570be7af92c8ed53620.png" />
+<img alt="../_images/9e95878e5245078d26676599a2d831ce913a3281b21f419dec678a78c37699da.png" src="../_images/9e95878e5245078d26676599a2d831ce913a3281b21f419dec678a78c37699da.png" />
 </div>
 </div>
 <section id="per-claim-explanation-the-waterfall-plot">
@@ -1418,20 +1415,20 @@ Severe (sev 4-5) 1594     -1478   -1814    -1143             0.154
 <p>This is exactly the reassurance the triage policy needs: the claims our rule actually routes — the high-severity, high-saving ones — are precisely the claims whose conclusion is <strong>most robust</strong> to unmeasured confounding. The fragile, near-zero estimates belong to minor claims that the policy leaves with standard handling anyway, so their sensitivity does not endanger the decisions we make.</p>
 </section>
 </section>
-<section id="takeaways">
-<h2>Takeaways<a class="headerlink" href="#takeaways" title="Link to this heading">#</a></h2>
-<ul class="simple">
+<section id="takeaways-for-the-actuary">
+<h2>Takeaways for the actuary<a class="headerlink" href="#takeaways-for-the-actuary" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title">A practical workflow for claims triage</p>
+<ol class="arabic simple">
 <li><p><strong>Naive comparisons mislead.</strong> Because adjusters routed the hard claims to specialists, a raw cost comparison made specialists look <em>harmful</em>; <a class="reference internal" href="../tutorial/3_2_Regression_Methods.html#alg-dml">Algorithm 9</a> corrected the sign and recovered the true average saving.</p></li>
 <li><p><strong>Effects are heterogeneous.</strong> The <a class="reference internal" href="../tutorial/3_3_Tree_Based_Methods.html#alg-causalforest">Algorithm 17</a> showed the specialist’s benefit changes sign across the portfolio — saving money on complex, high-severity, injury-related claims and merely adding overhead on trivial ones.</p></li>
 <li><p><strong>Explainability makes it operational.</strong> SHAP beeswarm and waterfall plots turn each CATE into an auditable, per-claim rationale a handler can trust and act on.</p></li>
 <li><p><strong>Targeting pays under scarcity.</strong> With specialists limited to a fraction of the queue, ranking claims by predicted saving captures far more leakage reduction than a random or highest-severity-first rule, and the gains curve quantifies the benefit at any capacity level.</p></li>
 <li><p><strong>The output is a <em>triage policy</em>.</strong> The exercise delivers a triage policy — score each incoming claim by <span class="math notranslate nohighlight">\(\hat{\tau}(x)\)</span> and route the top ones until specialist capacity is exhausted — i.e. the solution of a capacity-constrained optimization, made auditable claim-by-claim through SHAP.</p></li>
 <li><p><strong>Robust, but not unconditionally.</strong> The partial-<span class="math notranslate nohighlight">\(R^2\)</span> sensitivity analysis shows the saving only collapses if an <em>unobserved</em> confounder is stronger than any feature we already record (portfolio robustness value ≈ 0.13). Tailored to the heterogeneity, the <em>severe</em> claims we actually route are the <strong>most</strong> robust (RV ≈ 0.17), while the fragile near-zero estimates belong to minor claims the policy leaves alone — so unmeasured confounding threatens the decisions we make least of all.</p></li>
-</ul>
-<div class="admonition-caveats admonition">
-<p class="admonition-title">Caveats</p>
-<p>The conclusions rest on <strong>unconfoundedness</strong> and <strong>overlap</strong>. Section 7 quantified the first: the saving survives unless an unobserved confounder is unusually strong — and, claim for claim, the severe cases we route are the most robust. If you suspect such a confounder, complement the partial-<span class="math notranslate nohighlight">\(R^2\)</span> contour with the E-value and Rosenbaum diagnostics in <a class="reference internal" href="sensitivity_analysis.html"><span class="doc">Sensitivity Analysis</span></a> before deploying a triage policy.</p>
+</ol>
 </div>
+<p><strong>The bottom line.</strong> The conclusions rest on <strong>unconfoundedness</strong> and <strong>overlap</strong>. Section 7 quantified the first: the saving survives unless an unobserved confounder is unusually strong — and, claim for claim, the severe cases we route are the most robust. If you suspect such a confounder, complement the partial-<span class="math notranslate nohighlight">\(R^2\)</span> contour with the E-value and Rosenbaum diagnostics in <a class="reference internal" href="sensitivity_analysis.html"><span class="doc">Sensitivity Analysis</span></a> before deploying a triage policy.</p>
 </section>
 </section>
 
@@ -1519,7 +1516,7 @@ Severe (sev 4-5) 1594     -1478   -1814    -1143             0.154
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#robustness-of-the-heterogeneous-effect">Robustness of the <em>heterogeneous</em> effect</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways">Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways-for-the-actuary">Takeaways for the actuary</a></li>
 </ul>
   </nav></div>
 

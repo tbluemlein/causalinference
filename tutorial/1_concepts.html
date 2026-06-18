@@ -40,7 +40,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/thebe-button-patch.css?v=e3482d12" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=2dab0457" />
+    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=8bba8595" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -514,7 +514,7 @@ $<span class="math notranslate nohighlight">\(\pi(x) = \mathbb{P}(T=1 \mid X=x)\
 </figcaption>
 </figure>
 <p>Because randomization makes <span class="math notranslate nohighlight">\(T \perp (Y(1), Y(0))\)</span> hold <em>by design</em>, the RCT is best understood as the <strong>benchmark that observational methods try to emulate</strong>. When we cannot randomize, the methods in this tutorial — matching, weighting, regression adjustment, and graphical reasoning — all aim to reconstruct, <em>conditional on covariates</em>, the covariate balance that randomization would have produced automatically.</p>
-<div class="admonition note">
+<div class="dropdown admonition note">
 <p class="admonition-title">Note</p>
 <p>RCTs are often infeasible in actuarial settings: we cannot randomly assign policyholders to claim, randomly grant coverage, or withhold a wellness programme for experimental purposes. Observational causal inference exists precisely to approximate the RCT benchmark from the data we <em>do</em> have.</p>
 </div>
@@ -544,7 +544,7 @@ $<span class="math notranslate nohighlight">\(\pi(x) = \mathbb{P}(T=1 \mid X=x)\
 <section id="causal-conclusions-rest-on-untestable-assumptions">
 <h2>Causal Conclusions Rest on Untestable Assumptions<a class="headerlink" href="#causal-conclusions-rest-on-untestable-assumptions" title="Link to this heading">#</a></h2>
 <p>The bridge from a causal estimand to a statistical estimand is built entirely from <strong>assumptions</strong>, and the most important of them cannot be checked from the data alone. In particular, <strong>exchangeability / no unobserved confounding</strong> (<a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a> in <a class="reference internal" href="2_1_assumptions.html"><span class="doc">Assumptions</span></a>) is fundamentally untestable: the data are equally consistent with “no hidden confounder” and with “a hidden confounder we never measured” (<a class="reference external" href="https://doi.org/10.1037/h0037350">Rubin, 1974</a>; <a class="reference external" href="https://doi.org/10.1017/CBO9780511803161">Pearl, 2009</a>; <a class="reference external" href="https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/">Hernán &amp; Robins, 2020</a>).</p>
-<div class="admonition important">
+<div class="dropdown admonition important">
 <p class="admonition-title">Important</p>
 <p>No statistical procedure can <em>prove</em> a causal effect from observational data. Every estimate is conditional on assumptions that come from domain knowledge, not from the data. The role of the analyst is to (1) state these assumptions explicitly, (2) encode them in a DAG or potential-outcomes model, and (3) probe how fragile the conclusions are when the assumptions are relaxed.</p>
 </div>

@@ -40,7 +40,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/thebe-button-patch.css?v=e3482d12" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=2dab0457" />
+    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=8bba8595" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -506,7 +506,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-prices-vs-fairness-measures">Interactive: prices vs. fairness measures</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways-for-the-pricing-actuary">Takeaways for the pricing actuary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways-for-the-actuary">Takeaways for the actuary</a></li>
 </ul>
             </nav>
         </div>
@@ -653,7 +653,7 @@ if not hasattr(matplotlib.RcParams, "_get"):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d021cc5ced98c02e332a891fbe3562197b7b5a658ded26c34fbab6a6cc4915d9.svg" src="../_images/d021cc5ced98c02e332a891fbe3562197b7b5a658ded26c34fbab6a6cc4915d9.svg" />
+<img alt="../_images/d8f1c263af9d6c08b48d7be4953e542306a048051ae855b0e1e27a9722506193.svg" src="../_images/d8f1c263af9d6c08b48d7be4953e542306a048051ae855b0e1e27a9722506193.svg" />
 </div>
 </div>
 </section>
@@ -662,7 +662,7 @@ if not hasattr(matplotlib.RcParams, "_get"):
 <h2>Three prices, three notions of fairness<a class="headerlink" href="#three-prices-three-notions-of-fairness" title="Link to this heading">#</a></h2>
 <p>Let <span class="math notranslate nohighlight">\(Y\)</span> be the claim cost, <span class="math notranslate nohighlight">\(X\)</span> the vector of <strong>non-protected</strong> covariates, and <span class="math notranslate nohighlight">\(S\)</span> the protected attribute. <a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al. (2022)</a> compare three candidate prices.</p>
 <div class="proof definition admonition" id="best-estimate-price">
-<p class="admonition-title"><span class="caption-number">Definition 25 </span> (Best-estimate price)</p>
+<p class="admonition-title"><span class="caption-number">Definition 30 </span> (Best-estimate price)</p>
 <section class="definition-content" id="proof-content">
 <p>The <strong>best-estimate price</strong> is the full conditional expectation, using <em>every</em> covariate including the protected attribute:</p>
 <div class="math notranslate nohighlight">
@@ -672,7 +672,7 @@ if not hasattr(matplotlib.RcParams, "_get"):
 <p>It is the most accurate price, but it discriminates <strong>directly</strong> — two policyholders identical in <span class="math notranslate nohighlight">\(X\)</span> are charged differently because of <span class="math notranslate nohighlight">\(S\)</span>.</p>
 </section>
 </div><div class="proof definition admonition" id="unawareness-price">
-<p class="admonition-title"><span class="caption-number">Definition 26 </span> (Unawareness price)</p>
+<p class="admonition-title"><span class="caption-number">Definition 31 </span> (Unawareness price)</p>
 <section class="definition-content" id="proof-content">
 <p>The <strong>unawareness price</strong> drops the protected attribute and conditions on <span class="math notranslate nohighlight">\(X\)</span> only:</p>
 <div class="math notranslate nohighlight">
@@ -682,7 +682,7 @@ if not hasattr(matplotlib.RcParams, "_get"):
 <p>It satisfies <a class="reference internal" href="../tutorial/4_3_fairness.html#fairness-unawareness">Definition 22</a>, yet the tower property shows it is a <strong>weighted average of the best-estimate price using the conditional <span class="math notranslate nohighlight">\(P(S \mid X)\)</span></strong> — exactly the term that lets <span class="math notranslate nohighlight">\(X\)</span> <em>infer</em> <span class="math notranslate nohighlight">\(S\)</span>. Whenever <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(S\)</span> are dependent, the unawareness price still channels protected information: this is <a class="reference internal" href="../tutorial/4_3_fairness.html#proxy-discrimination">Definition 21</a>.</p>
 </section>
 </div><div class="proof definition admonition" id="discrimination-free-price-app">
-<p class="admonition-title"><span class="caption-number">Definition 27 </span> (Discrimination-free price)</p>
+<p class="admonition-title"><span class="caption-number">Definition 32 </span> (Discrimination-free price)</p>
 <section class="definition-content" id="proof-content">
 <p>The <strong>discrimination-free price</strong> (<a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al., 2022</a>) averages the best-estimate price over a <strong>marginal</strong> distribution <span class="math notranslate nohighlight">\(P^{*}(S)\)</span> that does <em>not</em> depend on <span class="math notranslate nohighlight">\(x\)</span>:</p>
 <div class="math notranslate nohighlight">
@@ -1171,8 +1171,8 @@ h(x) = \sum_{s} \mu(x, s)\, P^{*}(S = s).
 })();
 </script></section>
 </section>
-<section id="takeaways-for-the-pricing-actuary">
-<h2>Takeaways for the pricing actuary<a class="headerlink" href="#takeaways-for-the-pricing-actuary" title="Link to this heading">#</a></h2>
+<section id="takeaways-for-the-actuary">
+<h2>Takeaways for the actuary<a class="headerlink" href="#takeaways-for-the-actuary" title="Link to this heading">#</a></h2>
 <div class="tip admonition">
 <p class="admonition-title">A practical workflow for fair pricing</p>
 <ol class="arabic simple">
@@ -1269,7 +1269,7 @@ h(x) = \sum_{s} \mu(x, s)\, P^{*}(S = s).
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-prices-vs-fairness-measures">Interactive: prices vs. fairness measures</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways-for-the-pricing-actuary">Takeaways for the pricing actuary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways-for-the-actuary">Takeaways for the actuary</a></li>
 </ul>
   </nav></div>
 

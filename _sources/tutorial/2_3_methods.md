@@ -214,5 +214,6 @@ Causal discovery from observational data has fundamental limitations:
 When no admissible adjustment set exists, an **instrument** $Z$ — a source of exogenous variation in $T$ that affects $Y$ only through $T$ — can identify a local causal effect. The instrumental-variable estimator and its two-stage least-squares implementation are developed in {doc}`3_2_Regression_Methods`.
 
 ```{note}
+:class: dropdown
 This section frames identification only. *How* to estimate each identified quantity from a finite sample — with propensity scores, regression, machine-learning, tree-based, or Bayesian methods — is the subject of {doc}`3_inference`, and the robustness of the underlying assumptions is examined in {doc}`4_sensitivity`.
 ```

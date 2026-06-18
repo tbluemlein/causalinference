@@ -40,7 +40,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/thebe-button-patch.css?v=e3482d12" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=2dab0457" />
+    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=8bba8595" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -708,7 +708,7 @@ P(Y \mid \text{do}(T=t)) = \sum_{m} P(M=m \mid T=t) \sum_{t'} P(Y \mid T=t', M=m
 <section id="instrumental-variables">
 <h2>Instrumental Variables<a class="headerlink" href="#instrumental-variables" title="Link to this heading">#</a></h2>
 <p>When no admissible adjustment set exists, an <strong>instrument</strong> <span class="math notranslate nohighlight">\(Z\)</span> — a source of exogenous variation in <span class="math notranslate nohighlight">\(T\)</span> that affects <span class="math notranslate nohighlight">\(Y\)</span> only through <span class="math notranslate nohighlight">\(T\)</span> — can identify a local causal effect. The instrumental-variable estimator and its two-stage least-squares implementation are developed in <a class="reference internal" href="3_2_Regression_Methods.html"><span class="doc">Regression Methods</span></a>.</p>
-<div class="admonition note">
+<div class="dropdown admonition note">
 <p class="admonition-title">Note</p>
 <p>This section frames identification only. <em>How</em> to estimate each identified quantity from a finite sample — with propensity scores, regression, machine-learning, tree-based, or Bayesian methods — is the subject of <a class="reference internal" href="3_inference.html"><span class="doc">Causal Inference</span></a>, and the robustness of the underlying assumptions is examined in <a class="reference internal" href="4_sensitivity.html"><span class="doc">Validation and Sensitivity Analysis</span></a>.</p>
 </div>

@@ -39,7 +39,7 @@
     <link rel="stylesheet" type="text/css" href="_static/thebe-button-patch.css?v=e3482d12" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/figure-theme.css?v=2dab0457" />
+    <link rel="stylesheet" type="text/css" href="_static/figure-theme.css?v=8bba8595" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -782,12 +782,16 @@ document.write(`
    <a href="#cap-criterion-3"><strong>criterion-3</strong></a> | 
    <a href="#cap-d-separation"><strong>d-separation</strong></a> | 
    <a href="#cap-dag"><strong>dag</strong></a> | 
+   <a href="#cap-demographic-parity"><strong>demographic-parity</strong></a> | 
    <a href="#cap-discovery-limitations"><strong>discovery-limitations</strong></a> | 
    <a href="#cap-discrimination-free-price-app"><strong>discrimination-free-price-app</strong></a> | 
    <a href="#cap-discrimination-free-pricing"><strong>discrimination-free-pricing</strong></a> | 
    <a href="#cap-dsep-example"><strong>dsep-example</strong></a> | 
    <a href="#cap-e-value"><strong>e-value</strong></a> | 
+   <a href="#cap-equal-accuracy"><strong>equal-accuracy</strong></a> | 
+   <a href="#cap-equal-opportunity"><strong>equal-opportunity</strong></a> | 
    <a href="#cap-exchangeability"><strong>exchangeability</strong></a> | 
+   <a href="#cap-fairness-incompatibility"><strong>fairness-incompatibility</strong></a> | 
    <a href="#cap-fairness-unawareness"><strong>fairness-unawareness</strong></a> | 
    <a href="#cap-faithfulness"><strong>faithfulness</strong></a> | 
    <a href="#cap-fork"><strong>fork</strong></a> | 
@@ -800,13 +804,15 @@ document.write(`
    <a href="#cap-partial-r2"><strong>partial-r2</strong></a> | 
    <a href="#cap-placebo-test"><strong>placebo-test</strong></a> | 
    <a href="#cap-positivity"><strong>positivity</strong></a> | 
+   <a href="#cap-predictive-parity"><strong>predictive-parity</strong></a> | 
    <a href="#cap-proxy-discrimination"><strong>proxy-discrimination</strong></a> | 
    <a href="#cap-rosenbaum-gamma"><strong>rosenbaum-gamma</strong></a> | 
    <a href="#cap-selection-bias"><strong>selection-bias</strong></a> | 
    <a href="#cap-sgs-algorithm"><strong>sgs-algorithm</strong></a> | 
    <a href="#cap-smd"><strong>smd</strong></a> | 
    <a href="#cap-sutva"><strong>sutva</strong></a> | 
-   <a href="#cap-unawareness-price"><strong>unawareness-price</strong></a>
+   <a href="#cap-unawareness-price"><strong>unawareness-price</strong></a> | 
+   <a href="#cap-wasserstein-barycenter"><strong>wasserstein-barycenter</strong></a>
    </div>
 
    <table class="indextable modindextable">
@@ -1075,6 +1081,14 @@ document.write(`
        <a href="tutorial/2_2_graphical_models.html#dag"><code class="xref">dag</code></a> <em>(tutorial/2_2_graphical_models)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-demographic-parity"><td></td><td>
+       <strong>demographic-parity</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="tutorial/4_3_fairness.html#demographic-parity"><code class="xref">demographic-parity</code></a> <em>(tutorial/4_3_fairness)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-discovery-limitations"><td></td><td>
        <strong>discovery-limitations</strong></td><td></td></tr>
      <tr>
@@ -1115,6 +1129,22 @@ document.write(`
        <a href="tutorial/4_1_diagnostics.html#e-value"><code class="xref">e-value</code></a> <em>(tutorial/4_1_diagnostics)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-equal-accuracy"><td></td><td>
+       <strong>equal-accuracy</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="tutorial/4_3_fairness.html#equal-accuracy"><code class="xref">equal-accuracy</code></a> <em>(tutorial/4_3_fairness)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-equal-opportunity"><td></td><td>
+       <strong>equal-opportunity</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="tutorial/4_3_fairness.html#equal-opportunity"><code class="xref">equal-opportunity</code></a> <em>(tutorial/4_3_fairness)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-exchangeability"><td></td><td>
        <strong>exchangeability</strong></td><td></td></tr>
      <tr>
@@ -1122,6 +1152,14 @@ document.write(`
        <td>
        <a href="tutorial/2_1_assumptions.html#exchangeability"><code class="xref">exchangeability</code></a> <em>(tutorial/2_1_assumptions)</em></td><td>
        <em>assumption</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-fairness-incompatibility"><td></td><td>
+       <strong>fairness-incompatibility</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="tutorial/4_3_fairness.html#fairness-incompatibility"><code class="xref">fairness-incompatibility</code></a> <em>(tutorial/4_3_fairness)</em></td><td>
+       <em>remark</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-fairness-unawareness"><td></td><td>
        <strong>fairness-unawareness</strong></td><td></td></tr>
@@ -1219,6 +1257,14 @@ document.write(`
        <a href="tutorial/2_1_assumptions.html#positivity"><code class="xref">positivity</code></a> <em>(tutorial/2_1_assumptions)</em></td><td>
        <em>assumption</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-predictive-parity"><td></td><td>
+       <strong>predictive-parity</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="tutorial/4_3_fairness.html#predictive-parity"><code class="xref">predictive-parity</code></a> <em>(tutorial/4_3_fairness)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-proxy-discrimination"><td></td><td>
        <strong>proxy-discrimination</strong></td><td></td></tr>
      <tr>
@@ -1273,6 +1319,14 @@ document.write(`
        <td></td>
        <td>
        <a href="application/pricing.html#unawareness-price"><code class="xref">unawareness-price</code></a> <em>(application/pricing)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-wasserstein-barycenter"><td></td><td>
+       <strong>wasserstein-barycenter</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="tutorial/4_3_fairness.html#wasserstein-barycenter"><code class="xref">wasserstein-barycenter</code></a> <em>(tutorial/4_3_fairness)</em></td><td>
        <em>definition</em></td></tr>
    </table>
 

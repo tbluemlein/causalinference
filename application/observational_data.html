@@ -40,7 +40,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/thebe-button-patch.css?v=e3482d12" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=2dab0457" />
+    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=8bba8595" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -506,7 +506,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#placebo-negative-control-test">Placebo / negative-control test</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#to-the-actuary-working-with-observational-data">To the actuary working with observational data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reality-check-lalonde-1986-revisited">Reality Check: LaLonde (1986) revisited</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways-for-the-actuary">Takeaways for the actuary</a></li>
 </ul>
             </nav>
         </div>
@@ -1850,7 +1851,7 @@ if (outputEl) {{
 <p class="admonition-title">Note</p>
 <p>Summary — what this notebook demonstrated</p>
 <ul class="simple">
-<li><p>✅ <strong>Causal graph</strong> encoded and exported as embeddable <code class="docutils literal notranslate"><span class="pre">*.svg</span></code> figures (identifiable vs. unobserved-confounder case).</p></li>
+<li><p>✅ <strong>Causal graph</strong> encoded (identifiable vs. unobserved-confounder case).</p></li>
 <li><p>✅ <strong>Consistency</strong> probed by re-estimating the effect per treatment sub-type.</p></li>
 <li><p>✅ <strong>SUTVA</strong> probed by correlating control outcomes with neighbours’ treatment intensity.</p></li>
 <li><p>✅ <strong>Positivity</strong> assessed via propensity overlap, then <em>restored</em> by trimming and overlap weighting.</p></li>
@@ -1859,20 +1860,32 @@ if (outputEl) {{
 </div>
 </section>
 </section>
-<section id="to-the-actuary-working-with-observational-data">
-<h2>To the actuary working with observational data<a class="headerlink" href="#to-the-actuary-working-with-observational-data" title="Link to this heading">#</a></h2>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Observational data can support credible causal statements, but <strong>only when each identification assumption is explicitly checked and, where needed, repaired</strong>. For the actuary moving from prediction to causal inference, the practical discipline is:</p>
+<section id="reality-check-lalonde-1986-revisited">
+<h2>Reality Check: LaLonde (1986) revisited<a class="headerlink" href="#reality-check-lalonde-1986-revisited" title="Link to this heading">#</a></h2>
+<p>How well do these diagnostics actually substitute for a randomized experiment? The canonical stress-test is <a class="reference external" href="https://www.jstor.org/stable/1806062">LaLonde (1986)</a>, who took a job-training RCT (the <em>National Supported Work</em> programme), threw away the experimental control group, and tried to recover the known experimental benchmark from <em>nonexperimental</em> comparison groups. His verdict was sobering: the econometric methods of the day <strong>could not systematically replicate the experimental estimate</strong> — a result that cast a long shadow over observational causal inference.</p>
+<p><a class="reference external" href="https://doi.org/10.48550/arXiv.2406.00827">Imbens &amp; Xu (2024)</a> revisit that same data four decades later, asking what the methods developed since have actually bought us. Their reassessment maps almost one-to-one onto the four <a class="reference internal" href="../tutorial/2_1_assumptions.html"><span class="doc">identification assumptions</span></a> and the <a class="reference internal" href="../tutorial/4_1_diagnostics.html"><span class="doc">diagnostics and sensitivity checks</span></a> used in this notebook:</p>
+<ul class="simple">
+<li><p><strong>Separate unconfoundedness from functional form.</strong> Much of LaLonde’s original failure came from extrapolating linear models into regions with no comparable units — <em>not</em> from <a class="reference internal" href="../tutorial/2_1_assumptions.html#exchangeability">Assumption 4</a> per se. Stating the adjustment set on a DAG, independent of the regression specification, is the modern discipline (our step 1).</p></li>
+<li><p><strong>Overlap is decisive.</strong> When the treated and comparison groups genuinely overlap in covariate space, modern estimators (propensity-score and <strong>doubly robust</strong> methods) recover <em>stable, robust</em> adjusted differences. Where overlap is poor, no estimator rescues the comparison — exactly the failure that <a class="reference internal" href="../tutorial/2_1_assumptions.html#positivity">Assumption 3</a> and its <a class="reference internal" href="../tutorial/4_1_diagnostics.html#smd">balance diagnostics</a> (box/mirror and Love plots) are designed to catch, with trimming/overlap-weighting as the remedy.</p></li>
+<li><p><strong>Robust ≠ causal.</strong> Their sharpest warning: an estimate can be numerically stable and pass goodness-of-fit checks while still being <strong>biased by unmeasured confounding</strong>. Goodness-of-fit tells you nothing about <a class="reference internal" href="../tutorial/2_1_assumptions.html#exchangeability">Assumption 4</a>; only a <a class="reference internal" href="../tutorial/4_1_diagnostics.html#e-value">sensitivity analysis</a> (<a class="reference internal" href="../tutorial/4_1_diagnostics.html#e-value">E-values</a>, <a class="reference internal" href="../tutorial/4_1_diagnostics.html#partial-r2">partial $R^2$</a>, <a class="reference internal" href="../tutorial/4_1_diagnostics.html#rosenbaum-gamma">Rosenbaum bounds</a>) quantifies how much hidden bias the conclusion could absorb.</p></li>
+<li><p><strong>Validation exercises are essential.</strong> What <em>does</em> probe credibility is out-of-sample validation against an experimental or <a class="reference internal" href="../tutorial/4_1_diagnostics.html#placebo-test">placebo / negative-control</a> benchmark — precisely the falsification test we ran above, and the reason our placebo correctly flags the hidden confounder <span class="math notranslate nohighlight">\(U\)</span>.</p></li>
+</ul>
+<p>The throughline is reassuring for the careful analyst: the four-assumption discipline of this notebook — <em>inspect the assignment process, scrutinise overlap, and validate rather than assume</em> — is exactly the toolkit that turns LaLonde’s pessimism into the qualified, defensible estimates Imbens &amp; Xu obtain.</p>
+</section>
+<section id="takeaways-for-the-actuary">
+<h2>Takeaways for the actuary<a class="headerlink" href="#takeaways-for-the-actuary" title="Link to this heading">#</a></h2>
+<div class="tip admonition">
+<p class="admonition-title">A practical workflow for observational data</p>
 <ol class="arabic simple">
-<li><p><strong>Draw the DAG first.</strong> State the treatment, the outcome, and the adjustment set <em>before</em> looking at estimates — this fixes which variables are confounders, mediators, or colliders.</p></li>
-<li><p><strong>Diagnose, don’t assume.</strong> Consistency, SUTVA and positivity leave footprints in the data; run the corresponding check rather than taking them on faith.</p></li>
-<li><p><strong>Treat exchangeability as a matter of degree.</strong> It cannot be proven, so always pair the point estimate with a <strong>sensitivity analysis</strong> (E-value, robustness value, critical <span class="math notranslate nohighlight">\(\Gamma\)</span>) and a placebo test.</p></li>
-<li><p><strong>Match the remedy to the violation.</strong> Redefine an ambiguous treatment; model spillovers at the group level; trim or reweight to fix positivity; enrich the adjustment set or use an instrument for hidden confounding.</p></li>
+<li><p><strong>Draw the DAG first.</strong> State the treatment, the outcome, and the adjustment set <em>before</em> looking at estimates — this fixes which variables are confounders, mediators, or colliders, and keeps <a class="reference internal" href="../tutorial/2_1_assumptions.html#exchangeability">Assumption 4</a> separate from the functional form of any model.</p></li>
+<li><p><strong>Diagnose, don’t assume.</strong> <a class="reference internal" href="../tutorial/2_1_assumptions.html#consistency">Assumption 1</a>, <a class="reference internal" href="../tutorial/2_1_assumptions.html#sutva">Assumption 2</a> and <a class="reference internal" href="../tutorial/2_1_assumptions.html#positivity">Assumption 3</a> leave footprints in the data; run the corresponding check rather than taking them on faith.</p></li>
+<li><p><strong>Make overlap the gatekeeper.</strong> LaLonde’s reanalysis shows estimates are only trustworthy where the treated and control groups genuinely overlap. Inspect <span class="math notranslate nohighlight">\(\hat{\pi}(x)\)</span> and the <a class="reference internal" href="../tutorial/4_1_diagnostics.html#smd">balance diagnostics</a>, then <strong>trim or reweight</strong> to the common-support population before reporting anything.</p></li>
+<li><p><strong>Robust is not the same as causal.</strong> A stable estimate that passes goodness-of-fit can still be confounded. Treat <a class="reference internal" href="../tutorial/2_1_assumptions.html#exchangeability">Assumption 4</a> as a matter of degree: always pair the point estimate with a <strong>sensitivity analysis</strong> (<a class="reference internal" href="../tutorial/4_1_diagnostics.html#e-value">E-value</a>, <a class="reference internal" href="../tutorial/4_1_diagnostics.html#partial-r2">robustness value / partial $R^2$</a>, <a class="reference internal" href="../tutorial/4_1_diagnostics.html#rosenbaum-gamma">critical $\Gamma$</a>) and a <a class="reference internal" href="../tutorial/4_1_diagnostics.html#placebo-test">validation / placebo test</a> against a benchmark the treatment cannot affect.</p></li>
+<li><p><strong>Match the remedy to the violation.</strong> Redefine an ambiguous treatment; model spillovers at the group level; trim or reweight to fix positivity; enrich the adjustment set or use an instrument for hidden confounding. Where no assumption pins the effect down, report worst-case <a class="reference internal" href="../tutorial/4_1_diagnostics.html#manski-bounds">Manski bounds</a>.</p></li>
 <li><p><strong>Report transparently.</strong> A decision-maker is far better served by <em>“effect = X, robust to a confounder up to strength Y”</em> than by a single unqualified number.</p></li>
 </ol>
-<p>In short: in an actuarial causal-inference setting, <strong>the assumption checks <em>are</em> the analysis</strong> — the estimate is only as trustworthy as the diagnostics and sensitivity bounds reported alongside it.</p>
 </div>
+<p><strong>The bottom line.</strong> Observational data can support credible causal statements, but <strong>only when each identification assumption is explicitly checked and, where needed, repaired</strong>. The four-decade reassessment of <a class="reference external" href="https://www.jstor.org/stable/1806062">LaLonde (1986)</a> by <a class="reference external" href="https://doi.org/10.48550/arXiv.2406.00827">Imbens &amp; Xu (2024)</a> sharpens the practical discipline for the actuary moving from prediction to causal inference: in an actuarial causal-inference setting, <strong>the assumption checks <em>are</em> the analysis</strong> — and the estimate is only as trustworthy as the overlap, diagnostics, and validation bounds reported alongside it.</p>
 </section>
 </section>
 
@@ -1956,7 +1969,8 @@ if (outputEl) {{
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#placebo-negative-control-test">Placebo / negative-control test</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#to-the-actuary-working-with-observational-data">To the actuary working with observational data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reality-check-lalonde-1986-revisited">Reality Check: LaLonde (1986) revisited</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways-for-the-actuary">Takeaways for the actuary</a></li>
 </ul>
   </nav></div>
 

@@ -40,7 +40,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/thebe-button-patch.css?v=e3482d12" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=2dab0457" />
+    <link rel="stylesheet" type="text/css" href="../_static/figure-theme.css?v=8bba8595" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -442,7 +442,7 @@ document.write(`
 <p>Beyond causal bias, actuaries face a distinct but related challenge: ensuring that models do not discriminate against protected groups. EU regulation prohibits the use of protected characteristics (e.g. gender, ethnicity) for insurance pricing, but simply dropping the sensitive attribute <span class="math notranslate nohighlight">\(S\)</span> does not solve the problem.</p>
 <section id="proxy-discrimination">
 <h2>Proxy Discrimination<a class="headerlink" href="#proxy-discrimination" title="Link to this heading">#</a></h2>
-<div class="proof definition admonition" id="proxy-discrimination">
+<div class="proof definition dropdown admonition" id="proxy-discrimination">
 <p class="admonition-title"><span class="caption-number">Definition 21 </span> (Proxy Discrimination)</p>
 <section class="definition-content" id="proof-content">
 <p><strong>Proxy discrimination</strong> (indirect discrimination) occurs when non-protected covariates <span class="math notranslate nohighlight">\(X\)</span> that are correlated with the sensitive attribute <span class="math notranslate nohighlight">\(S\)</span> allow the model to implicitly reconstruct <span class="math notranslate nohighlight">\(S\)</span>, even though <span class="math notranslate nohighlight">\(S\)</span> is not used as an input.</p>
@@ -451,13 +451,13 @@ document.write(`
 </section>
 <section id="from-unawareness-to-counterfactual-fairness">
 <h2>From Unawareness to Counterfactual Fairness<a class="headerlink" href="#from-unawareness-to-counterfactual-fairness" title="Link to this heading">#</a></h2>
-<div class="proof definition admonition" id="fairness-unawareness">
+<div class="proof definition dropdown admonition" id="fairness-unawareness">
 <p class="admonition-title"><span class="caption-number">Definition 22 </span> (Fairness through Unawareness)</p>
 <section class="definition-content" id="proof-content">
 <p>A model satisfies <strong>fairness through unawareness</strong> if it does not use the sensitive attribute <span class="math notranslate nohighlight">\(S\)</span> as input: <span class="math notranslate nohighlight">\(\hat{\mu}(X) = f(X)\)</span>.</p>
 </section>
 </div><p>Unawareness is necessary but not sufficient — it does not prevent proxy discrimination.</p>
-<div class="proof definition admonition" id="discrimination-free-pricing">
+<div class="proof definition dropdown admonition" id="discrimination-free-pricing">
 <p class="admonition-title"><span class="caption-number">Definition 23 </span> (Discrimination-Free Pricing)</p>
 <section class="definition-content" id="proof-content">
 <p>An insurance price is <strong>discrimination-free</strong> (<a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al., 2022</a>) if</p>
@@ -467,7 +467,7 @@ P(Y \leq y \mid X, S) = P(Y \leq y \mid X) \quad \text{for all } y
 \]</div>
 <p>i.e., the sensitive attribute <span class="math notranslate nohighlight">\(S\)</span> carries no additional information about <span class="math notranslate nohighlight">\(Y\)</span> beyond the non-protected covariates <span class="math notranslate nohighlight">\(X\)</span>.</p>
 </section>
-</div><div class="proof definition admonition" id="counterfactual-fairness">
+</div><div class="proof definition dropdown admonition" id="counterfactual-fairness">
 <p class="admonition-title"><span class="caption-number">Definition 24 </span> (Counterfactual Fairness)</p>
 <section class="definition-content" id="proof-content">
 <p>A predictor <span class="math notranslate nohighlight">\(\hat{\mu}\)</span> is <strong>counterfactually fair</strong> (<a class="reference external" href="https://arxiv.org/abs/1703.06856">Kusner et al., 2017</a>) if, for all <span class="math notranslate nohighlight">\(s, s'\)</span>:</p>
@@ -480,18 +480,60 @@ P\bigl(\hat{\mu}_{S \leftarrow s}(X) = y \mid X{=}x, S{=}s\bigr) = P\bigl(\hat{\
 </div></section>
 <section id="group-fairness-criteria-as-diagnostic-checks">
 <h2>Group Fairness Criteria as Diagnostic Checks<a class="headerlink" href="#group-fairness-criteria-as-diagnostic-checks" title="Link to this heading">#</a></h2>
-<div class="proof remark admonition" id="group-fairness-criteria">
+<div class="proof remark dropdown admonition" id="group-fairness-criteria">
 <p class="admonition-title"><span class="caption-number">Remark 2 </span> (Group Fairness Criteria)</p>
 <section class="remark-content" id="proof-content">
-<p>The machine learning literature evaluates a predictor against several <strong>group fairness criteria</strong> (<a class="reference external" href="https://fairmlbook.org/">Barocas et al., 2019</a>). To make them concrete, recast pricing as a binary flagging decision <span class="math notranslate nohighlight">\(\hat{Y} \in \{0,1\}\)</span> (e.g. “refer the costliest risks for review”) compared against the truth <span class="math notranslate nohighlight">\(Y\)</span>. The interactive explainer in <a class="reference internal" href="../application/pricing.html"><span class="doc">Fairness in Insurance Pricing</span></a> — adapted from the <a class="reference external" href="https://pair.withgoogle.com/explorables/measuring-fairness/">Google PAIR <em>Measuring Fairness</em> explorable (Pearce, 2020)</a> — compares the four most common criteria:</p>
-<ul class="simple">
-<li><p><strong>Group unawareness</strong>: <span class="math notranslate nohighlight">\(S\)</span> is not an input to the model. This is <a class="reference internal" href="#fairness-unawareness">Definition 22</a> — the weakest criterion, and the one that proxy discrimination defeats.</p></li>
-<li><p><strong>Demographic (statistical) parity</strong>: <span class="math notranslate nohighlight">\(\hat{Y} \perp\!\!\!\perp S\)</span> — the selection rate <span class="math notranslate nohighlight">\(P(\hat{Y}{=}1 \mid S)\)</span> is equal across groups (<a class="reference external" href="https://arxiv.org/abs/1104.3913">Dwork et al., 2012</a>).</p></li>
-<li><p><strong>Equal opportunity</strong>: <span class="math notranslate nohighlight">\(\hat{Y} \perp\!\!\!\perp S \mid Y{=}1\)</span> — the true-positive rate is equal across groups, so the model misses high-cost risks at the same rate in each group (<a class="reference external" href="https://arxiv.org/abs/1610.02413">Hardt et al., 2016</a>). Requiring equality of <em>both</em> the true- and false-positive rates is the stronger <strong>equalised odds</strong> criterion.</p></li>
-<li><p><strong>Equal accuracy</strong> (overall accuracy equality): <span class="math notranslate nohighlight">\(P(\hat{Y}{=}Y \mid S)\)</span> is equal across groups — the model is right equally often for each group (<a class="reference external" href="https://doi.org/10.1177/0049124118782533">Berk et al., 2021</a>).</p></li>
-</ul>
-<p>A closely related criterion is <strong>predictive parity / calibration</strong>: <span class="math notranslate nohighlight">\(Y \perp\!\!\!\perp S \mid \hat{\mu}(X)\)</span> — a given score means the same thing in each group (<a class="reference external" href="https://doi.org/10.1089/big.2016.0047">Chouldechova, 2017</a>).</p>
-<p>These criteria are useful <strong>diagnostic checks</strong> but cannot replace causal reasoning. <a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al. (2022)</a> show that even a genuinely discrimination-free model violates them whenever <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(S\)</span> are statistically dependent. Moreover, except in trivial cases, the criteria are mutually incompatible at unequal base rates (<a class="reference external" href="https://arxiv.org/abs/1609.05807">Kleinberg et al., 2017</a>; <a class="reference external" href="https://doi.org/10.1089/big.2016.0047">Chouldechova, 2017</a>).</p>
+<p>The machine learning literature evaluates a predictor against several <strong>group fairness criteria</strong> (<a class="reference external" href="https://fairmlbook.org/">Barocas et al., 2019</a>). The interactive explainer in <a class="reference internal" href="../application/pricing.html"><span class="doc">Fairness in Insurance Pricing</span></a> lets you toggle between the criteria defined below and watch the consequence of each choice. Each criterion is an independence condition on <span class="math notranslate nohighlight">\(\hat{Y}\)</span>; what distinguishes them is <em>which</em> errors they equalise, and therefore <em>what they cost</em> when the groups have genuinely different risk.</p>
+</section>
+</div><p>The <strong>weakest</strong> criterion is <a class="reference internal" href="#fairness-unawareness">Definition 22</a> (group unawareness): <span class="math notranslate nohighlight">\(S\)</span> is simply not an input. As the whole of this page argues, proxy discrimination defeats it. The four criteria below are progressively more demanding constraints on the <em>decisions</em>, not the inputs.</p>
+<div class="proof definition dropdown admonition" id="demographic-parity">
+<p class="admonition-title"><span class="caption-number">Definition 25 </span> (Demographic (Statistical) Parity)</p>
+<section class="definition-content" id="proof-content">
+<p>A decision satisfies <strong>demographic parity</strong> if the flag is independent of the protected attribute,</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{Y} \perp\!\!\!\perp S \quad\Longleftrightarrow\quad P(\hat{Y}{=}1 \mid S{=}s) \text{ is equal for all } s,
+\]</div>
+<p>i.e. each group is flagged at the same rate (<a class="reference external" href="https://arxiv.org/abs/1104.3913">Dwork et al., 2012</a>).</p>
+<p><strong>Interpretation</strong> Parity is enforced <em>regardless of true risk</em>. When base rates genuinely differ, equalising selection rates means either lowering the bar for the lower-risk group or raising it for the higher-risk group — so qualified individuals are passed over in one group and unqualified ones flagged in the other. It maximally protects against disparate impact but is the most costly in accuracy and induces explicit cross-subsidy between groups.</p>
+</section>
+</div><div class="proof definition dropdown admonition" id="equal-opportunity">
+<p class="admonition-title"><span class="caption-number">Definition 26 </span> (Equal Opportunity &amp; Equalised Odds)</p>
+<section class="definition-content" id="proof-content">
+<p>A decision satisfies <strong>equal opportunity</strong> if the true-positive rate is equal across groups,</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{Y} \perp\!\!\!\perp S \mid Y{=}1 \quad\Longleftrightarrow\quad P(\hat{Y}{=}1 \mid Y{=}1, S{=}s) \text{ is equal for all } s,
+\]</div>
+<p>so genuinely high-cost risks are caught at the same rate in every group (<a class="reference external" href="https://arxiv.org/abs/1610.02413">Hardt et al., 2016</a>). Requiring equality of <em>both</em> the true- and false-positive rates is the stronger <strong>equalised odds</strong> criterion.</p>
+<p><strong>Interpretation</strong> Equal opportunity controls only the <em>miss</em> rate: it guarantees no group is systematically under-served among the truly high-risk, but says nothing about false positives, so one group may still bear more unwarranted reviews. Equalised odds closes that gap, but is so restrictive that — except in degenerate cases — it cannot hold together with calibration when base rates differ, and may force the model to <em>discard</em> predictive information to balance the error rates.</p>
+</section>
+</div><div class="proof definition dropdown admonition" id="equal-accuracy">
+<p class="admonition-title"><span class="caption-number">Definition 27 </span> (Equal Accuracy)</p>
+<section class="definition-content" id="proof-content">
+<p>A decision satisfies <strong>equal accuracy</strong> (overall accuracy equality) if it is correct equally often in each group,</p>
+<div class="math notranslate nohighlight">
+\[
+P(\hat{Y}{=}Y \mid S{=}s) \text{ is equal for all } s
+\]</div>
+<p>(<a class="reference external" href="https://doi.org/10.1177/0049124118782533">Berk et al., 2021</a>).</p>
+<p><strong>Interpretation</strong> Equal accuracy treats a false positive and a false negative as interchangeable, so two groups can have identical accuracy while one suffers mostly missed high-risk cases and the other mostly false alarms. It is easy to communicate but blind to <em>which kind</em> of error each group bears — usually the distinction that matters most for fairness.</p>
+</section>
+</div><div class="proof definition dropdown admonition" id="predictive-parity">
+<p class="admonition-title"><span class="caption-number">Definition 28 </span> (Predictive Parity (Calibration))</p>
+<section class="definition-content" id="proof-content">
+<p>A score satisfies <strong>predictive parity / calibration</strong> if its meaning does not depend on the group,</p>
+<div class="math notranslate nohighlight">
+\[
+Y \perp\!\!\!\perp S \mid \hat{\mu}(X),
+\]</div>
+<p>i.e. among everyone assigned the same price <span class="math notranslate nohighlight">\(\hat{\mu}(X)\)</span>, the realised risk is the same regardless of group (<a class="reference external" href="https://doi.org/10.1089/big.2016.0047">Chouldechova, 2017</a>).</p>
+<p><strong>Interpretation</strong> Calibration is what actuarial soundness and most regulators implicitly demand: a given premium must correspond to the same expected cost for everyone. The price of insisting on it is that, at unequal base rates, a calibrated score <em>cannot</em> also equalise true- and false-positive rates — so a calibrated, actuarially fair price will necessarily show group differences in error rates (<a class="reference external" href="https://arxiv.org/abs/1609.05807">Kleinberg et al., 2017</a>).</p>
+</section>
+</div><div class="proof remark dropdown admonition" id="fairness-incompatibility">
+<p class="admonition-title"><span class="caption-number">Remark 3 </span> (The criteria are mutually incompatible)</p>
+<section class="remark-content" id="proof-content">
+<p>These criteria are useful <strong>diagnostic checks</strong> but cannot replace causal reasoning. <a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al. (2022)</a> show that even a genuinely discrimination-free model violates them whenever <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(S\)</span> are statistically dependent. Moreover, except in trivial cases, the criteria are mutually incompatible at unequal base rates: no decision can be simultaneously calibrated <em>and</em> equalise both error rates (<a class="reference external" href="https://arxiv.org/abs/1609.05807">Kleinberg et al., 2017</a>; <a class="reference external" href="https://doi.org/10.1089/big.2016.0047">Chouldechova, 2017</a>). Choosing a criterion is therefore a value judgement about <em>which</em> fairness to buy and <em>which</em> to forgo — not a technical detail the model can settle on its own.</p>
 </section>
 </div></section>
 <section id="how-causal-inference-resolves-the-fairness-problem">
@@ -509,12 +551,22 @@ P\bigl(\hat{\mu}_{S \leftarrow s}(X) = y \mid X{=}x, S{=}s\bigr) = P\bigl(\hat{\
 <li><p><strong>Separate proxy from legitimate channels.</strong> The proxy path <span class="math notranslate nohighlight">\(S \to X_1 \to Y\)</span> is the discriminatory mechanism, whereas <span class="math notranslate nohighlight">\(S \to X_2 \to Y\)</span> runs through a bona fide risk factor and may be defensible. <strong>Path-specific (counterfactual) effects</strong> let us neutralise only the unfair path while preserving the predictive signal carried by the legitimate one (<a class="reference external" href="https://arxiv.org/abs/1802.08139">Chiappa, 2019</a>; <a class="reference external" href="https://arxiv.org/abs/1703.06856">Kusner et al., 2017</a>).</p></li>
 <li><p><strong>Construct the discrimination-free price.</strong> Operationally, <a class="reference internal" href="#discrimination-free-pricing">Definition 23</a> is obtained by integrating the price over the <em>marginal</em> <span class="math notranslate nohighlight">\(P(S)\)</span> rather than the conditional <span class="math notranslate nohighlight">\(P(S \mid X)\)</span>, which severs the <span class="math notranslate nohighlight">\(X\)</span>–<span class="math notranslate nohighlight">\(S\)</span> dependence that the tower property would otherwise exploit (<a class="reference external" href="https://arxiv.org/abs/2209.00858">Lindholm et al., 2022</a>).</p></li>
 </ul>
-<p><strong>Where the Wasserstein distance fits in.</strong> When the dependence between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(S\)</span> cannot be fully removed — or when statistical parity is required as a hard constraint — fairness can be enforced <em>geometrically</em> via optimal transport. The idea is to map each group-conditional price distribution <span class="math notranslate nohighlight">\(P(\hat{\mu} \mid S{=}s)\)</span> onto a common target: the <strong>Wasserstein barycenter</strong>, i.e. the distribution that minimises the total squared Wasserstein-2 distance to all the group distributions,</p>
+<p><strong>Where the Wasserstein distance fits in.</strong> When the dependence between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(S\)</span> cannot be fully removed — or when statistical parity is required as a hard constraint — fairness can be enforced <em>geometrically</em> via optimal transport.</p>
+<div class="proof definition dropdown admonition" id="wasserstein-barycenter">
+<p class="admonition-title"><span class="caption-number">Definition 29 </span> (Wasserstein-2 Distance and Barycenter)</p>
+<section class="definition-content" id="proof-content">
+<p>For two distributions <span class="math notranslate nohighlight">\(P, Q\)</span> on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with finite second moments, the <strong>Wasserstein-2 distance</strong> is the minimal expected squared cost of transporting one onto the other,</p>
+<div class="math notranslate nohighlight">
+\[
+W_2(P, Q) = \left( \inf_{\pi \in \Pi(P, Q)} \int |u - v|^2 \, \mathrm{d}\pi(u, v) \right)^{1/2},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Pi(P, Q)\)</span> is the set of couplings (joint distributions) with marginals <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>. Given the group-conditional price distributions <span class="math notranslate nohighlight">\(P(\hat{\mu} \mid S{=}s)\)</span> with group shares <span class="math notranslate nohighlight">\(P(S{=}s)\)</span>, their <strong>Wasserstein barycenter</strong> is the distribution that minimises the total squared <span class="math notranslate nohighlight">\(W_2\)</span> distance to all of them,</p>
 <div class="math notranslate nohighlight">
 \[
 \bar{P} = \arg\min_{P} \sum_{s} P(S{=}s)\, W_2^2\bigl(P,\; P(\hat{\mu} \mid S{=}s)\bigr).
 \]</div>
-<p>Projecting onto this barycenter yields (approximate) demographic parity while distorting the original prices as little as possible, since <span class="math notranslate nohighlight">\(W_2\)</span> measures the minimal “cost” of reshaping one distribution into another (<a class="reference external" href="https://arxiv.org/abs/2006.07286">Chzhen et al., 2020</a>; <a class="reference external" href="https://arxiv.org/abs/1911.06685">Plečko &amp; Meinshausen, 2020</a>). Beyond repair, the Wasserstein distance also serves as a continuous <strong>fairness metric</strong>: <span class="math notranslate nohighlight">\(W_2\bigl(P(\hat{\mu}\mid S{=}s),\, P(\hat{\mu}\mid S{=}s')\bigr)\)</span> quantifies how far apart the price distributions of two groups remain, complementing the binary independence tests of the group-fairness criteria above.</p>
+</section>
+</div><p>The idea is to map each group-conditional price distribution <span class="math notranslate nohighlight">\(P(\hat{\mu} \mid S{=}s)\)</span> onto a common target — the <strong>Wasserstein barycenter</strong> <span class="math notranslate nohighlight">\(\bar{P}\)</span> (<a class="reference internal" href="#wasserstein-barycenter">Definition 29</a>). Projecting onto this barycenter yields (approximate) demographic parity while distorting the original prices as little as possible, since <span class="math notranslate nohighlight">\(W_2\)</span> measures the minimal “cost” of reshaping one distribution into another (<a class="reference external" href="https://arxiv.org/abs/2006.07286">Chzhen et al., 2020</a>; <a class="reference external" href="https://arxiv.org/abs/1911.06685">Plečko &amp; Meinshausen, 2020</a>). Beyond repair, the Wasserstein distance also serves as a continuous <strong>fairness metric</strong>: <span class="math notranslate nohighlight">\(W_2\bigl(P(\hat{\mu}\mid S{=}s),\, P(\hat{\mu}\mid S{=}s')\bigr)\)</span> quantifies how far apart the price distributions of two groups remain, complementing the binary independence tests of the group-fairness criteria above.</p>
 </section>
 </section>
 
