@@ -76,6 +76,7 @@ In an RCT, treatment is assigned by chance, so both measured and unmeasured cova
 Because randomization makes $T \perp (Y(1), Y(0))$ hold *by design*, the RCT is best understood as the **benchmark that observational methods try to emulate**. When we cannot randomize, the methods in this tutorial — matching, weighting, regression adjustment, and graphical reasoning — all aim to reconstruct, *conditional on covariates*, the covariate balance that randomization would have produced automatically.
 
 ```{note}
+:class: dropdown
 RCTs are often infeasible in actuarial settings: we cannot randomly assign policyholders to claim, randomly grant coverage, or withhold a wellness programme for experimental purposes. Observational causal inference exists precisely to approximate the RCT benchmark from the data we *do* have.
 ```
 
@@ -110,6 +111,7 @@ For heterogeneous treatment effect estimation, see [Athey & Imbens (2016)](https
 The bridge from a causal estimand to a statistical estimand is built entirely from **assumptions**, and the most important of them cannot be checked from the data alone. In particular, **exchangeability / no unobserved confounding** ({prf:ref}`exchangeability` in {doc}`2_1_assumptions`) is fundamentally untestable: the data are equally consistent with "no hidden confounder" and with "a hidden confounder we never measured" ([Rubin, 1974](https://doi.org/10.1037/h0037350); [Pearl, 2009](https://doi.org/10.1017/CBO9780511803161); [Hernán & Robins, 2020](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/)).
 
 ```{important}
+:class: dropdown
 No statistical procedure can *prove* a causal effect from observational data. Every estimate is conditional on assumptions that come from domain knowledge, not from the data. The role of the analyst is to (1) state these assumptions explicitly, (2) encode them in a DAG or potential-outcomes model, and (3) probe how fragile the conclusions are when the assumptions are relaxed.
 ```
 

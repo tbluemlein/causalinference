@@ -1,6 +1,6 @@
 # Tree-Based Methods
 
-The methods in {doc}`3_1_propensity` and {doc}`3_2_Regression_Methods` are built to recover a *single* number — the ATE or ATT averaged over the population. Tree-based methods instead target the **conditional average treatment effect** (CATE) $\tau(x) = \mathbb{E}[Y(1) - Y(0) \mid X = x]$, asking *for whom* the treatment works rather than *whether* it works on average. They share the same identification backbone (unconfoundedness and {ref}`overlap`) but let the data, rather than a fixed functional form, discover which covariates drive effect heterogeneity.
+The methods in {doc}`3_1_propensity` and {doc}`3_2_Regression_Methods` are built to recover a *single* number — the ATE or ATT averaged over the population. Tree-based methods instead target the **conditional average treatment effect** (CATE) $\tau(x) = \mathbb{E}[Y(1) - Y(0) \mid X = x]$, asking *for whom* the treatment works rather than *whether* it works on average. They share the same identification backbone (unconfoundedness and {ref}`overlap`) but let the data, rather than a fixed functional form, discover which covariates drive effect heterogeneity. The tree ensembles underlying these estimators — CART, bagging, and random forests — are covered in the standard machine-learning textbooks of [Hastie, Tibshirani & Friedman (2009)](https://doi.org/10.1007/978-0-387-84858-7) and, at an introductory level, [James et al. (2021)](https://doi.org/10.1007/978-1-0716-1418-1); [Athey & Imbens (2019)](https://doi.org/10.1146/annurev-economics-080217-053433) survey how these methods are adapted for causal estimation.
 
 Conceptually they sit at the intersection of the two earlier toolkits:
 
@@ -12,7 +12,7 @@ The two algorithms below differ in granularity. A **causal tree** partitions the
 ## Causal Trees
 
 (sec:ct)=
-Our first approach to infer heterogeneous treatment effects is based on causal trees. In contrast to modelling the effect of the treatment on the potential outcome effect linearly, we rely on the idea of {cite:t}`athey2016recursive`. {prf:ref}`alg-causaltree` shows their procedure according to which a causal tree estimates heterogeneous treatment effects from covariates $X$ and an observed outcome $Y$.
+Our first approach to infer heterogeneous treatment effects is based on causal trees. In contrast to modelling the effect of the treatment on the potential outcome effect linearly, we rely on the idea of [Athey & Imbens (2016)](https://doi.org/10.1073/pnas.1510489113). {prf:ref}`alg-causaltree` shows their procedure according to which a causal tree estimates heterogeneous treatment effects from covariates $X$ and an observed outcome $Y$.
 
 ```{prf:algorithm} Causal Tree
 :label: alg-causaltree
@@ -31,7 +31,7 @@ Our first approach to infer heterogeneous treatment effects is based on causal t
 5. Return CATE $\hat{\tau}^{(\ell)}(x)$
 ```
 
-Similar to CART {cite:p}`Breimann1984cart`, a causal tree partitions the sample into subgroups. It creates a partition of the patient population into subpopulations (i.e., leaves $\ell\in\mathcal{L}$) using recursive binary splitting. In contrast to a decision tree, a causal tree estimates the treatment effect $\hat{\tau}$ directly by modelling the contrast in potential outcomes rather than modelling both potential outcomes and then taking their contrast. 
+Similar to CART [(Breiman et al., 1984)](https://doi.org/10.1201/9781315139470), a causal tree partitions the sample into subgroups. It creates a partition of the patient population into subpopulations (i.e., leaves $\ell\in\mathcal{L}$) using recursive binary splitting. In contrast to a decision tree, a causal tree estimates the treatment effect $\hat{\tau}$ directly by modelling the contrast in potential outcomes rather than modelling both potential outcomes and then taking their contrast. 
 
 Since a covariate that affects the expected outcome $\mathbb{E}[Y \mid X = x]$ does not necessarily affect the treatment effect and vice versa, the splitting criterion is chosen with respect to covariates that actually cause treatment effect heterogeneity, as explained below.
 
@@ -57,7 +57,7 @@ Anatomy of a causal tree. Recursive binary splits on the covariates $X$ carve th
 
 The underlying assumptions are that in each leaf, the treatment effect is the same across all observations in the leaf and the leaves are small enough that the $(Y, T)$ pairs of each observation in a leaf behave as if they have come from a RCT: this requires that $T$ is randomly distributed across the observations in the leaf given the covariates and the outcome $Y$ is independent of the assigned treatment $T$.
 
-To ensure unbiased estimates of CATEs, the principle of *honesty* is introduced for causal trees and causal forests {cite:p}`athey2016recursive`. A method is called honest if the entire sample of patients is split into two parts, one for tree construction and one to estimate the treatment effects within the leaves. Hence, model selection is decoupled from model estimation. This addresses the post-selection inference problem and ensures unbiased estimates of CATEs.
+To ensure unbiased estimates of CATEs, the principle of *honesty* is introduced for causal trees and causal forests [(Athey & Imbens, 2016)](https://doi.org/10.1073/pnas.1510489113). A method is called honest if the entire sample of patients is split into two parts, one for tree construction and one to estimate the treatment effects within the leaves. Hence, model selection is decoupled from model estimation. This addresses the post-selection inference problem and ensures unbiased estimates of CATEs.
 
 The method is regarded doubly robust since we apply inverse propensity score weighting at every step $t$: We combine the outcome model and propensity score model to reduce the sensitivity to misspecifications. Even if only one of the two is well specified, the resulting CATE estimator is more robust. This is necessary in presence of observational data, where the treatment is not assigned randomly.
 
@@ -66,7 +66,7 @@ With a causal tree, we estimate heterogeneous treatment effects, differentiating
 ## Causal Forests
 
 (sec:cf)=
-We additionally introduce causal forests that ensure a stronger degree of personalization in treatment effect estimation using adaptive nearest neighbourhood estimation. Similarly as for random forests {cite:p}`breimann2001rf`, the CATEs in this specific ensemble method of causal forests are estimated by a combination of the estimations of the weak learners, i.e. causal trees that are estimated $B$ times. In addition, principles such as random split selection and recursive binary splitting are the same here as for random forests {cite:p}`athey2018grf`. However, the CATEs are not calculated as simple averages over $B$ causal trees but by a weighted average over the local patient neighbourhood.
+We additionally introduce causal forests that ensure a stronger degree of personalization in treatment effect estimation using adaptive nearest neighbourhood estimation. Similarly as for random forests [(Breiman, 2001)](https://doi.org/10.1023/A:1010933404324), the CATEs in this specific ensemble method of causal forests are estimated by a combination of the estimations of the weak learners, i.e. causal trees that are estimated $B$ times. In addition, principles such as random split selection and recursive binary splitting are the same here as for random forests [(Athey, Tibshirani & Wager, 2019)](https://doi.org/10.1214/18-AOS1709). However, the CATEs are not calculated as simple averages over $B$ causal trees but by a weighted average over the local patient neighbourhood.
 
 ```{prf:algorithm} Causal Forest
 :label: alg-causalforest
@@ -101,7 +101,7 @@ Fitting $B$ causal trees, we repeat the separation step into a construction data
 
 The weights indicate how often another patient $j\not = i$ with covariates $X^{(j)}$ falls in the same leaf as the patient of interest $i$ with covariates $x$ across the trees in the forest. The more often the patients are in the same leaf, the closer they are to each other and the higher is the weight of patient when estimating the treatment effect of the observation with given covariates and outcome.
 
-The causal forest is hence not used to construct the final estimate of CATE as average over all single estimations but rather for adaptive neighbourhood matching of each individual observation. The actual CATE is then calculated locally as a weighted average over its nearest neighbours, i.e. similar patients {cite:p}`athey2018grf`, as
+The causal forest is hence not used to construct the final estimate of CATE as average over all single estimations but rather for adaptive neighbourhood matching of each individual observation. The actual CATE is then calculated locally as a weighted average over its nearest neighbours, i.e. similar patients [(Athey, Tibshirani & Wager, 2019)](https://doi.org/10.1214/18-AOS1709), as
 
 \begin{equation}
     \hat{\tau}(x)=\frac{\sum_{j=1}^n \alpha^{(j)}(x)(Y^{(j)}-\hat{Y}^{(-j)})(T^{(j)}-\hat{\pi}^{(-j)}(x))}{ \sum \alpha^{(j)}(x)(T^{(j)}-\hat{\pi}^{(-j)}(x))^2}.
@@ -114,4 +114,4 @@ The causal forest is hence not used to construct the final estimate of CATE as a
 How a causal forest builds an adaptive neighbourhood. Across the $B$ honest trees (left), the query patient $x$ repeatedly lands in a leaf alongside different sets of patients. Tallying how often each patient $j$ shares $x$'s leaf yields the forest weight $\alpha^{(j)}(x)$ (right): patient $j_1$, a leaf-mate in every tree, weighs most, whereas $j_4$ — never co-located — contributes nothing. The result is a *learned* local match in covariate space rather than a match on a single propensity score, with out-of-bag residuals making the final weighted estimate doubly robust.
 ```
 
-To construct the neighbourhood for each single patient $i$, weights are calculated for every other patient $j\not = i$. Note that $\hat{Y}^{(-j)}$ and $\hat{\pi}^{(-j)}(x)$ are calculated out-of-bag, meaning that information about patient $j$ was not used for their estimation. We refer to {cite:t}`Athey.2018` for more details on the estimation procedure. To assign an observation to a leaf $\ell^{(b)}$ in iteration $b$, the set of covariates can vary across patients to determine the path, as causal forests share the property with random forests to randomly select the set of possible covariates at each split {cite:p}`breimann2001rf`. Amongst this set, the splitting covariate that maximizes heterogeneity in treatment effects amongst the subgroups, is chosen on a data-driven basis. This allows the path to vary per leaf $\ell$ and per iteration $b$.
+To construct the neighbourhood for each single patient $i$, weights are calculated for every other patient $j\not = i$. Note that $\hat{Y}^{(-j)}$ and $\hat{\pi}^{(-j)}(x)$ are calculated out-of-bag, meaning that information about patient $j$ was not used for their estimation. We refer to [Wager & Athey (2018)](https://doi.org/10.1080/01621459.2017.1319839) for more details on the estimation procedure. To assign an observation to a leaf $\ell^{(b)}$ in iteration $b$, the set of covariates can vary across patients to determine the path, as causal forests share the property with random forests to randomly select the set of possible covariates at each split [(Breiman, 2001)](https://doi.org/10.1023/A:1010933404324). Amongst this set, the splitting covariate that maximizes heterogeneity in treatment effects amongst the subgroups, is chosen on a data-driven basis. This allows the path to vary per leaf $\ell$ and per iteration $b$.
