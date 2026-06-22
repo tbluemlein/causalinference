@@ -139,7 +139,7 @@ A path $p$ between nodes $X$ and $Y$ in a DAG is **blocked** by a set of nodes $
 ```
 
 ```{prf:definition} $d$-Separation
-:label: d-separation
+:label: d-separation-def
 :class: dropdown
 
 Two nodes $X$ and $Y$ are **$d$-separated** by a set $Z$ in a DAG $\mathcal{G}$, written $X \perp_{\mathcal{G}} Y \mid Z$, if **every** path between $X$ and $Y$ is blocked by $Z$.
