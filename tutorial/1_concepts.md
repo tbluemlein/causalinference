@@ -134,10 +134,4 @@ Throughout this tutorial we adopt the following conventions. Let $D = \{(X_i, T_
 | $U$ | Unmeasured / unobserved confounder |
 | $D$ | Observed dataset: $D = \{(X_i, T_i, Y_i)\}_{i=1}^{n}$ |
 | $\pi(x)$ | Propensity score: $\pi(x) = \mathbb{P}(T=1 \mid X=x)$ |
----
 
-**Resources:**
-* [Assumptions Guide](https://www.uniqcret.com/post/causal-inference-assumptions-guide)
-* [Introduction to Causal Inference (Brady Neal, 2020)](https://www.bradyneal.com/Introduction_to_Causal_Inference-Aug27_2020-Neal.pdf)
-* [Python Causality Handbook](https://matheusfacure.github.io/python-causality-handbook/)
-* [Causal ML Book](https://www.causalmlbook.com/)
