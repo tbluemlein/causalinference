@@ -33,8 +33,8 @@ Different estimation methods target different estimands. The table below maps me
 | **Inverse Probability Weighting** | ATE | Re-weight sample to remove confounding | {doc}`propensity` |
 | **Double Machine Learning** | ATE | Residualise both $Y$ and $T$ on $X$ to isolate causal variation | {doc}`regression_methods` |
 | **Instrumental Variables / 2SLS** | LATE | Use exogenous variation from an instrument | {doc}`regression_methods` |
-| **Causal Trees** | CATE | Recursive partitioning to maximise treatment effect heterogeneity | {doc}`Tree_Based_Methods` |
-| **Causal Forests** | CATE | Ensemble of causal trees with adaptive neighbourhood weighting | {doc}`Tree_Based_Methods` |
+| **Causal Trees** | CATE | Recursive partitioning to maximise treatment effect heterogeneity | {doc}`tree_based_methods` |
+| **Causal Forests** | CATE | Ensemble of causal trees with adaptive neighbourhood weighting | {doc}`tree_based_methods` |
 | **Bayesian (BART / BCF)** | CATE | Posterior distributions over treatment effects via sum-of-trees priors | {doc}`bayesian` |
 
 ## Chapter Contents
@@ -51,7 +51,7 @@ This chapter covers the following estimation approaches:
 
 ### Tree-Based Methods
 
-**{doc}`Tree_Based_Methods`** — Causal trees partition the covariate space to discover subpopulations with heterogeneous treatment effects (CATEs) using honest splitting ([Athey & Imbens, 2016](https://doi.org/10.1073/pnas.1510489113)), and causal forests extend them to an ensemble that estimates individualised effects via adaptive nearest-neighbour weighting ([Wager & Athey, 2018](https://doi.org/10.1080/01621459.2017.1319839); [Athey, Tibshirani & Wager, 2019](https://doi.org/10.1214/18-AOS1709)).
+**{doc}`tree_based_methods`** — Causal trees partition the covariate space to discover subpopulations with heterogeneous treatment effects (CATEs) using honest splitting ([Athey & Imbens, 2016](https://doi.org/10.1073/pnas.1510489113)), and causal forests extend them to an ensemble that estimates individualised effects via adaptive nearest-neighbour weighting ([Wager & Athey, 2018](https://doi.org/10.1080/01621459.2017.1319839); [Athey, Tibshirani & Wager, 2019](https://doi.org/10.1214/18-AOS1709)).
 
 ### Bayesian Approaches
 

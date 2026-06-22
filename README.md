@@ -27,7 +27,7 @@ The tutorial guides the reader from foundational concepts, identification and in
 **Stage 3 — {doc}`tutorial/inference`:** Covers *how* to estimate causal effects once identification is established. Methods range from classical propensity score approaches to modern machine learning estimators.
 - {doc}`tutorial/propensity` — Propensity score matching and inverse probability weighting.
 - {doc}`tutorial/regression_methods` — Regression adjustment, doubly robust and orthogonal ML estimators, and quasi-experimental designs.
-- {doc}`tutorial/Tree_Based_Methods` — Causal trees and forests for heterogeneous and individualised treatment effect estimation.
+- {doc}`tutorial/tree_based_methods` — Causal trees and forests for heterogeneous and individualised treatment effect estimation.
 - {doc}`tutorial/bayesian` — Bayesian causal inference with BART and Bayesian Causal Forests.
 
 **Stage 4 — {doc}`tutorial/sensitivity`:** Validates causal conclusions by assessing their robustness to untestable assumptions and ensuring the resulting model is fair.

@@ -20,7 +20,7 @@ parts:
         sections: 
           - file: tutorial/propensity.md
           - file: tutorial/regression_methods.md
-          - file: tutorial/Tree_Based_Methods.md
+          - file: tutorial/tree_based_methods.md
           - file: tutorial/bayesian.md
       - file: tutorial/sensitivity.md
         sections:
