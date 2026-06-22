@@ -117,13 +117,13 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/2_2_graphical_models';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/graphical_models';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../_static/figure-theme.js?v=a9394cc5"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Identification Strategies" href="2_3_methods.html" />
-    <link rel="prev" title="Assumptions" href="2_1_assumptions.html" />
+    <link rel="next" title="Identification Strategies" href="methods.html" />
+    <link rel="prev" title="Assumptions" href="assumptions.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -243,24 +243,24 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="1_concepts.html">Concepts of Causal Inference</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="2_identification.html">Identification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="2_1_assumptions.html">Assumptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts of Causal Inference</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="identification.html">Identification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="assumptions.html">Assumptions</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Graphical Causal Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2_3_methods.html">Identification Strategies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html">Identification Strategies</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="3_inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="3_1_propensity.html">Propensity Score Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_2_Regression_Methods.html">Regression Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_3_Tree_Based_Methods.html">Tree-Based Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_5_bayesian.html">Bayesian Causal Inference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="propensity.html">Propensity Score Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regression_methods.html">Regression Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree_based_methods.html">Tree-Based Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="4_sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="4_1_diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="4_2_debias.html">Biases and De-Biasing Toolkit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="4_3_fairness.html">Why Causal Inference Resolves the Fairness Problem</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debias.html">Biases and De-Biasing Toolkit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fairness.html">Why Causal Inference Resolves the Fairness Problem</a></li>
 </ul>
 </details></li>
 </ul>
@@ -328,7 +328,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/tutorial/2_2_graphical_models.md" target="_blank"
+      <li><a href="../_sources/tutorial/graphical_models.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -597,7 +597,7 @@ X \perp\!\!\!\perp Y \quad \text{but} \quad X \not\!\perp\!\!\!\perp Y \mid C \q
 <li><p><span class="math notranslate nohighlight">\(W\)</span> is a <strong>collider</strong> on <span class="math notranslate nohighlight">\(p\)</span> <strong>and</strong> neither <span class="math notranslate nohighlight">\(W\)</span> nor any descendant of <span class="math notranslate nohighlight">\(W\)</span> is in <span class="math notranslate nohighlight">\(Z\)</span>.</p></li>
 </ol>
 </section>
-</div><div class="proof definition dropdown admonition" id="d-separation">
+</div><div class="proof definition dropdown admonition" id="d-separation-def">
 <p class="admonition-title"><span class="caption-number">Definition 7 </span> (<span class="math notranslate nohighlight">\(d\)</span>-Separation)</p>
 <section class="definition-content" id="proof-content">
 <p>Two nodes <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <strong><span class="math notranslate nohighlight">\(d\)</span>-separated</strong> by a set <span class="math notranslate nohighlight">\(Z\)</span> in a DAG <span class="math notranslate nohighlight">\(\mathcal{G}\)</span>, written <span class="math notranslate nohighlight">\(X \perp_{\mathcal{G}} Y \mid Z\)</span>, if <strong>every</strong> path between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> is blocked by <span class="math notranslate nohighlight">\(Z\)</span>.</p>
@@ -682,7 +682,7 @@ X \perp\!\!\!\perp \text{NonDesc}(X) \mid \text{Pa}(X)
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="2_1_assumptions.html"
+       href="assumptions.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
@@ -691,7 +691,7 @@ X \perp\!\!\!\perp \text{NonDesc}(X) \mid \text{Pa}(X)
       </div>
     </a>
     <a class="right-next"
-       href="2_3_methods.html"
+       href="methods.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>

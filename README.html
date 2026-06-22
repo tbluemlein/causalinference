@@ -122,7 +122,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script src="_static/figure-theme.js?v=a9394cc5"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Concepts of Causal Inference" href="tutorial/1_concepts.html" />
+    <link rel="next" title="Concepts of Causal Inference" href="tutorial/concepts.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -244,24 +244,24 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="tutorial/1_concepts.html">Concepts of Causal Inference</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/2_identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/2_1_assumptions.html">Assumptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/2_2_graphical_models.html">Graphical Causal Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/2_3_methods.html">Identification Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/concepts.html">Concepts of Causal Inference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/assumptions.html">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/graphical_models.html">Graphical Causal Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/methods.html">Identification Strategies</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/3_inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/3_1_propensity.html">Propensity Score Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/3_2_Regression_Methods.html">Regression Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/3_3_Tree_Based_Methods.html">Tree-Based Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/3_5_bayesian.html">Bayesian Causal Inference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/propensity.html">Propensity Score Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/regression_methods.html">Regression Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/tree_based_methods.html">Tree-Based Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/4_sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/4_1_diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/4_2_debias.html">Biases and De-Biasing Toolkit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/4_3_fairness.html">Why Causal Inference Resolves the Fairness Problem</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorial/sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/debias.html">Biases and De-Biasing Toolkit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/fairness.html">Why Causal Inference Resolves the Fairness Problem</a></li>
 </ul>
 </details></li>
 </ul>
@@ -443,7 +443,7 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="actuarial-causal-inference-tutorial">
 <h1>Actuarial Causal Inference Tutorial<a class="headerlink" href="#actuarial-causal-inference-tutorial" title="Link to this heading">#</a></h1>
 <p class="tutorial-subtitle">From Risk Measurement to Intelligent Risk Management</p>
-<p>This tutorial demonstrates how we can leverage modern causal machine learning (ML) and data science algorithms to infer causal effects from observational data. While standard ML excels at predicting outcomes, it often remains “causally blind” to the true levers of risk. By moving beyond passive risk measurement toward active and interventional risk management, we explore methods how to quantify causal treatment effects to achieve intelligent risk mitigation. This endeavour is illustrated on a simulated health data set of longitudinal health data and on a second dataset that contains driver training assignments in a motor insurance context where we apply different causal inference methodologies to estimate heterogeneous treatment effects and derive fair interventions.</p>
+<p>This tutorial demonstrates how we can leverage modern causal machine learning (ML) and data science algorithms to infer causal effects from observational data. While standard ML excels at predicting outcomes, it often remains “causally blind” to the true levers of risk. By moving beyond passive risk measurement toward active and interventional risk management, we explore methods to quantify causal treatment effects in order to achieve intelligent risk mitigation. We apply this theory to actuarial use cases: assessing whether a health-insurance prevention programme is genuinely effective from purely observational data; constructing health-cover premiums that reflect true risk while remaining free of discrimination; routing motor claims to the handler that minimises the combined ratio; and quantifying the mortality reduction attributable to a preventive intervention. Each demonstrates how naïve association misleads, and how causal inference recovers the unbiased effect of interest.</p>
 <section id="introduction-and-overview">
 <h2>Introduction and overview<a class="headerlink" href="#introduction-and-overview" title="Link to this heading">#</a></h2>
 <p>This study has been carried out for the working group “Data Science” of the Swiss Association of Actuaries SAV, see <a class="reference external" href="https://www.actuarialdatascience.org">https://www.actuarialdatascience.org</a>. The historical responsibility of the actuary has always been to ensure financial and societal stability. By building a collective of insureds, insurance ensures that unforeseeable events do not destabilize society. Traditionally, we relied on identifying historical correlations in claims data to categorize and understand risk. With increasing availability of real-time data, advanced ML methods can perform predictive analytics, i.e., forecast disease trajectories or large losses.</p>
@@ -455,27 +455,27 @@ document.write(`
 <section id="tutorial">
 <h3>Tutorial<a class="headerlink" href="#tutorial" title="Link to this heading">#</a></h3>
 <p>The tutorial guides the reader from foundational concepts, identification and inference of causal effects, to the validation of causal conclusions using sensitivity measures.</p>
-<p><strong>Stage 1 — <a class="reference internal" href="tutorial/1_concepts.html"><span class="doc">Concepts of Causal Inference</span></a>:</strong> Introduces the language of causal inference — treatments, potential outcomes, counterfactuals, confounding — and motivates why association is not causation, especially in actuarial applications.</p>
-<p><strong>Stage 2 — <a class="reference internal" href="tutorial/2_identification.html"><span class="doc">Identification</span></a>:</strong> Establishes <em>when</em> causal effects can be recovered from observational data. This requires verifying the causal assumptions, using graphical models to select correct adjustment sets, and choosing an identification strategy.</p>
+<p><strong>Stage 1 — <a class="reference internal" href="tutorial/concepts.html"><span class="doc">Concepts of Causal Inference</span></a>:</strong> Introduces the language of causal inference — treatments, potential outcomes, counterfactuals, confounding — and motivates why association is not causation, especially in actuarial applications.</p>
+<p><strong>Stage 2 — <a class="reference internal" href="tutorial/identification.html"><span class="doc">Identification</span></a>:</strong> Establishes <em>when</em> causal effects can be recovered from observational data. This requires verifying the causal assumptions, using graphical models to select correct adjustment sets, and choosing an identification strategy.</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="tutorial/2_1_assumptions.html"><span class="doc">Assumptions</span></a> — Consistency, SUTVA, positivity, exchangeability, and how to detect violations.</p></li>
-<li><p><a class="reference internal" href="tutorial/2_2_graphical_models.html"><span class="doc">Graphical Causal Models</span></a> — DAGs, d-separation, backdoor and frontdoor criteria, causal discovery.</p></li>
-<li><p><a class="reference internal" href="tutorial/2_3_methods.html"><span class="doc">Identification Strategies</span></a> — Identification strategies: back-door adjustment, front-door adjustment, and instrumental variables.</p></li>
+<li><p><a class="reference internal" href="tutorial/assumptions.html"><span class="doc">Assumptions</span></a> — Consistency, SUTVA, positivity, exchangeability, and how to detect violations.</p></li>
+<li><p><a class="reference internal" href="tutorial/graphical_models.html"><span class="doc">Graphical Causal Models</span></a> — DAGs, d-separation, backdoor and frontdoor criteria, causal discovery.</p></li>
+<li><p><a class="reference internal" href="tutorial/methods.html"><span class="doc">Identification Strategies</span></a> — Identification strategies: back-door adjustment, front-door adjustment, and instrumental variables.</p></li>
 </ul>
-<p><strong>Stage 3 — <a class="reference internal" href="tutorial/3_inference.html"><span class="doc">Causal Inference</span></a>:</strong> Covers <em>how</em> to estimate causal effects once identification is established. Methods range from classical propensity score approaches to modern machine learning estimators.</p>
+<p><strong>Stage 3 — <a class="reference internal" href="tutorial/inference.html"><span class="doc">Causal Inference</span></a>:</strong> Covers <em>how</em> to estimate causal effects once identification is established. Methods range from classical propensity score approaches to modern machine learning estimators.</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="tutorial/3_1_propensity.html"><span class="doc">Propensity Score Methods</span></a> — Propensity score matching and inverse probability weighting.</p></li>
-<li><p><a class="reference internal" href="tutorial/3_2_Regression_Methods.html"><span class="doc">Regression Methods</span></a> — Regression adjustment, doubly robust and orthogonal ML estimators, and quasi-experimental designs.</p></li>
-<li><p><a class="reference internal" href="tutorial/3_3_Tree_Based_Methods.html"><span class="doc">Tree-Based Methods</span></a> — Causal trees and forests for heterogeneous and individualised treatment effect estimation.</p></li>
-<li><p><a class="reference internal" href="tutorial/3_5_bayesian.html"><span class="doc">Bayesian Causal Inference</span></a> — Bayesian causal inference with BART and Bayesian Causal Forests.</p></li>
+<li><p><a class="reference internal" href="tutorial/propensity.html"><span class="doc">Propensity Score Methods</span></a> — Propensity score matching and inverse probability weighting.</p></li>
+<li><p><a class="reference internal" href="tutorial/regression_methods.html"><span class="doc">Regression Methods</span></a> — Regression adjustment, doubly robust and orthogonal ML estimators, and quasi-experimental designs.</p></li>
+<li><p><a class="reference internal" href="tutorial/tree_based_methods.html"><span class="doc">Tree-Based Methods</span></a> — Causal trees and forests for heterogeneous and individualised treatment effect estimation.</p></li>
+<li><p><a class="reference internal" href="tutorial/bayesian.html"><span class="doc">Bayesian Causal Inference</span></a> — Bayesian causal inference with BART and Bayesian Causal Forests.</p></li>
 </ul>
-<p><strong>Stage 4 — <a class="reference internal" href="tutorial/4_sensitivity.html"><span class="doc">Validation and Sensitivity Analysis</span></a>:</strong> Validates causal conclusions by assessing their robustness to untestable assumptions and ensuring the resulting model is fair.</p>
+<p><strong>Stage 4 — <a class="reference internal" href="tutorial/sensitivity.html"><span class="doc">Validation and Sensitivity Analysis</span></a>:</strong> Validates causal conclusions by assessing their robustness to untestable assumptions and ensuring the resulting model is fair.</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="tutorial/4_1_diagnostics.html"><span class="doc">Diagnostics and Sensitivity Analysis</span></a> — Balance diagnostics, placebo tests, E-values, Rosenbaum bounds, and partial <span class="math notranslate nohighlight">\(R^2\)</span> sensitivity analysis.</p></li>
-<li><p><a class="reference internal" href="tutorial/4_2_debias.html"><span class="doc">Biases and De-Biasing Toolkit</span></a> — Catalogue of biases (confounding, selection, collider) and de-biasing strategies.</p></li>
-<li><p><a class="reference internal" href="tutorial/4_3_fairness.html"><span class="doc">Why Causal Inference Resolves the Fairness Problem</span></a> — Discrimination and fairness in insurance pricing, and why fairness is a causal question.</p></li>
+<li><p><a class="reference internal" href="tutorial/diagnostics.html"><span class="doc">Diagnostics and Sensitivity Analysis</span></a> — Balance diagnostics, placebo tests, E-values, Rosenbaum bounds, and partial <span class="math notranslate nohighlight">\(R^2\)</span> sensitivity analysis.</p></li>
+<li><p><a class="reference internal" href="tutorial/debias.html"><span class="doc">Biases and De-Biasing Toolkit</span></a> — Catalogue of biases (confounding, selection, collider) and de-biasing strategies.</p></li>
+<li><p><a class="reference internal" href="tutorial/fairness.html"><span class="doc">Why Causal Inference Resolves the Fairness Problem</span></a> — Discrimination and fairness in insurance pricing, and why fairness is a causal question.</p></li>
 </ul>
-<p>The actuary’s end-to-end workflow connects the identification theory from <a class="reference internal" href="tutorial/2_identification.html"><span class="doc">Identification</span></a> with the estimation methods in <a class="reference internal" href="tutorial/3_inference.html"><span class="doc">Causal Inference</span></a> and the validation tools in <a class="reference internal" href="tutorial/4_sensitivity.html"><span class="doc">Validation and Sensitivity Analysis</span></a>:</p>
+<p>The actuary’s end-to-end workflow connects the identification theory from <a class="reference internal" href="tutorial/identification.html"><span class="doc">Identification</span></a> with the estimation methods in <a class="reference internal" href="tutorial/inference.html"><span class="doc">Causal Inference</span></a> and the validation tools in <a class="reference internal" href="tutorial/sensitivity.html"><span class="doc">Validation and Sensitivity Analysis</span></a>:</p>
 <figure class="align-default" id="fig-actuary-workflow">
 <a class="reference internal image-reference" href="_images/actuary_workflow.svg"><img alt="_images/actuary_workflow.svg" src="_images/actuary_workflow.svg" style="width: 100%;" />
 </a>
@@ -526,7 +526,7 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="right-next"
-       href="tutorial/1_concepts.html"
+       href="tutorial/concepts.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>

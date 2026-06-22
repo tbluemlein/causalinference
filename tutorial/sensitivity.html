@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Causal Inference &#8212; Actuarial Causal Inference Tutorial</title>
+    <title>Validation and Sensitivity Analysis &#8212; Actuarial Causal Inference Tutorial</title>
   
   
   
@@ -117,13 +117,13 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/3_inference';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/sensitivity';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../_static/figure-theme.js?v=a9394cc5"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Propensity Score Methods" href="3_1_propensity.html" />
-    <link rel="prev" title="Identification Strategies" href="2_3_methods.html" />
+    <link rel="next" title="Diagnostics and Sensitivity Analysis" href="diagnostics.html" />
+    <link rel="prev" title="Bayesian Causal Inference" href="bayesian.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -243,24 +243,24 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="1_concepts.html">Concepts of Causal Inference</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="2_identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="2_1_assumptions.html">Assumptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2_2_graphical_models.html">Graphical Causal Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2_3_methods.html">Identification Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts of Causal Inference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="assumptions.html">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graphical_models.html">Graphical Causal Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html">Identification Strategies</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Causal Inference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="3_1_propensity.html">Propensity Score Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_2_Regression_Methods.html">Regression Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_3_Tree_Based_Methods.html">Tree-Based Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_5_bayesian.html">Bayesian Causal Inference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="propensity.html">Propensity Score Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regression_methods.html">Regression Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree_based_methods.html">Tree-Based Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="4_sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="4_1_diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="4_2_debias.html">Biases and De-Biasing Toolkit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="4_3_fairness.html">Why Causal Inference Resolves the Fairness Problem</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Validation and Sensitivity Analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debias.html">Biases and De-Biasing Toolkit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fairness.html">Why Causal Inference Resolves the Fairness Problem</a></li>
 </ul>
 </details></li>
 </ul>
@@ -328,7 +328,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/tutorial/3_inference.md" target="_blank"
+      <li><a href="../_sources/tutorial/sensitivity.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -412,7 +412,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Causal Inference</h1>
+    <h1>Validation and Sensitivity Analysis</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -422,16 +422,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-identification-to-estimation">From Identification to Estimation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#treatment-effects">Treatment Effects</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimation-methods-overview">Estimation Methods Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-contents">Chapter Contents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propensity-score-methods">Propensity Score Methods</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-methods">Regression Methods</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-based-methods">Tree-Based Methods</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-approaches">Bayesian Approaches</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostics-and-sensitivity-analysis">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#biases-and-de-biasing">Biases and De-biasing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fairness">Fairness</a></li>
 </ul>
             </nav>
         </div>
@@ -443,100 +436,20 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="causal-inference">
-<h1>Causal Inference<a class="headerlink" href="#causal-inference" title="Link to this heading">#</a></h1>
-<p>With the identification assumptions (<a class="reference internal" href="2_1_assumptions.html#consistency">Assumption 1</a>, <a class="reference internal" href="2_1_assumptions.html#sutva">Assumption 2</a>, <a class="reference internal" href="2_1_assumptions.html#positivity">Assumption 3</a>, <a class="reference internal" href="2_1_assumptions.html#exchangeability">Assumption 4</a>) established and the correct adjustment set identified via graphical models (<a class="reference internal" href="2_3_methods.html#backdoor-criterion">Criterion 1</a>), we can now turn to <strong>estimation</strong>: computing causal effects from observed data <span class="math notranslate nohighlight">\(D = \{(X_i, T_i, Y_i)\}_{i=1}^{n}\)</span>.</p>
-<section id="from-identification-to-estimation">
-<h2>From Identification to Estimation<a class="headerlink" href="#from-identification-to-estimation" title="Link to this heading">#</a></h2>
-<p>Identification tells us <em>what</em> to estimate — it equates a causal estimand with a statistical estimand:</p>
-<div class="math notranslate nohighlight">
-\[
-\underbrace{\mathbb{E}[Y(t)]}_{\text{causal}} = \underbrace{\sum_x \mathbb{E}[Y \mid T=t, X=x] \, P(X=x)}_{\text{statistical (adjustment formula)}}
-\]</div>
-<p>Estimation tells us <em>how</em> to compute this quantity from a finite sample. The choice of estimator involves trade-offs between bias, variance, robustness to model misspecification, and the type of treatment effect being targeted.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="validation-and-sensitivity-analysis">
+<h1>Validation and Sensitivity Analysis<a class="headerlink" href="#validation-and-sensitivity-analysis" title="Link to this heading">#</a></h1>
+<p>Once a causal effect has been <em>identified</em> (<a class="reference internal" href="identification.html"><span class="doc">Identification</span></a>) and <em>estimated</em> (<a class="reference internal" href="inference.html"><span class="doc">Causal Inference</span></a>), the final stage is to <strong>validate</strong> the result. Estimation rests on untestable assumptions — most critically <a class="reference internal" href="assumptions.html#exchangeability">Assumption 4</a> (no unmeasured confounding) — so a credible analysis must diagnose residual bias, quantify robustness to violations, and confirm that the resulting model is fair. This chapter covers the three pillars of that validation.</p>
+<section id="diagnostics-and-sensitivity-analysis">
+<h2>Diagnostics and Sensitivity Analysis<a class="headerlink" href="#diagnostics-and-sensitivity-analysis" title="Link to this heading">#</a></h2>
+<p><strong><a class="reference internal" href="diagnostics.html"><span class="doc">Diagnostics and Sensitivity Analysis</span></a></strong> — Balance diagnostics (standardised mean differences, overlap and Love plots) confirm that measured confounders are balanced after adjustment, and placebo/falsification tests probe for residual bias. Sensitivity tools — E-values, Rosenbaum bounds, partial <span class="math notranslate nohighlight">\(R^2\)</span> (omitted-variable bias), and Manski bounds — quantify how strong unmeasured confounding would need to be to overturn the conclusion.</p>
 </section>
-<section id="treatment-effects">
-<h2>Treatment Effects<a class="headerlink" href="#treatment-effects" title="Link to this heading">#</a></h2>
-<p>The three fundamental causal estimands are:</p>
-<ul class="simple">
-<li><p><strong>Average Treatment Effect (ATE):</strong> The population-level causal effect:
-$<span class="math notranslate nohighlight">\(\tau = \mathbb{E}[Y(1) - Y(0)]\)</span>$</p></li>
-<li><p><strong>Conditional Average Treatment Effect (CATE):</strong> The effect for a subpopulation with characteristics <span class="math notranslate nohighlight">\(X = x\)</span>:
-$<span class="math notranslate nohighlight">\(\tau(x) = \mathbb{E}[Y(1) - Y(0) \mid X=x]\)</span>$</p></li>
-<li><p><strong>Average Treatment Effect on the Treated (ATT):</strong> The effect for those who actually received treatment:
-$<span class="math notranslate nohighlight">\(\text{ATT} = \mathbb{E}[Y(1) - Y(0) \mid T=1]\)</span>$</p></li>
-</ul>
-<p>Different estimation methods target different estimands. The table below maps methods to their primary targets.</p>
+<section id="biases-and-de-biasing">
+<h2>Biases and De-biasing<a class="headerlink" href="#biases-and-de-biasing" title="Link to this heading">#</a></h2>
+<p><strong><a class="reference internal" href="debias.html"><span class="doc">Biases and De-Biasing Toolkit</span></a></strong> — A practical guide that maps each assumption violation to the bias it produces (confounding, selection, collider bias, positivity violations, interference) and to the de-biasing strategy that addresses it (adjust, reweight, restrict, restructure).</p>
 </section>
-<section id="estimation-methods-overview">
-<h2>Estimation Methods Overview<a class="headerlink" href="#estimation-methods-overview" title="Link to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Method</p></th>
-<th class="head"><p>Primary Estimand</p></th>
-<th class="head"><p>Key Idea</p></th>
-<th class="head"><p>Section</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><strong>Propensity Score Matching</strong></p></td>
-<td><p>ATT</p></td>
-<td><p>Pair treated/control units with similar <span class="math notranslate nohighlight">\(\pi(x)\)</span></p></td>
-<td><p><a class="reference internal" href="3_1_propensity.html"><span class="doc">Propensity Score Methods</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Inverse Probability Weighting</strong></p></td>
-<td><p>ATE</p></td>
-<td><p>Re-weight sample to remove confounding</p></td>
-<td><p><a class="reference internal" href="3_1_propensity.html"><span class="doc">Propensity Score Methods</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Double Machine Learning</strong></p></td>
-<td><p>ATE</p></td>
-<td><p>Residualise both <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(T\)</span> on <span class="math notranslate nohighlight">\(X\)</span> to isolate causal variation</p></td>
-<td><p><a class="reference internal" href="3_2_Regression_Methods.html"><span class="doc">Regression Methods</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Instrumental Variables / 2SLS</strong></p></td>
-<td><p>LATE</p></td>
-<td><p>Use exogenous variation from an instrument</p></td>
-<td><p><a class="reference internal" href="3_2_Regression_Methods.html"><span class="doc">Regression Methods</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Causal Trees</strong></p></td>
-<td><p>CATE</p></td>
-<td><p>Recursive partitioning to maximise treatment effect heterogeneity</p></td>
-<td><p><a class="reference internal" href="3_3_Tree_Based_Methods.html"><span class="doc">Tree-Based Methods</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Causal Forests</strong></p></td>
-<td><p>CATE</p></td>
-<td><p>Ensemble of causal trees with adaptive neighbourhood weighting</p></td>
-<td><p><a class="reference internal" href="3_3_Tree_Based_Methods.html"><span class="doc">Tree-Based Methods</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Bayesian (BART / BCF)</strong></p></td>
-<td><p>CATE</p></td>
-<td><p>Posterior distributions over treatment effects via sum-of-trees priors</p></td>
-<td><p><a class="reference internal" href="3_5_bayesian.html"><span class="doc">Bayesian Causal Inference</span></a></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="chapter-contents">
-<h2>Chapter Contents<a class="headerlink" href="#chapter-contents" title="Link to this heading">#</a></h2>
-<p>This chapter covers the following estimation approaches:</p>
-<section id="propensity-score-methods">
-<h3>Propensity Score Methods<a class="headerlink" href="#propensity-score-methods" title="Link to this heading">#</a></h3>
-<p><strong><a class="reference internal" href="3_1_propensity.html"><span class="doc">Propensity Score Methods</span></a></strong> — Methods that use the estimated propensity score <span class="math notranslate nohighlight">\(\pi(x) = P(T=1 \mid X=x)\)</span> to balance treated and control groups. Covers propensity score matching (targeting ATT) and inverse probability weighting (targeting ATE).</p>
-</section>
-<section id="regression-methods">
-<h3>Regression Methods<a class="headerlink" href="#regression-methods" title="Link to this heading">#</a></h3>
-<p><strong><a class="reference internal" href="3_2_Regression_Methods.html"><span class="doc">Regression Methods</span></a></strong> — Regression-based approaches including outcome regression / g-computation, doubly robust estimators (AIPW, TMLE), Double Machine Learning (DML) and meta-learners for heterogeneous effects, plus quasi-experimental designs (IV / 2SLS, difference-in-differences, regression discontinuity, synthetic control).</p>
-</section>
-<section id="tree-based-methods">
-<h3>Tree-Based Methods<a class="headerlink" href="#tree-based-methods" title="Link to this heading">#</a></h3>
-<p><strong><a class="reference internal" href="3_3_Tree_Based_Methods.html"><span class="doc">Tree-Based Methods</span></a></strong> — Causal trees partition the covariate space to discover subpopulations with heterogeneous treatment effects (CATEs) using honest splitting (<a class="reference external" href="https://doi.org/10.1073/pnas.1510489113">Athey &amp; Imbens, 2016</a>), and causal forests extend them to an ensemble that estimates individualised effects via adaptive nearest-neighbour weighting (<a class="reference external" href="https://doi.org/10.1080/01621459.2017.1319839">Wager &amp; Athey, 2018</a>; <a class="reference external" href="https://doi.org/10.1214/18-AOS1709">Athey, Tibshirani &amp; Wager, 2019</a>).</p>
-</section>
-<section id="bayesian-approaches">
-<h3>Bayesian Approaches<a class="headerlink" href="#bayesian-approaches" title="Link to this heading">#</a></h3>
-<p><strong><a class="reference internal" href="3_5_bayesian.html"><span class="doc">Bayesian Causal Inference</span></a></strong> — Bayesian causal inference treats missing potential outcomes as parameters with prior distributions, yielding full posterior distributions over treatment effects. Covers BART, Bayesian Causal Forests (BCF), and Bayesian propensity scores.</p>
-</section>
+<section id="fairness">
+<h2>Fairness<a class="headerlink" href="#fairness" title="Link to this heading">#</a></h2>
+<p><strong><a class="reference internal" href="fairness.html"><span class="doc">Why Causal Inference Resolves the Fairness Problem</span></a></strong> — Beyond statistical bias, insurance models must not discriminate against protected groups. Covers proxy discrimination, fairness definitions (unawareness, discrimination-free pricing, counterfactual fairness), group fairness diagnostics, and why fairness is ultimately a causal question — closing with the actuary’s end-to-end workflow.</p>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -572,20 +485,20 @@ $<span class="math notranslate nohighlight">\(\text{ATT} = \mathbb{E}[Y(1) - Y(0
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="2_3_methods.html"
+       href="bayesian.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Identification Strategies</p>
+        <p class="prev-next-title">Bayesian Causal Inference</p>
       </div>
     </a>
     <a class="right-next"
-       href="3_1_propensity.html"
+       href="diagnostics.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Propensity Score Methods</p>
+        <p class="prev-next-title">Diagnostics and Sensitivity Analysis</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -605,16 +518,9 @@ $<span class="math notranslate nohighlight">\(\text{ATT} = \mathbb{E}[Y(1) - Y(0
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-identification-to-estimation">From Identification to Estimation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#treatment-effects">Treatment Effects</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimation-methods-overview">Estimation Methods Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-contents">Chapter Contents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propensity-score-methods">Propensity Score Methods</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-methods">Regression Methods</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-based-methods">Tree-Based Methods</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-approaches">Bayesian Approaches</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostics-and-sensitivity-analysis">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#biases-and-de-biasing">Biases and De-biasing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fairness">Fairness</a></li>
 </ul>
   </nav></div>
 

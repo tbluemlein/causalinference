@@ -6,7 +6,7 @@ Beyond causal bias, actuaries face a distinct but related challenge: ensuring th
 ### Proxy Discrimination
 
 ```{prf:definition} Proxy Discrimination
-:label: proxy-discrimination
+:label: proxy-discrimination-def
 :class: dropdown
 
 **Proxy discrimination** (indirect discrimination) occurs when non-protected covariates $X$ that are correlated with the sensitive attribute $S$ allow the model to implicitly reconstruct $S$, even though $S$ is not used as an input.

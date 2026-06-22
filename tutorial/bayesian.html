@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Assumptions &#8212; Actuarial Causal Inference Tutorial</title>
+    <title>Bayesian Causal Inference &#8212; Actuarial Causal Inference Tutorial</title>
   
   
   
@@ -117,13 +117,13 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/2_1_assumptions';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/bayesian';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../_static/figure-theme.js?v=a9394cc5"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Graphical Causal Models" href="2_2_graphical_models.html" />
-    <link rel="prev" title="Identification" href="2_identification.html" />
+    <link rel="next" title="Validation and Sensitivity Analysis" href="sensitivity.html" />
+    <link rel="prev" title="Tree-Based Methods" href="tree_based_methods.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -243,24 +243,24 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="1_concepts.html">Concepts of Causal Inference</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="2_identification.html">Identification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Assumptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2_2_graphical_models.html">Graphical Causal Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2_3_methods.html">Identification Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts of Causal Inference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="assumptions.html">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graphical_models.html">Graphical Causal Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html">Identification Strategies</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="3_inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="3_1_propensity.html">Propensity Score Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_2_Regression_Methods.html">Regression Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_3_Tree_Based_Methods.html">Tree-Based Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_5_bayesian.html">Bayesian Causal Inference</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="inference.html">Causal Inference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="propensity.html">Propensity Score Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regression_methods.html">Regression Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree_based_methods.html">Tree-Based Methods</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="4_sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="4_1_diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="4_2_debias.html">Biases and De-Biasing Toolkit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="4_3_fairness.html">Why Causal Inference Resolves the Fairness Problem</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debias.html">Biases and De-Biasing Toolkit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fairness.html">Why Causal Inference Resolves the Fairness Problem</a></li>
 </ul>
 </details></li>
 </ul>
@@ -328,7 +328,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/tutorial/2_1_assumptions.md" target="_blank"
+      <li><a href="../_sources/tutorial/bayesian.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -412,7 +412,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Assumptions</h1>
+    <h1>Bayesian Causal Inference</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -422,11 +422,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-observational-data-to-conditionally-randomized-experiments">From Observational Data to Conditionally Randomized Experiments</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#potential-outcomes-framework">Potential Outcomes Framework</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-bayesian-causal-inference">Why Bayesian Causal Inference?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-potential-outcomes-model">Bayesian Potential Outcomes Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-additive-regression-trees-bart">Bayesian Additive Regression Trees (BART)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-causal-forests-bcf">Bayesian Causal Forests (BCF)</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-propensity-score-methods">Bayesian Propensity Score Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-inference-for-treatment-effects">Posterior Inference for Treatment Effects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-frequentist-approaches">Comparison with Frequentist Approaches</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-considerations">Practical Considerations</a></li>
 </ul>
             </nav>
         </div>
@@ -438,88 +443,169 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="assumptions">
-<h1>Assumptions<a class="headerlink" href="#assumptions" title="Link to this heading">#</a></h1>
-<section id="from-observational-data-to-conditionally-randomized-experiments">
-<h2>From Observational Data to Conditionally Randomized Experiments<a class="headerlink" href="#from-observational-data-to-conditionally-randomized-experiments" title="Link to this heading">#</a></h2>
-<p>Causal inference from observational data relies on the idea that, under the assumptions of the <strong>Rubin Causal Model</strong> (<a class="reference external" href="https://doi.org/10.1093/biomet/70.1.41">Rosenbaum &amp; Rubin, 1983</a>), an observational study can be regarded as a <em>conditionally randomized experiment</em>.</p>
-<p>Under the assumptions of ignorability (see below), the observed data represent the essential features of a randomized experiment, enabling the identification and consistent estimation of causal effects within the <strong>potential outcomes framework</strong>.</p>
-</section>
-<section id="potential-outcomes-framework">
-<h2>Potential Outcomes Framework<a class="headerlink" href="#potential-outcomes-framework" title="Link to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="bayesian-causal-inference">
+<h1>Bayesian Causal Inference<a class="headerlink" href="#bayesian-causal-inference" title="Link to this heading">#</a></h1>
+<p>This section is part of <a class="reference internal" href="inference.html"><span class="doc">Causal Inference</span></a>, which covers the estimation of causal effects from observational data. While the preceding sections focus on frequentist methods (propensity scores, regression, causal trees/forests), here we take a <strong>Bayesian</strong> perspective.</p>
+<p>Bayesian methods offer a natural framework for causal inference by treating unknown quantities — potential outcomes, treatment effects, and model parameters — as random variables with prior distributions updated by observed data <span class="math notranslate nohighlight">\(D\)</span>. This section introduces the key ideas, following <a class="reference external" href="https://doi.org/10.1214/aos/1176344064">Rubin (1978)</a>, <a class="reference external" href="https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Shalizi (2025, Ch. 21)</a>, and the <a class="reference external" href="https://www.causalmlbook.com/">Causal ML Book</a>.</p>
+<section id="why-bayesian-causal-inference">
+<h2>Why Bayesian Causal Inference?<a class="headerlink" href="#why-bayesian-causal-inference" title="Link to this heading">#</a></h2>
+<p>In the potential outcomes framework, the fundamental problem is that we observe only one of <span class="math notranslate nohighlight">\(Y(1)\)</span> or <span class="math notranslate nohighlight">\(Y(0)\)</span> for each unit. The Bayesian approach treats the <strong>missing potential outcomes as parameters</strong> to be inferred:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://doi.org/10.1037/h0037350">Rubin (1974)</a> extended Neyman’s (1923) theory for randomized experiments to observational studies.</p></li>
-<li><p>Specifically, when treatment assignment is <strong>strongly ignorable</strong> given a set of observed covariates — that is, when the following two conditions hold (<a class="reference external" href="https://doi.org/10.1093/biomet/70.1.41">Rosenbaum &amp; Rubin, 1983</a>):</p></li>
+<li><p><strong>Prior beliefs</strong> encode what we know before seeing the data — for example, that treatment effects are likely small, or that confounders have plausible distributions.</p></li>
+<li><p><strong>Posterior inference</strong> yields a full distribution over causal estimands (ATE, CATE), naturally quantifying <strong>uncertainty</strong> in a way that frequentist point estimates and confidence intervals do not.</p></li>
+<li><p><strong>Model comparison</strong> via Bayes factors or posterior predictive checks helps select among competing causal models.</p></li>
 </ul>
+</section>
+<section id="bayesian-potential-outcomes-model">
+<h2>Bayesian Potential Outcomes Model<a class="headerlink" href="#bayesian-potential-outcomes-model" title="Link to this heading">#</a></h2>
+<div class="proof definition admonition" id="bayesian-causal-model">
+<p class="admonition-title"><span class="caption-number">Definition 9 </span> (Bayesian Causal Model)</p>
+<section class="definition-content" id="proof-content">
+<p>For each unit <span class="math notranslate nohighlight">\(i\)</span> with covariates <span class="math notranslate nohighlight">\(X_i\)</span> and binary treatment <span class="math notranslate nohighlight">\(T_i\)</span>, define the potential outcome models:</p>
 <div class="math notranslate nohighlight">
 \[
-(Y(1), Y(0)) \perp T \mid X
+Y_i(0) \mid X_i, \theta_0 \sim f_0(Y \mid X_i, \theta_0), \qquad Y_i(1) \mid X_i, \theta_1 \sim f_1(Y \mid X_i, \theta_1)
 \]</div>
+<p>with priors <span class="math notranslate nohighlight">\(\theta_0 \sim p(\theta_0)\)</span> and <span class="math notranslate nohighlight">\(\theta_1 \sim p(\theta_1)\)</span>. The individual treatment effect is <span class="math notranslate nohighlight">\(\tau_i = Y_i(1) - Y_i(0)\)</span>, and the posterior distribution of the ATE is:</p>
 <div class="math notranslate nohighlight">
 \[
-0 &lt; P(T = 1 \mid X) &lt; 1,
-\]</div>
-<p>then conditioning on <span class="math notranslate nohighlight">\(X\)</span> renders the treatment assignment mechanism analogous to that of a randomized controlled trial. More explanation in the <a class="reference external" href="https://www.uniqcret.com/post/causal-inference-assumptions-guide">Assumptions Guide</a> and in <a class="reference external" href="https://www.bradyneal.com/Introduction_to_Causal_Inference-Aug27_2020-Neal.pdf">Neal (2020)</a>. See also <a class="reference external" href="https://www.stats.ox.ac.uk/~evans/APTS/causassmp.html">Oxford: Causal Assumptions</a> for a formal treatment.</p>
-<section id="id1">
-<h3>Assumptions<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<div class="proof assumption admonition" id="consistency">
-<p class="admonition-title"><span class="caption-number">Assumption 1 </span> (Consistency)</p>
-<section class="assumption-content" id="proof-content">
-<div class="math notranslate nohighlight">
-\[
-Y(t) = Y \quad \text{when } T = t
+p(\tau \mid D) = \int \left[\mathbb{E}_{\theta_1}[Y(1) \mid X] - \mathbb{E}_{\theta_0}[Y(0) \mid X]\right] \, p(\theta_0, \theta_1 \mid D) \, d\theta_0 \, d\theta_1
 \]</div>
 </section>
-</div><p>Links the potential outcomes to the observed outcomes by requiring that the two are equal under the same treatment assignments. This ties the potential outcome <span class="math notranslate nohighlight">\(Y(t)\)</span> to the factual outcome <span class="math notranslate nohighlight">\(Y\)</span> when the treatment actually received is <span class="math notranslate nohighlight">\(T = t\)</span> (<a class="reference external" href="https://doi.org/10.1037/h0037350">Rubin, 1974</a>).</p>
-<p><strong>Detecting violations:</strong> Consistency is violated when the treatment <span class="math notranslate nohighlight">\(T\)</span> is <strong>not well-defined</strong> — i.e., it encompasses multiple distinct versions. If “treated” patients received different dosages, formulations, or timing, then <span class="math notranslate nohighlight">\(Y(1)\)</span> is ambiguous. In data, look for heterogeneous treatment protocols, poor adherence, or treatment variation within the <span class="math notranslate nohighlight">\(T=1\)</span> group. If the effect estimate changes substantially when stratifying by treatment sub-type, consistency may be compromised.</p>
-<div class="proof assumption admonition" id="sutva">
-<p class="admonition-title"><span class="caption-number">Assumption 2 </span> (Stable Unit Treatment Value Assumption (SUTVA))</p>
-<section class="assumption-content" id="proof-content">
+</div><p>Under <a class="reference internal" href="assumptions.html#exchangeability">Assumption 4</a>, the observed outcome model for unit <span class="math notranslate nohighlight">\(i\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+Y_i \mid X_i, T_i, \theta \sim \begin{cases} f_0(Y \mid X_i, \theta_0) &amp; \text{if } T_i = 0 \\ f_1(Y \mid X_i, \theta_1) &amp; \text{if } T_i = 1 \end{cases}
+\end{split}\]</div>
+<p>The posterior <span class="math notranslate nohighlight">\(p(\theta_0, \theta_1 \mid D)\)</span> is computed via Bayes’ rule, and the CATE for a new unit with covariates <span class="math notranslate nohighlight">\(x\)</span> is:</p>
 <div class="math notranslate nohighlight">
 \[
-Y_i(t_i) \text{ depends only on } t_i \text{ (not on } t_j \text{ for } j \neq i)
+\tau(x) = \mathbb{E}[Y(1) - Y(0) \mid X = x, D]
 \]</div>
 </section>
-</div><p>SUTVA combines consistency and no interference. The <strong>no interference</strong> assumption states that there is no interference between treatment assignment and outcomes across units. Whether one individual receives treatment (or not) has no effect on the potential outcomes of any other individual. This is encapsulated by the usual statistical ‘i.i.d.’ assumption, but it can easily be violated in a study of the effect of a vaccine or if a treatment is assigned at a group level (<a class="reference external" href="https://doi.org/10.2307/j.ctt5vhbqm">Angrist &amp; Pischke, 2015</a>).</p>
-<p><strong>Detecting violations:</strong> Interference is suspected when outcomes of untreated units <strong>correlate with the treatment rate in their neighbourhood or group</strong>. In insurance, if offering a discount to some policyholders influences the behaviour of others in the same household or employer group, SUTVA is violated. Diagnostic: compare outcomes of control units across clusters with different treatment intensities — if they differ systematically, interference is present.</p>
-<div class="proof assumption admonition" id="positivity">
-<p class="admonition-title"><span class="caption-number">Assumption 3 </span> (Positivity)</p>
-<section class="assumption-content" id="proof-content">
+<section id="bayesian-additive-regression-trees-bart">
+<h2>Bayesian Additive Regression Trees (BART)<a class="headerlink" href="#bayesian-additive-regression-trees-bart" title="Link to this heading">#</a></h2>
+<p><strong>BART</strong> (<a class="reference external" href="https://doi.org/10.1214/09-AOAS285">Chipman, George &amp; McCulloch, 2010</a>) is the most widely used Bayesian method for heterogeneous treatment effect estimation. It models the outcome as a sum of regression trees with Bayesian priors on tree structure and leaf parameters.</p>
+<div class="proof definition admonition" id="bart">
+<p class="admonition-title"><span class="caption-number">Definition 10 </span> (BART for Causal Inference)</p>
+<section class="definition-content" id="proof-content">
+<p>The outcome model is:</p>
 <div class="math notranslate nohighlight">
 \[
-0 &lt; P(T = 1 \mid X = x) &lt; 1 \quad \text{with probability } 1
+Y_i = g(X_i, T_i) + \varepsilon_i, \qquad g(X_i, T_i) = \sum_{j=1}^{m} h_j(X_i, T_i; \mathcal{T}_j, \mathcal{M}_j)
 \]</div>
-<p>or more strictly (strict positivity):</p>
+<p>where each <span class="math notranslate nohighlight">\(h_j\)</span> is a regression tree with structure <span class="math notranslate nohighlight">\(\mathcal{T}_j\)</span> and leaf parameters <span class="math notranslate nohighlight">\(\mathcal{M}_j\)</span>, and <span class="math notranslate nohighlight">\(\varepsilon_i \sim \mathcal{N}(0, \sigma^2)\)</span>.</p>
+<p>The CATE is estimated as:</p>
 <div class="math notranslate nohighlight">
 \[
-\varepsilon &lt; P(T = 1 \mid X = x) &lt; 1 - \varepsilon \quad \text{with probability } 1, \text{ for some } \varepsilon &gt; 0
+\hat{\tau}(x) = \hat{g}(x, 1) - \hat{g}(x, 0)
 \]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat{g}\)</span> is the posterior mean of the sum-of-trees model.</p>
 </section>
-</div><p>This states that, for any possible covariate profile, treatment assignment is not deterministic. For all but a measure zero subset of the population, the probability of receiving treatment <strong>and</strong> of receiving control is non-zero. Violations of positivity lead to extreme propensity score weights and unstable estimates (<a class="reference external" href="https://doi.org/10.1080/00273171.2011.568786">Austin, 2011</a>; <a class="reference external" href="https://doi.org/10.1093/biomet/70.1.41">Rosenbaum &amp; Rubin, 1983</a>).</p>
-<p><strong>Detecting violations:</strong> Positivity violations are the most <strong>directly diagnosable</strong> from data. Check the estimated propensity scores <span class="math notranslate nohighlight">\(\hat{\pi}(x)\)</span>: if they cluster near 0 or 1, some covariate strata have near-deterministic treatment assignment. Diagnostics include: propensity score histograms by treatment group (looking for non-overlap), examining covariate regions with no treated or no control units, and inspecting inverse-probability weights for extreme values. In insurance, positivity fails when certain policyholder profiles are <em>always</em> or <em>never</em> eligible for a programme. See <a class="reference internal" href="3_1_propensity.html#overlap"><span class="std std-ref">Overlap (Common Support)</span></a> for how this assumption translates into the <em>common support</em> requirement underlying propensity score methods.</p>
-<div class="proof assumption admonition" id="exchangeability">
-<p class="admonition-title"><span class="caption-number">Assumption 4 </span> (Exchangeability (No unobserved confounding))</p>
-<section class="assumption-content" id="proof-content">
+</div><p>BART’s advantages for causal inference include:</p>
+<ul class="simple">
+<li><p><strong>Flexible nonparametric modelling</strong> of the outcome surface without specifying functional form.</p></li>
+<li><p><strong>Automatic uncertainty quantification</strong> through the posterior distribution — credible intervals for <span class="math notranslate nohighlight">\(\tau(x)\)</span> come directly from the MCMC output.</p></li>
+<li><p><strong>Regularisation</strong> via the tree priors, which favours shallow trees and prevents overfitting.</p></li>
+</ul>
+<section id="bayesian-causal-forests-bcf">
+<h3>Bayesian Causal Forests (BCF)<a class="headerlink" href="#bayesian-causal-forests-bcf" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://doi.org/10.1214/19-BA1195">Hahn, Murray &amp; Carvalho (2020)</a> extend BART specifically for causal inference by separating the prognostic and treatment effect components:</p>
 <div class="math notranslate nohighlight">
 \[
-Y(t) \perp\!\!\!\perp T \mid X \quad \text{for all } t
+Y_i = \mu(X_i) + \tau(X_i) \cdot T_i + \varepsilon_i
 \]</div>
-<p>or equivalently:</p>
-<div class="math notranslate nohighlight">
-\[
-(Y(1), Y(0)) \perp\!\!\!\perp T \mid X
-\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu(X_i)\)</span> captures the baseline outcome (prognostic function) and <span class="math notranslate nohighlight">\(\tau(X_i)\)</span> captures the heterogeneous treatment effect. Both are modelled with separate BART priors. This separation improves treatment effect estimation by preventing the prognostic signal from contaminating the treatment effect estimate, a phenomenon called <strong>regularisation-induced confounding</strong>.</p>
+<p>BCF additionally incorporates the estimated propensity score <span class="math notranslate nohighlight">\(\hat{\pi}(X_i)\)</span> as a covariate in the prognostic model to reduce confounding bias.</p>
 </section>
-</div><p>This implies that conditioning on the observed covariates <span class="math notranslate nohighlight">\(X\)</span> is sufficient to remove confounding bias. This is also called <em>conditional exchangeability</em>, <em>conditional ignorability</em>, or <em>causal sufficiency</em> (<a class="reference external" href="https://doi.org/10.1093/biomet/70.1.41">Rosenbaum &amp; Rubin, 1983</a>; <a class="reference external" href="https://doi.org/10.1016/C2011-0-05506-1">Wooldridge, 2012</a>). This is the strongest and least verifiable of the four assumptions — see the <a class="reference external" href="https://www.uniqcret.com/post/causal-inference-assumptions-guide">Assumptions Guide</a> for discussion.</p>
-<p><strong>Detecting violations:</strong> Exchangeability <strong>cannot be directly tested</strong> because it concerns unobserved confounders by definition. However, indirect evidence includes: (1) <strong>sensitivity analysis</strong> — computing E-values or applying the method of <a class="reference external" href="https://doi.org/10.1111/rssb.12348">Cinelli &amp; Hazlett (2020)</a> to assess how strong an unmeasured confounder would need to be to explain away the effect; (2) <strong>negative control outcomes</strong> — outcomes known to be unaffected by <span class="math notranslate nohighlight">\(T\)</span> that should show zero effect if exchangeability holds; (3) <strong>placebo/falsification tests</strong> — applying the estimator to subgroups where no effect is expected. Persistent sensitivity of results to small unmeasured confounders signals concern.</p>
-<p>By exchangeability (<a class="reference internal" href="#exchangeability">Assumption 4</a>) and consistency (<a class="reference internal" href="#consistency">Assumption 1</a>), the estimation of the average (causal) treatment effect can be done based on observed data:</p>
+</section>
+<section id="bayesian-propensity-score-methods">
+<h2>Bayesian Propensity Score Methods<a class="headerlink" href="#bayesian-propensity-score-methods" title="Link to this heading">#</a></h2>
+<p>The propensity score <span class="math notranslate nohighlight">\(\pi(x) = P(T=1 \mid X=x)\)</span> can also be estimated within a Bayesian framework, yielding a posterior distribution over the propensity scores and propagating this uncertainty into the causal estimate.</p>
+<div class="proof definition admonition" id="bayesian-propensity">
+<p class="admonition-title"><span class="caption-number">Definition 11 </span> (Bayesian Propensity Score)</p>
+<section class="definition-content" id="proof-content">
+<p>Given a model <span class="math notranslate nohighlight">\(T_i \mid X_i, \alpha \sim \text{Bernoulli}(\pi(X_i; \alpha))\)</span> with prior <span class="math notranslate nohighlight">\(\alpha \sim p(\alpha)\)</span>, the Bayesian propensity score is the posterior predictive:</p>
 <div class="math notranslate nohighlight">
 \[
-\mathbb{E}[Y(t) \mid T=t] 
-\overset{\text{exch.}}{=}\mathbb{E}[Y(t) \mid T=t, X=x]
-\overset{\text{cons.}}{=}\mathbb{E}[Y \mid T=t, X=x]
+\hat{\pi}(x \mid D) = \int \pi(x; \alpha) \, p(\alpha \mid D) \, d\alpha
 \]</div>
+<p>Treatment effect estimates using this posterior propensity score account for <strong>propensity model uncertainty</strong>, unlike plug-in frequentist approaches.</p>
 </section>
+</div></section>
+<section id="posterior-inference-for-treatment-effects">
+<h2>Posterior Inference for Treatment Effects<a class="headerlink" href="#posterior-inference-for-treatment-effects" title="Link to this heading">#</a></h2>
+<p>Bayesian causal inference outputs a <strong>posterior distribution</strong> over the estimand, from which we derive:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Quantity</p></th>
+<th class="head"><p>Interpretation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\mathbb{E}[\tau \mid D]\)</span></p></td>
+<td><p>Posterior mean ATE</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\text{Var}[\tau \mid D]\)</span></p></td>
+<td><p>Posterior variance (uncertainty)</p></td>
+</tr>
+<tr class="row-even"><td><p>95% credible interval</p></td>
+<td><p><span class="math notranslate nohighlight">\([\tau_{0.025}, \tau_{0.975}]\)</span> from the posterior</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(P(\tau &gt; 0 \mid D)\)</span></p></td>
+<td><p>Posterior probability that treatment is beneficial</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The posterior probability <span class="math notranslate nohighlight">\(P(\tau(x) &gt; 0 \mid D)\)</span> is particularly useful for <strong>decision-making</strong>: it directly quantifies the probability that the treatment is beneficial for a given subgroup, which is more interpretable for actuarial applications than a p-value.</p>
+</section>
+<section id="comparison-with-frequentist-approaches">
+<h2>Comparison with Frequentist Approaches<a class="headerlink" href="#comparison-with-frequentist-approaches" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Aspect</p></th>
+<th class="head"><p>Frequentist</p></th>
+<th class="head"><p>Bayesian</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Uncertainty</strong></p></td>
+<td><p>Confidence intervals (coverage guarantee)</p></td>
+<td><p>Credible intervals (direct probability)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Prior information</strong></p></td>
+<td><p>Not formally incorporated</p></td>
+<td><p>Encoded via priors</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Small samples</strong></p></td>
+<td><p>Relies on asymptotic approximations</p></td>
+<td><p>Exact finite-sample posterior</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>HTE estimation</strong></p></td>
+<td><p>Causal forests (<a class="reference external" href="https://doi.org/10.1073/pnas.1510489113">Athey &amp; Imbens, 2016</a>)</p></td>
+<td><p>BART / BCF</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Model uncertainty</strong></p></td>
+<td><p>Model selection or averaging</p></td>
+<td><p>Posterior model probabilities</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Computation</strong></p></td>
+<td><p>Often closed-form or fast</p></td>
+<td><p>MCMC (slower but more flexible)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="practical-considerations">
+<h2>Practical Considerations<a class="headerlink" href="#practical-considerations" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Prior sensitivity:</strong> Check that conclusions are robust to reasonable prior specifications. Use weakly informative priors as defaults.</p></li>
+<li><p><strong>Convergence diagnostics:</strong> Monitor MCMC chains using <span class="math notranslate nohighlight">\(\hat{R}\)</span> statistics, effective sample size, and trace plots.</p></li>
+<li><p><strong>Scalability:</strong> BART scales well to moderate-dimensional problems (<span class="math notranslate nohighlight">\(p \lesssim 100\)</span>). For very high-dimensional <span class="math notranslate nohighlight">\(X\)</span>, variable selection priors or sparsity-inducing modifications (e.g. DART) may be needed.</p></li>
+<li><p><strong>Software:</strong> Popular implementations include <code class="docutils literal notranslate"><span class="pre">bartCause</span></code> (R), <code class="docutils literal notranslate"><span class="pre">dbarts</span></code> (R), and <code class="docutils literal notranslate"><span class="pre">pymc-bart</span></code> (Python).</p></li>
+</ul>
 </section>
 </section>
 
@@ -553,20 +639,20 @@ Y(t) \perp\!\!\!\perp T \mid X \quad \text{for all } t
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="2_identification.html"
+       href="tree_based_methods.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Identification</p>
+        <p class="prev-next-title">Tree-Based Methods</p>
       </div>
     </a>
     <a class="right-next"
-       href="2_2_graphical_models.html"
+       href="sensitivity.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Graphical Causal Models</p>
+        <p class="prev-next-title">Validation and Sensitivity Analysis</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -586,11 +672,16 @@ Y(t) \perp\!\!\!\perp T \mid X \quad \text{for all } t
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-observational-data-to-conditionally-randomized-experiments">From Observational Data to Conditionally Randomized Experiments</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#potential-outcomes-framework">Potential Outcomes Framework</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-bayesian-causal-inference">Why Bayesian Causal Inference?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-potential-outcomes-model">Bayesian Potential Outcomes Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-additive-regression-trees-bart">Bayesian Additive Regression Trees (BART)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-causal-forests-bcf">Bayesian Causal Forests (BCF)</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-propensity-score-methods">Bayesian Propensity Score Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-inference-for-treatment-effects">Posterior Inference for Treatment Effects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-frequentist-approaches">Comparison with Frequentist Approaches</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-considerations">Practical Considerations</a></li>
 </ul>
   </nav></div>
 

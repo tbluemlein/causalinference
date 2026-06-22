@@ -57,11 +57,12 @@
 ## Useful Links
 ### Theory
 - [Causal ML Book](https://www.causalmlbook.com/synthetic-did-and-regression-discontinuity.html)
+- [Introduction to Causal Inference (Brady Neal, 2020)](https://www.bradyneal.com/Introduction_to_Causal_Inference-Aug27_2020-Neal.pdf)
+- [Python Causality Handbook](https://matheusfacure.github.io/python-causality-handbook/)
 - [Oxford: Causal Assumptions](https://www.stats.ox.ac.uk/~evans/APTS/causassmp.html)
 - [Tutorial on Causal Inference](https://bookdown.org/mike/data_analysis/sec-causal-inference.html)
 - [Causal Assumptions](https://www.uniqcret.com/post/causal-inference-assumptions-guide)
 - [QuantCo Blog Article: MetaLearners for CATE Estimation](https://tech.quantco.com/blog/metalearners)
-- [Confounding Tutorial: Simpson's Paradoxon](https://www.biostatistics.ca/when-data-lies-simpsons-paradox-a-step-by-step-simulation-code-notebook/) 
 - [Causality Handbook](https://matheusfacure.github.io/python-causality-handbook/02-Randomised-Experiments.html)
 - [Google PAIR: *Measuring Fairness* explorable (2020)](https://pair.withgoogle.com/explorables/measuring-fairness/)
 

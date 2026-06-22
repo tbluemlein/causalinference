@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Propensity Score Methods &#8212; Actuarial Causal Inference Tutorial</title>
+    <title>Assumptions &#8212; Actuarial Causal Inference Tutorial</title>
   
   
   
@@ -117,13 +117,13 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/3_1_propensity';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/assumptions';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../_static/figure-theme.js?v=a9394cc5"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Regression Methods" href="3_2_Regression_Methods.html" />
-    <link rel="prev" title="Causal Inference" href="3_inference.html" />
+    <link rel="next" title="Graphical Causal Models" href="graphical_models.html" />
+    <link rel="prev" title="Identification" href="identification.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -243,24 +243,24 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="1_concepts.html">Concepts of Causal Inference</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="2_identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="2_1_assumptions.html">Assumptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2_2_graphical_models.html">Graphical Causal Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2_3_methods.html">Identification Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts of Causal Inference</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="identification.html">Identification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graphical_models.html">Graphical Causal Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="methods.html">Identification Strategies</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="3_inference.html">Causal Inference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Propensity Score Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_2_Regression_Methods.html">Regression Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_3_Tree_Based_Methods.html">Tree-Based Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_5_bayesian.html">Bayesian Causal Inference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="propensity.html">Propensity Score Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regression_methods.html">Regression Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree_based_methods.html">Tree-Based Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="4_sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="4_1_diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="4_2_debias.html">Biases and De-Biasing Toolkit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="4_3_fairness.html">Why Causal Inference Resolves the Fairness Problem</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debias.html">Biases and De-Biasing Toolkit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fairness.html">Why Causal Inference Resolves the Fairness Problem</a></li>
 </ul>
 </details></li>
 </ul>
@@ -328,7 +328,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/tutorial/3_1_propensity.md" target="_blank"
+      <li><a href="../_sources/tutorial/assumptions.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -412,7 +412,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Propensity Score Methods</h1>
+    <h1>Assumptions</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -422,13 +422,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propensity-score-definition">Propensity Score Definition</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overlap-common-support">Overlap (Common Support)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-observational-data-to-conditionally-randomized-experiments">From Observational Data to Conditionally Randomized Experiments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#potential-outcomes-framework">Potential Outcomes Framework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Assumptions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propensity-score-matching">Propensity Score Matching</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inverse-propensity-score-weighting">Inverse Propensity Score Weighting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-comparison-matching-vs-weighting">Interactive Comparison: Matching vs. Weighting</a></li>
 </ul>
             </nav>
         </div>
@@ -440,150 +438,89 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="propensity-score-methods">
-<h1>Propensity Score Methods<a class="headerlink" href="#propensity-score-methods" title="Link to this heading">#</a></h1>
-<section id="propensity-score-definition">
-<h2>Propensity Score Definition<a class="headerlink" href="#propensity-score-definition" title="Link to this heading">#</a></h2>
-<p>The probability of receiving treatment <span class="math notranslate nohighlight">\(T\)</span> given a set of observed covariates <span class="math notranslate nohighlight">\(X\)</span>, defined as:
-$<span class="math notranslate nohighlight">\(\pi(x) = P(T = 1 \mid X = x)\)</span>$
-It reduces high-dimensional control variables into a single score in order to achieve covariate balance.</p>
-<section id="overlap-common-support">
-<span id="overlap"></span><h3>Overlap (Common Support)<a class="headerlink" href="#overlap-common-support" title="Link to this heading">#</a></h3>
-<p>Propensity score methods are only valid where treated and control units are actually <em>comparable</em>. This requirement is the empirical counterpart of the <a class="reference internal" href="2_1_assumptions.html#positivity">Assumption 3</a>: For every covariate profile <span class="math notranslate nohighlight">\(x\)</span>, both treatment arms must have a positive (non-zero) probability of being observed,</p>
-<div class="math notranslate nohighlight">
-\[0 &lt; \pi(x) &lt; 1 \quad \text{for all } x .\]</div>
-<p>The range of covariates where this holds — where the propensity score distributions of the treated (<span class="math notranslate nohighlight">\(T=1\)</span>) and control (<span class="math notranslate nohighlight">\(T=0\)</span>) groups overlap — is called the region of <strong>common support</strong> (or <em>overlap</em>). When <span class="math notranslate nohighlight">\(\pi(x)\)</span> approaches <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span> for some covariate profile, there are no comparable units in the opposite group: matching finds no partner to pair with, and inverse-probability weights explode. In practice, overlap is diagnosed by inspecting the distribution of the estimated scores <span class="math notranslate nohighlight">\(\hat{\pi}(x)\)</span> in each treatment group.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="assumptions">
+<h1>Assumptions<a class="headerlink" href="#assumptions" title="Link to this heading">#</a></h1>
+<section id="from-observational-data-to-conditionally-randomized-experiments">
+<h2>From Observational Data to Conditionally Randomized Experiments<a class="headerlink" href="#from-observational-data-to-conditionally-randomized-experiments" title="Link to this heading">#</a></h2>
+<p>Causal inference from observational data relies on the idea that, under the assumptions of the <strong>Rubin Causal Model</strong> (<a class="reference external" href="https://doi.org/10.1093/biomet/70.1.41">Rosenbaum &amp; Rubin, 1983</a>), an observational study can be regarded as a <em>conditionally randomized experiment</em>.</p>
+<p>Under the assumptions of ignorability (see below), the observed data represent the essential features of a randomized experiment, enabling the identification and consistent estimation of causal effects within the <strong>potential outcomes framework</strong>.</p>
 </section>
-</section>
-<section id="propensity-score-matching">
-<h2>Propensity Score Matching<a class="headerlink" href="#propensity-score-matching" title="Link to this heading">#</a></h2>
-<p>Matching focuses on creating “apples-to-apples” comparisons by pairing treated units with similar control units. This algorithm typically estimates the Average Treatment Effect on the Treated (ATT).</p>
-<div class="proof algorithm dropdown admonition" id="alg-psm">
-<p class="admonition-title"><span class="caption-number">Algorithm 4 </span> (Propensity Score Matching)</p>
-<section class="algorithm-content" id="proof-content">
-<p><strong>Inputs</strong> Data <span class="math notranslate nohighlight">\(D\)</span> with covariates <span class="math notranslate nohighlight">\(X\)</span>, treatment <span class="math notranslate nohighlight">\(T\)</span>, and outcome <span class="math notranslate nohighlight">\(Y\)</span>; Caliper <span class="math notranslate nohighlight">\(\delta\)</span></p>
-<p><strong>Outputs</strong> Estimated ATT <span class="math notranslate nohighlight">\(\hat{\tau}_{ATT}\)</span></p>
-<ol class="arabic simple">
-<li><p><strong>Estimate Propensity Scores</strong></p>
-<ol class="arabic simple">
-<li><p>Train model <span class="math notranslate nohighlight">\(P(T = 1 \mid X)\)</span> (e.g., Logistic Regression) on <span class="math notranslate nohighlight">\(D\)</span></p></li>
-<li><p>Compute <span class="math notranslate nohighlight">\(\hat{\pi}(x_i)\)</span> for all individuals <span class="math notranslate nohighlight">\(i\)</span> <em>(Probability of treatment)</em></p></li>
-</ol>
-</li>
-<li><p><strong>Match Units</strong></p>
-<ol class="arabic simple">
-<li><p>Split <span class="math notranslate nohighlight">\(D\)</span> into Treated group <span class="math notranslate nohighlight">\(\mathcal{T}\)</span> and Control group <span class="math notranslate nohighlight">\(\mathcal{T}_0\)</span></p></li>
-<li><p>Initialize empty matched set <span class="math notranslate nohighlight">\(\mathcal{M} = \emptyset\)</span></p></li>
-<li><p>For each unit <span class="math notranslate nohighlight">\(i \in \mathcal{T}\)</span>:</p>
-<ol class="arabic simple">
-<li><p>Find unit <span class="math notranslate nohighlight">\(j \in \mathcal{T}_0\)</span> that minimizes <span class="math notranslate nohighlight">\(|\hat{\pi}(x_i) - \hat{\pi}(x_j)|\)</span></p></li>
-<li><p>If <span class="math notranslate nohighlight">\(|\hat{\pi}(x_i) - \hat{\pi}(x_j)| \leq \delta\)</span>: <em>(Apply caliper distance)</em></p>
-<ol class="arabic simple">
-<li><p>Add pair <span class="math notranslate nohighlight">\((i, j)\)</span> to <span class="math notranslate nohighlight">\(\mathcal{M}\)</span></p></li>
-<li><p><em>Optional:</em> Remove <span class="math notranslate nohighlight">\(j\)</span> from <span class="math notranslate nohighlight">\(\mathcal{T}_0\)</span> <em>(Matching without replacement)</em></p></li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><p><strong>Estimate Effect</strong></p>
-<ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\(\hat{\tau}_{ATT} = \frac{1}{|\mathcal{M}|} \sum_{(i,j) \in \mathcal{M}} (Y_i - Y_j)\)</span></p></li>
-<li><p>Return <span class="math notranslate nohighlight">\(\hat{\tau}_{ATT}\)</span></p></li>
-</ol>
-</li>
-</ol>
-</section>
-</div></section>
-<section id="inverse-propensity-score-weighting">
-<h2>Inverse Propensity Score Weighting<a class="headerlink" href="#inverse-propensity-score-weighting" title="Link to this heading">#</a></h2>
-<p>Weighting uses Inverse Probability Weighting (IPW) to create a “pseudo-population” where the treatment is independent of measured covariates. This approach is often used to estimate the Average Treatment Effect (ATE) for the entire population. </p>
-<div class="proof algorithm dropdown admonition" id="alg-psw">
-<p class="admonition-title"><span class="caption-number">Algorithm 5 </span> (Propensity Score Weighting)</p>
-<section class="algorithm-content" id="proof-content">
-<p><strong>Inputs</strong> Data <span class="math notranslate nohighlight">\(D\)</span> with covariates <span class="math notranslate nohighlight">\(X\)</span>, treatment <span class="math notranslate nohighlight">\(T\)</span>, and outcome <span class="math notranslate nohighlight">\(Y\)</span></p>
-<p><strong>Outputs</strong> Estimated ATE <span class="math notranslate nohighlight">\(\hat{\tau}_{ATE}\)</span></p>
-<ol class="arabic simple">
-<li><p><strong>Estimate Propensity Scores</strong></p>
-<ol class="arabic simple">
-<li><p>Train model <span class="math notranslate nohighlight">\(P(T = 1 \mid X)\)</span> to obtain <span class="math notranslate nohighlight">\(\hat{\pi}(x_i)\)</span></p></li>
-<li><p><em>Optional:</em> Clip scores (e.g., <span class="math notranslate nohighlight">\([0.05, 0.95]\)</span>) to avoid extreme weights</p></li>
-</ol>
-</li>
-<li><p><strong>Calculate IPW Weights</strong></p>
-<ol class="arabic simple">
-<li><p>For each unit <span class="math notranslate nohighlight">\(i\)</span> in <span class="math notranslate nohighlight">\(D\)</span>:</p>
-<ol class="arabic simple">
-<li><p>If <span class="math notranslate nohighlight">\(T_i = 1\)</span>: <span class="math notranslate nohighlight">\(w_i = \frac{1}{\hat{\pi}(x_i)}\)</span> <em>(Weight for Treated)</em></p></li>
-<li><p>Else: <span class="math notranslate nohighlight">\(w_i = \frac{1}{1 - \hat{\pi}(x_i)}\)</span> <em>(Weight for Control)</em></p></li>
-</ol>
-</li>
-</ol>
-</li>
-<li><p><strong>Estimate Effect</strong></p>
-<ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\(\hat{Y}_1 = \frac{\sum T_i Y_i w_i}{\sum T_i w_i}\)</span> <em>(Weighted mean for Treated)</em></p></li>
-<li><p><span class="math notranslate nohighlight">\(\hat{Y}_0 = \frac{\sum (1-T_i) Y_i w_i}{\sum (1-T_i) w_i}\)</span> <em>(Weighted mean for Control)</em></p></li>
-<li><p><span class="math notranslate nohighlight">\(\hat{\tau}_{ATE} = \hat{Y}_1 - \hat{Y}_0\)</span></p></li>
-<li><p>Return <span class="math notranslate nohighlight">\(\hat{\tau}_{ATE}\)</span></p></li>
-</ol>
-</li>
-</ol>
-</section>
-</div></section>
-<section id="interactive-comparison-matching-vs-weighting">
-<h2>Interactive Comparison: Matching vs. Weighting<a class="headerlink" href="#interactive-comparison-matching-vs-weighting" title="Link to this heading">#</a></h2>
-<p>The interactive figure below applies both methods to a single simulated dataset with covariates <span class="math notranslate nohighlight">\(X\)</span>, treatment <span class="math notranslate nohighlight">\(T\)</span>, and outcome <span class="math notranslate nohighlight">\(Y\)</span>, where the true treatment effect is known. Use it to build intuition for how the two estimators behave:</p>
+<section id="potential-outcomes-framework">
+<h2>Potential Outcomes Framework<a class="headerlink" href="#potential-outcomes-framework" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Confounding strength</strong> — increase it to make the treated and control groups less alike. Watch the propensity score distributions pull apart and the region of <a class="reference internal" href="#overlap"><span class="std std-ref">Overlap (Common Support)</span></a> shrink.</p></li>
-<li><p><strong>Matching caliper</strong> <span class="math notranslate nohighlight">\(\delta\)</span> — widen or tighten the maximum propensity gap allowed within a pair, and see how many treated units get matched versus discarded.</p></li>
-<li><p><strong>New sample</strong> — redraw the data to see the sampling variability of each estimate.</p></li>
+<li><p><a class="reference external" href="https://doi.org/10.1037/h0037350">Rubin (1974)</a> extended Neyman’s (1923) theory for randomized experiments to observational studies.</p></li>
+<li><p>Specifically, when treatment assignment is <strong>strongly ignorable</strong> given a set of observed covariates — that is, when the following two conditions hold (<a class="reference external" href="https://doi.org/10.1093/biomet/70.1.41">Rosenbaum &amp; Rubin, 1983</a>):</p></li>
 </ul>
-<p>The panels let you compare, on the same data, (1) propensity score overlap, (2) the matched pairs formed by PSM, and (3) the inverse-probability-weighted points used by IPTW. The summary cards contrast the naïve difference in means against the PSM estimate of the ATT (<span class="math notranslate nohighlight">\(\hat{\tau}_{ATT}\)</span>) and the IPTW estimate of the ATE (<span class="math notranslate nohighlight">\(\hat{\tau}_{ATE}\)</span>), both relative to the true effect.</p>
-<iframe id="psm-iptw" src="../figure/psm_iptw_explainer.html?v=20260610d"
-        style="width:100%; border:none; height:1500px;"
-        title="PSM vs IPTW interactive explainer"></iframe>
-<script>
-(function () {
-  var iframe = document.getElementById('psm-iptw');
-
-  // Resolve the book's current theme: data-mode is auto|light|dark.
-  function currentTheme() {
-    var root = document.documentElement;
-    // data-theme holds the *resolved* light|dark value (preferred).
-    var theme = root.getAttribute('data-theme');
-    if (theme === 'light' || theme === 'dark') return theme;
-    var mode = root.getAttribute('data-mode') || 'auto';
-    if (mode === 'light' || mode === 'dark') return mode;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-  function sendTheme() {
-    if (iframe && iframe.contentWindow) {
-      iframe.contentWindow.postMessage({ type: 'set-theme', value: currentTheme() }, '*');
-    }
-  }
-
-  window.addEventListener('message', function (e) {
-    if (!e.data) return;
-    if (e.data.type === 'psm-iptw-height') {
-      iframe.style.height = (e.data.height + 20) + 'px';
-    } else if (e.data.type === 'psm-iptw-ready') {
-      sendTheme();
-    }
-  });
-
-  // Re-send whenever the book theme toggle flips data-mode or data-theme.
-  new MutationObserver(sendTheme).observe(document.documentElement, {
-    attributes: true, attributeFilter: ['data-mode', 'data-theme']
-  });
-  // Re-send when the OS theme changes while the book is in "auto" mode.
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sendTheme);
-
-  iframe.addEventListener('load', sendTheme);
-  sendTheme();
-})();
-</script></section>
+<div class="math notranslate nohighlight">
+\[
+(Y(1), Y(0)) \perp T \mid X
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+0 &lt; P(T = 1 \mid X) &lt; 1,
+\]</div>
+<p>then conditioning on <span class="math notranslate nohighlight">\(X\)</span> renders the treatment assignment mechanism analogous to that of a randomized controlled trial. More explanation in the <a class="reference external" href="https://www.uniqcret.com/post/causal-inference-assumptions-guide">Assumptions Guide</a> and in <a class="reference external" href="https://www.bradyneal.com/Introduction_to_Causal_Inference-Aug27_2020-Neal.pdf">Neal (2020)</a>. See also <a class="reference external" href="https://www.stats.ox.ac.uk/~evans/APTS/causassmp.html">Oxford: Causal Assumptions</a> for a formal treatment.</p>
+<section id="id1">
+<h3>Assumptions<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="proof assumption admonition" id="consistency">
+<p class="admonition-title"><span class="caption-number">Assumption 1 </span> (Consistency)</p>
+<section class="assumption-content" id="proof-content">
+<div class="math notranslate nohighlight">
+\[
+Y(t) = Y \quad \text{when } T = t
+\]</div>
+</section>
+</div><p>Links the potential outcomes to the observed outcomes by requiring that the two are equal under the same treatment assignments. This ties the potential outcome <span class="math notranslate nohighlight">\(Y(t)\)</span> to the factual outcome <span class="math notranslate nohighlight">\(Y\)</span> when the treatment actually received is <span class="math notranslate nohighlight">\(T = t\)</span> (<a class="reference external" href="https://doi.org/10.1037/h0037350">Rubin, 1974</a>).</p>
+<p><strong>Detecting violations:</strong> Consistency is violated when the treatment <span class="math notranslate nohighlight">\(T\)</span> is <strong>not well-defined</strong> — i.e., it encompasses multiple distinct versions. If “treated” patients received different dosages, formulations, or timing, then <span class="math notranslate nohighlight">\(Y(1)\)</span> is ambiguous. In data, look for heterogeneous treatment protocols, poor adherence, or treatment variation within the <span class="math notranslate nohighlight">\(T=1\)</span> group. If the effect estimate changes substantially when stratifying by treatment sub-type, consistency may be compromised.</p>
+<div class="proof assumption admonition" id="sutva">
+<p class="admonition-title"><span class="caption-number">Assumption 2 </span> (Stable Unit Treatment Value Assumption (SUTVA))</p>
+<section class="assumption-content" id="proof-content">
+<div class="math notranslate nohighlight">
+\[
+Y_i(t_i) \text{ depends only on } t_i \text{ (not on } t_j \text{ for } j \neq i)
+\]</div>
+</section>
+</div><p>SUTVA combines consistency and no interference. The <strong>no interference</strong> assumption states that there is no interference between treatment assignment and outcomes across units. Whether one individual receives treatment (or not) has no effect on the potential outcomes of any other individual. This is encapsulated by the usual statistical ‘i.i.d.’ assumption, but it can easily be violated in a study of the effect of a vaccine or if a treatment is assigned at a group level (<a class="reference external" href="https://doi.org/10.2307/j.ctt5vhbqm">Angrist &amp; Pischke, 2015</a>).</p>
+<p><strong>Detecting violations:</strong> Interference is suspected when outcomes of untreated units <strong>correlate with the treatment rate in their neighbourhood or group</strong>. In insurance, if offering a discount to some policyholders influences the behaviour of others in the same household or employer group, SUTVA is violated. Diagnostic: compare outcomes of control units across clusters with different treatment intensities — if they differ systematically, interference is present.</p>
+<div class="proof assumption admonition" id="positivity">
+<p class="admonition-title"><span class="caption-number">Assumption 3 </span> (Positivity)</p>
+<section class="assumption-content" id="proof-content">
+<div class="math notranslate nohighlight">
+\[
+0 &lt; P(T = 1 \mid X = x) &lt; 1 \quad \text{with probability } 1
+\]</div>
+<p>or more strictly (strict positivity):</p>
+<div class="math notranslate nohighlight">
+\[
+\varepsilon &lt; P(T = 1 \mid X = x) &lt; 1 - \varepsilon \quad \text{with probability } 1, \text{ for some } \varepsilon &gt; 0
+\]</div>
+</section>
+</div><p>This states that, for any possible covariate profile, treatment assignment is not deterministic. For all but a measure zero subset of the population, the probability of receiving treatment <strong>and</strong> of receiving control is non-zero. Violations of positivity lead to extreme propensity score weights and unstable estimates (<a class="reference external" href="https://doi.org/10.1080/00273171.2011.568786">Austin, 2011</a>; <a class="reference external" href="https://doi.org/10.1093/biomet/70.1.41">Rosenbaum &amp; Rubin, 1983</a>).</p>
+<p><strong>Detecting violations:</strong> Positivity violations are the most <strong>directly diagnosable</strong> from data. Check the estimated propensity scores <span class="math notranslate nohighlight">\(\hat{\pi}(x)\)</span>: if they cluster near 0 or 1, some covariate strata have near-deterministic treatment assignment. Diagnostics include: propensity score histograms by treatment group (looking for non-overlap), examining covariate regions with no treated or no control units, and inspecting inverse-probability weights for extreme values. In insurance, positivity fails when certain policyholder profiles are <em>always</em> or <em>never</em> eligible for a programme. See <a class="reference internal" href="propensity.html#overlap"><span class="std std-ref">Overlap (Common Support)</span></a> for how this assumption translates into the <em>common support</em> requirement underlying propensity score methods.</p>
+<div class="proof assumption admonition" id="exchangeability">
+<p class="admonition-title"><span class="caption-number">Assumption 4 </span> (Exchangeability (No unobserved confounding))</p>
+<section class="assumption-content" id="proof-content">
+<div class="math notranslate nohighlight">
+\[
+Y(t) \perp\!\!\!\perp T \mid X \quad \text{for all } t
+\]</div>
+<p>or equivalently:</p>
+<div class="math notranslate nohighlight">
+\[
+(Y(1), Y(0)) \perp\!\!\!\perp T \mid X
+\]</div>
+</section>
+</div><p>This implies that conditioning on the observed covariates <span class="math notranslate nohighlight">\(X\)</span> is sufficient to remove confounding bias. This is also called <em>conditional exchangeability</em>, <em>conditional ignorability</em>, or <em>causal sufficiency</em> (<a class="reference external" href="https://doi.org/10.1093/biomet/70.1.41">Rosenbaum &amp; Rubin, 1983</a>; <a class="reference external" href="https://doi.org/10.1016/C2011-0-05506-1">Wooldridge, 2012</a>). This is the strongest and least verifiable of the four assumptions — see the <a class="reference external" href="https://www.uniqcret.com/post/causal-inference-assumptions-guide">Assumptions Guide</a> for discussion.</p>
+<p><strong>Detecting violations:</strong> Exchangeability <strong>cannot be directly tested</strong> because it concerns unobserved confounders by definition. However, indirect evidence includes: (1) <strong>sensitivity analysis</strong> — computing E-values or applying the method of <a class="reference external" href="https://doi.org/10.1111/rssb.12348">Cinelli &amp; Hazlett (2020)</a> to assess how strong an unmeasured confounder would need to be to explain away the effect; (2) <strong>negative control outcomes</strong> — outcomes known to be unaffected by <span class="math notranslate nohighlight">\(T\)</span> that should show zero effect if exchangeability holds; (3) <strong>placebo/falsification tests</strong> — applying the estimator to subgroups where no effect is expected. Persistent sensitivity of results to small unmeasured confounders signals concern.</p>
+<p>By exchangeability (<a class="reference internal" href="#exchangeability">Assumption 4</a>) and consistency (<a class="reference internal" href="#consistency">Assumption 1</a>), the estimation of the average (causal) treatment effect can be done based on observed data:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}[Y(t) \mid T=t] 
+\overset{\text{exch.}}{=}\mathbb{E}[Y(t) \mid T=t, X=x]
+\overset{\text{cons.}}{=}\mathbb{E}[Y \mid T=t, X=x]
+\]</div>
+</section>
+</section>
 </section>
 
         <script type="text/x-thebe-config">
@@ -616,20 +553,20 @@ It reduces high-dimensional control variables into a single score in order to ac
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="3_inference.html"
+       href="identification.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Causal Inference</p>
+        <p class="prev-next-title">Identification</p>
       </div>
     </a>
     <a class="right-next"
-       href="3_2_Regression_Methods.html"
+       href="graphical_models.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Regression Methods</p>
+        <p class="prev-next-title">Graphical Causal Models</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -649,13 +586,11 @@ It reduces high-dimensional control variables into a single score in order to ac
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propensity-score-definition">Propensity Score Definition</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overlap-common-support">Overlap (Common Support)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-observational-data-to-conditionally-randomized-experiments">From Observational Data to Conditionally Randomized Experiments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#potential-outcomes-framework">Potential Outcomes Framework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Assumptions</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propensity-score-matching">Propensity Score Matching</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inverse-propensity-score-weighting">Inverse Propensity Score Weighting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-comparison-matching-vs-weighting">Interactive Comparison: Matching vs. Weighting</a></li>
 </ul>
   </nav></div>
 

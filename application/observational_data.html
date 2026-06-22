@@ -123,7 +123,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Fairness in Insurance Pricing" href="pricing.html" />
-    <link rel="prev" title="Why Causal Inference Resolves the Fairness Problem" href="../tutorial/4_3_fairness.html" />
+    <link rel="prev" title="Why Causal Inference Resolves the Fairness Problem" href="../tutorial/fairness.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -243,24 +243,24 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/1_concepts.html">Concepts of Causal Inference</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/2_identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/2_1_assumptions.html">Assumptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/2_2_graphical_models.html">Graphical Causal Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/2_3_methods.html">Identification Strategies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/concepts.html">Concepts of Causal Inference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/identification.html">Identification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/assumptions.html">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/graphical_models.html">Graphical Causal Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/methods.html">Identification Strategies</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/3_inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/3_1_propensity.html">Propensity Score Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/3_2_Regression_Methods.html">Regression Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/3_3_Tree_Based_Methods.html">Tree-Based Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/3_5_bayesian.html">Bayesian Causal Inference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/inference.html">Causal Inference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/propensity.html">Propensity Score Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/regression_methods.html">Regression Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/tree_based_methods.html">Tree-Based Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/bayesian.html">Bayesian Causal Inference</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/4_sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_1_diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_2_debias.html">Biases and De-Biasing Toolkit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorial/4_3_fairness.html">Why Causal Inference Resolves the Fairness Problem</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/sensitivity.html">Validation and Sensitivity Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/diagnostics.html">Diagnostics and Sensitivity Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/debias.html">Biases and De-Biasing Toolkit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial/fairness.html">Why Causal Inference Resolves the Fairness Problem</a></li>
 </ul>
 </details></li>
 </ul>
@@ -531,13 +531,13 @@ if not hasattr(matplotlib.RcParams, "_get"):
 <p>This notebook walks through the practical workflow for turning observational data into a credible causal statement. Using a synthetic insurance-style dataset, we:</p>
 <ol class="arabic simple">
 <li><p><strong>Encode our assumptions</strong> in a causal graph (DAG)</p></li>
-<li><p><strong>Validate each of the four identification assumptions</strong> — <a class="reference internal" href="../tutorial/2_1_assumptions.html#consistency">Assumption 1</a>, <a class="reference internal" href="../tutorial/2_1_assumptions.html#sutva">Assumption 2</a>, <a class="reference internal" href="../tutorial/2_1_assumptions.html#positivity">Assumption 3</a>, and <a class="reference internal" href="../tutorial/2_1_assumptions.html#exchangeability">Assumption 4</a> — graphically and statistically, using the diagnostics and sensitivity tools from <a class="reference internal" href="../tutorial/4_sensitivity.html"><span class="doc">Validation and Sensitivity Analysis</span></a>.</p></li>
-<li><p><strong>Show what to do when an assumption fails</strong>, mapping each violation to a concrete remedy (trimming, overlap weighting, sensitivity analysis) following <span class="xref std std-doc">../tutorial/2_3_debias</span>.</p></li>
+<li><p><strong>Validate each of the four identification assumptions</strong> — <a class="reference internal" href="../tutorial/assumptions.html#consistency">Assumption 1</a>, <a class="reference internal" href="../tutorial/assumptions.html#sutva">Assumption 2</a>, <a class="reference internal" href="../tutorial/assumptions.html#positivity">Assumption 3</a>, and <a class="reference internal" href="../tutorial/assumptions.html#exchangeability">Assumption 4</a> — graphically and statistically, using the diagnostics and sensitivity tools from <a class="reference internal" href="../tutorial/sensitivity.html"><span class="doc">Validation and Sensitivity Analysis</span></a>.</p></li>
+<li><p><strong>Show what to do when an assumption fails</strong>, mapping each violation to a concrete remedy (trimming, overlap weighting, sensitivity analysis) following <a class="reference internal" href="../tutorial/debias.html"><span class="doc">Biases and De-Biasing Toolkit</span></a>.</p></li>
 </ol>
 <p>The goal is a reusable checklist: before reporting any treatment effect from observational data, an actuary should be able to point to the diagnostic that supports — or qualifies — each assumption.</p>
 <section id="toolkit-dealing-with-violated-assumptions">
 <h2>Toolkit: Dealing with Violated Assumptions<a class="headerlink" href="#toolkit-dealing-with-violated-assumptions" title="Link to this heading">#</a></h2>
-<p>Recall from <a class="reference internal" href="../tutorial/2_1_assumptions.html"><span class="doc">Assumptions</span></a> that an observational study can be treated as a <em>conditionally randomized experiment</em> only if four assumptions hold. Each one can be probed — some directly from data, others only indirectly:</p>
+<p>Recall from <a class="reference internal" href="../tutorial/assumptions.html"><span class="doc">Assumptions</span></a> that an observational study can be treated as a <em>conditionally randomized experiment</em> only if four assumptions hold. Each one can be probed — some directly from data, others only indirectly:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Assumption</p></th>
@@ -547,22 +547,22 @@ if not hasattr(matplotlib.RcParams, "_get"):
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="../tutorial/2_1_assumptions.html#consistency">Assumption 1</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../tutorial/assumptions.html#consistency">Assumption 1</a></p></td>
 <td><p>The treatment is well-defined (one version)</p></td>
 <td><p>Re-estimate the effect by treatment sub-type</p></td>
 <td><p>Split into well-defined treatments; estimate each separately</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../tutorial/2_1_assumptions.html#sutva">Assumption 2</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../tutorial/assumptions.html#sutva">Assumption 2</a></p></td>
 <td><p>No interference between units</p></td>
 <td><p>Correlate control outcomes with neighbours’ treatment intensity</p></td>
 <td><p>Cluster / partial-interference models; randomise at group level</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../tutorial/2_1_assumptions.html#positivity">Assumption 3</a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../tutorial/assumptions.html#positivity">Assumption 3</a></p></td>
 <td><p>Every covariate profile <em>can</em> receive both arms</p></td>
 <td><p>Propensity-score overlap (box / mirror plots)</p></td>
 <td><p><strong>Restrict</strong> (trim to common support) or <strong>reweight</strong> (overlap weights)</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../tutorial/2_1_assumptions.html#exchangeability">Assumption 4</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../tutorial/assumptions.html#exchangeability">Assumption 4</a></p></td>
 <td><p>No unmeasured confounding given <span class="math notranslate nohighlight">\(X\)</span></p></td>
 <td><p>Balance (SMD / Love plot) + sensitivity analysis</p></td>
 <td><p>Richer adjustment set, instrumental variables, or report robustness (E-value, RV, critical Γ)</p></td>
@@ -570,7 +570,7 @@ if not hasattr(matplotlib.RcParams, "_get"):
 </tbody>
 </table>
 </div>
-<p>The first three leave <strong>detectable footprints</strong> in the data. The fourth — exchangeability — is fundamentally untestable, so we instead ask <em>how robust</em> our conclusion is to a hypothetical unmeasured confounder (E-values, partial <span class="math notranslate nohighlight">\(R^2\)</span>, Rosenbaum bounds, placebo tests). When a check fails, we reach for the matching tool from the de-biasing toolkit (<span class="xref std std-doc">../tutorial/2_3_debias</span>): <strong>restrict</strong> (trim to the overlap region), <strong>reweight</strong> (overlap weights), <strong>model the structure</strong> (DAG-guided adjustment), or <strong>report a sensitivity bound</strong>.</p>
+<p>The first three leave <strong>detectable footprints</strong> in the data. The fourth — exchangeability — is fundamentally untestable, so we instead ask <em>how robust</em> our conclusion is to a hypothetical unmeasured confounder (E-values, partial <span class="math notranslate nohighlight">\(R^2\)</span>, Rosenbaum bounds, placebo tests). When a check fails, we reach for the matching tool from the de-biasing toolkit (<a class="reference internal" href="../tutorial/debias.html"><span class="doc">Biases and De-Biasing Toolkit</span></a>): <strong>restrict</strong> (trim to the overlap region), <strong>reweight</strong> (overlap weights), <strong>model the structure</strong> (DAG-guided adjustment), or <strong>report a sensitivity bound</strong>.</p>
 </section>
 <section id="the-end-to-end-pipeline">
 <h2>The end-to-end pipeline<a class="headerlink" href="#the-end-to-end-pipeline" title="Link to this heading">#</a></h2>
@@ -1034,11 +1034,11 @@ T -&gt; Y: 5.0
 </section>
 <section id="encoding-assumptions-in-a-causal-graph">
 <h2>Encoding Assumptions in a Causal Graph<a class="headerlink" href="#encoding-assumptions-in-a-causal-graph" title="Link to this heading">#</a></h2>
-<p>Before touching the data we make our assumptions explicit with a <strong>directed acyclic graph</strong> (DAG). The DAG is the contract: it states which variables confound the treatment–outcome relationship and therefore which must be adjusted for (<a class="reference internal" href="../tutorial/2_3_methods.html#backdoor-criterion">Criterion 1</a>).</p>
+<p>Before touching the data we make our assumptions explicit with a <strong>directed acyclic graph</strong> (DAG). The DAG is the contract: it states which variables confound the treatment–outcome relationship and therefore which must be adjusted for (<a class="reference internal" href="../tutorial/methods.html#backdoor-criterion">Criterion 1</a>).</p>
 <p>We export each graph as a stand-alone <strong><code class="docutils literal notranslate"><span class="pre">*.svg</span></code></strong> file (vector graphics stay crisp at any zoom in the rendered book) and embed it below.</p>
 <ul class="simple">
 <li><p><strong>Left — the analyst’s model:</strong> observed confounders <span class="math notranslate nohighlight">\(X_1, X_2\)</span> open backdoor paths <span class="math notranslate nohighlight">\(X \rightarrow T\)</span> and <span class="math notranslate nohighlight">\(X \rightarrow Y\)</span>. Adjusting for them closes the paths, so the effect of <span class="math notranslate nohighlight">\(T\)</span> on <span class="math notranslate nohighlight">\(Y\)</span> is identified.</p></li>
-<li><p><strong>Right — the uncomfortable reality:</strong> an <em>unobserved</em> confounder <span class="math notranslate nohighlight">\(U\)</span> (dashed) also drives both <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. Its backdoor path <span class="math notranslate nohighlight">\(T \leftarrow U \rightarrow Y\)</span> (red, dashed) <strong>cannot</strong> be closed by adjustment, which is exactly what threatens <a class="reference internal" href="../tutorial/2_1_assumptions.html#exchangeability">Assumption 4</a>.</p></li>
+<li><p><strong>Right — the uncomfortable reality:</strong> an <em>unobserved</em> confounder <span class="math notranslate nohighlight">\(U\)</span> (dashed) also drives both <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. Its backdoor path <span class="math notranslate nohighlight">\(T \leftarrow U \rightarrow Y\)</span> (red, dashed) <strong>cannot</strong> be closed by adjustment, which is exactly what threatens <a class="reference internal" href="../tutorial/assumptions.html#exchangeability">Assumption 4</a>.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1100,7 +1100,7 @@ T -&gt; Y: 5.0
 </section>
 <section id="assumption-1-consistency">
 <h2>Assumption 1 — Consistency<a class="headerlink" href="#assumption-1-consistency" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../tutorial/2_1_assumptions.html#consistency">Assumption 1</a> requires the treatment to be <strong>well-defined</strong>: a single, unambiguous intervention. If “enrolled in the programme” secretly bundles several different delivery modes, then <span class="math notranslate nohighlight">\(Y(1)\)</span> is not a single quantity and the estimated effect is an uninterpretable average.</p>
+<p><a class="reference internal" href="../tutorial/assumptions.html#consistency">Assumption 1</a> requires the treatment to be <strong>well-defined</strong>: a single, unambiguous intervention. If “enrolled in the programme” secretly bundles several different delivery modes, then <span class="math notranslate nohighlight">\(Y(1)\)</span> is not a single quantity and the estimated effect is an uninterpretable average.</p>
 <p><strong>Diagnostic.</strong> We re-estimate the (regression-adjusted) effect <em>separately for each treatment sub-type</em>, comparing each against the common control group. A stable effect across sub-types is reassuring; substantial variation flags an ambiguous treatment that should be split into distinct interventions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1206,13 +1206,13 @@ if (outputEl) {{
 <div class="dropdown admonition note">
 <p class="admonition-title">Note</p>
 <p>Interpretation — consistency</p>
-<p>The two delivery modes give <strong>different</strong> effects, so the single label <em>“treated”</em> is <strong>not</strong> a well-defined treatment — <a class="reference internal" href="../tutorial/2_1_assumptions.html#consistency">Assumption 1</a> is questionable.</p>
+<p>The two delivery modes give <strong>different</strong> effects, so the single label <em>“treated”</em> is <strong>not</strong> a well-defined treatment — <a class="reference internal" href="../tutorial/assumptions.html#consistency">Assumption 1</a> is questionable.</p>
 <p><strong>Remedy:</strong> define each delivery mode as its own treatment and estimate the effects separately.</p>
 </div>
 </section>
 <section id="assumption-2-sutva-no-interference">
 <h2>Assumption 2 — SUTVA (No Interference)<a class="headerlink" href="#assumption-2-sutva-no-interference" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../tutorial/2_1_assumptions.html#sutva">Assumption 2</a> requires that one unit’s treatment does <strong>not</strong> affect another unit’s outcome. In insurance this fails through <em>spillovers</em>: a group discount changes behaviour across a whole household or employer group, so untreated members are indirectly affected.</p>
+<p><a class="reference internal" href="../tutorial/assumptions.html#sutva">Assumption 2</a> requires that one unit’s treatment does <strong>not</strong> affect another unit’s outcome. In insurance this fails through <em>spillovers</em>: a group discount changes behaviour across a whole household or employer group, so untreated members are indirectly affected.</p>
 <p><strong>Diagnostic.</strong> For every policyholder we compute the <strong>leave-one-out treatment intensity</strong> of their group (the share of <em>other</em> members who are treated). Under no interference, the outcomes of <em>control</em> units should be uncorrelated with this intensity. A significant correlation is direct evidence of spillover.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1283,14 +1283,14 @@ if (outputEl) {{
 <div class="dropdown admonition note">
 <p class="admonition-title">Note</p>
 <p>Interpretation — SUTVA</p>
-<p>A flat cloud (left) is consistent with <strong>no interference</strong>; the upward slope (right) reveals <strong>spillover</strong>, so <a class="reference internal" href="../tutorial/2_1_assumptions.html#sutva">Assumption 2</a> is violated.</p>
+<p>A flat cloud (left) is consistent with <strong>no interference</strong>; the upward slope (right) reveals <strong>spillover</strong>, so <a class="reference internal" href="../tutorial/assumptions.html#sutva">Assumption 2</a> is violated.</p>
 <p><strong>Remedy:</strong> assign and analyse treatment at the <strong>group level</strong> (partial-interference or cluster models).</p>
 </div>
 </section>
 <section id="assumption-3-positivity">
 <h2>Assumption 3 — Positivity<a class="headerlink" href="#assumption-3-positivity" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../tutorial/2_1_assumptions.html#positivity">Assumption 3</a> requires that <em>every</em> covariate profile has a non-trivial chance of receiving <strong>both</strong> treatment and control: <span class="math notranslate nohighlight">\(0 &lt; \pi(x) &lt; 1\)</span>. It is the most <strong>directly diagnosable</strong> assumption — we simply inspect the estimated propensity scores <span class="math notranslate nohighlight">\(\hat{\pi}(x)\)</span> by treatment group and look for <strong>non-overlap</strong> (mass piling up near 0 or 1).</p>
-<p>The box / mirror plots below contrast our two regimes. Under <em>good</em> positivity the treated and control score distributions overlap broadly. Under the <em>violated</em> regime they separate: some profiles are almost always (or never) enrolled, leaving regions with no comparable units. There, inverse-probability weights <span class="math notranslate nohighlight">\(1/\hat{\pi}(x)\)</span> explode and estimates become unstable (<span class="xref std std-doc">../tutorial/2_3_debias</span>).</p>
+<p><a class="reference internal" href="../tutorial/assumptions.html#positivity">Assumption 3</a> requires that <em>every</em> covariate profile has a non-trivial chance of receiving <strong>both</strong> treatment and control: <span class="math notranslate nohighlight">\(0 &lt; \pi(x) &lt; 1\)</span>. It is the most <strong>directly diagnosable</strong> assumption — we simply inspect the estimated propensity scores <span class="math notranslate nohighlight">\(\hat{\pi}(x)\)</span> by treatment group and look for <strong>non-overlap</strong> (mass piling up near 0 or 1).</p>
+<p>The box / mirror plots below contrast our two regimes. Under <em>good</em> positivity the treated and control score distributions overlap broadly. Under the <em>violated</em> regime they separate: some profiles are almost always (or never) enrolled, leaving regions with no comparable units. There, inverse-probability weights <span class="math notranslate nohighlight">\(1/\hat{\pi}(x)\)</span> explode and estimates become unstable (<a class="reference internal" href="../tutorial/debias.html"><span class="doc">Biases and De-Biasing Toolkit</span></a>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Plotly Boxplot Execution and Display ---</span>
@@ -1466,9 +1466,9 @@ if (outputEl) {{
 </section>
 <section id="assumption-4-exchangeability">
 <h2>Assumption 4 — Exchangeability<a class="headerlink" href="#assumption-4-exchangeability" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../tutorial/2_1_assumptions.html#exchangeability">Assumption 4</a> — no unmeasured confounding given <span class="math notranslate nohighlight">\(X\)</span> — is the <strong>strongest and least verifiable</strong> assumption. We cannot test it directly, but we can do two things:</p>
+<p><a class="reference internal" href="../tutorial/assumptions.html#exchangeability">Assumption 4</a> — no unmeasured confounding given <span class="math notranslate nohighlight">\(X\)</span> — is the <strong>strongest and least verifiable</strong> assumption. We cannot test it directly, but we can do two things:</p>
 <ol class="arabic simple">
-<li><p><strong>Check balance on the <em>observed</em> confounders.</strong> If adjustment (weighting/matching) has worked, the treated and control groups should look alike on every measured covariate. The <strong>standardised mean difference (SMD)</strong> (<a class="reference internal" href="../tutorial/4_1_diagnostics.html#smd">Definition 12</a>) summarises each covariate’s imbalance; the rule of thumb is <span class="math notranslate nohighlight">\(|\text{SMD}| &lt; 0.1\)</span>. A <strong>Love plot</strong> displays them all at once.</p></li>
+<li><p><strong>Check balance on the <em>observed</em> confounders.</strong> If adjustment (weighting/matching) has worked, the treated and control groups should look alike on every measured covariate. The <strong>standardised mean difference (SMD)</strong> (<a class="reference internal" href="../tutorial/diagnostics.html#smd">Definition 12</a>) summarises each covariate’s imbalance; the rule of thumb is <span class="math notranslate nohighlight">\(|\text{SMD}| &lt; 0.1\)</span>. A <strong>Love plot</strong> displays them all at once.</p></li>
 <li><p><strong>Stress-test against the <em>unobserved</em>.</strong> Because balance on <span class="math notranslate nohighlight">\(X\)</span> says nothing about the hidden confounder <span class="math notranslate nohighlight">\(U\)</span>, we follow up with <strong>sensitivity analysis</strong> (next section).</p></li>
 </ol>
 <p>The Love plot below contrasts the good-positivity and violated regimes. Good balance is necessary but <strong>not sufficient</strong> for exchangeability — it only rules out imbalance in what we measured.</p>
@@ -1536,7 +1536,7 @@ if (outputEl) {{
 </section>
 <section id="sensitivity-analysis-for-unmeasured-confounding">
 <h2>Sensitivity Analysis for Unmeasured Confounding<a class="headerlink" href="#sensitivity-analysis-for-unmeasured-confounding" title="Link to this heading">#</a></h2>
-<p>Balanced covariates do not prove exchangeability — our data still contains the hidden confounder <span class="math notranslate nohighlight">\(U\)</span>. Since we cannot adjust for what we do not observe, we instead quantify <strong>how robust</strong> the estimated effect is to a plausible unmeasured confounder, using the four tools from <a class="reference internal" href="../tutorial/4_sensitivity.html"><span class="doc">Validation and Sensitivity Analysis</span></a>:</p>
+<p>Balanced covariates do not prove exchangeability — our data still contains the hidden confounder <span class="math notranslate nohighlight">\(U\)</span>. Since we cannot adjust for what we do not observe, we instead quantify <strong>how robust</strong> the estimated effect is to a plausible unmeasured confounder, using the four tools from <a class="reference internal" href="../tutorial/sensitivity.html"><span class="doc">Validation and Sensitivity Analysis</span></a>:</p>
 <ul class="simple">
 <li><p><strong>E-value</strong> — the minimum strength (on a risk-ratio scale) an unmeasured confounder would need with <em>both</em> <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> to explain the effect away.</p></li>
 <li><p><strong>Partial <span class="math notranslate nohighlight">\(R^2\)</span> / robustness value</strong> (Cinelli &amp; Hazlett) — benchmarked against observed covariates.</p></li>
@@ -1582,7 +1582,7 @@ Reading: an unmeasured confounder would need a partial R-squared of at least 67.
 </div>
 <section id="partial-r-2-contours-benchmarked-against-observed-covariates">
 <h3>Partial <span class="math notranslate nohighlight">\(R^2\)</span> contours, benchmarked against observed covariates<a class="headerlink" href="#partial-r-2-contours-benchmarked-against-observed-covariates" title="Link to this heading">#</a></h3>
-<p>The contour plot below (<a class="reference internal" href="../tutorial/4_1_diagnostics.html#partial-r2">Definition 16</a>) shows the bias-adjusted estimate across a grid of confounder strengths <span class="math notranslate nohighlight">\((R^2_{T \sim U}, R^2_{Y \sim U})\)</span>. The thick black line marks where the effect would be driven to <strong>zero</strong>. The dark grey diamond benchmarks “an unmeasured confounder <em>as strong as the observed covariate</em> <span class="math notranslate nohighlight">\(X_2\)</span>” — if that point sits far from the zero line, even a confounder of that strength would not overturn the conclusion.</p>
+<p>The contour plot below (<a class="reference internal" href="../tutorial/diagnostics.html#partial-r2">Definition 16</a>) shows the bias-adjusted estimate across a grid of confounder strengths <span class="math notranslate nohighlight">\((R^2_{T \sim U}, R^2_{Y \sim U})\)</span>. The thick black line marks where the effect would be driven to <strong>zero</strong>. The dark grey diamond benchmarks “an unmeasured confounder <em>as strong as the observed covariate</em> <span class="math notranslate nohighlight">\(X_2\)</span>” — if that point sits far from the zero line, even a confounder of that strength would not overturn the conclusion.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Benchmark: how strongly is the observed covariate X2 associated with T and Y?</span>
@@ -1637,7 +1637,7 @@ if (outputEl) {{
 </section>
 <section id="rosenbaum-bounds-matched-design">
 <h3>Rosenbaum bounds (matched design)<a class="headerlink" href="#rosenbaum-bounds-matched-design" title="Link to this heading">#</a></h3>
-<p>For a matched analysis, <a class="reference internal" href="../tutorial/4_1_diagnostics.html#rosenbaum-gamma">Definition 14</a> asks: how much could the odds of treatment differ between two units with identical observed covariates — because of a hidden confounder — before our conclusion breaks? We form 1:1 propensity-score-matched pairs, then trace the <strong>worst-case p-value</strong> as <span class="math notranslate nohighlight">\(\Gamma\)</span> grows. The <strong>critical <span class="math notranslate nohighlight">\(\Gamma\)</span></strong> (where the curve crosses <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>) is the headline robustness number: the larger it is, the more hidden bias the finding can absorb.</p>
+<p>For a matched analysis, <a class="reference internal" href="../tutorial/diagnostics.html#rosenbaum-gamma">Definition 14</a> asks: how much could the odds of treatment differ between two units with identical observed covariates — because of a hidden confounder — before our conclusion breaks? We form 1:1 propensity-score-matched pairs, then trace the <strong>worst-case p-value</strong> as <span class="math notranslate nohighlight">\(\Gamma\)</span> grows. The <strong>critical <span class="math notranslate nohighlight">\(\Gamma\)</span></strong> (where the curve crosses <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span>) is the headline robustness number: the larger it is, the more hidden bias the finding can absorb.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1:1 nearest-neighbour matching on the estimated propensity score</span>
@@ -1769,7 +1769,7 @@ if (outputEl) {{
 </section>
 <section id="placebo-negative-control-test">
 <h3>Placebo / negative-control test<a class="headerlink" href="#placebo-negative-control-test" title="Link to this heading">#</a></h3>
-<p>A final falsification check (<a class="reference internal" href="../tutorial/4_1_diagnostics.html#placebo-test">Definition 13</a>): apply the <em>same</em> estimator to a <strong>negative-control outcome</strong> — one the programme cannot plausibly affect, but which shares the confounding structure. If exchangeability (given <span class="math notranslate nohighlight">\(X\)</span>) held, the estimated “effect” on this outcome should be <strong>zero</strong>. A non-zero estimate is a red flag for residual confounding.</p>
+<p>A final falsification check (<a class="reference internal" href="../tutorial/diagnostics.html#placebo-test">Definition 13</a>): apply the <em>same</em> estimator to a <strong>negative-control outcome</strong> — one the programme cannot plausibly affect, but which shares the confounding structure. If exchangeability (given <span class="math notranslate nohighlight">\(X\)</span>) held, the estimated “effect” on this outcome should be <strong>zero</strong>. A non-zero estimate is a red flag for residual confounding.</p>
 <p>Here the negative control is driven by <span class="math notranslate nohighlight">\(X_1, X_2\)</span> and the hidden <span class="math notranslate nohighlight">\(U\)</span> but <strong>not</strong> by <span class="math notranslate nohighlight">\(T\)</span>. Because <span class="math notranslate nohighlight">\(U\)</span> is omitted from the adjustment set, the test should detect the leakage — demonstrating exactly how a placebo test surfaces unmeasured confounding.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1863,12 +1863,12 @@ if (outputEl) {{
 <section id="reality-check-lalonde-1986-revisited">
 <h2>Reality Check: LaLonde (1986) revisited<a class="headerlink" href="#reality-check-lalonde-1986-revisited" title="Link to this heading">#</a></h2>
 <p>How well do these diagnostics actually substitute for a randomized experiment? The canonical stress-test is <a class="reference external" href="https://www.jstor.org/stable/1806062">LaLonde (1986)</a>, who took a job-training RCT (the <em>National Supported Work</em> programme), threw away the experimental control group, and tried to recover the known experimental benchmark from <em>nonexperimental</em> comparison groups. His verdict was sobering: the econometric methods of the day <strong>could not systematically replicate the experimental estimate</strong> — a result that cast a long shadow over observational causal inference.</p>
-<p><a class="reference external" href="https://doi.org/10.48550/arXiv.2406.00827">Imbens &amp; Xu (2024)</a> revisit that same data four decades later, asking what the methods developed since have actually bought us. Their reassessment maps almost one-to-one onto the four <a class="reference internal" href="../tutorial/2_1_assumptions.html"><span class="doc">identification assumptions</span></a> and the <a class="reference internal" href="../tutorial/4_1_diagnostics.html"><span class="doc">diagnostics and sensitivity checks</span></a> used in this notebook:</p>
+<p><a class="reference external" href="https://doi.org/10.48550/arXiv.2406.00827">Imbens &amp; Xu (2024)</a> revisit that same data four decades later, asking what the methods developed since have actually bought us. Their reassessment maps almost one-to-one onto the four <a class="reference internal" href="../tutorial/assumptions.html"><span class="doc">identification assumptions</span></a> and the <a class="reference internal" href="../tutorial/diagnostics.html"><span class="doc">diagnostics and sensitivity checks</span></a> used in this notebook:</p>
 <ul class="simple">
-<li><p><strong>Separate unconfoundedness from functional form.</strong> Much of LaLonde’s original failure came from extrapolating linear models into regions with no comparable units — <em>not</em> from <a class="reference internal" href="../tutorial/2_1_assumptions.html#exchangeability">Assumption 4</a> per se. Stating the adjustment set on a DAG, independent of the regression specification, is the modern discipline (our step 1).</p></li>
-<li><p><strong>Overlap is decisive.</strong> When the treated and comparison groups genuinely overlap in covariate space, modern estimators (propensity-score and <strong>doubly robust</strong> methods) recover <em>stable, robust</em> adjusted differences. Where overlap is poor, no estimator rescues the comparison — exactly the failure that <a class="reference internal" href="../tutorial/2_1_assumptions.html#positivity">Assumption 3</a> and its <a class="reference internal" href="../tutorial/4_1_diagnostics.html#smd">balance diagnostics</a> (box/mirror and Love plots) are designed to catch, with trimming/overlap-weighting as the remedy.</p></li>
-<li><p><strong>Robust ≠ causal.</strong> Their sharpest warning: an estimate can be numerically stable and pass goodness-of-fit checks while still being <strong>biased by unmeasured confounding</strong>. Goodness-of-fit tells you nothing about <a class="reference internal" href="../tutorial/2_1_assumptions.html#exchangeability">Assumption 4</a>; only a <a class="reference internal" href="../tutorial/4_1_diagnostics.html#e-value">sensitivity analysis</a> (<a class="reference internal" href="../tutorial/4_1_diagnostics.html#e-value">E-values</a>, <a class="reference internal" href="../tutorial/4_1_diagnostics.html#partial-r2">partial $R^2$</a>, <a class="reference internal" href="../tutorial/4_1_diagnostics.html#rosenbaum-gamma">Rosenbaum bounds</a>) quantifies how much hidden bias the conclusion could absorb.</p></li>
-<li><p><strong>Validation exercises are essential.</strong> What <em>does</em> probe credibility is out-of-sample validation against an experimental or <a class="reference internal" href="../tutorial/4_1_diagnostics.html#placebo-test">placebo / negative-control</a> benchmark — precisely the falsification test we ran above, and the reason our placebo correctly flags the hidden confounder <span class="math notranslate nohighlight">\(U\)</span>.</p></li>
+<li><p><strong>Separate unconfoundedness from functional form.</strong> Much of LaLonde’s original failure came from extrapolating linear models into regions with no comparable units — <em>not</em> from <a class="reference internal" href="../tutorial/assumptions.html#exchangeability">Assumption 4</a> per se. Stating the adjustment set on a DAG, independent of the regression specification, is the modern discipline (our step 1).</p></li>
+<li><p><strong>Overlap is decisive.</strong> When the treated and comparison groups genuinely overlap in covariate space, modern estimators (propensity-score and <strong>doubly robust</strong> methods) recover <em>stable, robust</em> adjusted differences. Where overlap is poor, no estimator rescues the comparison — exactly the failure that <a class="reference internal" href="../tutorial/assumptions.html#positivity">Assumption 3</a> and its <a class="reference internal" href="../tutorial/diagnostics.html#smd">balance diagnostics</a> (box/mirror and Love plots) are designed to catch, with trimming/overlap-weighting as the remedy.</p></li>
+<li><p><strong>Robust ≠ causal.</strong> Their sharpest warning: an estimate can be numerically stable and pass goodness-of-fit checks while still being <strong>biased by unmeasured confounding</strong>. Goodness-of-fit tells you nothing about <a class="reference internal" href="../tutorial/assumptions.html#exchangeability">Assumption 4</a>; only a <a class="reference internal" href="../tutorial/diagnostics.html#e-value">sensitivity analysis</a> (<a class="reference internal" href="../tutorial/diagnostics.html#e-value">E-values</a>, <a class="reference internal" href="../tutorial/diagnostics.html#partial-r2">partial $R^2$</a>, <a class="reference internal" href="../tutorial/diagnostics.html#rosenbaum-gamma">Rosenbaum bounds</a>) quantifies how much hidden bias the conclusion could absorb.</p></li>
+<li><p><strong>Validation exercises are essential.</strong> What <em>does</em> probe credibility is out-of-sample validation against an experimental or <a class="reference internal" href="../tutorial/diagnostics.html#placebo-test">placebo / negative-control</a> benchmark — precisely the falsification test we ran above, and the reason our placebo correctly flags the hidden confounder <span class="math notranslate nohighlight">\(U\)</span>.</p></li>
 </ul>
 <p>The throughline is reassuring for the careful analyst: the four-assumption discipline of this notebook — <em>inspect the assignment process, scrutinise overlap, and validate rather than assume</em> — is exactly the toolkit that turns LaLonde’s pessimism into the qualified, defensible estimates Imbens &amp; Xu obtain.</p>
 </section>
@@ -1877,11 +1877,11 @@ if (outputEl) {{
 <div class="tip admonition">
 <p class="admonition-title">A practical workflow for observational data</p>
 <ol class="arabic simple">
-<li><p><strong>Draw the DAG first.</strong> State the treatment, the outcome, and the adjustment set <em>before</em> looking at estimates — this fixes which variables are confounders, mediators, or colliders, and keeps <a class="reference internal" href="../tutorial/2_1_assumptions.html#exchangeability">Assumption 4</a> separate from the functional form of any model.</p></li>
-<li><p><strong>Diagnose, don’t assume.</strong> <a class="reference internal" href="../tutorial/2_1_assumptions.html#consistency">Assumption 1</a>, <a class="reference internal" href="../tutorial/2_1_assumptions.html#sutva">Assumption 2</a> and <a class="reference internal" href="../tutorial/2_1_assumptions.html#positivity">Assumption 3</a> leave footprints in the data; run the corresponding check rather than taking them on faith.</p></li>
-<li><p><strong>Make overlap the gatekeeper.</strong> LaLonde’s reanalysis shows estimates are only trustworthy where the treated and control groups genuinely overlap. Inspect <span class="math notranslate nohighlight">\(\hat{\pi}(x)\)</span> and the <a class="reference internal" href="../tutorial/4_1_diagnostics.html#smd">balance diagnostics</a>, then <strong>trim or reweight</strong> to the common-support population before reporting anything.</p></li>
-<li><p><strong>Robust is not the same as causal.</strong> A stable estimate that passes goodness-of-fit can still be confounded. Treat <a class="reference internal" href="../tutorial/2_1_assumptions.html#exchangeability">Assumption 4</a> as a matter of degree: always pair the point estimate with a <strong>sensitivity analysis</strong> (<a class="reference internal" href="../tutorial/4_1_diagnostics.html#e-value">E-value</a>, <a class="reference internal" href="../tutorial/4_1_diagnostics.html#partial-r2">robustness value / partial $R^2$</a>, <a class="reference internal" href="../tutorial/4_1_diagnostics.html#rosenbaum-gamma">critical $\Gamma$</a>) and a <a class="reference internal" href="../tutorial/4_1_diagnostics.html#placebo-test">validation / placebo test</a> against a benchmark the treatment cannot affect.</p></li>
-<li><p><strong>Match the remedy to the violation.</strong> Redefine an ambiguous treatment; model spillovers at the group level; trim or reweight to fix positivity; enrich the adjustment set or use an instrument for hidden confounding. Where no assumption pins the effect down, report worst-case <a class="reference internal" href="../tutorial/4_1_diagnostics.html#manski-bounds">Manski bounds</a>.</p></li>
+<li><p><strong>Draw the DAG first.</strong> State the treatment, the outcome, and the adjustment set <em>before</em> looking at estimates — this fixes which variables are confounders, mediators, or colliders, and keeps <a class="reference internal" href="../tutorial/assumptions.html#exchangeability">Assumption 4</a> separate from the functional form of any model.</p></li>
+<li><p><strong>Diagnose, don’t assume.</strong> <a class="reference internal" href="../tutorial/assumptions.html#consistency">Assumption 1</a>, <a class="reference internal" href="../tutorial/assumptions.html#sutva">Assumption 2</a> and <a class="reference internal" href="../tutorial/assumptions.html#positivity">Assumption 3</a> leave footprints in the data; run the corresponding check rather than taking them on faith.</p></li>
+<li><p><strong>Make overlap the gatekeeper.</strong> LaLonde’s reanalysis shows estimates are only trustworthy where the treated and control groups genuinely overlap. Inspect <span class="math notranslate nohighlight">\(\hat{\pi}(x)\)</span> and the <a class="reference internal" href="../tutorial/diagnostics.html#smd">balance diagnostics</a>, then <strong>trim or reweight</strong> to the common-support population before reporting anything.</p></li>
+<li><p><strong>Robust is not the same as causal.</strong> A stable estimate that passes goodness-of-fit can still be confounded. Treat <a class="reference internal" href="../tutorial/assumptions.html#exchangeability">Assumption 4</a> as a matter of degree: always pair the point estimate with a <strong>sensitivity analysis</strong> (<a class="reference internal" href="../tutorial/diagnostics.html#e-value">E-value</a>, <a class="reference internal" href="../tutorial/diagnostics.html#partial-r2">robustness value / partial $R^2$</a>, <a class="reference internal" href="../tutorial/diagnostics.html#rosenbaum-gamma">critical $\Gamma$</a>) and a <a class="reference internal" href="../tutorial/diagnostics.html#placebo-test">validation / placebo test</a> against a benchmark the treatment cannot affect.</p></li>
+<li><p><strong>Match the remedy to the violation.</strong> Redefine an ambiguous treatment; model spillovers at the group level; trim or reweight to fix positivity; enrich the adjustment set or use an instrument for hidden confounding. Where no assumption pins the effect down, report worst-case <a class="reference internal" href="../tutorial/diagnostics.html#manski-bounds">Manski bounds</a>.</p></li>
 <li><p><strong>Report transparently.</strong> A decision-maker is far better served by <em>“effect = X, robust to a confounder up to strength Y”</em> than by a single unqualified number.</p></li>
 </ol>
 </div>
@@ -1919,7 +1919,7 @@ if (outputEl) {{
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../tutorial/4_3_fairness.html"
+       href="../tutorial/fairness.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">

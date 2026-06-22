@@ -1,6 +1,6 @@
 # Identification Strategies
 
-The previous sections established *when* a causal effect can be recovered from observational data: the core assumptions ({doc}`2_1_assumptions`) and the graphical criteria for selecting a valid adjustment set ({doc}`2_2_graphical_models`). The central question in observational causal inference is: *which variables should we condition on to identify the causal effect of $T$ on $Y$?* 
+The previous sections established *when* a causal effect can be recovered from observational data: the core assumptions ({doc}`assumptions`) and the graphical criteria for selecting a valid adjustment set ({doc}`graphical_models`). The central question in observational causal inference is: *which variables should we condition on to identify the causal effect of $T$ on $Y$?* 
 
 This section organises the main **identification strategies** — the structural arguments that re-express a causal estimand purely in terms of the observed data distribution, *before* any particular estimator is chosen. 
 
@@ -8,11 +8,11 @@ Each strategy trades on a different identifying assumption. The choice is dictat
 
 ## Strategies at a Glance
 
-| Strategy | Identifying assumption | Handles | Estimation (see {doc}`3_inference`) |
+| Strategy | Identifying assumption | Handles | Estimation (see {doc}`inference`) |
 |---|---|---|---|
-| **Back-door adjustment** | All confounders of $(T, Y)$ are observed | Measured confounding | {doc}`3_1_propensity`, {doc}`3_2_Regression_Methods` |
-| **Front-door adjustment** | An observed mediator intercepts all $T \rightarrow Y$ paths | Unmeasured confounding of $(T, Y)$ | {doc}`3_2_Regression_Methods` |
-| **Instrumental variables** | An instrument affects $Y$ only through $T$ | Unmeasured confounding | {doc}`3_2_Regression_Methods` |
+| **Back-door adjustment** | All confounders of $(T, Y)$ are observed | Measured confounding | {doc}`propensity`, {doc}`regression_methods` |
+| **Front-door adjustment** | An observed mediator intercepts all $T \rightarrow Y$ paths | Unmeasured confounding of $(T, Y)$ | {doc}`regression_methods` |
+| **Instrumental variables** | An instrument affects $Y$ only through $T$ | Unmeasured confounding | {doc}`regression_methods` |
 
 ## Back-door Adjustment
 
@@ -22,7 +22,7 @@ $$
 P(Y \mid \text{do}(T=t)) = \sum_{x} P(Y \mid T=t, X=x)\, P(X=x).
 $$
 
-This is the workhorse identification strategy and underpins propensity-score and regression-based estimators in {doc}`3_inference`.
+This is the workhorse identification strategy and underpins propensity-score and regression-based estimators in {doc}`inference`.
 
 The following criteria provide graphical answers ([Shalizi, 2025, §21.3–21.4](https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf)).
 
@@ -211,9 +211,9 @@ Causal discovery from observational data has fundamental limitations:
 
 ## Instrumental Variables
 
-When no admissible adjustment set exists, an **instrument** $Z$ — a source of exogenous variation in $T$ that affects $Y$ only through $T$ — can identify a local causal effect. The instrumental-variable estimator and its two-stage least-squares implementation are developed in {doc}`3_2_Regression_Methods`.
+When no admissible adjustment set exists, an **instrument** $Z$ — a source of exogenous variation in $T$ that affects $Y$ only through $T$ — can identify a local causal effect. The instrumental-variable estimator and its two-stage least-squares implementation are developed in {doc}`regression_methods`.
 
 ```{note}
 :class: dropdown
-This section frames identification only. *How* to estimate each identified quantity from a finite sample — with propensity scores, regression, machine-learning, tree-based, or Bayesian methods — is the subject of {doc}`3_inference`, and the robustness of the underlying assumptions is examined in {doc}`4_sensitivity`.
+This section frames identification only. *How* to estimate each identified quantity from a finite sample — with propensity scores, regression, machine-learning, tree-based, or Bayesian methods — is the subject of {doc}`inference`, and the robustness of the underlying assumptions is examined in {doc}`sensitivity`.
 ```

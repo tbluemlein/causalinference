@@ -29,7 +29,7 @@ The **structural / graphical tradition** traces back to the path analysis of [Wr
 The two pillars of causal inference. The potential-outcomes framework (left) reasons about unit-level counterfactuals and the effect $\tau = Y(1) - Y(0)$; structural causal models (right) reason about the graph of causal mechanisms. The two are formally equivalent and used together throughout this tutorial.
 ```
 
-The two languages are provably equivalent — every DAG implies a set of potential-outcome assumptions and vice versa ([Pearl, 2009](https://doi.org/10.1017/CBO9780511803161)). We use **potential outcomes** to define estimands (Chapter {doc}`2_1_assumptions`) and **DAGs** to reason about which variables to adjust for (Chapter {doc}`2_2_graphical_models`).
+The two languages are provably equivalent — every DAG implies a set of potential-outcome assumptions and vice versa ([Pearl, 2009](https://doi.org/10.1017/CBO9780511803161)). We use **potential outcomes** to define estimands (Chapter {doc}`assumptions`) and **DAGs** to reason about which variables to adjust for (Chapter {doc}`graphical_models`).
 
 
 ### Treatments
@@ -108,14 +108,14 @@ For heterogeneous treatment effect estimation, see [Athey & Imbens (2016)](https
 
 
 ## Causal Conclusions Rest on Untestable Assumptions
-The bridge from a causal estimand to a statistical estimand is built entirely from **assumptions**, and the most important of them cannot be checked from the data alone. In particular, **exchangeability / no unobserved confounding** ({prf:ref}`exchangeability` in {doc}`2_1_assumptions`) is fundamentally untestable: the data are equally consistent with "no hidden confounder" and with "a hidden confounder we never measured" ([Rubin, 1974](https://doi.org/10.1037/h0037350); [Pearl, 2009](https://doi.org/10.1017/CBO9780511803161); [Hernán & Robins, 2020](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/)).
+The bridge from a causal estimand to a statistical estimand is built entirely from **assumptions**, and the most important of them cannot be checked from the data alone. In particular, **exchangeability / no unobserved confounding** ({prf:ref}`exchangeability` in {doc}`assumptions`) is fundamentally untestable: the data are equally consistent with "no hidden confounder" and with "a hidden confounder we never measured" ([Rubin, 1974](https://doi.org/10.1037/h0037350); [Pearl, 2009](https://doi.org/10.1017/CBO9780511803161); [Hernán & Robins, 2020](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/)).
 
 ```{important}
 :class: dropdown
 No statistical procedure can *prove* a causal effect from observational data. Every estimate is conditional on assumptions that come from domain knowledge, not from the data. The role of the analyst is to (1) state these assumptions explicitly, (2) encode them in a DAG or potential-outcomes model, and (3) probe how fragile the conclusions are when the assumptions are relaxed.
 ```
 
-This is why **sensitivity analysis** is not optional but a core part of any credible causal study: rather than asking "is exchangeability true?", we ask "*how strong* would an unmeasured confounder have to be to overturn our conclusion?". These tools — E-values, Rosenbaum bounds, and partial-$R^2$ methods — are developed in {doc}`4_1_diagnostics` and {doc}`4_sensitivity`.
+This is why **sensitivity analysis** is not optional but a core part of any credible causal study: rather than asking "is exchangeability true?", we ask "*how strong* would an unmeasured confounder have to be to overturn our conclusion?". These tools — E-values, Rosenbaum bounds, and partial-$R^2$ methods — are developed in {doc}`diagnostics` and {doc}`sensitivity`.
 
 
 ### Notation
@@ -134,10 +134,4 @@ Throughout this tutorial we adopt the following conventions. Let $D = \{(X_i, T_
 | $U$ | Unmeasured / unobserved confounder |
 | $D$ | Observed dataset: $D = \{(X_i, T_i, Y_i)\}_{i=1}^{n}$ |
 | $\pi(x)$ | Propensity score: $\pi(x) = \mathbb{P}(T=1 \mid X=x)$ |
----
 
-**Resources:**
-* [Assumptions Guide](https://www.uniqcret.com/post/causal-inference-assumptions-guide)
-* [Introduction to Causal Inference (Brady Neal, 2020)](https://www.bradyneal.com/Introduction_to_Causal_Inference-Aug27_2020-Neal.pdf)
-* [Python Causality Handbook](https://matheusfacure.github.io/python-causality-handbook/)
-* [Causal ML Book](https://www.causalmlbook.com/)
