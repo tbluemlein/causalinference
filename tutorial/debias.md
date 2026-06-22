@@ -1,6 +1,6 @@
 # Biases and De-Biasing Toolkit
 
-In {doc}`2_1_assumptions` we established the four assumptions — {prf:ref}`consistency`, {prf:ref}`sutva`, {prf:ref}`positivity`, and {prf:ref}`exchangeability` — that allow causal effects to be identified from observational data. In {doc}`2_2_graphical_models` we introduced DAGs as the language for encoding and reasoning about these assumptions. In practice, **assumptions are rarely perfectly satisfied**. This chapter is a practical guide for the actuary: how to diagnose what went wrong, how to fix it, and how to ensure the resulting model is fair.
+In {doc}`assumptions` we established the four assumptions — {prf:ref}`consistency`, {prf:ref}`sutva`, {prf:ref}`positivity`, and {prf:ref}`exchangeability` — that allow causal effects to be identified from observational data. In {doc}`graphical_models` we introduced DAGs as the language for encoding and reasoning about these assumptions. In practice, **assumptions are rarely perfectly satisfied**. This chapter is a practical guide for the actuary: how to diagnose what went wrong, how to fix it, and how to ensure the resulting model is fair.
 
 ## What went wrong? — From Assumption Violations to Biases
 
@@ -81,12 +81,12 @@ The biases above are not merely theoretical concerns — they are practical obst
 
 | Strategy | Addresses | Covered in |
 |---|---|---|
-| **Adjust** (regression, propensity scores, doubly robust) | Confounding, selection | {doc}`3_1_propensity`, {doc}`3_2_Regression_Methods` |
-| **Reweight** (IPW, IPCW, overlap weighting) | Confounding, selection, positivity | {doc}`3_1_propensity` |
-| **Restrict** (trimming, redefine target population) | Positivity violations | {doc}`3_1_propensity` |
-| **Model the causal structure** (DAG-guided variable selection) | Collider bias, confounding | {doc}`2_2_graphical_models` |
+| **Adjust** (regression, propensity scores, doubly robust) | Confounding, selection | {doc}`propensity`, {doc}`regression_methods` |
+| **Reweight** (IPW, IPCW, overlap weighting) | Confounding, selection, positivity | {doc}`propensity` |
+| **Restrict** (trimming, redefine target population) | Positivity violations | {doc}`propensity` |
+| **Model the causal structure** (DAG-guided variable selection) | Collider bias, confounding | {doc}`graphical_models` |
 | **Cluster or network models** | Interference / spillover | — |
-| **Sensitivity analysis** | Unobserved confounding | {doc}`4_sensitivity` |
+| **Sensitivity analysis** | Unobserved confounding | {doc}`sensitivity` |
 
 ### Adjust
 
@@ -102,7 +102,7 @@ When certain covariate strata have near-deterministic treatment assignment, the 
 
 ### Model the causal structure
 
-Use a DAG to distinguish confounders (adjust for them) from colliders (do not condition on them) and mediators (condition only if interested in direct effects). The {prf:ref}`backdoor-criterion` and {prf:ref}`frontdoor-criterion` from {doc}`2_2_graphical_models` provide algorithmic tools for selecting the correct adjustment set.
+Use a DAG to distinguish confounders (adjust for them) from colliders (do not condition on them) and mediators (condition only if interested in direct effects). The {prf:ref}`backdoor-criterion` and {prf:ref}`frontdoor-criterion` from {doc}`graphical_models` provide algorithmic tools for selecting the correct adjustment set.
 
 ### Cluster or network models
 
@@ -110,4 +110,4 @@ When interference is present, assign treatment at the group level and analyse at
 
 ### Sensitivity analysis
 
-{prf:ref}`exchangeability` cannot be verified from data alone. **Sensitivity analysis** quantifies how strong an unmeasured confounder would need to be to explain away the estimated effect. Methods include E-values, Rosenbaum bounds, and partial $R^2$ sensitivity — covered in detail in {doc}`4_sensitivity`.
+{prf:ref}`exchangeability` cannot be verified from data alone. **Sensitivity analysis** quantifies how strong an unmeasured confounder would need to be to explain away the estimated effect. Methods include E-values, Rosenbaum bounds, and partial $R^2$ sensitivity — covered in detail in {doc}`sensitivity`.

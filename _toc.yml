@@ -10,23 +10,23 @@ parts:
     maxdepth: 1 # maximum depth of the table of contents
     numbered: false
     chapters:
-      - file: tutorial/1_concepts.md
-      - file: tutorial/2_identification.md
+      - file: tutorial/concepts.md
+      - file: tutorial/identification.md
         sections: 
-          - file: tutorial/2_1_assumptions.md
-          - file: tutorial/2_2_graphical_models.md
-          - file: tutorial/2_3_methods.md
-      - file: tutorial/3_inference.md
+          - file: tutorial/assumptions.md
+          - file: tutorial/graphical_models.md
+          - file: tutorial/methods.md
+      - file: tutorial/inference.md
         sections: 
-          - file: tutorial/3_1_propensity.md
-          - file: tutorial/3_2_Regression_Methods.md
-          - file: tutorial/3_3_Tree_Based_Methods.md
-          - file: tutorial/3_5_bayesian.md
-      - file: tutorial/4_sensitivity.md
+          - file: tutorial/propensity.md
+          - file: tutorial/regression_methods.md
+          - file: tutorial/Tree_Based_Methods.md
+          - file: tutorial/bayesian.md
+      - file: tutorial/sensitivity.md
         sections:
-          - file: tutorial/4_1_diagnostics.md
-          - file: tutorial/4_2_debias.md
-          - file: tutorial/4_3_fairness.md
+          - file: tutorial/diagnostics.md
+          - file: tutorial/debias.md
+          - file: tutorial/fairness.md
 
   - caption: Actuarial Applications
     chapters:
